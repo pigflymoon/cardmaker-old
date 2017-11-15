@@ -2,7 +2,8 @@ import colors from './colors';
 
 export default {
     submitButton: {
-        marginTop: 15, backgroundColor: colors.primary1
+        marginTop: 15,
+        backgroundColor: colors.primary1
     },
     closeButton: {
         backgroundColor: colors.error,

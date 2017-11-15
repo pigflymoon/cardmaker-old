@@ -83,9 +83,9 @@ export default class SignInScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.container}>
-                    <FormLabel containerStyle={styles.labelContainerStyle}>
+            <View style={modalStyle.container}>
+                <View style={modalStyle.container}>
+                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
                         Email
                     </FormLabel>
                     <FormInput
@@ -98,7 +98,7 @@ export default class SignInScreen extends Component {
 
                     <FormLabel
                         textInputRef="passwordInputRef"
-                        containerStyle={styles.labelContainerStyle}
+                        containerStyle={modalStyle.labelContainerStyle}
                     >
                         Password
                     </FormLabel>
@@ -116,47 +116,22 @@ export default class SignInScreen extends Component {
                         onPress={this.handleSignin}
                         icon={{name: 'done'}}
                         buttonStyle={buttonStyle.submitButton}
-                        title="SUBMIT"
+                        title="Sign in"
                     />
                 </View>
                 <View style={[modalStyle.textContainer, modalStyle.containerMarginHorizontal]}>
                     <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
-                        <View>
-                            <Text style={modalStyle.textLink}>Forgot Password?</Text>
-                        </View>
+                        <Text style={modalStyle.textLink}>Forgot Password?</Text>
                     </TouchableOpacity>
                     <View style={modalStyle.paddingHorizontal10 }><Text style={modalStyle.plainText}>or</Text></View>
-                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
-                        <View >
-                            <Text style={modalStyle.textLink}>Sign in</Text>
-                        </View>
+                    <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
+                        <Text style={modalStyle.textLink}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-
-    },
-    button: {
-        marginBottom: 16
-    },
-
-
-
-    //form
-
-    heading: {
-        color: 'white',
-        marginTop: 10,
-        fontSize: 22,
-    },
-    labelContainerStyle: {
-        marginTop: 8,
-    },
-});
 

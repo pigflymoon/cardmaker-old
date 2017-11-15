@@ -8,17 +8,9 @@ import {
     FormLabel,
 } from 'react-native-elements';
 import colors from '../styles/colors';
+import modalStyle from '../styles/modalLayout';
+import buttonStyle from '../styles/button';
 
-const CloseModalButton = ({text}) =>
-    <TouchableOpacity
-        style={[styles.buttonContainer]}
-        onPress={() => navigator.dismissModal()}
-    >
-        <View style={styles.closeModalButton}>
-            <Text style={styles.buttonText}>{text}</Text>
-        </View>
-    </TouchableOpacity>;
-Navigation.registerComponent('CloseModalButton', () => CloseModalButton);
 
 export default class SignUpScreen extends Component {
     constructor(props) {
@@ -31,17 +23,6 @@ export default class SignUpScreen extends Component {
         };
     }
 
-    static navigatorButtons = {
-        rightButtons: [
-            {
-                id: 'close-modal-button',
-                component: Platform.OS === 'ios' ? 'CloseModalButton' : null,
-                passProps: {
-                    text: 'Close'
-                }
-            }
-        ]
-    };
 
     componentWillMount() {
         navigator = this.props.navigator;
@@ -49,15 +30,18 @@ export default class SignUpScreen extends Component {
 
     setEmail = (text) => {
         this.setState({email: text});
-
     }
 
+    setName = (text) => {
+        this.setState({name: text});
+
+    }
     setPassword = (text) => {
         this.setState({password: text});
 
     }
 
-    handleSignin = () => {
+    handleSignup = () => {
         // e.preventDefault();
         // this.props.navigator.push({
         //     screen: 'cardmaker.',
@@ -68,52 +52,72 @@ export default class SignUpScreen extends Component {
         // });
     }
 
-    handleSignup = () => {
-        // e.preventDefault();
-        this.props.navigator.push({
-            screen: 'cardmaker.SignUpScreen',
-            title: `Screen ${this.props.count || 1}`,
-            passProps: {
-                count: this.props.count ? this.props.count + 1 : 2
-            }
-        });
-    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <FormLabel containerStyle={styles.labelContainerStyle}>
-                    Email
-                </FormLabel>
-                <FormInput
-                    ref="email"
-                    containerRef="emailcontainerRef"
-                    textInputRef="emailInputRef"
-                    placeholder="Please enter your email..."
-                    onChangeText={(text) => this.setEmail(text)}
-                />
+            <View style={modalStyle.formContainer}>
+                <View style={modalStyle.lineContainer}>
+                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                        Email
+                    </FormLabel>
+                    <FormInput
+                        ref="email"
+                        containerRef="emailcontainerRef"
+                        textInputRef="emailInputRef"
+                        placeholder="Please enter your email..."
+                        onChangeText={(text) => this.setEmail(text)}
+                    />
+                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                        Name
+                    </FormLabel>
+                    <FormInput
+                        ref="name"
+                        containerRef="namecontainerRef"
+                        textInputRef="nameInputRef"
+                        placeholder="Please enter your name..."
+                        onChangeText={(text) => this.setName(text)}
+                    />
+                    <FormLabel
+                        textInputRef="passwordInputRef"
+                        containerStyle={modalStyle.labelContainerStyle}
+                    >
+                        Password
+                    </FormLabel>
+                    <FormInput
+                        textInputRef="textInputRef"
+                        secureTextEntry
+                        ref="password"
+                        placeholder="Please enter your password..."
+                        onChangeText={(text) => this.setPassword(text)}
 
-                <FormLabel
-                    textInputRef="passwordInputRef"
-                    containerStyle={styles.labelContainerStyle}
-                >
-                    Password
-                </FormLabel>
-                <FormInput
-                    textInputRef="textInputRef"
-                    secureTextEntry
-                    ref="password"
-                    placeholder="Please enter your password..."
-                    onChangeText={(text) => this.setPassword(text)}
+
+                    />
+                    <Button
+                        onPress={this.handleSignup}
+                        icon={{name: 'done'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title="Signup"
+                    />
+                </View>
+
+                <View style={modalStyle.paragraphContainer}>
 
 
-                />
+                    <View>
+                        <Text style={modalStyle.plainText}>By signing up, you agree to our </Text>
+                    </View>
+                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
+                        <View><Text style={modalStyle.textLink}>Terms </Text></View>
+                    </TouchableOpacity>
+                    <View><Text style={modalStyle.plainText}>&</Text></View>
+                    <TouchableOpacity activeOpacity={.5}>
+                        <View><Text style={modalStyle.textLink}> Privacy Policy.</Text>
+                        </View>
+                    </TouchableOpacity>
 
-                <Button
-                    onPress={this.handleSignin}
-                    icon={{name: 'done'}}
-                    buttonStyle={{marginTop: 15}}
-                    title="SUBMIT"
-                />
+                </View>
+
+
             </View>
         );
     }
