@@ -6,7 +6,7 @@ import PushedScreen from './PushedScreen';
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
-    Navigation.registerComponent('example.CardTabScreen', () => CardTabScreen);
-    Navigation.registerComponent('example.SettingsTabScreen', () => SettingsTabScreen);
-    Navigation.registerComponent('example.PushedScreen', () => PushedScreen);
+    Navigation.registerComponent('cardmaker.CardTabScreen', () => CardTabScreen);
+    Navigation.registerComponent('cardmaker.SettingsTabScreen', () => SettingsTabScreen);
+    Navigation.registerComponent('cardmaker.PushedScreen', () => PushedScreen);
 }

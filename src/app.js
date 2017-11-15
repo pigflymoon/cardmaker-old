@@ -9,14 +9,14 @@ Navigation.startTabBasedApp({
     tabs: [
         {
             label: 'Card',
-            screen: 'example.CardTabScreen', // this is a registered name for a screen
+            screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen
             icon: require('../img/one.png'),
             selectedIcon: require('../img/one_selected.png'), // iOS only
             title: 'Screen Card'
         },
         {
             label: 'Settings',
-            screen: 'example.SettingsTabScreen',
+            screen: 'cardmaker.SettingsTabScreen',
             icon: require('../img/two.png'),
             selectedIcon: require('../img/two_selected.png'), // iOS only
             title: 'Screen Settings'
