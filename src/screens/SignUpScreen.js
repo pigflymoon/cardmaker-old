@@ -55,68 +55,69 @@ export default class SignUpScreen extends Component {
 
     render() {
         return (
-            <View style={modalStyle.formContainer}>
-                <View style={modalStyle.lineContainer}>
-                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
-                        Email
-                    </FormLabel>
-                    <FormInput
-                        ref="email"
-                        containerRef="emailcontainerRef"
-                        textInputRef="emailInputRef"
-                        placeholder="Please enter your email..."
-                        onChangeText={(text) => this.setEmail(text)}
-                    />
-                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
-                        Name
-                    </FormLabel>
-                    <FormInput
-                        ref="name"
-                        containerRef="namecontainerRef"
-                        textInputRef="nameInputRef"
-                        placeholder="Please enter your name..."
-                        onChangeText={(text) => this.setName(text)}
-                    />
-                    <FormLabel
-                        textInputRef="passwordInputRef"
-                        containerStyle={modalStyle.labelContainerStyle}
-                    >
-                        Password
-                    </FormLabel>
-                    <FormInput
-                        textInputRef="textInputRef"
-                        secureTextEntry
-                        ref="password"
-                        placeholder="Please enter your password..."
-                        onChangeText={(text) => this.setPassword(text)}
+            <View style={modalStyle.container}>
+
+                <View style={styles.inputsContainer}>
+
+                    <View style={styles.inputContainer}>
+
+                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                            Email
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+
+                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                            Name
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+
+                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                            Password
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                        />
+                    </View>
 
 
-                    />
+                </View>
+
+                <View style={styles.footerContainer}>
                     <Button
-                        onPress={this.handleSignup}
+                        onPress={this.handleSignin}
                         icon={{name: 'done'}}
                         buttonStyle={buttonStyle.submitButton}
-                        title="Signup"
+                        title="Sign in"
                     />
-                </View>
 
-                <View style={modalStyle.paragraphContainer}>
-
-
-                    <View>
-                        <Text style={modalStyle.plainText}>By signing up, you agree to our </Text>
-                    </View>
-                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
-                        <View><Text style={modalStyle.textLink}>Terms </Text></View>
-                    </TouchableOpacity>
-                    <View><Text style={modalStyle.plainText}>&</Text></View>
-                    <TouchableOpacity activeOpacity={.5}>
-                        <View><Text style={modalStyle.textLink}> Privacy Policy.</Text>
+                    <TouchableOpacity>
+                        <View style={styles.signin}>
+                            <Text style={styles.greyFont}>Already have an account?<Text style={styles.whiteFont}> Sign
+                                In</Text></Text>
                         </View>
                     </TouchableOpacity>
-
                 </View>
-
 
             </View>
         );
@@ -124,45 +125,83 @@ export default class SignUpScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+
+
+    //
     container: {
         flex: 1,
+    },
+    bg: {
+        paddingTop: 30,
+        width: null,
+        height: null
+    },
 
+    inputsContainer: {
+        flex: 1,
+        // marginTop: 50,
     },
-    button: {
-        marginTop: 16
+    footerContainer: {
+        flex: 1
     },
-    buttonContainer: {
-        width: 48,
-        height: 48,
-        justifyContent: 'center',
-        alignItems: 'center'
+    headerIconView: {
+        marginLeft: 10,
+        backgroundColor: 'transparent'
     },
-    closeModalButton: {
-        backgroundColor: 'tomato',
-        width: 50,
+    headerBackButtonView: {
+        width: 25,
         height: 25,
-        borderRadius: 2,
-        overflow: 'hidden',
-        justifyContent: 'center',
-        alignItems: 'center'
     },
-    buttonText: {
-        color: 'white'
+    backButtonIcon: {
+        width: 25,
+        height: 25
     },
-    //form
-    headingContainer: {
+    headerTitleView: {
+        backgroundColor: 'transparent',
+        marginTop: 25,
+        marginLeft: 25,
+    },
+    titleViewText: {
+        fontSize: 40,
+        color: '#fff',
+    },
+    inputs: {
+        paddingVertical: 20,
+    },
+    inputContainer: {
+        // flexDirection: 'row',
+        height: 75,
+    },
+    iconContainer: {
+        paddingHorizontal: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 40,
-        backgroundColor: colors.secondary2,
     },
-    heading: {
-        color: 'white',
-        marginTop: 10,
-        fontSize: 22,
+    inputIcon: {
+        width: 30,
+        height: 30,
     },
-    labelContainerStyle: {
-        marginTop: 8,
+    input: {
+        flex: 1,
+        fontSize: 20,
     },
+    signup: {
+        backgroundColor: '#FF3366',
+        paddingVertical: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 15,
+    },
+    signin: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+    },
+    greyFont: {
+        color: '#D8D8D8'
+    },
+    whiteFont: {
+        color: '#FFF'
+    }
 });
 
