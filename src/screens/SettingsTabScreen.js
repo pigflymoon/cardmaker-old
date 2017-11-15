@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Card, Button} from 'react-native-elements'
 import bg1 from '../images/bg1.jpg';
+import buttonStyle from '../styles/button';
 
 
 export default class SettingsTabScreen extends Component {
@@ -34,8 +35,7 @@ export default class SettingsTabScreen extends Component {
                     </Text>
                     <Button
                         icon={{name: 'perm-identity'}}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        buttonStyle={buttonStyle.submitButton}
                         title='Sign in /Sign up'
                         onPress={this.showModal}
                     />

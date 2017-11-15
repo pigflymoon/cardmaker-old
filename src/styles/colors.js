@@ -18,3 +18,5 @@ export default {
     white: '#ffffff',
     error: '#ff190c',
 };
+
+

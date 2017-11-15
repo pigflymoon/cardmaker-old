@@ -8,14 +8,16 @@ import {
     FormLabel,
 } from 'react-native-elements';
 import colors from '../styles/colors';
+import modalStyle from '../styles/modalLayout';
+import buttonStyle from '../styles/button';
 
 const CloseModalButton = ({text}) =>
     <TouchableOpacity
-        style={[styles.buttonContainer]}
+        style={[buttonStyle.buttonContainer]}
         onPress={() => navigator.dismissModal()}
     >
-        <View style={styles.closeModalButton}>
-            <Text style={styles.buttonText}>{text}</Text>
+        <View style={[buttonStyle.closeButton]}>
+            <Text style={buttonStyle.buttonText}>{text}</Text>
         </View>
     </TouchableOpacity>;
 Navigation.registerComponent('CloseModalButton', () => CloseModalButton);
@@ -57,46 +59,79 @@ export default class SignInScreen extends Component {
 
     }
 
-    handleSignin = (e) => {
-        e.preventDefault();
+    handleSignin = () => {
+        // e.preventDefault();
+        // this.props.navigator.push({
+        //     screen: 'cardmaker.',
+        //     title: `Screen ${this.props.count || 1}`,
+        //     passProps: {
+        //         count: this.props.count ? this.props.count + 1 : 2
+        //     }
+        // });
+    }
+
+    navigateToSignup = () => {
+        // e.preventDefault();
+        this.props.navigator.push({
+            screen: 'cardmaker.SignUpScreen',
+            title: `Screen ${this.props.count || 1}`,
+            passProps: {
+                count: this.props.count ? this.props.count + 1 : 2
+            }
+        });
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <FormLabel containerStyle={styles.labelContainerStyle}>
-                    Email
-                </FormLabel>
-                <FormInput
-                    ref="email"
-                    containerRef="emailcontainerRef"
-                    textInputRef="emailInputRef"
-                    placeholder="Please enter your email..."
-                    onChangeText={(text) => this.setEmail(text)}
-                />
+                <View style={styles.container}>
+                    <FormLabel containerStyle={styles.labelContainerStyle}>
+                        Email
+                    </FormLabel>
+                    <FormInput
+                        ref="email"
+                        containerRef="emailcontainerRef"
+                        textInputRef="emailInputRef"
+                        placeholder="Please enter your email..."
+                        onChangeText={(text) => this.setEmail(text)}
+                    />
 
-                <FormLabel
-                    textInputRef="passwordInputRef"
-                    containerStyle={styles.labelContainerStyle}
-                >
-                    Password
-                </FormLabel>
-                <FormInput
-                    textInputRef="textInputRef"
-                    secureTextEntry
-                    ref="password"
-                    placeholder="Please enter your password..."
-                    onChangeText={(text) => this.setPassword(text)}
+                    <FormLabel
+                        textInputRef="passwordInputRef"
+                        containerStyle={styles.labelContainerStyle}
+                    >
+                        Password
+                    </FormLabel>
+                    <FormInput
+                        textInputRef="textInputRef"
+                        secureTextEntry
+                        ref="password"
+                        placeholder="Please enter your password..."
+                        onChangeText={(text) => this.setPassword(text)}
 
 
-                />
+                    />
 
-                <Button
-                    onPress={this.handleSignin}
-                    icon={{name: 'done'}}
-                    buttonStyle={{marginTop: 15}}
-                    title="SUBMIT"
-                />
+                    <Button
+                        onPress={this.handleSignin}
+                        icon={{name: 'done'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title="SUBMIT"
+                    />
+                </View>
+                <View style={[modalStyle.textContainer, modalStyle.containerMarginHorizontal]}>
+                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
+                        <View>
+                            <Text style={modalStyle.textLink}>Forgot Password?</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={modalStyle.paddingHorizontal10 }><Text style={modalStyle.plainText}>or</Text></View>
+                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
+                        <View >
+                            <Text style={modalStyle.textLink}>Sign in</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -108,33 +143,13 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        marginTop: 16
+        marginBottom: 16
     },
-    buttonContainer: {
-        width: 48,
-        height: 48,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    closeModalButton: {
-        backgroundColor: 'tomato',
-        width: 50,
-        height: 25,
-        borderRadius: 2,
-        overflow: 'hidden',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    buttonText: {
-        color: 'white'
-    },
+
+
+
     //form
-    headingContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 40,
-        backgroundColor: colors.secondary2,
-    },
+
     heading: {
         color: 'white',
         marginTop: 10,
