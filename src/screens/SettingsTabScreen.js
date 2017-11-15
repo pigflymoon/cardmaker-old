@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-
-import {StyleSheet, Text, View, Image,TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {Card, Button} from 'react-native-elements'
+import bg1 from '../images/bg1.jpg';
 
 
 export default class SettingsTabScreen extends Component {
@@ -10,21 +11,35 @@ export default class SettingsTabScreen extends Component {
     }
 
 
-
     componentDidMount() {
 
+    }
+
+    showModal = () => {
+        this.props.navigator.showModal({
+            screen: 'cardmaker.SignInScreen',
+            title: 'Welcome to CardMaker'
+        });
     }
 
     render() {
 
         return (
             <View style={styles.container}>
-                <Text>Second Screen</Text>
-                <TouchableOpacity activeOpacity={.5} onPress={this.updateImage}>
-                    <Text style={{color: '#222'}}>Update Image</Text>
-                </TouchableOpacity>
-
-
+                <Card
+                    title='HELLO WORLD'
+                    image={bg1}>
+                    <Text style={{marginBottom: 10}}>
+                        The idea with React Native Elements is more about component structure than actual design.
+                    </Text>
+                    <Button
+                        icon={{name: 'perm-identity'}}
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title='Sign in /Sign up'
+                        onPress={this.showModal}
+                    />
+                </Card>
             </View>
         );
     }
