@@ -112,20 +112,32 @@ export default class SignUpScreen extends Component {
                     />
 
                     <View style={formStyle.textInfoContainer}>
-                        <View><Text style={formStyle.plainText}>By signing up, you agree to our </Text></View>
+                        <View>
+                            <Text style={formStyle.plainText}>By signing up, you agree to our </Text>
+                        </View>
                         <TouchableOpacity>
-                            <View><Text style={formStyle.textLink}>Terms</Text></View>
+                            <View>
+                                <Text style={formStyle.textLink}>Terms</Text>
+                            </View>
                         </TouchableOpacity>
-                        <View><Text style={formStyle.plainText}> & </Text></View>
+                        <View>
+                            <Text style={formStyle.plainText}> & </Text>
+                        </View>
                         <TouchableOpacity>
-                            <View><Text style={formStyle.textLink}>Privacy Policy.</Text></View>
+                            <View>
+                                <Text style={formStyle.textLink}>Privacy Policy.</Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={formStyle.textInfoContainer}>
-                        <View><Text style={formStyle.plainText}>Already have an account? </Text></View>
+                        <View>
+                            <Text style={formStyle.plainText}>Already have an account? </Text>
+                        </View>
                         <TouchableOpacity>
-                            <View><Text style={formStyle.textLink}>Sign In</Text></View>
+                            <View>
+                                <Text style={formStyle.textLink}>Sign In</Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </View>

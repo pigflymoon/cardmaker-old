@@ -6,7 +6,10 @@ import {
     Text,
     FormInput,
     FormLabel,
+    FormValidationMessage,
 } from 'react-native-elements';
+import firebaseApp from '../config/FirebaseConfig';
+
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -29,6 +32,7 @@ export default class SignInScreen extends Component {
             email: '',
             password: '',
             name: '',
+            errorMessage: ''
 
         };
     }
@@ -59,15 +63,43 @@ export default class SignInScreen extends Component {
 
     }
 
-    handleSignin = () => {
-        // e.preventDefault();
-        // this.props.navigator.push({
-        //     screen: 'cardmaker.',
-        //     title: `Screen ${this.props.count || 1}`,
-        //     passProps: {
-        //         count: this.props.count ? this.props.count + 1 : 2
-        //     }
-        // });
+    handleSignin = (e) => {
+        var self = this;
+        e.preventDefault();
+
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(function (user) {
+                firebaseApp.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        console.log('Update the card')
+                    } else {
+                        this.setState({errorMessage: user})
+                        console.log('error', user)
+                    }
+                })
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('errorCode', errorCode)
+                switch (errorCode) {
+                    case 'auth/invalid-email':
+                    case 'auth/user-disabled':
+                    case 'auth/operation-not-allowed':
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        self.setState({
+                            errorMessage: errorMessage
+                        });
+                        break;
+                    default:
+                        self.setState({
+                            errorMessage: 'Error'
+                        });
+                }
+            });
+
     }
 
     navigateToSignup = () => {
@@ -115,7 +147,12 @@ export default class SignInScreen extends Component {
                         />
                     </View>
 
-
+                    {this.state.errorMessage ?
+                        <FormValidationMessage containerStyle={formStyle.validateContainer} labelStyle={formStyle.labelStyle}>
+                            {this.state.errorMessage}
+                        </FormValidationMessage>
+                        : null
+                    }
                 </View>
 
                 <View style={[formStyle.footerContainer, formStyle.largerFooterContainer]}>

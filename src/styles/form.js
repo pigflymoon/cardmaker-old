@@ -30,4 +30,10 @@ export default{
     plainText: {
         color: colors.grey3,
     },
+    validateContainer: {
+        backgroundColor: colors.orange,
+    },
+    labelStyle: {
+        color: colors.white,
+    }
 }
