@@ -74,7 +74,7 @@ export default class SignInScreen extends Component {
         // e.preventDefault();
         this.props.navigator.push({
             screen: 'cardmaker.SignUpScreen',
-            title: `Screen ${this.props.count || 1}`,
+            title: `Sign up`,
             passProps: {
                 count: this.props.count ? this.props.count + 1 : 2
             }

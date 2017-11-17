@@ -108,13 +108,22 @@ export default class SignUpScreen extends Component {
                         onPress={this.handleSignin}
                         icon={{name: 'done'}}
                         buttonStyle={buttonStyle.submitButton}
-                        title="Sign in"
+                        title="Sign up"
                     />
-
                     <TouchableOpacity>
-                        <View style={styles.signin}>
-                            <Text style={styles.greyFont}>Already have an account?<Text style={styles.whiteFont}> Sign
-                                In</Text></Text>
+                        <View style={styles.textInfoContainer}>
+                            <Text style={modalStyle.plainText}>By signing up, you agree to our </Text>
+                            <Text style={modalStyle.textLink}>Terms<Text
+                                style={modalStyle.plainText}> & </Text><Text style={modalStyle.textLink}>Privacy
+                                Policy.</Text>
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={styles.textInfoContainer}>
+                            <Text style={modalStyle.plainText}>Already have an account? <Text
+                                style={modalStyle.textLink}> Sign In</Text></Text>
+
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -142,7 +151,7 @@ const styles = StyleSheet.create({
         // marginTop: 50,
     },
     footerContainer: {
-        flex: 1
+        flex: 1.5,
     },
     headerIconView: {
         marginLeft: 10,
@@ -192,7 +201,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 15,
     },
-    signin: {
+    textInfoContainer: {
+        marginTop: 30,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
