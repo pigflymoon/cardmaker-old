@@ -8,7 +8,7 @@ import {
     FormLabel,
 } from 'react-native-elements';
 import colors from '../styles/colors';
-import modalStyle from '../styles/modalLayout';
+import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 
 const CloseModalButton = ({text}) =>
@@ -83,50 +83,60 @@ export default class SignInScreen extends Component {
 
     render() {
         return (
-            <View style={modalStyle.container}>
-                <View style={modalStyle.container}>
-                    <FormLabel containerStyle={modalStyle.labelContainerStyle}>
-                        Email
-                    </FormLabel>
-                    <FormInput
-                        ref="email"
-                        containerRef="emailcontainerRef"
-                        textInputRef="emailInputRef"
-                        placeholder="Please enter your email..."
-                        onChangeText={(text) => this.setEmail(text)}
-                    />
+            <View style={formStyle.container}>
 
-                    <FormLabel
-                        textInputRef="passwordInputRef"
-                        containerStyle={modalStyle.labelContainerStyle}
-                    >
-                        Password
-                    </FormLabel>
-                    <FormInput
-                        textInputRef="textInputRef"
-                        secureTextEntry
-                        ref="password"
-                        placeholder="Please enter your password..."
-                        onChangeText={(text) => this.setPassword(text)}
+                <View style={formStyle.inputsContainer}>
+
+                    <View style={formStyle.inputContainer}>
+
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                            Email
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                        />
+                    </View>
+
+                    <View style={formStyle.inputContainer}>
+
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                            Password
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setPassword(text)}
+                        />
+                    </View>
 
 
-                    />
+                </View>
 
+                <View style={[formStyle.footerContainer, formStyle.largerFooterContainer]}>
                     <Button
                         onPress={this.handleSignin}
                         icon={{name: 'done'}}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign in"
                     />
-                </View>
-                <View style={[modalStyle.textContainer, modalStyle.containerMarginHorizontal]}>
-                    <TouchableOpacity activeOpacity={.5} onPress={this.handleSignin}>
-                        <Text style={modalStyle.textLink}>Forgot Password?</Text>
-                    </TouchableOpacity>
-                    <View style={modalStyle.paddingHorizontal10 }><Text style={modalStyle.plainText}>or</Text></View>
-                    <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
-                        <Text style={modalStyle.textLink}>Sign Up</Text>
-                    </TouchableOpacity>
+                    <View style={formStyle.textInfoContainer}>
+                        <TouchableOpacity>
+                            <View><Text style={formStyle.textLink}>Forgot Password? </Text></View>
+                        </TouchableOpacity>
+                        <View>
+                            <Text style={formStyle.plainText}> or </Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
+                            <View><Text style={formStyle.textLink}>Sign up.</Text></View>
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
 
             </View>

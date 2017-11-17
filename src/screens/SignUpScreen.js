@@ -8,7 +8,7 @@ import {
     FormLabel,
 } from 'react-native-elements';
 import colors from '../styles/colors';
-import modalStyle from '../styles/modalLayout';
+import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 
 
@@ -55,13 +55,13 @@ export default class SignUpScreen extends Component {
 
     render() {
         return (
-            <View style={modalStyle.container}>
+            <View style={formStyle.container}>
 
-                <View style={styles.inputsContainer}>
+                <View style={formStyle.inputsContainer}>
 
-                    <View style={styles.inputContainer}>
+                    <View style={formStyle.inputContainer}>
 
-                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Email
                         </FormLabel>
                         <FormInput
@@ -73,9 +73,9 @@ export default class SignUpScreen extends Component {
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    <View style={formStyle.inputContainer}>
 
-                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Name
                         </FormLabel>
                         <FormInput
@@ -86,9 +86,9 @@ export default class SignUpScreen extends Component {
                             onChangeText={(text) => this.setEmail(text)}
                         />
                     </View>
-                    <View style={styles.inputContainer}>
+                    <View style={formStyle.inputContainer}>
 
-                        <FormLabel containerStyle={modalStyle.labelContainerStyle}>
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Password
                         </FormLabel>
                         <FormInput
@@ -103,29 +103,31 @@ export default class SignUpScreen extends Component {
 
                 </View>
 
-                <View style={styles.footerContainer}>
+                <View style={formStyle.footerContainer}>
                     <Button
                         onPress={this.handleSignin}
                         icon={{name: 'done'}}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign up"
                     />
-                    <TouchableOpacity>
-                        <View style={styles.textInfoContainer}>
-                            <Text style={modalStyle.plainText}>By signing up, you agree to our </Text>
-                            <Text style={modalStyle.textLink}>Terms<Text
-                                style={modalStyle.plainText}> & </Text><Text style={modalStyle.textLink}>Privacy
-                                Policy.</Text>
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.textInfoContainer}>
-                            <Text style={modalStyle.plainText}>Already have an account? <Text
-                                style={modalStyle.textLink}> Sign In</Text></Text>
 
-                        </View>
-                    </TouchableOpacity>
+                    <View style={formStyle.textInfoContainer}>
+                        <View><Text style={formStyle.plainText}>By signing up, you agree to our </Text></View>
+                        <TouchableOpacity>
+                            <View><Text style={formStyle.textLink}>Terms</Text></View>
+                        </TouchableOpacity>
+                        <View><Text style={formStyle.plainText}> & </Text></View>
+                        <TouchableOpacity>
+                            <View><Text style={formStyle.textLink}>Privacy Policy.</Text></View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={formStyle.textInfoContainer}>
+                        <View><Text style={formStyle.plainText}>Already have an account? </Text></View>
+                        <TouchableOpacity>
+                            <View><Text style={formStyle.textLink}>Sign In</Text></View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
             </View>
@@ -133,85 +135,4 @@ export default class SignUpScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-
-
-    //
-    container: {
-        flex: 1,
-    },
-    bg: {
-        paddingTop: 30,
-        width: null,
-        height: null
-    },
-
-    inputsContainer: {
-        flex: 1,
-        // marginTop: 50,
-    },
-    footerContainer: {
-        flex: 1.5,
-    },
-    headerIconView: {
-        marginLeft: 10,
-        backgroundColor: 'transparent'
-    },
-    headerBackButtonView: {
-        width: 25,
-        height: 25,
-    },
-    backButtonIcon: {
-        width: 25,
-        height: 25
-    },
-    headerTitleView: {
-        backgroundColor: 'transparent',
-        marginTop: 25,
-        marginLeft: 25,
-    },
-    titleViewText: {
-        fontSize: 40,
-        color: '#fff',
-    },
-    inputs: {
-        paddingVertical: 20,
-    },
-    inputContainer: {
-        // flexDirection: 'row',
-        height: 75,
-    },
-    iconContainer: {
-        paddingHorizontal: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    inputIcon: {
-        width: 30,
-        height: 30,
-    },
-    input: {
-        flex: 1,
-        fontSize: 20,
-    },
-    signup: {
-        backgroundColor: '#FF3366',
-        paddingVertical: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 15,
-    },
-    textInfoContainer: {
-        marginTop: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-    },
-    greyFont: {
-        color: '#D8D8D8'
-    },
-    whiteFont: {
-        color: '#FFF'
-    }
-});
 
