@@ -11,7 +11,7 @@ import SwipeCardsScreen from './SwipeCardsScreen';
 export function registerScreens() {
     Navigation.registerComponent('cardmaker.CardTabScreen', () => CardTabScreen);
     Navigation.registerComponent('cardmaker.SettingsTabScreen', () => SettingsTabScreen);
-    // Navigation.registerComponent('cardmaker.SwipeCardsScreen', () => SwipeCardsScreen);
+    Navigation.registerComponent('cardmaker.SwipeCardsScreen', () => SwipeCardsScreen);
 
     Navigation.registerComponent('cardmaker.PushedScreen', () => PushedScreen);
     Navigation.registerComponent('cardmaker.SignInScreen', () => SignInScreen);
