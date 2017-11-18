@@ -14,6 +14,13 @@ Navigation.startTabBasedApp({
             selectedIcon: require('../img/two_selected.png'), // iOS only
             title: 'Screen Settings'
         },
+        // {
+        //     label: 'MyCards',
+        //     screen: 'cardmaker.SwipeCardsScreen', // this is a registered name for a screen
+        //     icon: require('../img/one.png'),
+        //     selectedIcon: require('../img/one_selected.png'), // iOS only
+        //     title: 'Make Card'
+        // },
         {
             label: 'Card',
             screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen

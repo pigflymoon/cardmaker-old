@@ -13,7 +13,7 @@ import firebaseApp from '../config/FirebaseConfig';
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
-
+let navigator;
 const CloseModalButton = ({text}) =>
     <TouchableOpacity
         style={[buttonStyle.buttonContainer]}
@@ -35,13 +35,14 @@ export default class SignInScreen extends Component {
             errorMessage: ''
 
         };
+        console.log('this.props.navigator',this.props.navigator)
     }
 
     static navigatorButtons = {
         rightButtons: [
             {
                 id: 'close-modal-button',
-                component: Platform.OS === 'ios' ? 'CloseModalButton' : null,
+                component: 'CloseModalButton',
                 passProps: {
                     text: 'Close'
                 }
@@ -51,6 +52,7 @@ export default class SignInScreen extends Component {
 
     componentWillMount() {
         navigator = this.props.navigator;
+        console.log('navigator',navigator)
     }
 
     setEmail = (text) => {
@@ -148,7 +150,7 @@ export default class SignInScreen extends Component {
                     </View>
 
                     {this.state.errorMessage ?
-                        <FormValidationMessage containerStyle={formStyle.validateContainer} labelStyle={formStyle.labelStyle}>
+                        <FormValidationMessage containerStyle={formStyle.validateContainer}>
                             {this.state.errorMessage}
                         </FormValidationMessage>
                         : null
