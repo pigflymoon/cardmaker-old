@@ -17,18 +17,7 @@ const DATA = [
     //     age: 25,
     //     uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
     // },
-    {
-        id: 4,
-        text: 'Keira',
-        age: 27,
-        uri: 'http://www.bdprimeit.com/wp-content/uploads/Keira-Knightley-Most-beautiful-Hollywood-actress.jpg',
-    },
-    {
-        id: 5,
-        text: 'Ashley',
-        age: 30,
-        uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg',
-    },
+
     {
         id: 6,
         text: 'Jennifer',
@@ -94,11 +83,14 @@ export default class SwipeCardsScreen extends Component {
 
     componentDidMount() {
         console.log('*************Swipe card this.props*********', this.props)
-        if (this.props.cards) {
-            var newCards = this.props.cards;
-            newCards = newCards[0];
+        if (this.props.cards && this.props.cards.length > 0) {
+            var newCards = JSON.parse(this.props.cards);
+            // newCards = newCards;
             var cards = this.state.cardsData;
-            cards.push(newCards);
+            cards = cards.concat(newCards);
+            console.log('newCards ', newCards)
+
+            console.log('cards ', cards)
 
             this.setState({showSignCard: this.props.signin, cardsData: cards}) //cardsData: this.state.cardsData.push((this.props.cards)[0])
 
@@ -235,7 +227,7 @@ export default class SwipeCardsScreen extends Component {
                 {this.renderHeader()}
                 <View style={styles.deck}>
                     <SwipeDeck
-                        data={DATA}
+                        data={this.state.cardsData}
                         renderCard={this.renderCard}
                         renderNoMoreCards={this.renderNoMoreCards}
                         onSwipeRight={this.onSwipeRight}

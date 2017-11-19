@@ -86,12 +86,18 @@ export default class SignInScreen extends Component {
             screen: 'cardmaker.SwipeCardsScreen',
             passProps: {
                 signin: true,
-                cards: [{
+                cards: JSON.stringify([{
                     id: 3,
                     text: 'Scarlett',
                     age: 25,
                     uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-                },]
+                },
+                    {
+                        id: 5,
+                        text: 'Ashley',
+                        age: 30,
+                        uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg',
+                    }])
 
 
             }
