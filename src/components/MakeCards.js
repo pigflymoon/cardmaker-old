@@ -11,8 +11,7 @@ export default class MakeCards extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-
-
+            likedCards: [],
         }
     }
 
@@ -20,23 +19,36 @@ export default class MakeCards extends Component {
         navigator = this.props.navigator;
     }
 
+    componentDidMount() {
+        console.log('*************likedCards*********', this.props)
+        //
+
+        if (this.props.likedCards && this.props.likedCards.length > 0) {
+            console.log('likedCards ', this.props.likedCards)
+            this.setState({likedCards: this.props.likedCards});
+        }
+    }
 
     render() {
-
+        if (this.state.likedCards.length < 1) {
+            return (
+                <View style={layoutStyle.container}>
+                    <Text>Please Choose your cards</Text>
+                </View>
+            );
+        }
         return (
             <View style={layoutStyle.container}>
-                <List>
-                    <ListItem
-                        leftIcon={{name: 'chat', color: colors.grey2}}
-                        title={`Tell a friend`}
+                <Text>Card Maker</Text>
+                {this.state.likedCards.map((card, index) => (
+                    <View key={`card-${index}`}>
 
-                    />
-                    <ListItem
-                        leftIcon={{name: 'chat', color: colors.grey2}}
-                        title={`Tell a friend`}
+                        <Image
+                            style={{width: 200, height: 150}}
+                            source={{uri:card.uri}}/>
+                    </View>
+                ))}
 
-                    />
-                </List>
             </View>
         );
     }

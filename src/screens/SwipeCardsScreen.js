@@ -72,8 +72,8 @@ export default class SwipeCardsScreen extends Component {
 
         likedCards.push(card);
         console.log('likedCards ', likedCards)
-        //
-        // this.state.likedCards.push
+        // this.setState({likedCards: likedCards});
+
     }
 
     onSwipeLeft(card) {
@@ -86,6 +86,10 @@ export default class SwipeCardsScreen extends Component {
         this.props.navigator.push({
             screen: 'cardmaker.MakeCards',
             title: 'Make Cards',
+            passProps: {
+                likedCards: likedCards
+            },
+
         });
     }
 
@@ -155,7 +159,7 @@ export default class SwipeCardsScreen extends Component {
                     </View>
                 </View>
                 <View style={styles.headerRightIcon}>
-                    <Icon name="card-giftcard"  color={colors.primary1} size={35}
+                    <Icon name="card-giftcard" color={colors.primary1} size={35}
                           onPress={this.gotoMakeCards}
                     />
                 </View>
