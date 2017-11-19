@@ -69,16 +69,26 @@ export default class SignInScreen extends Component {
         var self = this;
         // e.preventDefault();
 //after sign in update in settings screen
-        var username = 'Duck'
-        this.props.navigator.push({
-            screen: 'cardmaker.SettingsTabScreen',
+        var username = 'Duck';
+        this.props.navigator.resetTo({
             title: `Welcome, ` + username,
+            screen: 'cardmaker.SettingsTabScreen',
             passProps: {
                 count: this.props.count ? this.props.count + 1 : 2,
                 username: username,
                 signin: true,
             }
         });
+
+        // this.props.navigator.push({
+        //     screen: 'cardmaker.SettingsTabScreen',
+        //     title: `Welcome, ` + username,
+        //     passProps: {
+        //         count: this.props.count ? this.props.count + 1 : 2,
+        //         username: username,
+        //         signin: true,
+        //     }
+        // });
         /*
          firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
          .then(function (user) {

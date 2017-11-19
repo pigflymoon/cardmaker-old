@@ -15,7 +15,15 @@ const CustomButton = ({text}) =>
         name="settings"
         size={30}
         style={{paddingLeft: 10}}
-        onPress={() => navigator.pop()}
+        onPress={() => {
+            navigator.push({
+                screen: 'cardmaker.Settings',
+                title: `Settings`,
+                passProps: {}
+            });
+        }
+
+        }
     />;
 
 Navigation.registerComponent('CustomButton', () => CustomButton);
@@ -46,7 +54,7 @@ export default class SettingsTabScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('this.props', this.props)
+        console.log('*************this.props*********', this.props)
         this.setState({showSignCard: !this.props.signin, mycard: this.props.signin})
     }
 
