@@ -6,6 +6,7 @@ import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import SwipeCardsScreen from './SwipeCardsScreen';
 import Settings from '../components/Settings';
+import MakeCards from '../components/MakeCards';
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
@@ -17,6 +18,8 @@ export function registerScreens() {
     Navigation.registerComponent('cardmaker.SignInScreen', () => SignInScreen);
     Navigation.registerComponent('cardmaker.SignUpScreen', () => SignUpScreen);
     Navigation.registerComponent('cardmaker.Settings', () => Settings);
+    Navigation.registerComponent('cardmaker.MakeCards', () => MakeCards);
+
 
     //Settings
 

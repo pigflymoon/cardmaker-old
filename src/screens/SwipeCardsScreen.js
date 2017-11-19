@@ -2,35 +2,32 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
+// import {Navigation} from 'react-native-navigation';
 
 import SwipeDeck from '../components/SwipeDeck';
-// import { SwipeDeck } from 'react-native-elements';
+
+import colors from '../styles/colors';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 // test data
 const DATA = [
-    {id: 2, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
-    // {
-    //     id: 3,
-    //     text: 'Scarlett',
-    //     age: 25,
-    //     uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-    // },
-
+    {id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
     {
-        id: 6,
+        id: 2,
         text: 'Jennifer',
         age: 24,
         uri: 'https://2.bp.blogspot.com/-Vy0NVWhQfKo/Ubma2Mx2YTI/AAAAAAAAH3s/LC_u8LRfm8o/s1600/aimee-teegarden-04.jpg',
     },
     {
-        id: 7,
+        id: 3,
         text: 'Sarah',
         age: 28,
         uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg',
     },
 ];
+var likedCards = [];
 
 export default class SwipeCardsScreen extends Component {
     constructor(props, context) {
@@ -38,6 +35,8 @@ export default class SwipeCardsScreen extends Component {
         this.state = {
             showSignCard: false,
             cardsData: DATA,
+            likedCards: [],
+            color: 'green',
 
         }
     }
@@ -55,7 +54,7 @@ export default class SwipeCardsScreen extends Component {
                 featuredTitleStyle={{
                     position: 'absolute',
                     left: 15,
-                    bottom: 10,
+                    bottom: 15,
                     fontSize: 30,
                 }}
                 image={{uri: card.uri}}
@@ -69,11 +68,25 @@ export default class SwipeCardsScreen extends Component {
     }
 
     onSwipeRight(card) {
-        console.log('Card liked: ' + card.text);
+        console.log('Card liked: ' + card.text, 'Card is ', card);
+
+        likedCards.push(card);
+        console.log('likedCards ', likedCards)
+        //
+        // this.state.likedCards.push
     }
 
     onSwipeLeft(card) {
-        console.log('Card disliked: ' + card.text);
+        console.log('Card disliked: ' + card.text, 'Card is ', card);
+        // this.setState({color: 'green'});
+
+    }
+
+    gotoMakeCards = () => {
+        this.props.navigator.push({
+            screen: 'cardmaker.MakeCards',
+            title: 'Make Cards',
+        });
     }
 
     componentWillMount() {
@@ -83,6 +96,8 @@ export default class SwipeCardsScreen extends Component {
 
     componentDidMount() {
         console.log('*************Swipe card this.props*********', this.props)
+        //
+
         if (this.props.cards && this.props.cards.length > 0) {
             var newCards = JSON.parse(this.props.cards);
             // newCards = newCards;
@@ -100,6 +115,7 @@ export default class SwipeCardsScreen extends Component {
 
 
     renderNoMoreCards() {
+        // this.setState({likedCards: likedCards});
         return (
             <Card
                 containerStyle={{
@@ -130,19 +146,18 @@ export default class SwipeCardsScreen extends Component {
                     <View style={styles.headerCenterToggleContainer}>
                         <View style={styles.headerCenterToggleLeft}>
                             <Icon
-                                name="fire"
-                                type="material-community"
+                                name="bookmark"
                                 color="#fff"
                                 size={28}
                             />
                         </View>
-                        <View style={styles.headerCenterToggleRight}>
-                            <Icon name="group" type="font-awesome" color="#ccc" size={25}/>
-                        </View>
+
                     </View>
                 </View>
                 <View style={styles.headerRightIcon}>
-                    <Icon name="comments" type="font-awesome" color="#ccc" size={35}/>
+                    <Icon name="card-giftcard"  color={colors.primary1} size={35}
+                          onPress={this.gotoMakeCards}
+                    />
                 </View>
             </View>
         );
@@ -151,19 +166,6 @@ export default class SwipeCardsScreen extends Component {
     renderFooter() {
         return (
             <View style={styles.footer}>
-                <View style={[styles.footerIcon, {paddingLeft: 10}]}>
-                    <Icon
-                        containerStyle={{
-                            backgroundColor: 'white',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
-                        name="replay"
-                        size={30}
-                        color="orange"
-                    />
-                </View>
                 <View style={styles.footerIcon}>
                     <Icon
                         containerStyle={{
@@ -177,20 +179,7 @@ export default class SwipeCardsScreen extends Component {
                         color="red"
                     />
                 </View>
-                <View style={styles.footerIcon}>
-                    <Icon
-                        containerStyle={{
-                            backgroundColor: 'white',
-                            width: 48,
-                            height: 48,
-                            borderRadius: 24,
-                        }}
-                        name="bolt"
-                        type="font-awesome"
-                        size={30}
-                        color="purple"
-                    />
-                </View>
+
                 <View style={styles.footerIcon}>
                     <Icon
                         containerStyle={{
@@ -201,22 +190,11 @@ export default class SwipeCardsScreen extends Component {
                         }}
                         name="favorite"
                         size={35}
-                        color="green"
+                        color={this.state.color}
+
                     />
                 </View>
-                <View style={[styles.footerIcon, {paddingRight: 10}]}>
-                    <Icon
-                        containerStyle={{
-                            backgroundColor: 'white',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
-                        name="star"
-                        size={30}
-                        color="blue"
-                    />
-                </View>
+
             </View>
         );
     }
@@ -234,16 +212,15 @@ export default class SwipeCardsScreen extends Component {
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
-                {this.renderFooter()}
             </View>
         );
     }
 }
 
-SwipeDeck.navigationOptions = {
-    title: 'Swipe Decker',
-    header: null,
-};
+// SwipeDeck.navigationOptions = {
+//     title: 'Swipe Decker',
+//     header: null,
+// };
 
 const styles = StyleSheet.create({
     container: {

@@ -20,18 +20,18 @@ async function startApp() {
                 // selectedIcon: icons.settings, // iOS only
                 title: 'Screen Settings'
             },
-            {
-                label: 'MyCards',
-                screen: 'cardmaker.SwipeCardsScreen', // this is a registered name for a screen
-                icon: icons.cards,
-                title: 'Make Card'
-            },
             // {
-            //     label: 'Card',
-            //     screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen
-            //     icon: icons.profile,
-            //     title: 'Screen Card'
+            //     label: 'MyCards',
+            //     screen: 'cardmaker.SwipeCardsScreen', // this is a registered name for a screen
+            //     icon: icons.cards,
+            //     title: 'Make Card'
             // },
+            {
+                label: 'Card',
+                screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen
+                icon: icons.profile,
+                title: 'Screen Card'
+            },
 
         ]
     });

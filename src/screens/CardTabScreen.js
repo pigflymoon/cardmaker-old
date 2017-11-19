@@ -19,7 +19,7 @@ export default class CardTabScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <Text>First Screen</Text>
+                <Text>Make Card Screen</Text>
                 <TouchableOpacity activeOpacity={.5} onPress={this.updateImage}>
                     <Text style={{color: '#222'}}>Update Image</Text>
                 </TouchableOpacity>

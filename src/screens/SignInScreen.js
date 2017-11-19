@@ -10,7 +10,6 @@ import {
 } from 'react-native-elements';
 import firebaseApp from '../config/FirebaseConfig';
 
-import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 let navigator;
@@ -87,7 +86,7 @@ export default class SignInScreen extends Component {
             passProps: {
                 signin: true,
                 cards: JSON.stringify([{
-                    id: 3,
+                    id: 4,
                     text: 'Scarlett',
                     age: 25,
                     uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
