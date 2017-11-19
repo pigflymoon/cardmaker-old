@@ -86,6 +86,14 @@ export default class SignInScreen extends Component {
             screen: 'cardmaker.SwipeCardsScreen',
             passProps: {
                 signin: true,
+                cards: [{
+                    id: 3,
+                    text: 'Scarlett',
+                    age: 25,
+                    uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
+                },]
+
+
             }
         })
         // this.props.navigator.switchToTab({

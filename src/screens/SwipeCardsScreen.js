@@ -10,19 +10,13 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 // test data
 const DATA = [
-    {
-        id: 1,
-        text: 'Amanda',
-        age: 28,
-        uri: 'http://f9view.com/wp-content/uploads/2013/10/American-Beautiful-Girls-Wallpapers-Hollywood-Celebs-1920x1200px.jpg',
-    },
     {id: 2, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
-    {
-        id: 3,
-        text: 'Scarlett',
-        age: 25,
-        uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-    },
+    // {
+    //     id: 3,
+    //     text: 'Scarlett',
+    //     age: 25,
+    //     uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
+    // },
     {
         id: 4,
         text: 'Keira',
@@ -54,6 +48,7 @@ export default class SwipeCardsScreen extends Component {
         super(props, context);
         this.state = {
             showSignCard: false,
+            cardsData: DATA,
 
         }
     }
@@ -99,7 +94,15 @@ export default class SwipeCardsScreen extends Component {
 
     componentDidMount() {
         console.log('*************Swipe card this.props*********', this.props)
-        this.setState({showSignCard: this.props.signin})
+        if (this.props.cards) {
+            var newCards = this.props.cards;
+            newCards = newCards[0];
+            var cards = this.state.cardsData;
+            cards.push(newCards);
+
+            this.setState({showSignCard: this.props.signin, cardsData: cards}) //cardsData: this.state.cardsData.push((this.props.cards)[0])
+
+        }
 
     }
 
