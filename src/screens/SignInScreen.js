@@ -35,24 +35,24 @@ export default class SignInScreen extends Component {
             errorMessage: ''
 
         };
-        console.log('this.props.navigator',this.props.navigator)
+        console.log('this.props.navigator', this.props.navigator)
     }
 
-    static navigatorButtons = {
-        rightButtons: [
-            {
-                id: 'close-modal-button',
-                component: 'CloseModalButton',
-                passProps: {
-                    text: 'Close'
-                }
-            }
-        ]
-    };
+    // static navigatorButtons = {
+    //     rightButtons: [
+    //         {
+    //             id: 'close-modal-button',
+    //             component: 'CloseModalButton',
+    //             passProps: {
+    //                 text: 'Close'
+    //             }
+    //         }
+    //     ]
+    // };
 
     componentWillMount() {
         navigator = this.props.navigator;
-        console.log('navigator',navigator)
+        console.log('navigator', navigator)
     }
 
     setEmail = (text) => {
@@ -67,40 +67,54 @@ export default class SignInScreen extends Component {
 
     handleSignin = (e) => {
         var self = this;
-        e.preventDefault();
+        // e.preventDefault();
+//after sign in update in settings screen
+        var username = 'Duck'
+        this.props.navigator.push({
+            screen: 'cardmaker.SettingsTabScreen',
+            title: `Welcome, ` + username,
+            passProps: {
+                count: this.props.count ? this.props.count + 1 : 2,
+                username: username,
+                signin: true,
+            }
+        });
+        /*
+         firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+         .then(function (user) {
+         firebaseApp.auth().onAuthStateChanged(function (user) {
+         if (user) {
+         console.log('Update the card')
+         } else {
+         this.setState({errorMessage: user})
+         console.log('error', user)
+         }
+         })
+         })
+         .catch(function (error) {
+         // Handle Errors here.
+         var errorCode = error.code;
+         var errorMessage = error.message;
+         console.log('errorCode', errorCode)
+         switch (errorCode) {
+         case 'auth/invalid-email':
+         case 'auth/user-disabled':
+         case 'auth/operation-not-allowed':
+         case 'auth/user-not-found':
+         case 'auth/wrong-password':
+         self.setState({
+         errorMessage: errorMessage
+         });
+         break;
+         default:
+         self.setState({
+         errorMessage: 'Error'
+         });
+         }
+         });
 
-        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(function (user) {
-                firebaseApp.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        console.log('Update the card')
-                    } else {
-                        this.setState({errorMessage: user})
-                        console.log('error', user)
-                    }
-                })
-            })
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log('errorCode', errorCode)
-                switch (errorCode) {
-                    case 'auth/invalid-email':
-                    case 'auth/user-disabled':
-                    case 'auth/operation-not-allowed':
-                    case 'auth/user-not-found':
-                    case 'auth/wrong-password':
-                        self.setState({
-                            errorMessage: errorMessage
-                        });
-                        break;
-                    default:
-                        self.setState({
-                            errorMessage: 'Error'
-                        });
-                }
-            });
+         */
+
 
     }
 

@@ -16,7 +16,7 @@ async function startApp() {
             {
                 label: 'Settings',
                 screen: 'cardmaker.SettingsTabScreen',
-                icon: icons.settings,
+                icon: icons.profile,
                 // selectedIcon: icons.settings, // iOS only
                 title: 'Screen Settings'
             },
@@ -26,12 +26,12 @@ async function startApp() {
                 icon: icons.cards,
                 title: 'Make Card'
             },
-            {
-                label: 'Card',
-                screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen
-                icon: icons.profile,
-                title: 'Screen Card'
-            },
+            // {
+            //     label: 'Card',
+            //     screen: 'cardmaker.CardTabScreen', // this is a registered name for a screen
+            //     icon: icons.profile,
+            //     title: 'Screen Card'
+            // },
 
         ]
     });

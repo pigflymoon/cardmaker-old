@@ -23,6 +23,15 @@ export default {
     buttonText: {
         color: 'white'
     },
+    button: {
+        backgroundColor: 'tomato',
+        width: 34,
+        height: 34,
+        borderRadius: 34 / 2,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 };
 
 
