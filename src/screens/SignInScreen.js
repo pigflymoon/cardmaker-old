@@ -70,15 +70,33 @@ export default class SignInScreen extends Component {
         // e.preventDefault();
 //after sign in update in settings screen
         var username = 'Duck';
+        // this.props.navigator.resetTo({
+        //     title: `Welcome, ` + username,
+        //     screen: 'cardmaker.SettingsTabScreen',
+        //     passProps: {
+        //         count: this.props.count ? this.props.count + 1 : 2,
+        //         username: username,
+        //         signin: true,
+        //         cards:''
+        //     }
+        // });
+
         this.props.navigator.resetTo({
             title: `Welcome, ` + username,
-            screen: 'cardmaker.SettingsTabScreen',
+            screen: 'cardmaker.SwipeCardsScreen',
             passProps: {
-                count: this.props.count ? this.props.count + 1 : 2,
-                username: username,
                 signin: true,
             }
-        });
+        })
+        // this.props.navigator.switchToTab({
+        //     tabIndex: 1, // (optional) if missing, this screen's tab will become selected
+        //     title: `Welcome, ` + username,
+        //     username: username,
+        //     passProps: {
+        //         count: this.props.count ? this.props.count + 1 : 2,
+        //         username: username,
+        //     }
+        // });
 
         // this.props.navigator.push({
         //     screen: 'cardmaker.SettingsTabScreen',

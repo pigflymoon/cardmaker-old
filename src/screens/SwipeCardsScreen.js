@@ -10,12 +10,12 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 // test data
 const DATA = [
-    // {
-    //     id: 1,
-    //     text: 'Amanda',
-    //     age: 28,
-    //     uri: 'http://f9view.com/wp-content/uploads/2013/10/American-Beautiful-Girls-Wallpapers-Hollywood-Celebs-1920x1200px.jpg',
-    // },
+    {
+        id: 1,
+        text: 'Amanda',
+        age: 28,
+        uri: 'http://f9view.com/wp-content/uploads/2013/10/American-Beautiful-Girls-Wallpapers-Hollywood-Celebs-1920x1200px.jpg',
+    },
     {id: 2, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
     {
         id: 3,
@@ -50,6 +50,14 @@ const DATA = [
 ];
 
 export default class SwipeCardsScreen extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            showSignCard: false,
+
+        }
+    }
+
     renderCard(card) {
         return (
             <Card
@@ -84,6 +92,18 @@ export default class SwipeCardsScreen extends Component {
         console.log('Card disliked: ' + card.text);
     }
 
+    componentWillMount() {
+        navigator = this.props.navigator;
+        console.log('********navigator********', navigator)
+    }
+
+    componentDidMount() {
+        console.log('*************Swipe card this.props*********', this.props)
+        this.setState({showSignCard: this.props.signin})
+
+    }
+
+
     renderNoMoreCards() {
         return (
             <Card
@@ -107,9 +127,10 @@ export default class SwipeCardsScreen extends Component {
     renderHeader() {
         return (
             <View style={styles.header}>
-                <View style={styles.headerLeftIcon}>
-                    <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
-                </View>
+                {this.state.showSignCard ?
+                    <View style={styles.headerLeftIcon}>
+                        <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
+                    </View> : null}
                 <View style={styles.headerCenter}>
                     <View style={styles.headerCenterToggleContainer}>
                         <View style={styles.headerCenterToggleLeft}>
