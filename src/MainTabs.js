@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Button, ScrollView} from 'react-native';
+import {Button, ScrollView, Alert} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import SettingsScreen from './screens/Settings';
 import SigninScreen from './screens/Signin';
@@ -72,11 +72,10 @@ const MainTab = StackNavigator({
 });
 
 //Cards Tab: cards library and my cards
-const Cards = TabNavigator(
+const CardsTabs = TabNavigator(
     {
         CardsLibraryTab: {
             screen: CardsScreen,
-            // path: '/settings',
             navigationOptions: {
                 tabBarLabel: 'Cards Library',
                 tabBarIcon: ({tintColor, focused}) => (
@@ -86,6 +85,7 @@ const Cards = TabNavigator(
                         style={{color: tintColor}}
                     />
                 ),
+
             },
         },
         MyCardTab: {
@@ -98,7 +98,7 @@ const Cards = TabNavigator(
                         size={26}
                         style={{color: tintColor}}
                     />
-                )
+                ),
             }
 
         },
@@ -112,9 +112,10 @@ const Cards = TabNavigator(
     }
 );
 
+
 const CardsTab = StackNavigator({
     Cards: {
-        screen: Cards,
+        screen: CardsTabs,
         path: '/',
         navigationOptions: ({navigation}) => ({
             title: 'Pick your cards'

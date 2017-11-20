@@ -35,6 +35,15 @@ const DATA = [
 var likedCards = [];
 
 export default class MyCards extends Component {
+    static navigationOptions = ({screenProps}) => ({
+        tabBarOnPress: (scene, jumpToIndex) => {
+            // You can use sceneProps.previousScreen here
+            console.log('MyCards sceneProps', screenProps);
+            console.log('MyCards scene', scene)
+            jumpToIndex(scene.index)
+        }
+    });
+
     constructor(props, context) {
         super(props, context);
 
@@ -91,7 +100,6 @@ export default class MyCards extends Component {
     gotoMakeCards = () => {
 
     }
-
 
 
     componentDidMount() {

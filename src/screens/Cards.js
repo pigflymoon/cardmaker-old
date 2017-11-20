@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,Alert} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 
@@ -26,9 +26,19 @@ const DATA = [
         uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg',
     },
 ];
-var likedCards = [];
+var likedCards = [], dislikedCards = [];
 
 export default class Cards extends Component {
+    static navigationOptions = ({screenProps}) => ({
+        tabBarOnPress: (scene, jumpToIndex) => {
+            // You can use sceneProps.previousScreen here
+            console.log('Cards screenProps', screenProps);
+
+            console.log('Cards sceneProps', screenProps);
+            console.log(' Cards scene', scene)
+            jumpToIndex(scene.index)
+        }
+    });
     constructor(props, context) {
         super(props, context);
 
@@ -36,8 +46,7 @@ export default class Cards extends Component {
             showSignCard: false,
             cardsData: DATA,
             likedCards: [],
-            color: 'green',
-
+            dislikedCards: [],
         }
     }
 
@@ -78,7 +87,7 @@ export default class Cards extends Component {
 
     onSwipeLeft(card) {
         console.log('Card disliked: ' + card.text, 'Card is ', card);
-        // this.setState({color: 'green'});
+        dislikedCards.push(card);
 
     }
 
@@ -87,9 +96,7 @@ export default class Cards extends Component {
     }
 
 
-
     componentDidMount() {
-        console.log('*************Swipe card this.props*********', this.props)
         //
 
     }
@@ -163,10 +170,7 @@ export default class Cards extends Component {
     }
 }
 
-// SwipeDeck.navigationOptions = {
-//     title: 'Swipe Decker',
-//     header: null,
-// };
+
 
 const styles = StyleSheet.create({
     container: {
