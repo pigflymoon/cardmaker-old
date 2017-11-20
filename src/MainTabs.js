@@ -5,10 +5,12 @@
 import React from 'react';
 import {Button, ScrollView} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
-import Settings from './screens/Settings';
-import Signin from './screens/Signin';
-import Signup from './screens/Signup';
-import Cards from './screens/Cards';
+import SettingsScreen from './screens/Settings';
+import SigninScreen from './screens/Signin';
+import SignupScreen from './screens/Signup';
+import CardsScreen from './screens/Cards';
+import MyCardsScreen from './screens/MyCards';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const MyNavScreen = ({navigation, banner}) => (
@@ -69,6 +71,47 @@ const MainTab = StackNavigator({
     },
 });
 
+//Cards Tab: cards library and my cards
+const Cards = TabNavigator(
+    {
+        CardsLibraryTab: {
+            screen: CardsScreen,
+            // path: '/settings',
+            navigationOptions: {
+                tabBarLabel: 'Cards Library',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            },
+        },
+        MyCardTab: {
+            screen: MyCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'My Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-star' : 'ios-star-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                )
+            }
+
+        },
+
+
+    },
+    {
+        tabBarPosition: 'top',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
+
 const CardsTab = StackNavigator({
     Cards: {
         screen: Cards,
@@ -86,23 +129,24 @@ const CardsTab = StackNavigator({
     // },
 })
 
+//
 const SettingsTab = StackNavigator({
     Settings: {
-        screen: Settings,
+        screen: SettingsScreen,
         path: '/',
         navigationOptions: ({navigation}) => ({
             title: 'Settings',
         }),
     },
     Signin: {
-        screen: Signin,
+        screen: SigninScreen,
         path: '/sign/:name',
         navigationOptions: ({navigation}) => ({
             title: `Sign in`
         }),
     },
     Signup: {
-        screen: Signup,
+        screen: SignupScreen,
         navigationOptions: ({navigation}) => ({
             title: 'Sign up'
         }),
