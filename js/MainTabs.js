@@ -3,19 +3,23 @@
  */
 
 import React from 'react';
-import { Button, Platform, ScrollView, StyleSheet } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { Button, ScrollView } from 'react-native';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import SampleText from './SampleText';
 
 const MyNavScreen = ({ navigation, banner }) => (
-    <ScrollView style={styles.container}>
+    <ScrollView>
         <Button
-            onPress={() => navigation.navigate('Home')}
-            title="Go to home tab"
+            onPress={() => navigation.navigate('Profile', { name: 'Jordan' })}
+            title="Open profile screen"
         />
         <Button
-            onPress={() => navigation.navigate('Settings')}
+            onPress={() => navigation.navigate('NotifSettings')}
+            title="Open notifications screen"
+        />
+        <Button
+            onPress={() => navigation.navigate('SettingsTab')}
             title="Go to settings tab"
         />
         <Button onPress={() => navigation.goBack(null)} title="Go back" />
@@ -23,95 +27,94 @@ const MyNavScreen = ({ navigation, banner }) => (
 );
 
 const MyHomeScreen = ({ navigation }) => (
-    <MyNavScreen banner="Home Tab" navigation={navigation} />
+    <MyNavScreen banner="Home Screen" navigation={navigation} />
 );
 
-MyHomeScreen.navigationOptions = {
-    tabBarLabel: 'Home',
-    tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-            name={focused ? 'ios-home' : 'ios-home-outline'}
-            size={26}
-            style={{ color: tintColor }}
-        />
-    ),
-};
-
-const MyPeopleScreen = ({ navigation }) => (
-    <MyNavScreen banner="People Tab" navigation={navigation} />
+const MyProfileScreen = ({ navigation }) => (
+    <MyNavScreen
+        banner={`${navigation.state.params.name}s Profile`}
+        navigation={navigation}
+    />
 );
 
-MyPeopleScreen.navigationOptions = {
-    tabBarLabel: 'People',
-    tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-            name={focused ? 'ios-people' : 'ios-people-outline'}
-            size={26}
-            style={{ color: tintColor }}
-        />
-    ),
-};
-
-const MyChatScreen = ({ navigation }) => (
-    <MyNavScreen banner="Chat Tab" navigation={navigation} />
+const MyNotificationsSettingsScreen = ({ navigation }) => (
+    <MyNavScreen banner="Notifications Screen" navigation={navigation} />
 );
-
-MyChatScreen.navigationOptions = {
-    tabBarLabel: 'Chat',
-    tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-            name={focused ? 'ios-chatboxes' : 'ios-chatboxes-outline'}
-            size={26}
-            style={{ color: tintColor }}
-        />
-    ),
-};
 
 const MySettingsScreen = ({ navigation }) => (
-    <MyNavScreen banner="Settings Tab" navigation={navigation} />
+    <MyNavScreen banner="Settings Screen" navigation={navigation} />
 );
 
-MySettingsScreen.navigationOptions = {
-    tabBarLabel: 'Settings',
-    tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-            name={focused ? 'ios-settings' : 'ios-settings-outline'}
-            size={26}
-            style={{ color: tintColor }}
-        />
-    ),
-};
-
-const MainTabs = TabNavigator(
-    {
-        Home: {
-            screen: MyHomeScreen,
-            path: '',
-        },
-        People: {
-            screen: MyPeopleScreen,
-            path: 'cart',
-        },
-        Chat: {
-            screen: MyChatScreen,
-            path: 'chat',
-        },
-        Settings: {
-            screen: MySettingsScreen,
-            path: 'settings',
+const MainTab = StackNavigator({
+    Home: {
+        screen: MyHomeScreen,
+        path: '/',
+        navigationOptions: {
+            title: 'Welcome',
         },
     },
-    {
-        tabBarOptions: {
-            activeTintColor: Platform.OS === 'ios' ? '#e91e63' : '#fff',
-        },
-    }
-);
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 20 : 0,
+    Profile: {
+        screen: MyProfileScreen,
+        path: '/people/:name',
+        navigationOptions: ({ navigation }) => ({
+            title: `${navigation.state.params.name}'s Profile!`,
+        }),
     },
 });
 
-export default MainTabs;
+const SettingsTab = StackNavigator({
+    Settings: {
+        screen: MySettingsScreen,
+        path: '/',
+        navigationOptions: () => ({
+            title: 'Settings',
+        }),
+    },
+    NotifSettings: {
+        screen: MyNotificationsSettingsScreen,
+        navigationOptions: {
+            title: 'Notifications',
+        },
+    },
+});
+
+const StacksInTabs = TabNavigator(
+    {
+        MainTab: {
+            screen: MainTab,
+            path: '/',
+            navigationOptions: {
+                tabBarLabel: 'Home',
+                tabBarIcon: ({ tintColor, focused }) => (
+                    <Ionicons
+                        name={focused ? 'ios-home' : 'ios-home-outline'}
+                        size={26}
+                        style={{ color: tintColor }}
+                    />
+                ),
+            },
+        },
+        SettingsTab: {
+            screen: SettingsTab,
+            path: '/settings',
+            navigationOptions: {
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({ tintColor, focused }) => (
+                    <Ionicons
+                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
+                        size={26}
+                        style={{ color: tintColor }}
+                    />
+                ),
+            },
+        },
+    },
+    {
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+    }
+);
+
+export default StacksInTabs;
+console.ignoredYellowBox = ['Remote debugger'];
