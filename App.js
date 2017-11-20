@@ -13,7 +13,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 
 
-import MainTabs from './js/MainTabs';
+import MainTabs from './src/MainTabs';
 
 
 
