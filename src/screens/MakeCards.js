@@ -1,171 +1,98 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    FlatList,
+    Dimensions,
+} from 'react-native';
+import axios from 'axios';
 
-import {Button, Card, Icon,} from 'react-native-elements';
+// sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
+
+const {width, height} = Dimensions.get('window');
+
+const equalWidth = (width / 2 )
+
+export default class MakeCards extends Component {
 
 
-import colors from '../styles/colors';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
-
-export default class MyCards extends Component {
-
-    constructor(props, context) {
-        super(props, context);
-
+    constructor(props) {
+        super(props)
         this.state = {
-            showSignCard: false,
-            // cardsData: [],
-            myCards: [],
-            color: 'green',
-
+            moviesList: []
         }
     }
 
+    _keyExtractor = (item, index) => `key${index}`;
+//http://placehold.it/150/92c952
+    //https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg
+    renderRowItem = (itemData) => {
+        console.log('itemData',itemData)
 
-
-
-    componentDidMount() {
-        console.log('*************Swipe card this.props*********', this.props)
-        //
-
-    }
-    componentWillReceiveProps(nextProps) {
-        var likedCards = nextProps.navigation.state.params.likedCards;
-        this.setState({myCards: likedCards});
-    }
-
-
-    renderNoMoreCards() {
-        // this.setState({likedCards: likedCards});
         return (
-            <Card
-                containerStyle={{
-                    borderRadius: 10,
-                    width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 165,
-                }}
-                featuredTitle="No more cards"
-                featuredTitleStyle={{fontSize: 25}}
-                image={{uri: 'https://i.imgflip.com/1j2oed.jpg'}}
-                imageStyle={{
-                    borderRadius: 10,
-                    width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 165,
-                }}
-            />
-        );
-    }
+            <View>
+                <Image style={{height: 150, width: equalWidth}}
 
-    renderHeader() {
-        return (
-            <View style={styles.header}>
-                {this.state.showSignCard ?
-                    <View style={styles.headerLeftIcon}>
-                        <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
-                    </View> : null}
-                <View style={styles.headerCenter}>
-                    <View style={styles.headerCenterToggleContainer}>
-                        <View style={styles.headerCenterToggleLeft}>
-                            <Icon
-                                name="bookmark"
-                                color="#fff"
-                                size={28}
-                            />
-                        </View>
+                       source={{uri: itemData.item}}
 
-                    </View>
-                </View>
-                <View style={styles.headerRightIcon}>
-                    <Icon name="card-giftcard" color={colors.primary1} size={35}
-                          onPress={this.gotoMakeCards}
-                    />
-                </View>
+                       resizeMode='cover'/>
             </View>
-        );
+        )
+    }
+
+    componentWillMount() {
+        {
+            this.getMoviesFromApiAsync()
+        }
     }
 
 
     render() {
         return (
             <View style={styles.container}>
-                {this.renderHeader()}
-                <View style={styles.deck}>
-                  <Text>Make cards</Text>
-                </View>
+                <FlatList
+                    data={this.state.moviesList}
+                    numColumns={2}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this.renderRowItem}
+                />
             </View>
         );
     }
-}
 
+
+    getMoviesFromApiAsync = () => {
+        var url = 'https://dog.ceo/api/breed/hound/afghan/images';
+        // var url = 'https://api.geonet.org.nz/quake?MMI=0';//http://droidtute.com/reactexample/sample_api/getMovieList.php';
+        var self = this;
+        axios.get(url)
+            .then(function (result) {
+                console.log('result', result.data.message)
+                self.setState({moviesList: result.data.message});
+                // return result.data.data.pins;
+
+            });
+        // return fetch('http://droidtute.com/reactexample/sample_api/getMovieList.php')
+        //     .then((response) => response.json())
+        //     .then((responseJson) => {
+        //         // alert(JSON.stringify(responseJson))
+        //         this.setState({moviesList: responseJson.movieList}) // this will update state to re-render ui
+        //         return responseJson.movieList;
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
+    }
+
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    },
-    header: {
-        height: 64,
-        paddingTop: 35,
-        flexDirection: 'row',
-    },
-    headerLeftIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginLeft: 15,
-    },
-    headerCenter: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
-    headerCenterToggleContainer: {
-        flexDirection: 'row',
-        width: 160,
-        height: 45,
-        borderRadius: 30,
-        borderWidth: 2,
-        borderColor: '#ccc',
-    },
-    headerCenterToggleLeft: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ff0000',
-        borderRadius: 30,
-    },
-    headerCenterToggleRight: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headerRightIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginRight: 20,
-    },
-    deck: {
-        flex: 1,
-    },
-    footer: {
-        height: 64,
-        flexDirection: 'row',
-        paddingBottom: 10,
-    },
-    footerIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        margin: 10,
-    },
+        backgroundColor: '#F5FCFF',
+        flexDirection: 'column'
+    }
 });
-
-
