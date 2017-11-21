@@ -7,7 +7,10 @@ import {
     Image,
     FlatList,
     Dimensions,
+    TouchableOpacity,
 } from 'react-native';
+import {Tile} from 'react-native-elements';
+
 import axios from 'axios';
 
 // sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
@@ -23,23 +26,43 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard:[],
+            makeCard: [],
+            previewImage: 'https://i.imgflip.com/1j2oed.jpg',
+            showText: false,
+            title: '',
+            caption: '',
         }
     }
 
+    pickImage = (url) => {
+        console.log('image url', url)
+        this.setState({
+            previewImage: url,
+        })
+    }
+
+    markByPosition = (position, wishwords, name) => {
+
+        this.setState({
+            title: wishwords,
+            caption: name,
+        })
+    }
     _keyExtractor = (item, index) => `key${index}`;
 //http://placehold.it/150/92c952
     //https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg
     renderRowItem = (itemData) => {
-        console.log('itemData',itemData)
+        console.log('itemData', itemData)
 
         return (
             <View>
-                <Image style={{height: 150, width: equalWidth}}
+                <TouchableOpacity onPress={() => this.pickImage(itemData.item.uri)}>
+                    <Image style={{height: 150, width: equalWidth}}
 
-                       source={{uri: itemData.item.uri}}
+                           source={{uri: itemData.item.uri}}
 
-                       resizeMode='cover'/>
+                           resizeMode='cover'/>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -49,16 +72,17 @@ export default class MakeCards extends Component {
         //     this.getMoviesFromApiAsync()
         // }
     }
+
     //
     componentWillReceiveProps(nextProps) {
-       var  makeCard = nextProps.navigation.state.params.chooseCards;
-       console.log('makecard',makeCard)
+        var makeCard = nextProps.navigation.state.params.chooseCards;
+        console.log('makecard', makeCard)
         this.setState({makeCard: makeCard});
     }
 
 
     render() {
-        if(this.state.makeCard.length <1){
+        if (this.state.makeCard.length < 1) {
             return (
                 <View>
                     <Text>Choose your picture</Text>
@@ -67,13 +91,29 @@ export default class MakeCards extends Component {
         }
         return (
             <View style={styles.container}>
-                <FlatList
-                    data={this.state.makeCard}
-                    numColumns={2}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this.renderRowItem}
-                />
+                <View style={styles.imageListContainer}>
+                    <FlatList
+                        data={this.state.makeCard}
+                        numColumns={2}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={this.renderRowItem}
+                    />
+
+                </View>
+                <View style={styles.previewContainer}>
+
+
+                    <Tile
+                        onPress={() => this.markByPosition('', 'Wish you Merry Christmas', 'By Duck')}
+                        imageSrc={{uri: this.state.previewImage}}
+                        title={this.state.title}
+                        featured
+                        caption={this.state.caption}
+                    />
+
+                </View>
             </View>
+
         );
     }
 
@@ -106,7 +146,26 @@ export default class MakeCards extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
+    },
+    imageListContainer: {
+        flex: 1,
         backgroundColor: '#F5FCFF',
         flexDirection: 'column'
+    },
+    previewContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        // width: width,
+    },
+    button: {
+        backgroundColor: 'tomato',
+        width: 34,
+        height: 34,
+        borderRadius: 34 / 2,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
+
 });
