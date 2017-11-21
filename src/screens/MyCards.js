@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,Alert} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 
@@ -32,7 +32,7 @@ const DATA = [
         uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg',
     },
 ];
-var likedCards = [];
+var chooseCards = [],makeCards = [];
 
 export default class MyCards extends Component {
 
@@ -41,9 +41,10 @@ export default class MyCards extends Component {
 
         this.state = {
             showSignCard: false,
-            // cardsData: [],
-            myCards: [],
-            color: 'green',
+            cardsData: chooseCards,
+            makeCards: [],
+
+
 
         }
     }
@@ -77,8 +78,8 @@ export default class MyCards extends Component {
     onSwipeRight(card) {
         console.log('Card liked: ' + card.text, 'Card is ', card);
 
-        likedCards.push(card);
-        console.log('likedCards ', likedCards)
+        makeCards.push(card);
+        console.log('chooseCards ', makeCards)
         // this.setState({likedCards: likedCards});
 
     }
@@ -90,6 +91,12 @@ export default class MyCards extends Component {
     }
 
     gotoMakeCards = () => {
+        if(this.state.chooseCards.length >0){
+            this.props.navigation.navigate('MakeCardsTab', {chooseCards: makeCards});
+
+        }else{
+            Alert.alert('Please choose a picture');
+        }
 
     }
 
@@ -100,8 +107,9 @@ export default class MyCards extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        var likedCards = nextProps.navigation.state.params.likedCards;
-        this.setState({myCards: likedCards});
+        chooseCards = nextProps.navigation.state.params.likedCards;
+        console.log('pass liked cards',chooseCards)
+        this.setState({chooseCards: chooseCards});
     }
 
 
@@ -152,7 +160,7 @@ export default class MyCards extends Component {
                 {this.renderHeader()}
                 <View style={styles.deck}>
                     <SwipeDeck
-                        data={this.state.myCards}
+                        data={chooseCards}
                         renderCard={this.renderCard}
                         renderNoMoreCards={this.renderNoMoreCards}
                         onSwipeRight={this.onSwipeRight}

@@ -22,7 +22,8 @@ export default class MakeCards extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            moviesList: []
+            moviesList: [],
+            makeCard:[],
         }
     }
 
@@ -36,7 +37,7 @@ export default class MakeCards extends Component {
             <View>
                 <Image style={{height: 150, width: equalWidth}}
 
-                       source={{uri: itemData.item}}
+                       source={{uri: itemData.item.uri}}
 
                        resizeMode='cover'/>
             </View>
@@ -44,17 +45,30 @@ export default class MakeCards extends Component {
     }
 
     componentWillMount() {
-        {
-            this.getMoviesFromApiAsync()
-        }
+        // {
+        //     this.getMoviesFromApiAsync()
+        // }
+    }
+    //
+    componentWillReceiveProps(nextProps) {
+       var  makeCard = nextProps.navigation.state.params.chooseCards;
+       console.log('makecard',makeCard)
+        this.setState({makeCard: makeCard});
     }
 
 
     render() {
+        if(this.state.makeCard.length <1){
+            return (
+                <View>
+                    <Text>Choose your picture</Text>
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={this.state.moviesList}
+                    data={this.state.makeCard}
                     numColumns={2}
                     keyExtractor={this._keyExtractor}
                     renderItem={this.renderRowItem}
