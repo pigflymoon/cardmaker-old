@@ -10,6 +10,8 @@ import SigninScreen from './screens/Signin';
 import SignupScreen from './screens/Signup';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
+import MakeCardsScreen from './screens/MakeCards';
+
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -102,6 +104,20 @@ const CardsTabs = TabNavigator(
             }
 
         },
+        MakeCardsTab: {
+            screen: MakeCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Make Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-image' : 'ios-image-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            }
+
+        },
 
 
     },
@@ -118,7 +134,7 @@ const CardsTab = StackNavigator({
         screen: CardsTabs,
         path: '/',
         navigationOptions: ({navigation}) => ({
-            title: 'Pick your cards'
+            title: 'Cards'
         }),
     },
     // MakeCards: {
@@ -163,20 +179,6 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        SettingsTab: {
-            screen: SettingsTab,
-            // path: '/settings',
-            navigationOptions: {
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            },
-        },
         CardsTab: {
             screen: CardsTab,
             navigationOptions: {
@@ -191,6 +193,21 @@ const StacksInTabs = TabNavigator(
             }
 
         },
+        SettingsTab: {
+            screen: SettingsTab,
+            // path: '/settings',
+            navigationOptions: {
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            },
+        },
+
         MainTab: {
             screen: MainTab,
             path: '/',

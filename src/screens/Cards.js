@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions,Alert} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 
@@ -29,16 +29,8 @@ const DATA = [
 var likedCards = [], dislikedCards = [];
 
 export default class Cards extends Component {
-    static navigationOptions = ({screenProps}) => ({
-        tabBarOnPress: (scene, jumpToIndex) => {
-            // You can use sceneProps.previousScreen here
-            console.log('Cards screenProps', screenProps);
 
-            console.log('Cards sceneProps', screenProps);
-            console.log(' Cards scene', scene)
-            jumpToIndex(scene.index)
-        }
-    });
+
     constructor(props, context) {
         super(props, context);
 
@@ -91,8 +83,8 @@ export default class Cards extends Component {
 
     }
 
-    gotoMakeCards = () => {
-
+    gotoMyCards = () => {
+        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
     }
 
 
@@ -131,20 +123,11 @@ export default class Cards extends Component {
                         <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
                     </View> : null}
                 <View style={styles.headerCenter}>
-                    <View style={styles.headerCenterToggleContainer}>
-                        <View style={styles.headerCenterToggleLeft}>
-                            <Icon
-                                name="bookmark"
-                                color="#fff"
-                                size={28}
-                            />
-                        </View>
-
-                    </View>
+                  <Text>Add liked to My Cards</Text>
                 </View>
                 <View style={styles.headerRightIcon}>
-                    <Icon name="card-giftcard" color={colors.primary1} size={35}
-                          onPress={this.gotoMakeCards}
+                    <Icon name="shopping-bag" type="font-awesome" color={colors.primary1} size={35}
+                          onPress={this.gotoMyCards}
                     />
                 </View>
             </View>
@@ -169,7 +152,6 @@ export default class Cards extends Component {
         );
     }
 }
-
 
 
 const styles = StyleSheet.create({
