@@ -57,10 +57,6 @@ export default class TestCards extends Component {
         canvas.height = 400;
 
         const context = canvas.getContext('2d');
-        //
-
-        // use the extended from of drawImage to draw the
-        // cropped area to the temp canvas
 
         image.src = 'https://image.freepik.com/free-vector/unicorn-background-design_1324-79.jpg';
         // image.src = 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg';
@@ -81,7 +77,7 @@ export default class TestCards extends Component {
             context.font = "30px Arial";
             context.strokeText(text, canvas.width - 160, canvas.height - 50);
             canvas.toDataURL().then((dataUrl) => {
-                // return dataUrl;
+                return dataUrl;
             }).catch((error) => {
                 console.error(error);
             }).done();
@@ -90,7 +86,6 @@ export default class TestCards extends Component {
     }
 
     drawCanvas = () => {
-        console.log('canvas', this.refs.canvasImage)
         var canvas = this.refs.canvasImage;
         var text = 'Hello,duck';
         this.handleImageRect(canvas, text)

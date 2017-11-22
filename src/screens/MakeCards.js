@@ -17,17 +17,21 @@ import {
     FormInput,
     FormLabel,
     FormValidationMessage,
+    List,
+    ListItem,
 } from 'react-native-elements';
 import Utils from '../utils/utils';
 
 import axios from 'axios';
-import formStyle from '../styles/form';
+import colors from '../styles/colors';
+
+// import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 // sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
 
 const {width, height} = Dimensions.get('window');
 
-const equalWidth = (width / 4 )
+const equalWidth = (width / 2 )
 
 export default class MakeCards extends Component {
 
@@ -36,7 +40,7 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard: [],
+            makeCard: [{id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'}],
             previewImage: 'https://i.imgflip.com/1j2oed.jpg',
             showText: false,
             title: '',
@@ -107,7 +111,7 @@ export default class MakeCards extends Component {
 
     componentDidMount() {
         // this.props.navigation.setParams({handleShare: this.onShare})
-        console.log('this.state.makeCard)[0].uri',(this.state.makeCard)[0])
+        console.log('this.state.makeCard)[0].uri', (this.state.makeCard)[0])
     }
 
     render() {
@@ -119,17 +123,50 @@ export default class MakeCards extends Component {
             )
         }
         return (
-            <View style={styles.container}>
+            <View style={[styles.container]}>
+
                 <View style={styles.imageListContainer}>
-                    <Button
-                        onPress={this.onShare}
-                        icon={{name: 'done'}}
-                        buttonStyle={buttonStyle.submitButton}
-                        title="Sign up"
-                    />
-                    <View style={styles.container}>
+                    <View style={styles.inputsContainer}>
+
+                        <View style={styles.inputContainer}>
+
+                            <FormLabel containerStyle={styles.labelContainerStyle}>
+                                Wish words
+                            </FormLabel>
+                            <FormInput inputStyle={styles.inputStyle}
+                                       ref="wishwords"
+                                       containerRef="wishwordscontainerRef"
+                                       textInputRef="wishwordsInputRef"
+                                       placeholder="Please enter wish words"
+                                       onChangeText={(text) => this.setWishwords(text)}
+                            />
+                        </View>
+
+                        <View style={styles.inputContainer}>
+
+                            <FormLabel containerStyle={styles.labelContainerStyle}>
+                                Name
+                            </FormLabel>
+                            <FormInput inputStyle={styles.inputStyle}
+                                       ref="Name"
+                                       containerRef="namecontainerRef"
+                                       textInputRef="nameInputRef"
+                                       placeholder="Please Sign your name"
+                                       onChangeText={(text) => this.setName(text)}
+                            />
+                        </View>
+
+                        {this.state.errorMessage ?
+                            <FormValidationMessage containerStyle={styles.validateContainer}>
+                                {this.state.errorMessage}
+                            </FormValidationMessage>
+                            : null
+                        }
+
+                    </View>
+                    <View style={[styles.container, styles.imageContainer]}>
                         <TouchableOpacity onPress={() => this.pickImage((this.state.makeCard)[0].uri)}>
-                            <Image style={{height: 50, width: equalWidth}}
+                            <Image style={{height: 150}}
 
                                    source={{uri: (this.state.makeCard)[0].uri}}
 
@@ -137,52 +174,8 @@ export default class MakeCards extends Component {
                         </TouchableOpacity>
 
                     </View>
-                    <View style={formStyle.container}>
 
-                        <View style={formStyle.inputsContainer}>
-
-                            <View style={formStyle.inputContainer}>
-
-                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                    Wish words
-                                </FormLabel>
-                                <FormInput
-                                    ref="wishwords"
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter your wish words..."
-                                    onChangeText={(text) => this.setWishwords(text)}
-                                />
-                            </View>
-
-                            <View style={formStyle.inputContainer}>
-
-                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                    Name
-                                </FormLabel>
-                                <FormInput
-                                    ref="Name"
-                                    containerRef="namecontainerRef"
-                                    textInputRef="nameInputRef"
-                                    placeholder="Please enter your name..."
-                                    onChangeText={(text) => this.setName(text)}
-                                />
-                            </View>
-
-                            {this.state.errorMessage ?
-                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                    {this.state.errorMessage}
-                                </FormValidationMessage>
-                                : null
-                            }
-
-                        </View>
-
-
-                    </View>
                 </View>
-
-
                 <View style={styles.previewContainer}>
 
 
@@ -191,9 +184,12 @@ export default class MakeCards extends Component {
                         title={this.state.title}
                         featured
                         caption={this.state.caption}
+
                     />
 
                 </View>
+
+
             </View>
 
         );
@@ -230,19 +226,62 @@ const styles = StyleSheet.create({
         flex: 1,
 
     },
+    paddingH10: {
+        paddingHorizontal: 10,
+    },
     imageListContainer: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
+        flexDirection: 'row',
+        // flexWrap: 'nowrap',
+        // padding: 20,
+    },
+    imageContainer: {
+        justifyContent: 'flex-start',
+
+        // alignItems: 'center',
     },
     previewContainer: {
         flex: 1,
         flexDirection: 'row',
-        // width: width,
+        flexGrow: 1.8,
+        paddingBottom: 15,
+
     },
+
     rightTitle: {
         paddingRight: 15,
-    }
+    },
+    inputsContainer: {
+        flex: 1,
+    },
+    footerContainer: {
+        flex: 1,
+    },
+    largerFooterContainer: {
+        flex: 1.5,
+    },
+
+    inputContainer: {
+        height: 60,
+
+    },
+    inputStyle: {
+        width: equalWidth - 20,
+        fontSize: 12,
+
+    },
+    plainText: {
+        color: colors.grey3,
+    },
+    validateContainer: {
+        backgroundColor: colors.orange,
+    },
+    labelStyle: {
+        color: colors.white,
+    },
+    labelContainerStyle: {
+        marginTop: 8,
+    },
 
 });
