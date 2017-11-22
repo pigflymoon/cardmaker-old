@@ -8,16 +8,26 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
+    Share,
 } from 'react-native';
-import {Tile} from 'react-native-elements';
+import {
+    Tile,
+    Button,
+    Icon,
+    FormInput,
+    FormLabel,
+    FormValidationMessage,
+} from 'react-native-elements';
+import Utils from '../utils/utils';
 
 import axios from 'axios';
-
+import formStyle from '../styles/form';
+import buttonStyle from '../styles/button';
 // sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
 
 const {width, height} = Dimensions.get('window');
 
-const equalWidth = (width / 2 )
+const equalWidth = (width / 4 )
 
 export default class MakeCards extends Component {
 
@@ -57,7 +67,7 @@ export default class MakeCards extends Component {
         return (
             <View>
                 <TouchableOpacity onPress={() => this.pickImage(itemData.item.uri)}>
-                    <Image style={{height: 150, width: equalWidth}}
+                    <Image style={{height: 50, width: equalWidth}}
 
                            source={{uri: itemData.item.uri}}
 
@@ -81,6 +91,25 @@ export default class MakeCards extends Component {
     }
 
 
+    setWishwords = (text) => {
+        this.setState({title: text});
+
+    }
+
+    setName = (text) => {
+        this.setState({caption: text});
+
+    }
+
+    onShare = (message, url) => {
+        Utils.shareText(this.state.title, 'http://facebook.com')
+    }
+
+    componentDidMount() {
+        // this.props.navigation.setParams({handleShare: this.onShare})
+        console.log('this.state.makeCard)[0].uri',(this.state.makeCard)[0])
+    }
+
     render() {
         if (this.state.makeCard.length < 1) {
             return (
@@ -92,19 +121,72 @@ export default class MakeCards extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.imageListContainer}>
-                    <FlatList
-                        data={this.state.makeCard}
-                        numColumns={2}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={this.renderRowItem}
+                    <Button
+                        onPress={this.onShare}
+                        icon={{name: 'done'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title="Sign up"
                     />
+                    <View style={styles.container}>
+                        <TouchableOpacity onPress={() => this.pickImage((this.state.makeCard)[0].uri)}>
+                            <Image style={{height: 50, width: equalWidth}}
 
+                                   source={{uri: (this.state.makeCard)[0].uri}}
+
+                                   resizeMode='cover'/>
+                        </TouchableOpacity>
+
+                    </View>
+                    <View style={formStyle.container}>
+
+                        <View style={formStyle.inputsContainer}>
+
+                            <View style={formStyle.inputContainer}>
+
+                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                    Wish words
+                                </FormLabel>
+                                <FormInput
+                                    ref="wishwords"
+                                    containerRef="wishwordscontainerRef"
+                                    textInputRef="wishwordsInputRef"
+                                    placeholder="Please enter your wish words..."
+                                    onChangeText={(text) => this.setWishwords(text)}
+                                />
+                            </View>
+
+                            <View style={formStyle.inputContainer}>
+
+                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                    Name
+                                </FormLabel>
+                                <FormInput
+                                    ref="Name"
+                                    containerRef="namecontainerRef"
+                                    textInputRef="nameInputRef"
+                                    placeholder="Please enter your name..."
+                                    onChangeText={(text) => this.setName(text)}
+                                />
+                            </View>
+
+                            {this.state.errorMessage ?
+                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                    {this.state.errorMessage}
+                                </FormValidationMessage>
+                                : null
+                            }
+
+                        </View>
+
+
+                    </View>
                 </View>
+
+
                 <View style={styles.previewContainer}>
 
 
                     <Tile
-                        onPress={() => this.markByPosition('', 'Wish you Merry Christmas', 'By Duck')}
                         imageSrc={{uri: this.state.previewImage}}
                         title={this.state.title}
                         featured
@@ -151,21 +233,16 @@ const styles = StyleSheet.create({
     imageListContainer: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
     },
     previewContainer: {
         flex: 1,
         flexDirection: 'row',
         // width: width,
     },
-    button: {
-        backgroundColor: 'tomato',
-        width: 34,
-        height: 34,
-        borderRadius: 34 / 2,
-        overflow: 'hidden',
-        justifyContent: 'center',
-        alignItems: 'center'
+    rightTitle: {
+        paddingRight: 15,
     }
 
 });

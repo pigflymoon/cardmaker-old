@@ -211,7 +211,7 @@ export default class SignIn extends Component {
                     }
                 </View>
 
-                <View style={[formStyle.footerContnainer, formStyle.largerFooterContainer]}>
+                <View style={[formStyle.largerFooterContainer]}>
                     <Button
                         onPress={this.handleSignin}
                         icon={{name: 'done'}}

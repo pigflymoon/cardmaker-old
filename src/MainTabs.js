@@ -11,6 +11,7 @@ import SignupScreen from './screens/Signup';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
+import TestCardsScreen from './screens/TestCards';
 
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -76,6 +77,20 @@ const MainTab = StackNavigator({
 //Cards Tab: cards library and my cards
 const CardsTabs = TabNavigator(
     {
+        TestCardsTab: {
+            screen: TestCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Test Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
         CardsLibraryTab: {
             screen: CardsScreen,
             navigationOptions: {
