@@ -247,4 +247,5 @@ const StacksInTabs = TabNavigator(
 );
 
 export default StacksInTabs;
+console.disableYellowBox = true
 console.ignoredYellowBox = ['Remote debugger'];

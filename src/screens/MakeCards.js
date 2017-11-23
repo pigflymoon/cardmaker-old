@@ -124,7 +124,7 @@ export default class MakeCards extends Component {
             )
         }
         return (
-            <View style={[formStyle.container]}>
+            <View style={[cardStyle.cardsContainer]}>
 
                 <View style={cardStyle.imageListContainer}>
                     <View style={formStyle.inputsContainer}>

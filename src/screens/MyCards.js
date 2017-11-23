@@ -139,7 +139,7 @@ export default class MyCards extends Component {
                         <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
                     </View> : null}
                 <View style={cardStyle.headerCenter}>
-                    <Text>Make My Cards</Text>
+                    <Text style={cardStyle.title}>Make My Cards</Text>
                 </View>
                 <View style={cardStyle.headerRightIcon}>
                     <Icon name="card-giftcard" color={colors.primary1} size={35}

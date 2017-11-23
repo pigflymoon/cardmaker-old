@@ -116,17 +116,24 @@ export default class Cards extends Component {
         return (
             <View style={cardStyle.header}>
                 <View style={cardStyle.headerCenter}>
-                    <Text>Add liked to My Cards</Text>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>1. Swipe your card</Text>
+                    </View>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>2. Add liked to My Cards</Text>
+                    </View>
+
                 </View>
                 <View style={cardStyle.headerRightIcon}>
-                    <Icon name="shopping-bag" type="font-awesome" color={colors.primary1} size={35}
+                    <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={35}
                           onPress={this.gotoMyCards}
                     />
                 </View>
             </View>
         );
     }
-
 
 
     render() {
