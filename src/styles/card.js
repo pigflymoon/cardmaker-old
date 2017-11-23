@@ -48,10 +48,17 @@ export default{
         alignSelf: 'center',
         marginRight: 20,
     },
+    iconContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        marginTop: 10,
+    },
     shareRightIcon: {
         flex: 1,
-        justifyContent: 'flex-end',
-        marginLeft: 80,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
         // alignItems: 'center',
 
     },

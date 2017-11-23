@@ -189,14 +189,9 @@ export default class MakeCards extends Component {
 
                 <View style={cardStyle.imageListContainer}>
                     <View style={[formStyle.container, cardStyle.imageContainer]}>
-                        <TouchableOpacity onPress={() => this.drawCanvas((this.state.makeCard)[0].uri)}>
-                            <Image style={{height: 150}}
-
-                                   source={{uri: (this.state.makeCard)[0].uri}}
-
-                                   resizeMode='cover'/>
-                        </TouchableOpacity>
-
+                        <Image style={{height: 150}}
+                               source={{uri: (this.state.makeCard)[0].uri}}
+                               resizeMode='cover'/>
                     </View>
                     <View style={formStyle.inputsContainer}>
 
@@ -227,18 +222,26 @@ export default class MakeCards extends Component {
                                        onChangeText={(text) => this.setName(text)}
                             />
                         </View>
-                        <View style={cardStyle.shareRightIcon}>
-                            <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
-                                  onPress={this.onShare}
-                            />
-                        </View>
+
+
                         {this.state.errorMessage ?
                             <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                 {this.state.errorMessage}
                             </FormValidationMessage>
                             : null
                         }
-
+                        <View style={cardStyle.iconContainer}>
+                            <View style={cardStyle.shareRightIcon}>
+                                <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
+                                      onPress={() => this.drawCanvas((this.state.makeCard)[0].uri)}
+                                />
+                            </View>
+                            <View style={cardStyle.shareRightIcon}>
+                                <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                      onPress={this.onShare}
+                                />
+                            </View>
+                        </View>
                     </View>
 
 
