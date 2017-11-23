@@ -8,11 +8,12 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
-    Share,
+    // Share,
 } from 'react-native';
+import Share, {ShareSheet, Button} from 'react-native-share';
 import {
     Tile,
-    Button,
+    // Button,
     Icon,
     FormInput,
     FormLabel,
@@ -21,7 +22,7 @@ import {
     ListItem,
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
-
+import BackgroundTimer from 'react-native-background-timer';
 import Utils from '../utils/utils';
 
 import axios from 'axios';
@@ -44,7 +45,12 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard: [{id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'}],
+            makeCard: [{
+                id: 1,
+                text: 'Emma',
+                age: 29,
+                uri: 'https://image.freepik.com/free-vector/unicorn-background-design_1324-79.jpg'
+            }],
             previewImage: 'https://i.imgflip.com/1j2oed.jpg',
             showText: false,
             title: '',
@@ -91,6 +97,10 @@ export default class MakeCards extends Component {
         // }
     }
 
+    componentWillUnmount() {
+        BackgroundTimer.clearTimeout(this.timeoutId);
+    }
+
     //
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
@@ -109,8 +119,17 @@ export default class MakeCards extends Component {
 
     }
 
-    onShare = (message, url) => {
-        Utils.shareText(this.state.title, 'http://facebook.com')
+    onShare = () => {
+        // console.log('****************this.state.imageUrl',this.state.imageUrl)
+        // Utils.shareImage(this.state.imageUrl)
+        let shareImageBase64 = {
+            title: "React Native",
+            message: "Hola mundo",
+            url: this.state.imageUrl,//"http://facebook.github.io/react-native/",
+            // url: imageUrl,
+            subject: "Share Link" //  for email
+        };
+        Share.open(shareImageBase64).catch(err => console.log(err));
     }
 
     handleImageRect(canvas, url, text) {
@@ -143,11 +162,38 @@ export default class MakeCards extends Component {
 
             context.font = "14px Arial";
             context.strokeText(caption, 60, 250);
-            canvas.toDataURL().then((dataUrl) => {
+            canvas.toDataURL().then((dataUrl, callback) => {
+                // console.log('dataUrl', dataUrl)
+                // callback (generalLastName, options);
+
                 return dataUrl;
-            }).catch((error) => {
-                console.error(error);
-            }).done();
+            }).then((value) => {
+                console.log('value', value)//data:image/png;base64
+
+                // Utils.shareImage(value);
+                // Start a timer that runs once after X milliseconds
+                this.timeoutId = BackgroundTimer.setTimeout(() => {
+                    let shareImageBase64 = {
+                        title: "React Native",
+                        message: "Hola mundo",
+                        url: value,//"http://facebook.github.io/react-native/",
+                        // url: imageUrl,
+                        subject: "Share Link" //  for email
+                    };
+                    Share.open(shareImageBase64).catch(err => console.log(err));
+                    console.log('tac');
+                }, 10000);
+
+// Cancel the timeout if necessary
+//
+
+                // this.setState({
+                //     imageUrl: value,
+                // })
+            })
+                .catch((error) => {
+                    console.error(error);
+                }).done();
 
         });
     }
