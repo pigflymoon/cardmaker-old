@@ -13,6 +13,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 // test data
 const DATA = [
+    {id: 4, text: 'Duck', age: 1, uri: 'https://i.pinimg.com/originals/7c/40/e5/7c40e557d35e9bbc50d4fb3f4d01c781.jpg'},
     {id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
     {
         id: 2,

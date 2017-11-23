@@ -45,12 +45,7 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard: [{
-                id: 1,
-                text: 'Emma',
-                age: 29,
-                uri: 'https://image.freepik.com/free-vector/unicorn-background-design_1324-79.jpg'
-            }],
+            makeCard: [],
             previewImage: 'https://i.imgflip.com/1j2oed.jpg',
             showText: false,
             title: '',
@@ -121,36 +116,27 @@ export default class MakeCards extends Component {
 
     onShare = () => {
         // console.log('****************this.state.imageUrl',this.state.imageUrl)
-        // Utils.shareImage(this.state.imageUrl)
-        let shareImageBase64 = {
-            title: "React Native",
-            message: "Hola mundo",
-            url: this.state.imageUrl,//"http://facebook.github.io/react-native/",
-            // url: imageUrl,
-            subject: "Share Link" //  for email
-        };
-        Share.open(shareImageBase64).catch(err => console.log(err));
+        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
+        // let shareImageBase64 = {
+        //     title: "React Native",
+        //     message: "Hola mundo",
+        //     url: this.state.imageUrl,//"http://facebook.github.io/react-native/",
+        //     subject: "Share Link" //  for email
+        // };
+        // Share.open(shareImageBase64).catch(err => console.log(err));
     }
 
-    handleImageRect(canvas, url, text) {
+    getDataUri(canvas, url, callback) {
         const image = new CanvasImage(canvas);
         canvas.width = SCREEN_WIDTH;
         canvas.height = 400;
-
         const context = canvas.getContext('2d');
-
         image.src = url;
-        // image.src = 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg';
-
         image.addEventListener('load', () => {
-            console.log('image is loaded');
-
             var originalWidth = image.width;
             var originalHeight = image.height;
             var newWidth = canvas.width;
             var newHeight = (newWidth / originalWidth) * originalHeight;
-            console.log('originalWidth,  originalHeight', originalWidth, originalHeight)
-            console.log('newWidth,  newHeight', newWidth, newHeight)
 
             context.drawImage(image, 0, 0, newWidth, newHeight)
             var title = this.state.title;
@@ -162,52 +148,32 @@ export default class MakeCards extends Component {
 
             context.font = "14px Arial";
             context.strokeText(caption, 60, 250);
-            canvas.toDataURL().then((dataUrl, callback) => {
-                // console.log('dataUrl', dataUrl)
-                // callback (generalLastName, options);
-
-                return dataUrl;
-            }).then((value) => {
-                console.log('value', value)//data:image/png;base64
-
-                // Utils.shareImage(value);
-                // Start a timer that runs once after X milliseconds
-                this.timeoutId = BackgroundTimer.setTimeout(() => {
-                    let shareImageBase64 = {
-                        title: "React Native",
-                        message: "Hola mundo",
-                        url: value,//"http://facebook.github.io/react-native/",
-                        // url: imageUrl,
-                        subject: "Share Link" //  for email
-                    };
-                    Share.open(shareImageBase64).catch(err => console.log(err));
-                    console.log('tac');
-                }, 10000);
-
-// Cancel the timeout if necessary
-//
-
-                // this.setState({
-                //     imageUrl: value,
-                // })
-            })
-                .catch((error) => {
-                    console.error(error);
-                }).done();
+            console.log('hi called image load')
+            canvas.toDataURL().then((dataUrl) => {
+                //get rid of extra "" of the return value ""dsdsfs""
+                dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));
+                callback(dataUrl);
+                // return dataUrl;
+            });
 
         });
+
     }
+
 
     drawCanvas = (url) => {
         var canvas = this.refs.canvasImage;
         var text = 'Hello,duck';
-        this.handleImageRect(canvas, url, text)
+        var self = this;
+        // this.handleImageRect(canvas, url, text)
+        this.getDataUri(canvas, url, function (dataUri) {
+            self.setState({imageUrl: dataUri});
+        })
 
     }
 
     componentDidMount() {
-        // this.props.navigation.setParams({handleShare: this.onShare})
-        console.log('this.state.makeCard)[0].uri', (this.state.makeCard)[0])
+
     }
 
     render() {
