@@ -20,6 +20,8 @@ import {
     List,
     ListItem,
 } from 'react-native-elements';
+import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
+
 import Utils from '../utils/utils';
 
 import axios from 'axios';
@@ -31,6 +33,7 @@ import cardStyle from '../styles/card';
 // sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
 
 const {width, height} = Dimensions.get('window');
+const SCREEN_WIDTH = width;
 
 const equalWidth = (width / 2 )
 
@@ -110,6 +113,52 @@ export default class MakeCards extends Component {
         Utils.shareText(this.state.title, 'http://facebook.com')
     }
 
+    handleImageRect(canvas, url, text) {
+        const image = new CanvasImage(canvas);
+        canvas.width = SCREEN_WIDTH;
+        canvas.height = 400;
+
+        const context = canvas.getContext('2d');
+
+        image.src = url;
+        // image.src = 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg';
+
+        image.addEventListener('load', () => {
+            console.log('image is loaded');
+
+            var originalWidth = image.width;
+            var originalHeight = image.height;
+            var newWidth = canvas.width;
+            var newHeight = (newWidth / originalWidth) * originalHeight;
+            console.log('originalWidth,  originalHeight', originalWidth, originalHeight)
+            console.log('newWidth,  newHeight', newWidth, newHeight)
+
+            context.drawImage(image, 0, 0, newWidth, newHeight)
+            var title = this.state.title;
+            var caption = this.state.caption;
+
+
+            context.font = "20px Arial";
+            context.strokeText(title, 60, 200);
+
+            context.font = "14px Arial";
+            context.strokeText(caption, 60, 250);
+            canvas.toDataURL().then((dataUrl) => {
+                return dataUrl;
+            }).catch((error) => {
+                console.error(error);
+            }).done();
+
+        });
+    }
+
+    drawCanvas = (url) => {
+        var canvas = this.refs.canvasImage;
+        var text = 'Hello,duck';
+        this.handleImageRect(canvas, url, text)
+
+    }
+
     componentDidMount() {
         // this.props.navigation.setParams({handleShare: this.onShare})
         console.log('this.state.makeCard)[0].uri', (this.state.makeCard)[0])
@@ -127,6 +176,16 @@ export default class MakeCards extends Component {
             <View style={[cardStyle.cardsContainer]}>
 
                 <View style={cardStyle.imageListContainer}>
+                    <View style={[formStyle.container, cardStyle.imageContainer]}>
+                        <TouchableOpacity onPress={() => this.drawCanvas((this.state.makeCard)[0].uri)}>
+                            <Image style={{height: 150}}
+
+                                   source={{uri: (this.state.makeCard)[0].uri}}
+
+                                   resizeMode='cover'/>
+                        </TouchableOpacity>
+
+                    </View>
                     <View style={formStyle.inputsContainer}>
 
                         <View style={formStyle.inputContainer}>
@@ -156,7 +215,11 @@ export default class MakeCards extends Component {
                                        onChangeText={(text) => this.setName(text)}
                             />
                         </View>
-
+                        <View style={cardStyle.shareRightIcon}>
+                            <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                  onPress={this.onShare}
+                            />
+                        </View>
                         {this.state.errorMessage ?
                             <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                 {this.state.errorMessage}
@@ -165,26 +228,14 @@ export default class MakeCards extends Component {
                         }
 
                     </View>
-                    <View style={[formStyle.container, cardStyle.imageContainer]}>
-                        <TouchableOpacity onPress={() => this.pickImage((this.state.makeCard)[0].uri)}>
-                            <Image style={{height: 150}}
 
-                                   source={{uri: (this.state.makeCard)[0].uri}}
-
-                                   resizeMode='cover'/>
-                        </TouchableOpacity>
-
-                    </View>
 
                 </View>
-                <View style={cardStyle.previewContainer}>
-                    <Tile
-                        imageSrc={{uri: this.state.previewImage}}
-                        title={this.state.title}
-                        featured
-                        caption={this.state.caption}
 
-                    />
+
+                <View style={cardStyle.previewContainer}>
+                    <Canvas ref="canvasImage"/>
+
 
                 </View>
 

@@ -48,6 +48,13 @@ export default{
         alignSelf: 'center',
         marginRight: 20,
     },
+    shareRightIcon: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginLeft: 80,
+        // alignItems: 'center',
+
+    },
     deck: {
         flex: 1,
     },
@@ -78,8 +85,8 @@ export default{
     previewContainer: {
         flex: 1,
         flexDirection: 'row',
-        flexGrow: 1.5,
-        paddingBottom: 10,
+        flexGrow: 2,
+
 
     },
     inputStyle: {
