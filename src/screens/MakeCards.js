@@ -25,8 +25,9 @@ import Utils from '../utils/utils';
 import axios from 'axios';
 import colors from '../styles/colors';
 
-// import formStyle from '../styles/form';
-import buttonStyle from '../styles/button';
+import formStyle from '../styles/form';
+import cardStyle from '../styles/card';
+// import buttonStyle from '../styles/button';
 // sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
 
 const {width, height} = Dimensions.get('window');
@@ -123,17 +124,17 @@ export default class MakeCards extends Component {
             )
         }
         return (
-            <View style={[styles.container]}>
+            <View style={[formStyle.container]}>
 
-                <View style={styles.imageListContainer}>
-                    <View style={styles.inputsContainer}>
+                <View style={cardStyle.imageListContainer}>
+                    <View style={formStyle.inputsContainer}>
 
-                        <View style={styles.inputContainer}>
+                        <View style={formStyle.inputContainer}>
 
-                            <FormLabel containerStyle={styles.labelContainerStyle}>
+                            <FormLabel containerStyle={formStyle.labelContainerStyle}>
                                 Wish words
                             </FormLabel>
-                            <FormInput inputStyle={styles.inputStyle}
+                            <FormInput inputStyle={cardStyle.inputStyle}
                                        ref="wishwords"
                                        containerRef="wishwordscontainerRef"
                                        textInputRef="wishwordsInputRef"
@@ -142,12 +143,12 @@ export default class MakeCards extends Component {
                             />
                         </View>
 
-                        <View style={styles.inputContainer}>
+                        <View style={formStyle.inputContainer}>
 
-                            <FormLabel containerStyle={styles.labelContainerStyle}>
+                            <FormLabel containerStyle={formStyle.labelContainerStyle}>
                                 Name
                             </FormLabel>
-                            <FormInput inputStyle={styles.inputStyle}
+                            <FormInput inputStyle={cardStyle.inputStyle}
                                        ref="Name"
                                        containerRef="namecontainerRef"
                                        textInputRef="nameInputRef"
@@ -157,14 +158,14 @@ export default class MakeCards extends Component {
                         </View>
 
                         {this.state.errorMessage ?
-                            <FormValidationMessage containerStyle={styles.validateContainer}>
+                            <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                 {this.state.errorMessage}
                             </FormValidationMessage>
                             : null
                         }
 
                     </View>
-                    <View style={[styles.container, styles.imageContainer]}>
+                    <View style={[formStyle.container, cardStyle.imageContainer]}>
                         <TouchableOpacity onPress={() => this.pickImage((this.state.makeCard)[0].uri)}>
                             <Image style={{height: 150}}
 
@@ -176,9 +177,7 @@ export default class MakeCards extends Component {
                     </View>
 
                 </View>
-                <View style={styles.previewContainer}>
-
-
+                <View style={cardStyle.previewContainer}>
                     <Tile
                         imageSrc={{uri: this.state.previewImage}}
                         title={this.state.title}
@@ -220,68 +219,3 @@ export default class MakeCards extends Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-
-    },
-    paddingH10: {
-        paddingHorizontal: 10,
-    },
-    imageListContainer: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-        flexDirection: 'row',
-        // flexWrap: 'nowrap',
-        // padding: 20,
-    },
-    imageContainer: {
-        justifyContent: 'flex-start',
-
-        // alignItems: 'center',
-    },
-    previewContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexGrow: 1.8,
-        paddingBottom: 15,
-
-    },
-
-    rightTitle: {
-        paddingRight: 15,
-    },
-    inputsContainer: {
-        flex: 1,
-    },
-    footerContainer: {
-        flex: 1,
-    },
-    largerFooterContainer: {
-        flex: 1.5,
-    },
-
-    inputContainer: {
-        height: 60,
-
-    },
-    inputStyle: {
-        width: equalWidth - 20,
-        fontSize: 12,
-
-    },
-    plainText: {
-        color: colors.grey3,
-    },
-    validateContainer: {
-        backgroundColor: colors.orange,
-    },
-    labelStyle: {
-        color: colors.white,
-    },
-    labelContainerStyle: {
-        marginTop: 8,
-    },
-
-});

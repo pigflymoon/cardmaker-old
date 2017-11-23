@@ -6,6 +6,7 @@ import {Button, Card, Icon,} from 'react-native-elements';
 import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
+import cardStyle from '../styles/card';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -47,9 +48,8 @@ export default class Cards extends Component {
             <Card
                 key={card.id}
                 containerStyle={{
-                    borderRadius: 10,
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 165,
+                    height: SCREEN_HEIGHT - 250,
                 }}
                 featuredTitle={`${card.text}, ${card.age}`}
                 featuredTitleStyle={{
@@ -60,9 +60,8 @@ export default class Cards extends Component {
                 }}
                 image={{uri: card.uri}}
                 imageStyle={{
-                    borderRadius: 10,
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 165,
+                    height: SCREEN_HEIGHT - 252,
                 }}
             />
         );
@@ -99,17 +98,15 @@ export default class Cards extends Component {
         return (
             <Card
                 containerStyle={{
-                    borderRadius: 10,
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 165,
+                    height: SCREEN_HEIGHT - 250,
                 }}
                 featuredTitle="No more cards"
                 featuredTitleStyle={{fontSize: 25}}
                 image={{uri: 'https://i.imgflip.com/1j2oed.jpg'}}
                 imageStyle={{
-                    borderRadius: 10,
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 165,
+                    height: SCREEN_HEIGHT - 252
                 }}
             />
         );
@@ -117,15 +114,11 @@ export default class Cards extends Component {
 
     renderHeader() {
         return (
-            <View style={styles.header}>
-                {this.state.showSignCard ?
-                    <View style={styles.headerLeftIcon}>
-                        <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
-                    </View> : null}
-                <View style={styles.headerCenter}>
-                  <Text>Add liked to My Cards</Text>
+            <View style={cardStyle.header}>
+                <View style={cardStyle.headerCenter}>
+                    <Text>Add liked to My Cards</Text>
                 </View>
-                <View style={styles.headerRightIcon}>
+                <View style={cardStyle.headerRightIcon}>
                     <Icon name="shopping-bag" type="font-awesome" color={colors.primary1} size={35}
                           onPress={this.gotoMyCards}
                     />
@@ -135,11 +128,12 @@ export default class Cards extends Component {
     }
 
 
+
     render() {
         return (
-            <View style={styles.container}>
+            <View style={cardStyle.cardsContainer}>
                 {this.renderHeader()}
-                <View style={styles.deck}>
+                <View style={cardStyle.deck}>
                     <SwipeDeck
                         data={this.state.cardsData}
                         renderCard={this.renderCard}
@@ -148,77 +142,11 @@ export default class Cards extends Component {
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
+
             </View>
         );
     }
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    },
-    header: {
-        height: 64,
-        paddingTop: 35,
-        flexDirection: 'row',
-    },
-    headerLeftIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginLeft: 15,
-    },
-    headerCenter: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
-    headerCenterToggleContainer: {
-        flexDirection: 'row',
-        width: 160,
-        height: 45,
-        borderRadius: 30,
-        borderWidth: 2,
-        borderColor: '#ccc',
-    },
-    headerCenterToggleLeft: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ff0000',
-        borderRadius: 30,
-    },
-    headerCenterToggleRight: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headerRightIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginRight: 20,
-    },
-    deck: {
-        flex: 1,
-    },
-    footer: {
-        height: 64,
-        flexDirection: 'row',
-        paddingBottom: 10,
-    },
-    footerIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        margin: 10,
-    },
-});
 
 
