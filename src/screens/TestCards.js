@@ -1,79 +1,188 @@
 import React, {Component} from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    Dimensions,
-    Alert,
-    Image,
-    FlatList,
-    ScrollView,
-    ImageBackground,
-    TouchableHighlight
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
 
-import SuperGrid from 'react-native-super-grid';
+import {Button, Card, Icon,} from 'react-native-elements';
 
+import SwipeDeck from '../components/SwipeDeck';
 
-const items = [
+import firebase from 'firebase';  // Initialize Firebase
+import RNFetchBlob from 'react-native-fetch-blob';
+import firebaseApp from '../config/FirebaseConfig';
+// import bg from './src/images/bg.jpg';
+
+import colors from '../styles/colors';
+import cardStyle from '../styles/card';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+// test data
+const DATA = [
     {
-        url: 'https://i.pinimg.com/236x/c3/73/2a/c3732abb95e790432a0208097c4e662e.jpg',
+        id: 1,
+        uri: 'https://i.imgur.com/wO7pizCb.jpg',
         name: 'TURQUOISE',
         code: '#1abc9c'
     }, {
-        url: 'https://i.pinimg.com/236x/c3/73/2a/c3732abb95e790432a0208097c4e662e.jpg',
+        id: 2,
+        uri: 'https://i.imgur.com/AD3MbBi.jpg',
         name: 'EMERALD',
         code: '#2ecc71'
     },
     {
-        url: 'https://i.pinimg.com/236x/3c/ca/4f/3cca4f233f253b4ca72010f5200cb372.jpg',
+        id: 3,
+        uri: 'https://i.imgur.com/mtbl1crb.jpg',
         name: 'PETER RIVER',
         code: '#3498db'
-    }, {name: 'AMETHYST', code: '#9b59b6'},
-    {
-        url: 'https://i.pinimg.com/236x/4f/a3/44/4fa3442fd9a7e2da25ddaddb968b6d0a.jpg',
-        name: 'WET ASPHALT', code: '#34495e'
-    }, {name: 'GREEN SEA', code: '#16a085'},
-    {
-        url: 'https://i.pinimg.com/236x/4f/a3/44/4fa3442fd9a7e2da25ddaddb968b6d0a.jpg',
-        name: 'NEPHRITIS', code: '#27ae60'
-    }, {name: 'BELIZE HOLE', code: '#2980b9'},
-    {
-        url: 'https://i.pinimg.com/236x/90/0a/49/900a49c038c9759f79ddccbf6a82c499.jpg',
-        name: 'WISTERIA', code: '#8e44ad'
-    }, {name: 'MIDNIGHT BLUE', code: '#2c3e50'},
-    {
-        url: 'https://i.pinimg.com/236x/4f/a3/44/4fa3442fd9a7e2da25ddaddb968b6d0a.jpg',
-        name: 'SUN FLOWER', code: '#f1c40f'
-    }, {name: 'CARROT', code: '#e67e22'},
-    {
-        url: 'https://i.pinimg.com/236x/61/35/93/613593ea3d5537c7f85f7365f0d72f45.jpg',
-        name: 'ALIZARIN', code: '#e74c3c'
-    }, {name: 'CLOUDS', code: '#ecf0f1'},
-    {
-        url: 'https://i.pinimg.com/236x/cc/da/2a/ccda2a351bb00a0267bb98e6bc8067eb.jpg',
-        name: 'CONCRETE', code: '#95a5a6'
-    }, {name: 'ORANGE', code: '#f39c12'},
-    {
-        url: 'https://i.pinimg.com/236x/4f/a3/44/4fa3442fd9a7e2da25ddaddb968b6d0a.jpg',
-        name: 'PUMPKIN', code: '#d35400'
-    }, {name: 'POMEGRANATE', code: '#c0392b'},
-    {
-        url: 'https://i.pinimg.com/236x/90/0a/49/900a49c038c9759f79ddccbf6a82c499.jpg',
-        name: 'SILVER', code: '#bdc3c7'
     }, {
-        url: 'https://i.pinimg.com/236x/c3/73/2a/c3732abb95e790432a0208097c4e662e.jpg',
-        name: 'ASBESTOS',
-        code: '#7f8c8d'
+        id: 4,
+        uri: 'https://i.imgur.com/igt12tfb.jpg',
+        name: 'AMETHYST',
+        code: '#9b59b6'
     },
+    {
+        id: 5,
+        uri: 'https://i.imgur.com/QxR8tQhb.jpg',
+        name: 'WET ASPHALT',
+        code: '#34495e'
+    }, {
+        id: 6,
+        uri: 'https://i.imgur.com/WktFupPb.jpg',
+        name: 'GREEN SEA',
+        code: '#16a085'
+    },
+    {
+        id: 7,
+        uri: 'https://i.imgur.com/gM5yeySb.jpg',
+        name: 'NEPHRITIS', code: '#27ae60'
+    },
+    {
+        id: 8,
+        uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+        name: 'BELIZE HOLE',
+        code: '#2980b9'
+    },
+
 ];
+var likedCards = [], dislikedCards = [], cards = [];
+
 export default class TestCards extends Component {
 
 
     constructor(props, context) {
         super(props, context);
+        console.log('~~~~~~~~~~~name called~~~~~~~~~~`');
+        this.state = {
+            showSignCard: false,
+            cardsData: null,
+            likedCards: [],
+            dislikedCards: [],
+        }
+    }
+
+    getImageByName = (name) => {
+        console.log('name', name);
+        var storageRef = firebase.storage().ref('/images');
+
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child(name);
+        console.log('thisRef', thisRef);
+        //put request upload file to firebase storage
+        thisRef.getDownloadURL().then(function (url) {
+            console.log('Uploaded a blob or file!', url);
+            cards.push({
+                id: name,
+                uri: url,
+                name: name,
+                code: '#2980b9'
+            })
+            console.log('cards', cards)
+            // return cards
+        });
+
+    }
+
+    componentWillMount() {
+        console.log('GrandChild will mount.');
 
 
+    }
+
+    componentDidMount() {
+        console.log('GrandChild did mount.');
+    }
+
+    getImagesByName = () => {
+        this.getImageByName('1.jpg')
+        this.getImageByName('2.jpg')
+        this.getImageByName('3.jpg')
+        this.getImageByName('4.jpg')
+        this.setState({
+            cardsData: cards
+        })
+    }
+    getImages = () => {
+        var self = this;
+        var storageRef = firebase.storage().ref("images/1.jpg");///avatar.jpeg
+        storageRef.getDownloadURL().then(function (url) {
+            console.log(url);
+            var addImage = {
+                id: 9,
+                uri: url,
+                name: 'cat',
+                code: '#2980b9'
+            }
+            console.log('this.state.cardsData', self.state.cardsData)
+            var cardsData = self.state.cardsData;
+            cardsData.push(addImage);
+            console.log('cards ', cardsData)
+            self.setState({cardsData: cardsData})
+        });
+
+    }
+
+    renderCard = (card) => {
+        return (
+            <Card
+                key={card.id}
+                containerStyle={{
+                    width: SCREEN_WIDTH * 0.92,
+                    height: SCREEN_HEIGHT - 250,
+                }}
+                featuredTitle={card.name}
+                featuredTitleStyle={{
+                    position: 'absolute',
+                    left: 15,
+                    bottom: 15,
+                    fontSize: 30,
+                }}
+                image={{uri: card.uri}}
+                imageStyle={{
+                    width: SCREEN_WIDTH * 0.915,
+                    height: SCREEN_HEIGHT - 252,
+                }}
+            />
+        );
+    }
+
+    onSwipeRight(card) {
+        // console.log('Card liked: ' + card.name, 'Card is ', card);
+
+        likedCards.push(card);
+        console.log('likedCards ', likedCards)
+        // this.setState({likedCards: likedCards});
+
+    }
+
+    onSwipeLeft(card) {
+        // console.log('Card disliked: ' + card.name, 'Card is ', card);
+        dislikedCards.push(card);
+
+    }
+
+    gotoMyCards = () => {
+        console.log('pass likedCards', likedCards)
+        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
     }
 
 
@@ -82,90 +191,70 @@ export default class TestCards extends Component {
 
     }
 
-    chooseCard = (item) => {
-        console.log('choose the ', item)
+
+    renderNoMoreCards() {
+        return (
+            <Card
+                containerStyle={{
+                    width: SCREEN_WIDTH * 0.92,
+                    height: SCREEN_HEIGHT - 250,
+                }}
+                featuredTitle="No more cards"
+                featuredTitleStyle={{fontSize: 25}}
+                image={{uri: 'https://i.imgflip.com/1j2oed.jpg'}}
+                imageStyle={{
+                    width: SCREEN_WIDTH * 0.915,
+                    height: SCREEN_HEIGHT - 252
+                }}
+            />
+        );
     }
 
+    renderHeader() {
+        return (
+            <View style={cardStyle.header}>
+                <View style={cardStyle.headerCenter}>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>1. Swipe your card</Text>
+                    </View>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>2. Add liked to My Cards</Text>
+                    </View>
+
+                </View>
+                <View style={cardStyle.headerRightIcon}>
+                    <Icon name="refresh" type="font-awesome" color={colors.primary1} size={35}
+                          onPress={this.getImagesByName}
+                    />
+                    <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={35}
+                          onPress={this.gotoMyCards}
+                    />
+                </View>
+            </View>
+        );
+    }
 
 
     render() {
         return (
-            <View style={styles.container}>
-                <SuperGrid
-                    itemWidth={130}
-                    items={items}
-                    style={styles.gridView}
-                    renderItem={item => (
-
-                        <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                            <TouchableHighlight onPress={() => this.chooseCard(item)}>
-                                <ImageBackground source={{uri: item.url}} style={styles.imageContainer}>
-                                    <Text style={styles.itemName}>{item.name}</Text>
-                                    <Text style={styles.itemCode}>{item.code}</Text>
-                                </ImageBackground>
-                            </TouchableHighlight>
-                        </View>
-
-
-                    )}
-                />
-                <Text>
-                    Test
-                </Text>
-                <SuperGrid
-                    itemWidth={130}
-                    items={items}
-                    style={styles.gridView}
-                    renderItem={item => (
-
-                        <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                            <TouchableHighlight onPress={() => this.chooseCard(item)}>
-                                <ImageBackground source={{uri: item.url}} style={styles.imageContainer}>
-                                    <Text style={styles.itemName}>{item.name}</Text>
-                                    <Text style={styles.itemCode}>{item.code}</Text>
-                                </ImageBackground>
-                            </TouchableHighlight>
-                        </View>
-
-
-                    )}
-                />
+            <View style={cardStyle.cardsContainer}>
+                {this.renderHeader()}
+                {this.state.cardsData ?
+                    <View style={cardStyle.deck}>
+                        <SwipeDeck
+                            data={this.state.cardsData}
+                            renderCard={this.renderCard}
+                            renderNoMoreCards={this.renderNoMoreCards}
+                            onSwipeRight={this.onSwipeRight}
+                            onSwipeLeft={this.onSwipeLeft}
+                        />
+                    </View> : null}
             </View>
         );
-
     }
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    },
-    gridView: {
-        paddingTop: 25,
-        flex: 1,
-    },
-    imageContainer: {
-        height: 130,
-        // width: 150,
-    },
-    itemContainer: {
-        justifyContent: 'flex-end',
-        borderRadius: 5,
-        padding: 10,
-        height: 150,
-    },
-    itemName: {
-        fontSize: 16,
-        color: '#fff',
-        fontWeight: '600',
-    },
-    itemCode: {
-        fontWeight: '600',
-        fontSize: 12,
-        color: '#fff',
-    },
-});
 
 
