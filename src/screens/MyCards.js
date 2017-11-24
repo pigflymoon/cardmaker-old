@@ -1,51 +1,29 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
     Text,
     View,
-    Dimensions,
     Alert,
-    Image,
-    FlatList,
-    ScrollView,
     ImageBackground,
     TouchableHighlight
 } from 'react-native';
 
-import {Button, Card, Icon,} from 'react-native-elements';
-
-import SwipeDeck from '../components/SwipeDeck';
+import GridView from 'react-native-super-grid';
+import {Icon} from 'react-native-elements';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
-import GridView from 'react-native-super-grid';
-var chooseCards = [], makeCards = [];
-const items = [
-    {
-        id: 1,
-        uri: 'https://i.imgur.com/FHxVpN4.jpg',
-        name: 'TURQUOISE',
-        code: '#1abc9c'
-    },
+var chooseCards = [];
 
-
-];
 export default class MyCards extends Component {
-
-
     constructor(props, context) {
         super(props, context);
         this.state = {
             showSignCard: false,
-            cardsData: chooseCards,
             makeCards: null,
-            chooseCards: items,
-
-
+            chooseCards: null,
         }
 
     }
-
 
     componentDidMount() {
         //
@@ -77,7 +55,6 @@ export default class MyCards extends Component {
     }
 
     renderHeader() {
-        console.log('my card called?')
         return (
             <View style={cardStyle.header}>
                 <View style={cardStyle.headerCenter}>
@@ -94,62 +71,32 @@ export default class MyCards extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={cardStyle.container}>
                 {this.renderHeader()}
-                <GridView
-                    itemWidth={130}
-                    items={this.state.chooseCards}
-                    style={styles.gridView}
-                    renderItem={item => (
+                {this.state.chooseCards ?
+                    <GridView
+                        itemWidth={130}
+                        items={this.state.chooseCards}
+                        style={cardStyle.gridView}
+                        renderItem={item => (
+                            <View style={[cardStyle.itemContainer, {backgroundColor: item.code}]}>
+                                <TouchableHighlight onPress={() => this.chooseCard(item)} underlayColor='#99d9f4'>
+                                    <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
+                                        <Text style={cardStyle.itemName}>{item.name}</Text>
+                                        <Text style={cardStyle.itemCode}>{item.code}</Text>
+                                    </ImageBackground>
+                                </TouchableHighlight>
+                            </View>
 
-                        <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                            <TouchableHighlight onPress={() => this.chooseCard(item)} underlayColor='#99d9f4'>
-                                <ImageBackground source={{uri: item.uri}} style={styles.imageContainer}>
-                                    <Text style={styles.itemName}>{item.name}</Text>
-                                    <Text style={styles.itemCode}>{item.code}</Text>
-                                </ImageBackground>
-                            </TouchableHighlight>
-                        </View>
 
+                        )}
+                    /> : null}
 
-                    )}
-                />
             </View>
         );
 
     }
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    },
-    gridView: {
-        paddingTop: 25,
-        flex: 1,
-    },
-    imageContainer: {
-        height: 130,
-        // width: 150,
-    },
-    itemContainer: {
-        justifyContent: 'flex-end',
-        borderRadius: 5,
-        padding: 10,
-        height: 150,
-    },
-    itemName: {
-        fontSize: 16,
-        color: '#fff',
-        fontWeight: '600',
-    },
-    itemCode: {
-        fontWeight: '600',
-        fontSize: 12,
-        color: '#fff',
-    },
-});
 
 

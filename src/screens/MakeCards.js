@@ -8,33 +8,24 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
-    // Share,
 } from 'react-native';
 import {
-    Tile,
-    // Button,
     Icon,
     FormInput,
     FormLabel,
     FormValidationMessage,
-    List,
-    ListItem,
 } from 'react-native-elements';
-import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
-import Utils from '../utils/utils';
-
 import axios from 'axios';
-import colors from '../styles/colors';
+import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
 
+import Utils from '../utils/utils';
+import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
-// import buttonStyle from '../styles/button';
-// sample api http://droidtute.com/reactexample/sample_api/getMovieList.php
+
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_WIDTH = width;
-
-const equalWidth = (width / 2 )
 
 export default class MakeCards extends Component {
 
@@ -43,45 +34,10 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard:null,
-            previewImage: 'https://i.imgflip.com/1j2oed.jpg',
-            showText: false,
+            makeCard: null,
             title: '',
             caption: '',
         }
-    }
-
-    pickImage = (url) => {
-        console.log('image url', url)
-        this.setState({
-            previewImage: url,
-        })
-    }
-
-    markByPosition = (position, wishwords, name) => {
-
-        this.setState({
-            title: wishwords,
-            caption: name,
-        })
-    }
-    _keyExtractor = (item, index) => `key${index}`;
-//http://placehold.it/150/92c952
-    //https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg
-    renderRowItem = (itemData) => {
-        console.log('itemData', itemData)
-
-        return (
-            <View>
-                <TouchableOpacity onPress={() => this.pickImage(itemData.item.uri)}>
-                    <Image style={{height: 50, width: equalWidth}}
-
-                           source={{uri: itemData.item.uri}}
-
-                           resizeMode='cover'/>
-                </TouchableOpacity>
-            </View>
-        )
     }
 
     componentWillMount() {
@@ -90,9 +46,6 @@ export default class MakeCards extends Component {
         // }
     }
 
-
-
-    //
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
         console.log('makecard', makeCard)
@@ -102,7 +55,6 @@ export default class MakeCards extends Component {
 
     setWishwords = (text) => {
         this.setState({title: text});
-
     }
 
     setName = (text) => {
@@ -111,15 +63,7 @@ export default class MakeCards extends Component {
     }
 
     onShare = () => {
-        // console.log('****************this.state.imageUrl',this.state.imageUrl)
         Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
-        // let shareImageBase64 = {
-        //     title: "React Native",
-        //     message: "Hola mundo",
-        //     url: this.state.imageUrl,//"http://facebook.github.io/react-native/",
-        //     subject: "Share Link" //  for email
-        // };
-        // Share.open(shareImageBase64).catch(err => console.log(err));
     }
 
     getDataUri(canvas, url, callback) {
@@ -149,7 +93,6 @@ export default class MakeCards extends Component {
                 //get rid of extra "" of the return value ""dsdsfs""
                 dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));
                 callback(dataUrl);
-                // return dataUrl;
             });
 
         });
@@ -159,9 +102,7 @@ export default class MakeCards extends Component {
 
     drawCanvas = (url) => {
         var canvas = this.refs.canvasImage;
-        var text = 'Hello,duck';
         var self = this;
-        // this.handleImageRect(canvas, url, text)
         this.getDataUri(canvas, url, function (dataUri) {
             self.setState({imageUrl: dataUri});
         })
@@ -239,15 +180,10 @@ export default class MakeCards extends Component {
                             </View>
                         </View>
                     </View>
-
-
                 </View>
-
 
                 <View style={cardStyle.previewContainer}>
                     <Canvas ref="canvasImage"/>
-
-
                 </View>
 
 

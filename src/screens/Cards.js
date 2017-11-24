@@ -115,6 +115,7 @@ export default class Cards extends Component {
     }
 
     gotoMyCards = () => {
+        console.log('pass likedCards', likedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
     }
 
@@ -126,7 +127,6 @@ export default class Cards extends Component {
 
 
     renderNoMoreCards() {
-        // this.setState({likedCards: likedCards});
         return (
             <Card
                 containerStyle={{
@@ -181,7 +181,6 @@ export default class Cards extends Component {
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
-
             </View>
         );
     }

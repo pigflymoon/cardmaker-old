@@ -122,7 +122,7 @@ export default{
         paddingTop: 25,
         flex: 1,
     },
-    imageBgContainer: {
+    imageContainer: {
         height: 130,
         // width: 150,
     },
