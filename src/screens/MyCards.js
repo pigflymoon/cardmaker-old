@@ -46,7 +46,6 @@ export default class MyCards extends Component {
             makeCards: [],
 
 
-
         }
     }
 
@@ -90,10 +89,10 @@ export default class MyCards extends Component {
     }
 
     gotoMakeCards = () => {
-        if(this.state.chooseCards.length >0){
+        if (this.state.chooseCards.length > 0) {
             this.props.navigation.navigate('MakeCardsTab', {chooseCards: makeCards});
 
-        }else{
+        } else {
             Alert.alert('Please choose a picture');
         }
 

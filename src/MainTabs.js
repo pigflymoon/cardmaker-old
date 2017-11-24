@@ -77,6 +77,20 @@ const MainTab = StackNavigator({
 //Cards Tab: cards library and my cards
 const CardsTabs = TabNavigator(
     {
+        TestCardsTab: {
+            screen: TestCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Test Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
 
         CardsLibraryTab: {
             screen: CardsScreen,
@@ -120,20 +134,7 @@ const CardsTabs = TabNavigator(
             }
 
         },
-        TestCardsTab: {
-            screen: TestCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Test Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
 
-            },
-        },
 
     },
     {

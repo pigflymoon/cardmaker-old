@@ -10,7 +10,6 @@ import {
     TouchableOpacity,
     // Share,
 } from 'react-native';
-import Share, {ShareSheet, Button} from 'react-native-share';
 import {
     Tile,
     // Button,
@@ -22,7 +21,6 @@ import {
     ListItem,
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
-import BackgroundTimer from 'react-native-background-timer';
 import Utils from '../utils/utils';
 
 import axios from 'axios';
@@ -92,9 +90,7 @@ export default class MakeCards extends Component {
         // }
     }
 
-    componentWillUnmount() {
-        BackgroundTimer.clearTimeout(this.timeoutId);
-    }
+
 
     //
     componentWillReceiveProps(nextProps) {
