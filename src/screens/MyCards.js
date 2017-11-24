@@ -18,7 +18,7 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
-import SuperGrid from 'react-native-super-grid';
+import GridView from 'react-native-super-grid';
 var chooseCards = [], makeCards = [];
 const items = [
     {
@@ -66,7 +66,7 @@ export default class MyCards extends Component {
     }
 
     gotoMakeCards = () => {
-        console.log('this.state.makecards',this.state.makeCards)
+        console.log('this.state.makecards', this.state.makeCards)
         if (this.state.makeCards) {
             this.props.navigation.navigate('MakeCardsTab', {chooseCards: this.state.makeCards});
 
@@ -77,6 +77,7 @@ export default class MyCards extends Component {
     }
 
     renderHeader() {
+        console.log('my card called?')
         return (
             <View style={cardStyle.header}>
                 <View style={cardStyle.headerCenter}>
@@ -95,14 +96,14 @@ export default class MyCards extends Component {
         return (
             <View style={styles.container}>
                 {this.renderHeader()}
-                <SuperGrid
+                <GridView
                     itemWidth={130}
                     items={this.state.chooseCards}
                     style={styles.gridView}
                     renderItem={item => (
 
                         <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                            <TouchableHighlight onPress={() => this.chooseCard(item)}>
+                            <TouchableHighlight onPress={() => this.chooseCard(item)} underlayColor='#99d9f4'>
                                 <ImageBackground source={{uri: item.uri}} style={styles.imageContainer}>
                                     <Text style={styles.itemName}>{item.name}</Text>
                                     <Text style={styles.itemCode}>{item.code}</Text>
