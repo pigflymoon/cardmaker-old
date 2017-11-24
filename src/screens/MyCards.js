@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions,Alert} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    Alert,
+    Image,
+    FlatList,
+    ScrollView,
+    ImageBackground,
+    TouchableHighlight
+} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 
@@ -7,90 +18,57 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
+import SuperGrid from 'react-native-super-grid';
+var chooseCards = [], makeCards = [];
+const items = [
+    {
+        id: 1,
+        uri: 'https://i.imgur.com/FHxVpN4.jpg',
+        name: 'TURQUOISE',
+        code: '#1abc9c'
+    },
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-// test data
-const DATA = [
-    {
-        id: 6,
-        text: 'Scarlett',
-        age: 25,
-        uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-    },
-    {id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
-    {
-        id: 2,
-        text: 'Jennifer',
-        age: 24,
-        uri: 'https://2.bp.blogspot.com/-Vy0NVWhQfKo/Ubma2Mx2YTI/AAAAAAAAH3s/LC_u8LRfm8o/s1600/aimee-teegarden-04.jpg',
-    },
-    {
-        id: 3,
-        text: 'Sarah',
-        age: 28,
-        uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg',
-    },
 ];
-var chooseCards = [],makeCards = [];
-
 export default class MyCards extends Component {
+
 
     constructor(props, context) {
         super(props, context);
-
         this.state = {
             showSignCard: false,
             cardsData: chooseCards,
-            makeCards: [],
+            makeCards: null,
+            chooseCards: items,
 
 
         }
-    }
-
-    renderCard(card) {
-        return (
-            <Card
-                key={card.id}
-                containerStyle={{
-                    width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 250,
-                }}
-                featuredTitle={`${card.text}, ${card.age}`}
-                featuredTitleStyle={{
-                    position: 'absolute',
-                    left: 15,
-                    bottom: 15,
-                    fontSize: 30,
-                }}
-                image={{uri: card.uri}}
-                imageStyle={{
-                    width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 252,
-                }}
-            />
-        );
-    }
-
-    onSwipeRight(card) {
-        console.log('Card liked: ' + card.text, 'Card is ', card);
-
-        makeCards.push(card);
-        console.log('chooseCards ', makeCards)
-        // this.setState({likedCards: likedCards});
 
     }
 
-    onSwipeLeft(card) {
-        console.log('Card disliked: ' + card.text, 'Card is ', card);
-        // this.setState({color: 'green'});
 
+    componentDidMount() {
+        //
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        chooseCards = nextProps.navigation.state.params.likedCards;
+        console.log('pass liked cards', chooseCards)
+        this.setState({chooseCards: chooseCards});
+    }
+
+    chooseCard = (item) => {
+        console.log('choose the ', item)
+        this.setState({
+            makeCards: item,
+        })
     }
 
     gotoMakeCards = () => {
-        if (this.state.chooseCards.length > 0) {
-            this.props.navigation.navigate('MakeCardsTab', {chooseCards: makeCards});
+        console.log('this.state.makecards',this.state.makeCards)
+        if (this.state.makeCards) {
+            this.props.navigation.navigate('MakeCardsTab', {chooseCards: this.state.makeCards});
 
         } else {
             Alert.alert('Please choose a picture');
@@ -98,45 +76,9 @@ export default class MyCards extends Component {
 
     }
 
-
-    componentDidMount() {
-        console.log('*************Swipe card this.props*********', this.props)
-        //
-
-    }
-    componentWillReceiveProps(nextProps) {
-        chooseCards = nextProps.navigation.state.params.likedCards;
-        console.log('pass liked cards',chooseCards)
-        this.setState({chooseCards: chooseCards});
-    }
-
-
-    renderNoMoreCards() {
-        // this.setState({likedCards: likedCards});
-        return (
-            <Card
-                containerStyle={{
-                    width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 252,
-                }}
-                featuredTitle="No more cards,please choose cards in library"
-                featuredTitleStyle={{fontSize: 25}}
-                image={{uri: 'https://i.imgflip.com/1j2oed.jpg'}}
-                imageStyle={{
-                    width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 250,
-                }}
-            />
-        );
-    }
-
     renderHeader() {
         return (
             <View style={cardStyle.header}>
-                {this.state.showSignCard ?
-                    <View style={cardStyle.headerLeftIcon}>
-                        <Icon name="user" type="font-awesome" color="#ccc" size={35}/>
-                    </View> : null}
                 <View style={cardStyle.headerCenter}>
                     <Text style={cardStyle.title}>Make My Cards</Text>
                 </View>
@@ -149,25 +91,64 @@ export default class MyCards extends Component {
         );
     }
 
-
     render() {
         return (
-            <View style={cardStyle.cardsContainer}>
+            <View style={styles.container}>
                 {this.renderHeader()}
-                <View style={cardStyle.deck}>
-                    <SwipeDeck
-                        data={chooseCards}
-                        renderCard={this.renderCard}
-                        renderNoMoreCards={this.renderNoMoreCards}
-                        onSwipeRight={this.onSwipeRight}
-                        onSwipeLeft={this.onSwipeLeft}
-                    />
-                </View>
+                <SuperGrid
+                    itemWidth={130}
+                    items={this.state.chooseCards}
+                    style={styles.gridView}
+                    renderItem={item => (
+
+                        <View style={[styles.itemContainer, {backgroundColor: item.code}]}>
+                            <TouchableHighlight onPress={() => this.chooseCard(item)}>
+                                <ImageBackground source={{uri: item.uri}} style={styles.imageContainer}>
+                                    <Text style={styles.itemName}>{item.name}</Text>
+                                    <Text style={styles.itemCode}>{item.code}</Text>
+                                </ImageBackground>
+                            </TouchableHighlight>
+                        </View>
+
+
+                    )}
+                />
             </View>
         );
+
     }
 }
 
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'rgba(211, 211, 211, 0.4)',
+    },
+    gridView: {
+        paddingTop: 25,
+        flex: 1,
+    },
+    imageContainer: {
+        height: 130,
+        // width: 150,
+    },
+    itemContainer: {
+        justifyContent: 'flex-end',
+        borderRadius: 5,
+        padding: 10,
+        height: 150,
+    },
+    itemName: {
+        fontSize: 16,
+        color: '#fff',
+        fontWeight: '600',
+    },
+    itemCode: {
+        fontWeight: '600',
+        fontSize: 12,
+        color: '#fff',
+    },
+});
 
 

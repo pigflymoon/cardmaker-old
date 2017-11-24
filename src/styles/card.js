@@ -7,6 +7,10 @@ const {width, height} = Dimensions.get('window');
 const equalWidth = (width / 2 )
 export default{
     //cards
+    container: {
+        flex: 1,
+        backgroundColor: 'rgba(211, 211, 211, 0.4)',
+    },
     cardsContainer: {
         flex: 1,
         borderTopWidth: 5,
@@ -113,5 +117,29 @@ export default{
         alignSelf: 'center',
         margin: 10,
     },
-
+    //my card grid cards
+    gridView: {
+        paddingTop: 25,
+        flex: 1,
+    },
+    imageBgContainer: {
+        height: 130,
+        // width: 150,
+    },
+    itemContainer: {
+        justifyContent: 'flex-end',
+        borderRadius: 5,
+        padding: 10,
+        height: 150,
+    },
+    itemName: {
+        fontSize: 16,
+        color: '#fff',
+        fontWeight: '600',
+    },
+    itemCode: {
+        fontWeight: '600',
+        fontSize: 12,
+        color: '#fff',
+    },
 }

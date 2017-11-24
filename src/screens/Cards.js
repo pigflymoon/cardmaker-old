@@ -13,20 +13,51 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 // test data
 const DATA = [
-    {id: 4, text: 'Duck', age: 1, uri: 'https://i.pinimg.com/originals/7c/40/e5/7c40e557d35e9bbc50d4fb3f4d01c781.jpg'},
-    {id: 1, text: 'Emma', age: 29, uri: 'https://i.imgur.com/FHxVpN4.jpg'},
     {
+        id: 1,
+        uri: 'https://i.imgur.com/wO7pizCb.jpg',
+        name: 'TURQUOISE',
+        code: '#1abc9c'
+    }, {
         id: 2,
-        text: 'Jennifer',
-        age: 24,
-        uri: 'https://2.bp.blogspot.com/-Vy0NVWhQfKo/Ubma2Mx2YTI/AAAAAAAAH3s/LC_u8LRfm8o/s1600/aimee-teegarden-04.jpg',
+        uri: 'https://i.imgur.com/AD3MbBi.jpg',
+        name: 'EMERALD',
+        code: '#2ecc71'
     },
     {
         id: 3,
-        text: 'Sarah',
-        age: 28,
-        uri: 'https://s-media-cache-ak0.pinimg.com/736x/41/75/26/4175268906d97492e4a3175eab95c0f5.jpg',
+        uri: 'https://i.imgur.com/mtbl1crb.jpg',
+        name: 'PETER RIVER',
+        code: '#3498db'
+    }, {
+        id: 4,
+        uri: 'https://i.imgur.com/igt12tfb.jpg',
+        name: 'AMETHYST',
+        code: '#9b59b6'
     },
+    {
+        id: 5,
+        uri: 'https://i.imgur.com/QxR8tQhb.jpg',
+        name: 'WET ASPHALT',
+        code: '#34495e'
+    }, {
+        id: 6,
+        uri: 'https://i.imgur.com/WktFupPb.jpg',
+        name: 'GREEN SEA',
+        code: '#16a085'
+    },
+    {
+        id: 7,
+        uri: 'https://i.imgur.com/gM5yeySb.jpg',
+        name: 'NEPHRITIS', code: '#27ae60'
+    },
+    {
+        id: 8,
+        uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+        name: 'BELIZE HOLE',
+        code: '#2980b9'
+    },
+
 ];
 var likedCards = [], dislikedCards = [];
 
@@ -52,7 +83,7 @@ export default class Cards extends Component {
                     width: SCREEN_WIDTH * 0.92,
                     height: SCREEN_HEIGHT - 250,
                 }}
-                featuredTitle={`${card.text}, ${card.age}`}
+                featuredTitle={`${card.name}`}
                 featuredTitleStyle={{
                     position: 'absolute',
                     left: 15,
@@ -69,7 +100,7 @@ export default class Cards extends Component {
     }
 
     onSwipeRight(card) {
-        console.log('Card liked: ' + card.text, 'Card is ', card);
+        console.log('Card liked: ' + card.name, 'Card is ', card);
 
         likedCards.push(card);
         console.log('likedCards ', likedCards)
@@ -78,7 +109,7 @@ export default class Cards extends Component {
     }
 
     onSwipeLeft(card) {
-        console.log('Card disliked: ' + card.text, 'Card is ', card);
+        console.log('Card disliked: ' + card.name, 'Card is ', card);
         dislikedCards.push(card);
 
     }

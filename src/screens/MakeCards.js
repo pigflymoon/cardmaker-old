@@ -43,7 +43,7 @@ export default class MakeCards extends Component {
         super(props)
         this.state = {
             moviesList: [],
-            makeCard: [],
+            makeCard:null,
             previewImage: 'https://i.imgflip.com/1j2oed.jpg',
             showText: false,
             title: '',
@@ -173,7 +173,7 @@ export default class MakeCards extends Component {
     }
 
     render() {
-        if (this.state.makeCard.length < 1) {
+        if (!this.state.makeCard) {
             return (
                 <View>
                     <Text>Choose your picture</Text>
@@ -186,7 +186,7 @@ export default class MakeCards extends Component {
                 <View style={cardStyle.imageListContainer}>
                     <View style={[formStyle.container, cardStyle.imageContainer]}>
                         <Image style={{height: 150}}
-                               source={{uri: (this.state.makeCard)[0].uri}}
+                               source={{uri: (this.state.makeCard).uri}}
                                resizeMode='cover'/>
                     </View>
                     <View style={formStyle.inputsContainer}>
@@ -229,7 +229,7 @@ export default class MakeCards extends Component {
                         <View style={cardStyle.iconContainer}>
                             <View style={cardStyle.shareRightIcon}>
                                 <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
-                                      onPress={() => this.drawCanvas((this.state.makeCard)[0].uri)}
+                                      onPress={() => this.drawCanvas((this.state.makeCard).uri)}
                                 />
                             </View>
                             <View style={cardStyle.shareRightIcon}>
