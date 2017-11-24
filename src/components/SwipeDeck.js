@@ -101,6 +101,9 @@ export default class SwipeDeck extends Component {
     }
 
     renderCards() {
+        console.log('this.stat.index',this.state.index)
+        console.log('this.props.data',this.props.data.length)
+
         if (this.state.index >= this.props.data.length) {
             return this.props.renderNoMoreCards();
         }

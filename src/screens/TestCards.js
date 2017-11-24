@@ -64,7 +64,12 @@ const DATA = [
     },
 
 ];
-var likedCards = [], dislikedCards = [], cards = [];
+var likedCards = [], dislikedCards = [], cards = [{
+    id: 8,
+    uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+    name: 'BELIZE HOLE',
+    code: '#2980b9'
+}];
 
 export default class TestCards extends Component {
 
@@ -74,7 +79,7 @@ export default class TestCards extends Component {
         console.log('~~~~~~~~~~~name called~~~~~~~~~~`');
         this.state = {
             showSignCard: false,
-            cardsData: null,
+            cardsData: cards,
             likedCards: [],
             dislikedCards: [],
         }
@@ -85,7 +90,7 @@ export default class TestCards extends Component {
         var storageRef = firebase.storage().ref('/images');
 
         //dynamically set reference to the file name
-        var thisRef = storageRef.child(name);
+        var thisRef = storageRef.child(name+'.jpg');
         console.log('thisRef', thisRef);
         //put request upload file to firebase storage
         thisRef.getDownloadURL().then(function (url) {
@@ -96,31 +101,33 @@ export default class TestCards extends Component {
                 name: name,
                 code: '#2980b9'
             })
-            console.log('cards', cards)
-            // return cards
         });
 
     }
+    getImagesByName = () => {
+        console.log('names')
+        this.getImageByName('1');
+        this.getImageByName('2')
+        this.getImageByName('3')
+        this.getImageByName('4')
 
+    }
     componentWillMount() {
         console.log('GrandChild will mount.');
+
 
 
     }
 
     componentDidMount() {
         console.log('GrandChild did mount.');
-    }
-
-    getImagesByName = () => {
-        this.getImageByName('1.jpg')
-        this.getImageByName('2.jpg')
-        this.getImageByName('3.jpg')
-        this.getImageByName('4.jpg')
+        this.getImagesByName();
         this.setState({
             cardsData: cards
         })
     }
+
+
     getImages = () => {
         var self = this;
         var storageRef = firebase.storage().ref("images/1.jpg");///avatar.jpeg
@@ -141,7 +148,7 @@ export default class TestCards extends Component {
 
     }
 
-    renderCard = (card) => {
+    renderCard(card) {
         return (
             <Card
                 key={card.id}
@@ -149,7 +156,7 @@ export default class TestCards extends Component {
                     width: SCREEN_WIDTH * 0.92,
                     height: SCREEN_HEIGHT - 250,
                 }}
-                featuredTitle={card.name}
+                featuredTitle={`${card.name}`}
                 featuredTitleStyle={{
                     position: 'absolute',
                     left: 15,
@@ -183,12 +190,6 @@ export default class TestCards extends Component {
     gotoMyCards = () => {
         console.log('pass likedCards', likedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
-    }
-
-
-    componentDidMount() {
-        //
-
     }
 
 
@@ -241,16 +242,16 @@ export default class TestCards extends Component {
         return (
             <View style={cardStyle.cardsContainer}>
                 {this.renderHeader()}
-                {this.state.cardsData ?
-                    <View style={cardStyle.deck}>
-                        <SwipeDeck
-                            data={this.state.cardsData}
-                            renderCard={this.renderCard}
-                            renderNoMoreCards={this.renderNoMoreCards}
-                            onSwipeRight={this.onSwipeRight}
-                            onSwipeLeft={this.onSwipeLeft}
-                        />
-                    </View> : null}
+
+                <View style={cardStyle.deck}>
+                    <SwipeDeck
+                        data={this.state.cardsData}
+                        renderCard={this.renderCard}
+                        renderNoMoreCards={this.renderNoMoreCards}
+                        onSwipeRight={this.onSwipeRight}
+                        onSwipeLeft={this.onSwipeLeft}
+                    />
+                </View>
             </View>
         );
     }
