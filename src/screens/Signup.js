@@ -6,6 +6,8 @@ import {
     FormInput,
     FormLabel,
 } from 'react-native-elements';
+import firebaseApp from '../config/FirebaseConfig';
+
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 
@@ -15,8 +17,8 @@ export default class Signup extends Component {
         super(props);
         this.state = {
             email: '',
-            password: '',
             name: '',
+            password: '',
 
         };
     }
@@ -37,6 +39,30 @@ export default class Signup extends Component {
     navigateToSignin = () => {
         console.log('this.props.navigation', this.props.navigation)
         this.props.navigation.navigate('Signin', {});
+
+    }
+
+    registerUserAndWaitEmailVerification(email, password) {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+                if (user) {
+                    user.updateProfile({displayName: self.state.name});
+                    self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
+                }
+            }).catch(function (error) {
+                var errorMessage = error.message + ' (' + error.code + ')';
+                console.log('errorMessage', errorMessage)
+                // self.setState({showErrorInfo: true, errorInfo: errorMessage});
+            });
+        });
+    }
+
+    handleSignup = (e) => {
+        e.preventDefault();
+        console.log('emial is ', this.state.email)
+        this.registerUserAndWaitEmailVerification(this.state.email, this.state.password);
+
 
     }
 
@@ -70,7 +96,7 @@ export default class Signup extends Component {
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
-                            onChangeText={(text) => this.setEmail(text)}
+                            onChangeText={(text) => this.setName(text)}
                         />
                     </View>
                     <View style={formStyle.inputContainer}>
@@ -83,7 +109,7 @@ export default class Signup extends Component {
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
-                            onChangeText={(text) => this.setEmail(text)}
+                            onChangeText={(text) => this.setPassword(text)}
                         />
                     </View>
 
@@ -121,7 +147,7 @@ export default class Signup extends Component {
                         <View>
                             <Text style={formStyle.plainText}>Already have an account? </Text>
                         </View>
-                        <TouchableOpacity  onPress={this.navigateToSignin}>
+                        <TouchableOpacity onPress={this.navigateToSignin}>
                             <View>
                                 <Text style={formStyle.textLink}>Sign In</Text>
                             </View>

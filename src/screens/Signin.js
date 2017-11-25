@@ -7,6 +7,7 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
+import firebaseApp from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -37,128 +38,41 @@ export default class SignIn extends Component {
 
     handleSignin = (e) => {
         var self = this;
-        // e.preventDefault();
-//after sign in update in settings screen
-        var username = 'Duck';
-        this.props.navigation.navigate('CardsTab', {
-            payload: {
-                signin: true,
-                cards: JSON.stringify([{
-                    id: 4,
-                    text: 'Scarlett',
-                    age: 25,
-                    uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-                },
-                    {
-                        id: 5,
-                        text: 'Ashley',
-                        age: 30,
-                        uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg',
-                    }])
+        e.preventDefault();
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(function (user) {
+                firebaseApp.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        console.log('Make the card')
+                        self.props.navigation.navigate('CardsLibraryTab', {user: user});
 
-
-            }
-        });
-
-        /*
-         console.log('sign in to deep link',this.props.navigator)
-         this.props.navigator.handleDeepLink({
-         link: 'tab2/cardmaker.SwipeCardsScreen',
-         payload: {
-         signin: true,
-         cards: JSON.stringify([{
-         id: 4,
-         text: 'Scarlett',
-         age: 25,
-         uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-         },
-         {
-         id: 5,
-         text: 'Ashley',
-         age: 30,
-         uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg',
-         }])
-
-
-         }
-         });
-         */
-
-        // this.props.navigator.resetTo({
-        //     title: `Welcome, ` + username,
-        //     screen: 'cardmaker.SwipeCardsScreen',
-        //     passProps: {
-        //         signin: true,
-        //         cards: JSON.stringify([{
-        //             id: 4,
-        //             text: 'Scarlett',
-        //             age: 25,
-        //             uri: 'https://i.ytimg.com/vi/GOJZ5TIlc3M/maxresdefault.jpg',
-        //         },
-        //             {
-        //                 id: 5,
-        //                 text: 'Ashley',
-        //                 age: 30,
-        //                 uri: 'https://s-media-cache-ak0.pinimg.com/736x/4c/89/67/4c8967fac1822eeddf09670565430fd5.jpg',
-        //             }])
-        //
-        //
-        //     }
-        // })
-        // this.props.navigator.switchToTab({
-        //     tabIndex: 1, // (optional) if missing, this screen's tab will become selected
-        //     title: `Welcome, ` + username,
-        //     username: username,
-        //     passProps: {
-        //         count: this.props.count ? this.props.count + 1 : 2,
-        //         username: username,
-        //     }
-        // });
-
-        // this.props.navigator.push({
-        //     screen: 'cardmaker.SettingsTabScreen',
-        //     title: `Welcome, ` + username,
-        //     passProps: {
-        //         count: this.props.count ? this.props.count + 1 : 2,
-        //         username: username,
-        //         signin: true,
-        //     }
-        // });
-        /*
-         firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-         .then(function (user) {
-         firebaseApp.auth().onAuthStateChanged(function (user) {
-         if (user) {
-         console.log('Update the card')
-         } else {
-         this.setState({errorMessage: user})
-         console.log('error', user)
-         }
-         })
-         })
-         .catch(function (error) {
-         // Handle Errors here.
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         console.log('errorCode', errorCode)
-         switch (errorCode) {
-         case 'auth/invalid-email':
-         case 'auth/user-disabled':
-         case 'auth/operation-not-allowed':
-         case 'auth/user-not-found':
-         case 'auth/wrong-password':
-         self.setState({
-         errorMessage: errorMessage
-         });
-         break;
-         default:
-         self.setState({
-         errorMessage: 'Error'
-         });
-         }
-         });
-
-         */
+                    } else {
+                        // this.setState({errorMessage: user})
+                        console.log('error', user)
+                    }
+                })
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('errorCode', errorCode)
+                switch (errorCode) {
+                    case 'auth/invalid-email':
+                    case 'auth/user-disabled':
+                    case 'auth/operation-not-allowed':
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        self.setState({
+                            errorMessage: errorMessage
+                        });
+                        break;
+                    default:
+                        self.setState({
+                            errorMessage: 'Error'
+                        });
+                }
+            });
 
 
     }

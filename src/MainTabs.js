@@ -8,6 +8,8 @@ import {StackNavigator, TabNavigator} from 'react-navigation';
 import SettingsScreen from './screens/Settings';
 import SigninScreen from './screens/Signin';
 import SignupScreen from './screens/Signup';
+import VerifiEmailScreen from './screens/VerifyEmail';
+
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
@@ -184,7 +186,13 @@ const SettingsTab = StackNavigator({
             title: 'Sign up'
         }),
     },
-
+    VerifyEmail: {
+        screen: VerifiEmailScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Verify Email',
+            headerLeft: null
+        }),
+    },
     NotifSettings: {
         screen: MyNotificationsSettingsScreen,
         navigationOptions: {

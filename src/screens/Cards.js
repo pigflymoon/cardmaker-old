@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
-import firebase from 'firebase';  // Initialize Firebase
+// import firebase from 'firebase';  // Initialize Firebase
+import firebaseApp from '../config/FirebaseConfig';
 
 import SwipeDeck from '../components/SwipeDeck';
 
@@ -60,12 +61,24 @@ const DATA = [
     },
 
 ];
-var likedCards = [], dislikedCards = [], cards = [{
-    id: 8,
-    uri: 'https://i.imgur.com/YrLxxk8b.jpg',
-    name: 'BELIZE HOLE',
-    code: '#2980b9'
-}];
+var likedCards = [], dislikedCards = [],
+    cards = [
+        {
+            id: 6,
+            uri: 'https://i.imgur.com/WktFupPb.jpg',
+            name: 'GREEN SEA',
+            code: '#16a085'
+        },
+        {
+            id: 7,
+            uri: 'https://i.imgur.com/gM5yeySb.jpg',
+            name: 'NEPHRITIS', code: '#27ae60'
+        }, {
+            id: 8,
+            uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+            name: 'BELIZE HOLE',
+            code: '#2980b9'
+        }];
 
 
 export default class Cards extends Component {
@@ -75,7 +88,7 @@ export default class Cards extends Component {
         super(props, context);
 
         this.state = {
-            showSignCard: false,
+            signin: false,
             cardsData: cards,
             likedCards: [],
             dislikedCards: [],
@@ -154,20 +167,62 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
     }
 
-    componentWillMount() {
-        this.getImagesByName();
-        this.setState({
-            cardsData: cards
-        })
-
+    // componentWillMount() {
+    //     this.getImagesByName();
+    //     this.setState({
+    //         cardsData: cards
+    //     })
+    //
+    // }
+    setUid = (value) => {
+        this.uid = value;
     }
 
+    getUid = () => {
+        return this.uid;
+    }
+
+    setName = (value) => {
+        this.displayName = value;
+    }
+
+    getName = () => {
+        return this.displayName;
+    }
 
     componentDidMount() {
+        // var user = firebaseApp.auth().currentUser;
+        // console.log('user is ',user)
+        // var self = this;
+        // if (user) {
+        //     this.setUid(user.uid);
+        //     this.setName(user.displayName);
+        //     // var rootRef = firebaseApp.database().ref();
         //
-
+        // } else {
+        //     console.log('no user?')
+        //     // this.props.navigation.navigate('Signin');
+        //
+        // }
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps', nextProps)
+        var user = firebaseApp.auth().currentUser;
+        console.log('user is ', user)
+        var self = this;
+        if (user) {
+            this.setState({signin: true})
+            this.setUid(user.uid);
+            this.setName(user.displayName);
+            // var rootRef = firebaseApp.database().ref();
+
+        } else {
+            console.log('no user?')
+            // this.props.navigation.navigate('Signin');
+
+        }
+    }
 
     renderNoMoreCards() {
         return (
@@ -188,8 +243,9 @@ export default class Cards extends Component {
     }
 
     renderHeader() {
-        return (
+        return ((this.state.signin) ?
             <View style={cardStyle.header}>
+
                 <View style={cardStyle.headerCenter}>
                     <View style={cardStyle.titleContainer}>
                         <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
@@ -206,24 +262,27 @@ export default class Cards extends Component {
                           onPress={this.gotoMyCards}
                     />
                 </View>
-            </View>
-        );
+
+
+            </View> : null);
+
     }
 
 
     render() {
         return (
             <View style={cardStyle.cardsContainer}>
+
                 {this.renderHeader()}
-                    <View style={cardStyle.deck}>
-                        <SwipeDeck
-                            data={this.state.cardsData}
-                            renderCard={this.renderCard}
-                            renderNoMoreCards={this.renderNoMoreCards}
-                            onSwipeRight={this.onSwipeRight}
-                            onSwipeLeft={this.onSwipeLeft}
-                        />
-                    </View>
+                <View style={cardStyle.deck}>
+                    <SwipeDeck
+                        data={this.state.cardsData}
+                        renderCard={this.renderCard}
+                        renderNoMoreCards={this.renderNoMoreCards}
+                        onSwipeRight={this.onSwipeRight}
+                        onSwipeLeft={this.onSwipeLeft}
+                    />
+                </View>
             </View>
         );
     }
