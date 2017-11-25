@@ -7,7 +7,7 @@ import layoutStyle from '../styles/layout';
 import buttonStyle from '../styles/button';
 import colors from '../styles/colors';
 
-export default class Settingss extends Component {
+export default class MySettings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -29,10 +29,10 @@ export default class Settingss extends Component {
             <View style={layoutStyle.container}>
                 {this.state.showSignCard ?
                     <Card
-                        title='HELLO WORLD'
+                        title='Welcome to cardmaker'
                         image={bg1}>
                         <Text style={{marginBottom: 10}}>
-                            The idea with React Native Elements is more about component structure than actual design.
+                            Please sign in to make your card, have fun!
                         </Text>
                         <Button
                             icon={{name: 'perm-identity'}}
@@ -41,18 +41,6 @@ export default class Settingss extends Component {
                             onPress={this.navigateToSignin}
                         />
                     </Card> : null}
-                {this.state.mycard ?
-                    <List>
-                        <View>
-                            <Text>Test</Text>
-                        </View>
-                        <ListItem
-                            leftIcon={{name: 'chat', color: colors.grey2}}
-                            title={`Tell a friend`}
-
-                        />
-
-                    </List> : null}
             </View>
         );
     }

@@ -13,9 +13,9 @@ export default{
     },
     cardsContainer: {
         flex: 1,
-        borderTopWidth: 5,
-        borderTopColor: colors.primary1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
+        // borderTopWidth: 5,
+        // borderTopColor: colors.primary1,
+        // backgroundColor: 'rgba(211, 211, 211, 0.4)',
     },
     header: {
         height: 50,

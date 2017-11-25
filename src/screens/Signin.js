@@ -45,7 +45,7 @@ export default class SignIn extends Component {
                     if (user) {
                         console.log('Make the card')
                         // self.screenProps({signin: true});
-                        self.props.navigation.navigate('CardsLibraryTab', {user: user});
+                        self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
 
                     } else {
                         // this.setState({errorMessage: user})

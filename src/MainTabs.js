@@ -5,7 +5,7 @@
 import React from 'react';
 import {Button, ScrollView, Alert} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
-import SettingsScreen from './screens/Settings';
+import MySettingsScreen from './screens/MySettings';
 import SigninScreen from './screens/Signin';
 import SignupScreen from './screens/Signup';
 import VerifiEmailScreen from './screens/VerifyEmail';
@@ -51,35 +51,74 @@ const MyNotificationsSettingsScreen = ({navigation}) => (
     <MyNavScreen banner="Notifications Screen" navigation={navigation}/>
 );
 
-// const MySettingsScreen = ({navigation}) => (
-//     <Settings banner="Settings Screen" navigation={navigation}/>
-// );
 //
-// const SigninScreen = ({navigation}) => (
-//     <Signin navigation={navigation}/>
-// );
-
-const MainTab = StackNavigator({
-    Home: {
-        screen: MyHomeScreen,
-        path: '/',
-        navigationOptions: {
-            title: 'Welcome',
-        },
-    },
-    Profile: {
-        screen: MyProfileScreen,
-        path: '/people/:name',
+// const MainTab = StackNavigator({
+//     Home: {
+//         screen: MyHomeScreen,
+//         path: '/',
+//         navigationOptions: {
+//             title: 'Welcome',
+//         },
+//     },
+//     Profile: {
+//         screen: MyProfileScreen,
+//         path: '/people/:name',
+//         navigationOptions: ({navigation}) => ({
+//             title: `${navigation.state.params.name}'s Profile!`,
+//         }),
+//     },
+// });
+const MySettings = StackNavigator({
+    Me: {
+        screen: MySettingsScreen,
         navigationOptions: ({navigation}) => ({
-            title: `${navigation.state.params.name}'s Profile!`,
+            // title: 'My Settings',
+            headerLeft: null,
         }),
     },
+    Signin: {
+        screen: SigninScreen,
+        navigationOptions: ({navigation}) => ({
+            // title: `Sign in`,
+            headerLeft: null,
+        }),
+    },
+    Signup: {
+        screen: SignupScreen,
+        navigationOptions: ({navigation}) => ({
+            // title: 'Sign up',
+            headerLeft: null,
+        }),
+    },
+    VerifyEmail: {
+        screen: VerifiEmailScreen,
+        navigationOptions: ({navigation}) => ({
+            // title: 'Verify Email',
+            headerLeft: null,
+        }),
+    },
+
 });
+
 
 //Cards Tab: cards library and my cards
 const CardsTabs = TabNavigator(
     {
 
+        MySettingsTab: {
+            screen: MySettings,
+            navigationOptions: {
+                tabBarLabel: 'Me',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
         CardsLibraryTab: {
             screen: CardsScreen,
             navigationOptions: {
@@ -150,49 +189,15 @@ const CardsTabs = TabNavigator(
 const CardsTab = StackNavigator({
     Cards: {
         screen: CardsTabs,
-        path: '/',
         navigationOptions: ({navigation}) => ({
             title: 'Cards'
         }),
     },
-    // MakeCards: {
-    //     screen: MakeCard,
-    //     path: '/',
-    //     navigationOptions: ({navigation}) => ({
-    //         title: 'Make card',
-    //     }),
-    // },
 })
 
 //
+
 const SettingsTab = StackNavigator({
-    Settings: {
-        screen: SettingsScreen,
-        path: '/',
-        navigationOptions: ({navigation}) => ({
-            title: 'Settings',
-        }),
-    },
-    Signin: {
-        screen: SigninScreen,
-        path: '/sign/:name',
-        navigationOptions: ({navigation}) => ({
-            title: `Sign in`
-        }),
-    },
-    Signup: {
-        screen: SignupScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Sign up'
-        }),
-    },
-    VerifyEmail: {
-        screen: VerifiEmailScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Verify Email',
-            headerLeft: null
-        }),
-    },
     NotifSettings: {
         screen: MyNotificationsSettingsScreen,
         navigationOptions: {
@@ -219,27 +224,11 @@ const StacksInTabs = TabNavigator(
         },
         SettingsTab: {
             screen: SettingsTab,
-            // path: '/settings',
             navigationOptions: {
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-settings' : 'ios-settings-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            },
-        },
-
-        MainTab: {
-            screen: MainTab,
-            path: '/',
-            navigationOptions: {
-                tabBarLabel: 'Home',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-home' : 'ios-home-outline'}
                         size={26}
                         style={{color: tintColor}}
                     />

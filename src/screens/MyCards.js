@@ -38,7 +38,7 @@ export default class MyCards extends Component {
         chooseCards = nextProps.navigation.state.params.likedCards;
         var user = firebaseApp.auth().currentUser;
         var self = this;
-        console.log('my cards nextprops,',nextProps)
+        console.log('my cards nextprops,', nextProps)
         if (user) {
             self.setState({chooseCards: chooseCards, signin: true});
         }
@@ -64,33 +64,23 @@ export default class MyCards extends Component {
     }
 
     renderHeader() {
-        return ((this.state.signin) ?
-
-                <View style={cardStyle.header}>
-                    <View style={cardStyle.headerCenter}>
-                        <Text style={cardStyle.title}>Make My Cards</Text>
-                    </View>
-                    <View style={cardStyle.headerRightIcon}>
-                        <Icon name="card-giftcard" color={colors.primary1} size={35}
-                              onPress={this.gotoMakeCards}
-                        />
-                    </View>
-                </View> :
-                <Card title='Welcome to cardmaker'>
-                    <Text style={{marginBottom: 10}}>
-                        Please sign in to make your lovely card. Have fun!
-                    </Text>
-                    <Button
-                        icon={{name: 'perm-identity'}}
-                        buttonStyle={buttonStyle.submitButton}
-                        title='Sign in /Sign up'
-                        onPress={this.navigateToSignin}
+        return (
+            <View style={cardStyle.header}>
+                <View style={cardStyle.headerCenter}>
+                    <Text style={cardStyle.title}>Make My Cards</Text>
+                </View>
+                <View style={cardStyle.headerRightIcon}>
+                    <Icon name="card-giftcard" color={colors.primary1} size={35}
+                          onPress={this.gotoMakeCards}
                     />
-                </Card>
+                </View>
+            </View>
         );
     }
 
     render() {
+        const {params} = this.props.navigation.state;
+        console.log('My cards **********params********', params)
         return (
             <View style={cardStyle.container}>
                 {this.renderHeader()}

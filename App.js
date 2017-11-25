@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 
 import {
     Platform,
@@ -29,8 +29,6 @@ export default class App extends Component {
                     signin: this.state.signin,
 
                 }}
-
-
             />
 
         )

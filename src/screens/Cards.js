@@ -208,6 +208,7 @@ export default class Cards extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('nextProps', nextProps)
+
         var user = firebaseApp.auth().currentUser;
         console.log('user is ', user)
         var self = this;
@@ -243,6 +244,8 @@ export default class Cards extends Component {
     }
 
     renderHeader() {
+        const { params } = this.props.navigation.state;
+        console.log('**********params********',params)
         return ((this.state.signin) ?
             <View style={cardStyle.header}>
 
@@ -270,6 +273,7 @@ export default class Cards extends Component {
 
 
     render() {
+
         return (
             <View style={cardStyle.cardsContainer}>
 
