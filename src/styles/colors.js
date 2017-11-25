@@ -18,6 +18,12 @@ export default {
     white: '#ffffff',
     error: '#ff190c',
     orange:'tomato',
+    orange1:'#E77151',
+    purple1:'#D19FE8',
+    purple2:'#663854',
+    purple3:'990066',
+    red1:'#BC2332',
+
 };
 
 

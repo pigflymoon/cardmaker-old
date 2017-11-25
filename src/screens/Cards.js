@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
+import firebase from 'firebase';  // Initialize Firebase
 
 import SwipeDeck from '../components/SwipeDeck';
 
@@ -59,7 +60,13 @@ const DATA = [
     },
 
 ];
-var likedCards = [], dislikedCards = [];
+var likedCards = [], dislikedCards = [], cards = [{
+    id: 8,
+    uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+    name: 'BELIZE HOLE',
+    code: '#2980b9'
+}];
+
 
 export default class Cards extends Component {
 
@@ -69,10 +76,38 @@ export default class Cards extends Component {
 
         this.state = {
             showSignCard: false,
-            cardsData: DATA,
+            cardsData: cards,
             likedCards: [],
             dislikedCards: [],
         }
+    }
+
+    getImageByName = (name) => {
+        console.log('name', name);
+        var storageRef = firebase.storage().ref('/images');
+
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child(name + '.jpg');
+        console.log('thisRef', thisRef);
+        //put request upload file to firebase storage
+        thisRef.getDownloadURL().then(function (url) {
+            console.log('Uploaded a blob or file!', url);
+            cards.push({
+                id: name,
+                uri: url,
+                name: name,
+                code: '#2980b9'
+            })
+        });
+
+    }
+    getImagesByName = () => {
+        console.log('names')
+        this.getImageByName('1');
+        this.getImageByName('2')
+        this.getImageByName('3')
+        this.getImageByName('4')
+
     }
 
     renderCard(card) {
@@ -117,6 +152,14 @@ export default class Cards extends Component {
     gotoMyCards = () => {
         console.log('pass likedCards', likedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
+    }
+
+    componentWillMount() {
+        this.getImagesByName();
+        this.setState({
+            cardsData: cards
+        })
+
     }
 
 
@@ -172,15 +215,15 @@ export default class Cards extends Component {
         return (
             <View style={cardStyle.cardsContainer}>
                 {this.renderHeader()}
-                <View style={cardStyle.deck}>
-                    <SwipeDeck
-                        data={this.state.cardsData}
-                        renderCard={this.renderCard}
-                        renderNoMoreCards={this.renderNoMoreCards}
-                        onSwipeRight={this.onSwipeRight}
-                        onSwipeLeft={this.onSwipeLeft}
-                    />
-                </View>
+                    <View style={cardStyle.deck}>
+                        <SwipeDeck
+                            data={this.state.cardsData}
+                            renderCard={this.renderCard}
+                            renderNoMoreCards={this.renderNoMoreCards}
+                            onSwipeRight={this.onSwipeRight}
+                            onSwipeLeft={this.onSwipeLeft}
+                        />
+                    </View>
             </View>
         );
     }

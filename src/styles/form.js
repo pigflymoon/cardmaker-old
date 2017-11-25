@@ -35,5 +35,10 @@ export default{
     },
     labelStyle: {
         color: colors.white,
-    }
+    },
+    checkboxContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+      }
 }

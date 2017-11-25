@@ -14,6 +14,7 @@ import {
     FormInput,
     FormLabel,
     FormValidationMessage,
+    CheckBox,
 } from 'react-native-elements';
 import axios from 'axios';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
@@ -37,6 +38,7 @@ export default class MakeCards extends Component {
             makeCard: null,
             title: '',
             caption: '',
+            checked: false,
         }
     }
 
@@ -83,12 +85,16 @@ export default class MakeCards extends Component {
             var caption = this.state.caption;
 
 
-            context.font = "20px Arial";
-            context.strokeText(title, 60, 200);
+            context.font = "italic bold 30px Hoefler";
 
-            context.font = "14px Arial";
-            context.strokeText(caption, 60, 250);
-            console.log('hi called image load')
+            context.textAlign = "start";
+            context.textBaseline = "bottom";
+            context.fillStyle =colors.red1;  //<======= here
+            context.fillText(title, 60, 250);
+
+            context.font = "bold 24px Hoefler";
+            context.fillStyle = colors.orange1;
+            context.fillText(caption, 150, 300);
             canvas.toDataURL().then((dataUrl) => {
                 //get rid of extra "" of the return value ""dsdsfs""
                 dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));
@@ -180,6 +186,7 @@ export default class MakeCards extends Component {
                             </View>
                         </View>
                     </View>
+
                 </View>
 
                 <View style={cardStyle.previewContainer}>
