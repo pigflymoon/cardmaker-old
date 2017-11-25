@@ -1,6 +1,4 @@
-/* @flow */
-
-import React from 'react';
+import React,{Component} from 'react';
 
 import {
     Platform,
@@ -10,55 +8,31 @@ import {
     Text,
     View,
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-
 
 import MainTabs from './src/MainTabs';
 
+export default class App extends Component {
 
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            signin: false,
 
-const AppNavigator = StackNavigator(
-    {
-        Index: {
-            screen: MainTabs,
-        },
-    },
-    {
-        initialRouteName: 'Index',
-        headerMode: 'none',
+        };
 
-        /*
-         * Use modal on iOS because the card mode comes from the right,
-         * which conflicts with the drawer example gesture
-         */
-        mode: Platform.OS === 'ios' ? 'modal' : 'card',
     }
-);
 
-export default () => <AppNavigator />;
 
-const styles = StyleSheet.create({
-    item: {
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#ddd',
-    },
-    image: {
-        width: 120,
-        height: 120,
-        alignSelf: 'center',
-        marginBottom: 20,
-        resizeMode: 'contain',
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#444',
-    },
-    description: {
-        fontSize: 13,
-        color: '#999',
-    },
-});
+    render() {
+        return (<MainTabs
+                screenProps={{
+                    signin: this.state.signin,
+
+                }}
+
+
+            />
+
+        )
+    }
+}

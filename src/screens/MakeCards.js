@@ -115,9 +115,6 @@ export default class MakeCards extends Component {
 
     }
 
-    componentDidMount() {
-
-    }
 
     render() {
         if (!this.state.makeCard) {

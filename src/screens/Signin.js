@@ -44,6 +44,7 @@ export default class SignIn extends Component {
                 firebaseApp.auth().onAuthStateChanged(function (user) {
                     if (user) {
                         console.log('Make the card')
+                        // self.screenProps({signin: true});
                         self.props.navigation.navigate('CardsLibraryTab', {user: user});
 
                     } else {
@@ -80,6 +81,11 @@ export default class SignIn extends Component {
     navigateToSignup = () => {
         this.props.navigation.navigate('Signup', {});
 
+
+    }
+
+    componentDidMount() {
+        console.log(' Sign in props', this.props)
 
     }
 

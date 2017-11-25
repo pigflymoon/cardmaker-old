@@ -8,32 +8,41 @@ import {
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
-import {Icon} from 'react-native-elements';
+import {Icon, Card, Button} from 'react-native-elements';
+import firebaseApp from '../config/FirebaseConfig';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
+import buttonStyle from '../styles/button';
 var chooseCards = [];
 
 export default class MyCards extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            showSignCard: false,
             makeCards: null,
             chooseCards: null,
+            signin: false
         }
 
     }
 
-    componentDidMount() {
-        //
+    navigateToSignin = () => {
+        console.log('this.props.navigation', this.props.navigation)
+        this.props.navigation.navigate('Signin', {});
 
     }
 
+
     componentWillReceiveProps(nextProps) {
         chooseCards = nextProps.navigation.state.params.likedCards;
+        var user = firebaseApp.auth().currentUser;
+        var self = this;
+        console.log('my cards nextprops,',nextProps)
+        if (user) {
+            self.setState({chooseCards: chooseCards, signin: true});
+        }
         console.log('pass liked cards', chooseCards)
-        this.setState({chooseCards: chooseCards});
     }
 
     chooseCard = (item) => {
@@ -55,17 +64,29 @@ export default class MyCards extends Component {
     }
 
     renderHeader() {
-        return (
-            <View style={cardStyle.header}>
-                <View style={cardStyle.headerCenter}>
-                    <Text style={cardStyle.title}>Make My Cards</Text>
-                </View>
-                <View style={cardStyle.headerRightIcon}>
-                    <Icon name="card-giftcard" color={colors.primary1} size={35}
-                          onPress={this.gotoMakeCards}
+        return ((this.state.signin) ?
+
+                <View style={cardStyle.header}>
+                    <View style={cardStyle.headerCenter}>
+                        <Text style={cardStyle.title}>Make My Cards</Text>
+                    </View>
+                    <View style={cardStyle.headerRightIcon}>
+                        <Icon name="card-giftcard" color={colors.primary1} size={35}
+                              onPress={this.gotoMakeCards}
+                        />
+                    </View>
+                </View> :
+                <Card title='Welcome to cardmaker'>
+                    <Text style={{marginBottom: 10}}>
+                        Please sign in to make your lovely card. Have fun!
+                    </Text>
+                    <Button
+                        icon={{name: 'perm-identity'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title='Sign in /Sign up'
+                        onPress={this.navigateToSignin}
                     />
-                </View>
-            </View>
+                </Card>
         );
     }
 

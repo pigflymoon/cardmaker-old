@@ -164,7 +164,7 @@ export default class Cards extends Component {
 
     gotoMyCards = () => {
         console.log('pass likedCards', likedCards)
-        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
+        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards, signin: true});
     }
 
     // componentWillMount() {
