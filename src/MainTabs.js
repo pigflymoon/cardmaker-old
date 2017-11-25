@@ -17,6 +17,7 @@ import TestCardsScreen from './screens/TestCards';
 
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from '../src/styles/colors';
 
 const MyNavScreen = ({navigation, banner}) => (
     <ScrollView>
@@ -69,36 +70,41 @@ const MyNotificationsSettingsScreen = ({navigation}) => (
 //     },
 // });
 const MySettings = StackNavigator({
-    Me: {
-        screen: MySettingsScreen,
-        navigationOptions: ({navigation}) => ({
-            // title: 'My Settings',
-            headerLeft: null,
-        }),
-    },
-    Signin: {
-        screen: SigninScreen,
-        navigationOptions: ({navigation}) => ({
-            // title: `Sign in`,
-            headerLeft: null,
-        }),
-    },
-    Signup: {
-        screen: SignupScreen,
-        navigationOptions: ({navigation}) => ({
-            // title: 'Sign up',
-            headerLeft: null,
-        }),
-    },
-    VerifyEmail: {
-        screen: VerifiEmailScreen,
-        navigationOptions: ({navigation}) => ({
-            // title: 'Verify Email',
-            headerLeft: null,
-        }),
-    },
+        Me: {
+            screen: MySettingsScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'My Settings',
+                headerLeft: null,
+            }),
+        },
+        Signin: {
+            screen: SigninScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: `Sign in`,
+                headerLeft: null,
+            }),
+        },
+        Signup: {
+            screen: SignupScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'Sign up',
+                headerLeft: null,
+            }),
+        },
+        VerifyEmail: {
+            screen: VerifiEmailScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'Verify Email',
+                headerLeft: null,
+            }),
+        },
 
-});
+    },
+    {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+);
 
 
 //Cards Tab: cards library and my cards
@@ -147,20 +153,7 @@ const CardsTabs = TabNavigator(
             }
 
         },
-        TestCardsTab: {
-            screen: TestCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Test Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
 
-            },
-        },
         MakeCardsTab: {
             screen: MakeCardsScreen,
             navigationOptions: {
@@ -175,13 +168,33 @@ const CardsTabs = TabNavigator(
             }
 
         },
+        TestCardsTab: {
+            screen: TestCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Test Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
 
+            },
+        },
 
     },
     {
         tabBarPosition: 'top',
         animationEnabled: false,
         swipeEnabled: false,
+        tabBarOptions: {
+            tabStyle: {
+                borderBottomWidth: 1,
+                borderBottomColor: colors.greyOutline,
+
+            },
+        },
     }
 );
 
