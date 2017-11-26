@@ -33,12 +33,12 @@ export default{
     validateContainer: {
         backgroundColor: colors.orange,
     },
-    labelStyle: {
+    validateLabel: {
         color: colors.white,
     },
     checkboxContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-      }
+    }
 }

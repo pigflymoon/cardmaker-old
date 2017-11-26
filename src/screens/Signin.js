@@ -45,7 +45,8 @@ export default class SignIn extends Component {
                     if (user) {
                         console.log('Make the card')
                         // self.screenProps({signin: true});
-                        self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
+                        // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
+                        self.props.navigation.navigate('MySettings', {user: user,signin: true});
 
                     } else {
                         // this.setState({errorMessage: user})
@@ -80,8 +81,10 @@ export default class SignIn extends Component {
 
     navigateToSignup = () => {
         this.props.navigation.navigate('Signup', {});
+    }
 
-
+    navigateToResetPassword = ()=>{
+        this.props.navigation.navigate('ResetPassword', {});
     }
 
     componentDidMount() {
@@ -124,7 +127,7 @@ export default class SignIn extends Component {
                     </View>
 
                     {this.state.errorMessage ?
-                        <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                        <FormValidationMessage containerStyle={formStyle.validateContainer} labelStyle={formStyle.validateLabel}>
                             {this.state.errorMessage}
                         </FormValidationMessage>
                         : null
@@ -139,7 +142,7 @@ export default class SignIn extends Component {
                         title="Sign in"
                     />
                     <View style={formStyle.textInfoContainer}>
-                        <TouchableOpacity>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.navigateToResetPassword}>
                             <View><Text style={formStyle.textLink}>Forgot Password? </Text></View>
                         </TouchableOpacity>
                         <View>

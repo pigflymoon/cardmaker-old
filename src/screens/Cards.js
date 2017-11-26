@@ -152,7 +152,6 @@ export default class Cards extends Component {
 
         likedCards.push(card);
         console.log('likedCards ', likedCards)
-        // this.setState({likedCards: likedCards});
 
     }
 
@@ -167,13 +166,6 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards, signin: true});
     }
 
-    // componentWillMount() {
-    //     this.getImagesByName();
-    //     this.setState({
-    //         cardsData: cards
-    //     })
-    //
-    // }
     setUid = (value) => {
         this.uid = value;
     }
@@ -191,39 +183,19 @@ export default class Cards extends Component {
     }
 
     componentDidMount() {
-        // var user = firebaseApp.auth().currentUser;
-        // console.log('user is ',user)
-        // var self = this;
-        // if (user) {
-        //     this.setUid(user.uid);
-        //     this.setName(user.displayName);
-        //     // var rootRef = firebaseApp.database().ref();
-        //
-        // } else {
-        //     console.log('no user?')
-        //     // this.props.navigation.navigate('Signin');
-        //
-        // }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps)
-
-        var user = firebaseApp.auth().currentUser;
-        console.log('user is ', user)
         var self = this;
-        if (user) {
-            this.setState({signin: true})
-            this.setUid(user.uid);
-            this.setName(user.displayName);
-            // var rootRef = firebaseApp.database().ref();
 
-        } else {
-            console.log('no user?')
-            // this.props.navigation.navigate('Signin');
-
-        }
+        firebaseApp.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('#########sign in -- Cards #########', user)
+                self.setState({signin: true})
+            } else {
+                console.log('no user?')
+                self.setState({signin: false})
+            }
+        });
     }
+
 
     renderNoMoreCards() {
         return (
@@ -244,8 +216,8 @@ export default class Cards extends Component {
     }
 
     renderHeader() {
-        const { params } = this.props.navigation.state;
-        console.log('**********params********',params)
+        const {params} = this.props.navigation.state;
+        console.log('**********params********', params)
         return ((this.state.signin) ?
             <View style={cardStyle.header}>
 

@@ -9,7 +9,7 @@ import MySettingsScreen from './screens/MySettings';
 import SigninScreen from './screens/Signin';
 import SignupScreen from './screens/Signup';
 import VerifiEmailScreen from './screens/VerifyEmail';
-
+import ResetPasswordScreen from './screens/ResetPassword';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
@@ -69,8 +69,8 @@ const MyNotificationsSettingsScreen = ({navigation}) => (
 //         }),
 //     },
 // });
-const MySettings = StackNavigator({
-        Me: {
+const MySettingsStack = StackNavigator({
+        MySettings: {
             screen: MySettingsScreen,
             navigationOptions: ({navigation}) => ({
                 // title: 'My Settings',
@@ -98,6 +98,13 @@ const MySettings = StackNavigator({
                 headerLeft: null,
             }),
         },
+        ResetPassword: {
+            screen: ResetPasswordScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'Verify Email',
+                headerLeft: null,
+            }),
+        },
 
     },
     {
@@ -112,7 +119,7 @@ const CardsTabs = TabNavigator(
     {
 
         MySettingsTab: {
-            screen: MySettings,
+            screen: MySettingsStack,
             navigationOptions: {
                 tabBarLabel: 'Me',
                 tabBarIcon: ({tintColor, focused}) => (

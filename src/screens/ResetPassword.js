@@ -17,10 +17,9 @@ import firebaseApp from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
-let interval = null;
 
 
-export default class VerifyEmail extends Component {
+export default class ResetPassword extends Component {
     constructor(props) {
         super(props);
 
@@ -36,62 +35,37 @@ export default class VerifyEmail extends Component {
         this.props.navigation.navigate('Signup', {});
     }
 
-    handleVerifyEmail = (e) => {
+    setEmail = (text) => {
+        this.setState({email: text});
+    }
+
+
+    handleResetPassword = () => {
         var self = this;
-        var user = this.state.user;
 
-        e.preventDefault();
-
-        user.sendEmailVerification().then(
-            function () {
+        if (!this.state.email) {
+            this.setState({
+                showInfo: true
+            });
+        } else {
+            var auth = firebaseApp.auth();
+            var emailAddress = this.state.email;
+            auth.sendPasswordResetEmail(emailAddress).then(function () {
+                // Email sent.
                 self.setState({
-                    isLoading: true
+                    infoMessage: `Reset password sent to the emailAddress,please check your email ${emailAddress}`
+                });
+                self.props.navigation.navigate('Signin');
+            }, function (error) {
+                self.setState({
+                    errorMessage: 'Error' + error
                 });
 
-                interval = setInterval(() => {
-                    user.reload().then(
-                        function () {
-                            if (interval && user.emailVerified) {
-                                clearInterval(interval);
-                                interval = null;
-
-                                firebaseApp.auth().onAuthStateChanged((user) => {
-                                    self.setState({
-                                        isLoading: false
-                                    });
-                                    clearInterval(interval);
-                                    if (user && user.emailVerified) {
-                                        self.props.navigation.navigate('CardsLibraryTab', {name: self.state.name});
-                                        clearInterval(interval);
-                                        interval = null;
-                                    } else {
-                                        self.setState({
-                                            isLoading: false
-                                        });
-                                    }
-                                });
-
-                            } else {
-                                self.setState({
-                                    isLoading: false
-                                });
-                            }
-                        }).catch(function (error) {
-                        // var errorMessage = error.message + ' (' + error.code + ')';
-                        // self.setState({showErrorInfo: true, errorInfo: errorMessage});
-                    });
-                }, 1000 * 30);
-            }).catch(function (error) {
-            var errorMessage = error.message + ' (' + error.code + ')';
-            console.log(errorMessage)
-            // self.setState({showErrorInfo: true, errorInfo: errorMessage});
-        });
-
-
+            });
+        }
     }
 
     render() {
-        const {email} = this.props.navigation.state.params;
 
         return (
             <View style={formStyle.container}>
@@ -112,10 +86,16 @@ export default class VerifyEmail extends Component {
                                         ref="email"
                                         containerRef="emailcontainerRef"
                                         textInputRef="emailInputRef"
-                                        value={email}
+                                        placeholder="Please enter your email..."
+                                        onChangeText={(text) => this.setEmail(text)}
                                     />
                                 </View>
-
+                                {this.state.infoessage ?
+                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                        {this.state.infoMessage}
+                                    </FormValidationMessage>
+                                    : null
+                                }
 
                                 {this.state.errorMessage ?
                                     <FormValidationMessage containerStyle={formStyle.validateContainer}>
@@ -127,17 +107,14 @@ export default class VerifyEmail extends Component {
 
                             <View style={[formStyle.largerFooterContainer]}>
                                 <Button
-                                    onPress={this.handleVerifyEmail}
+                                    onPress={this.handleResetPassword}
                                     icon={{name: 'done'}}
                                     buttonStyle={buttonStyle.submitButton}
-                                    title="Confirm"
+                                    title="Rest Password"
                                 />
                                 <View style={formStyle.textInfoContainer}>
-                                    <TouchableOpacity>
-                                        <View><Text style={formStyle.textLink}>Forgot Password? </Text></View>
-                                    </TouchableOpacity>
                                     <View>
-                                        <Text style={formStyle.plainText}> or </Text>
+                                        <Text style={formStyle.plainText}>Don't have an account? </Text>
                                     </View>
                                     <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
                                         <View><Text style={formStyle.textLink}>Sign up.</Text></View>

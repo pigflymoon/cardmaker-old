@@ -48,6 +48,7 @@ export default class Signup extends Component {
             firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
                 if (user) {
                     user.updateProfile({displayName: self.state.name});
+                    console.log('email',email)
                     self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
                 }
             }).catch(function (error) {
