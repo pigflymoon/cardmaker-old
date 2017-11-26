@@ -150,7 +150,6 @@ export default class MakeCards extends Component {
     }
 
     render() {
-        console.log('signin??????', this.state.signin)
         if ((this.state.makeCard) && (this.state.signin)) {
             return (
                 <View style={[cardStyle.cardsContainer]}>
