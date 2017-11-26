@@ -15,6 +15,7 @@ import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 import TestCardsScreen from './screens/TestCards';
 
+import SettingsScreen from './screens/Settings';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../src/styles/colors';
@@ -218,6 +219,12 @@ const CardsTab = StackNavigator({
 //
 
 const SettingsTab = StackNavigator({
+    Settings:{
+        screen: SettingsScreen,
+        navigationOptions: {
+            title: 'Settings',
+        },
+    },
     NotifSettings: {
         screen: MyNotificationsSettingsScreen,
         navigationOptions: {
