@@ -16,6 +16,8 @@ import MakeCardsScreen from './screens/MakeCards';
 import TestCardsScreen from './screens/TestCards';
 
 import SettingsScreen from './screens/Settings';
+import AboutScreen from './screens/About';
+import ProversionScreen from './screens/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../src/styles/colors';
@@ -219,22 +221,41 @@ const CardsTab = StackNavigator({
 //
 
 const SettingsTab = StackNavigator({
-    Settings:{
+    Settings: {
         screen: SettingsScreen,
         navigationOptions: {
             title: 'Settings',
         },
     },
-    NotifSettings: {
-        screen: MyNotificationsSettingsScreen,
+    About: {
+        screen: AboutScreen,
         navigationOptions: {
-            title: 'Notifications',
+            title: 'About'
+        }
+    },
+    Proversion: {
+        screen: ProversionScreen,
+        navigationOptions: {
+            title: 'PRO Version'
         },
     },
 });
 
 const StacksInTabs = TabNavigator(
     {
+        SettingsTab: {
+            screen: SettingsTab,
+            navigationOptions: {
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            },
+        },
         CardsTab: {
             screen: CardsTab,
             navigationOptions: {
@@ -249,19 +270,7 @@ const StacksInTabs = TabNavigator(
             }
 
         },
-        SettingsTab: {
-            screen: SettingsTab,
-            navigationOptions: {
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            },
-        },
+
 
     },
     {
