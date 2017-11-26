@@ -22,56 +22,7 @@ import ProversionScreen from './screens/Proversion';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../src/styles/colors';
 
-const MyNavScreen = ({navigation, banner}) => (
-    <ScrollView>
-        <Button
-            onPress={() => navigation.navigate('Profile', {name: 'Jordan'})}
-            title="Open profile screen"
-        />
-        <Button
-            onPress={() => navigation.navigate('NotifSettings')}
-            title="Open notifications screen"
-        />
-        <Button
-            onPress={() => navigation.navigate('SettingsTab')}
-            title="Go to settings tab"
-        />
-        <Button onPress={() => navigation.goBack(null)} title="Go back"/>
-    </ScrollView>
-);
 
-const MyHomeScreen = ({navigation}) => (
-    <MyNavScreen banner="Home Screen" navigation={navigation}/>
-);
-
-const MyProfileScreen = ({navigation}) => (
-    <MyNavScreen
-        banner={`${navigation.state.params.name}s Profile`}
-        navigation={navigation}
-    />
-);
-
-const MyNotificationsSettingsScreen = ({navigation}) => (
-    <MyNavScreen banner="Notifications Screen" navigation={navigation}/>
-);
-
-//
-// const MainTab = StackNavigator({
-//     Home: {
-//         screen: MyHomeScreen,
-//         path: '/',
-//         navigationOptions: {
-//             title: 'Welcome',
-//         },
-//     },
-//     Profile: {
-//         screen: MyProfileScreen,
-//         path: '/people/:name',
-//         navigationOptions: ({navigation}) => ({
-//             title: `${navigation.state.params.name}'s Profile!`,
-//         }),
-//     },
-// });
 const MySettingsStack = StackNavigator({
         MySettings: {
             screen: MySettingsScreen,
@@ -178,21 +129,6 @@ const CardsTabs = TabNavigator(
             }
 
         },
-        TestCardsTab: {
-            screen: TestCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Test Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-
     },
     {
         tabBarPosition: 'top',
