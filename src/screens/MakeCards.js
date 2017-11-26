@@ -18,6 +18,7 @@ import {
 } from 'react-native-elements';
 import axios from 'axios';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
+import firebaseApp from '../config/FirebaseConfig';
 
 import Utils from '../utils/utils';
 import colors from '../styles/colors';
@@ -42,16 +43,26 @@ export default class MakeCards extends Component {
         }
     }
 
-    componentWillMount() {
-        // {
-        //     this.getMoviesFromApiAsync()
-        // }
+    componentDidMount() {
+        var self = this;
+
+        firebaseApp.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('#########sign in -- Make Cards #########', user)
+                self.setState({signin: true})
+            } else {
+                console.log('no user?')
+                self.setState({signin: false})
+            }
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
+        var signin = nextProps.navigation.state.params.signin;
+
         console.log('makecard', makeCard)
-        this.setState({makeCard: makeCard});
+        this.setState({makeCard: makeCard, signin: signin});
     }
 
 
@@ -89,7 +100,7 @@ export default class MakeCards extends Component {
 
             context.textAlign = "start";
             context.textBaseline = "bottom";
-            context.fillStyle =colors.red1;  //<======= here
+            context.fillStyle = colors.red1;  //<======= here
             context.fillText(title, 60, 250);
 
             context.font = "bold 24px Hoefler";
@@ -117,83 +128,84 @@ export default class MakeCards extends Component {
 
 
     render() {
-        if (!this.state.makeCard) {
+        if ((this.state.makeCard) && (this.state.signin)) {
             return (
-                <View>
-                    <Text>Choose your picture</Text>
+                <View style={[cardStyle.cardsContainer]}>
+
+                    <View style={cardStyle.imageListContainer}>
+                        <View style={[formStyle.container, cardStyle.imageContainer]}>
+                            <Image style={{height: 150}}
+                                   source={{uri: (this.state.makeCard).uri}}
+                                   resizeMode='cover'/>
+                        </View>
+                        <View style={formStyle.inputsContainer}>
+
+                            <View style={formStyle.inputContainer}>
+
+                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                    Wish words
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="wishwords"
+                                           containerRef="wishwordscontainerRef"
+                                           textInputRef="wishwordsInputRef"
+                                           placeholder="Please enter wish words"
+                                           onChangeText={(text) => this.setWishwords(text)}
+                                />
+                            </View>
+
+                            <View style={formStyle.inputContainer}>
+
+                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                    Name
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="Name"
+                                           containerRef="namecontainerRef"
+                                           textInputRef="nameInputRef"
+                                           placeholder="Please Sign your name"
+                                           onChangeText={(text) => this.setName(text)}
+                                />
+                            </View>
+
+
+                            {this.state.errorMessage ?
+                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                    {this.state.errorMessage}
+                                </FormValidationMessage>
+                                : null
+                            }
+                            <View style={cardStyle.iconContainer}>
+                                <View style={cardStyle.shareRightIcon}>
+                                    <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
+                                          onPress={() => this.drawCanvas((this.state.makeCard).uri)}
+                                    />
+                                </View>
+                                <View style={cardStyle.shareRightIcon}>
+                                    <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                          onPress={this.onShare}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+
+                    </View>
+
+                    <View style={cardStyle.previewContainer}>
+                        <Canvas ref="canvasImage"/>
+                    </View>
+
+
                 </View>
-            )
+            );
+
         }
         return (
-            <View style={[cardStyle.cardsContainer]}>
-
-                <View style={cardStyle.imageListContainer}>
-                    <View style={[formStyle.container, cardStyle.imageContainer]}>
-                        <Image style={{height: 150}}
-                               source={{uri: (this.state.makeCard).uri}}
-                               resizeMode='cover'/>
-                    </View>
-                    <View style={formStyle.inputsContainer}>
-
-                        <View style={formStyle.inputContainer}>
-
-                            <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                Wish words
-                            </FormLabel>
-                            <FormInput inputStyle={cardStyle.inputStyle}
-                                       ref="wishwords"
-                                       containerRef="wishwordscontainerRef"
-                                       textInputRef="wishwordsInputRef"
-                                       placeholder="Please enter wish words"
-                                       onChangeText={(text) => this.setWishwords(text)}
-                            />
-                        </View>
-
-                        <View style={formStyle.inputContainer}>
-
-                            <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                Name
-                            </FormLabel>
-                            <FormInput inputStyle={cardStyle.inputStyle}
-                                       ref="Name"
-                                       containerRef="namecontainerRef"
-                                       textInputRef="nameInputRef"
-                                       placeholder="Please Sign your name"
-                                       onChangeText={(text) => this.setName(text)}
-                            />
-                        </View>
-
-
-                        {this.state.errorMessage ?
-                            <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                {this.state.errorMessage}
-                            </FormValidationMessage>
-                            : null
-                        }
-                        <View style={cardStyle.iconContainer}>
-                            <View style={cardStyle.shareRightIcon}>
-                                <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
-                                      onPress={() => this.drawCanvas((this.state.makeCard).uri)}
-                                />
-                            </View>
-                            <View style={cardStyle.shareRightIcon}>
-                                <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
-                                      onPress={this.onShare}
-                                />
-                            </View>
-                        </View>
-                    </View>
-
-                </View>
-
-                <View style={cardStyle.previewContainer}>
-                    <Canvas ref="canvasImage"/>
-                </View>
-
-
+            <View>
+                <Text>Choose your picture</Text>
             </View>
+        )
 
-        );
     }
 
 

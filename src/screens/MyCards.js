@@ -27,20 +27,29 @@ export default class MyCards extends Component {
 
     }
 
-    navigateToSignin = () => {
-        console.log('this.props.navigation', this.props.navigation)
-        this.props.navigation.navigate('Signin', {});
+    componentDidMount() {
+        var self = this;
 
+        firebaseApp.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('#########sign in -- My Cards #########', user)
+                self.setState({signin: true})
+            } else {
+                console.log('no user?')
+                self.setState({signin: false})
+            }
+        });
     }
-
 
     componentWillReceiveProps(nextProps) {
         chooseCards = nextProps.navigation.state.params.likedCards;
+        var signin = nextProps.navigation.state.params.signin;
+
         var user = firebaseApp.auth().currentUser;
         var self = this;
         console.log('my cards nextprops,', nextProps)
         if (user) {
-            self.setState({chooseCards: chooseCards, signin: true});
+            self.setState({chooseCards: chooseCards, signin: signin});
         }
         console.log('pass liked cards', chooseCards)
     }
@@ -55,7 +64,7 @@ export default class MyCards extends Component {
     gotoMakeCards = () => {
         console.log('this.state.makecards', this.state.makeCards)
         if (this.state.makeCards) {
-            this.props.navigation.navigate('MakeCardsTab', {chooseCards: this.state.makeCards});
+            this.props.navigation.navigate('MakeCardsTab', {chooseCards: this.state.makeCards, signin: this.state.signin});
 
         } else {
             Alert.alert('Please choose a picture');
@@ -84,7 +93,7 @@ export default class MyCards extends Component {
         return (
             <View style={cardStyle.container}>
                 {this.renderHeader()}
-                {this.state.chooseCards ?
+                {(this.state.chooseCards && this.state.signin) ?
                     <GridView
                         itemWidth={130}
                         items={this.state.chooseCards}
