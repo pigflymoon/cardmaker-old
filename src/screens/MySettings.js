@@ -17,6 +17,7 @@ export default class MySettings extends Component {
             username: '',
             title:'',
 
+
         }
     }
 

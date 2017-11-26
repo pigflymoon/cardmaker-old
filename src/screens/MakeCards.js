@@ -14,7 +14,8 @@ import {
     FormInput,
     FormLabel,
     FormValidationMessage,
-    CheckBox,
+    Card,
+    Button,
 } from 'react-native-elements';
 import axios from 'axios';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
@@ -24,6 +25,7 @@ import Utils from '../utils/utils';
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
+import buttonStyle from '../styles/button';
 
 
 const {width, height} = Dimensions.get('window');
@@ -40,6 +42,7 @@ export default class MakeCards extends Component {
             title: '',
             caption: '',
             checked: false,
+            signin: false,
         }
     }
 
@@ -125,9 +128,29 @@ export default class MakeCards extends Component {
         })
 
     }
+    navigateToSignin = () => {
+        this.props.navigation.navigate('Signin', {});
 
+    }
+
+    renderSignCard() {
+        return (
+            <Card title='Welcome to cardmaker'>
+                <Text style={{marginBottom: 10}}>
+                    Please sign in then choose picture to make card
+                </Text>
+                <Button
+                    icon={{name: 'perm-identity'}}
+                    buttonStyle={buttonStyle.submitButton}
+                    title='Sign in /Sign up'
+                    onPress={this.navigateToSignin}
+                />
+            </Card>
+        );
+    }
 
     render() {
+        console.log('signin??????', this.state.signin)
         if ((this.state.makeCard) && (this.state.signin)) {
             return (
                 <View style={[cardStyle.cardsContainer]}>
@@ -200,11 +223,26 @@ export default class MakeCards extends Component {
             );
 
         }
-        return (
-            <View>
-                <Text>Choose your picture</Text>
-            </View>
-        )
+        else if (this.state.signin) {
+            return (
+                <View style={cardStyle.container}>
+                    <Card title='Welcome to cardmaker'>
+                        <Text style={{marginBottom: 10}}>
+                            Please choose picture to make card
+                        </Text>
+
+                    </Card>
+                </View>
+            )
+        } else {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderSignCard()}
+                </View>
+            )
+
+        }
+
 
     }
 
