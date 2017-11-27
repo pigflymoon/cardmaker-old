@@ -6,7 +6,6 @@ import React from 'react';
 import {Button, ScrollView, Alert} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import MySettingsScreen from './screens/MySettings';
-import SigninScreen from './screens/Signin';
 import SignupScreen from './screens/Signup';
 import VerifiEmailScreen from './screens/VerifyEmail';
 import ResetPasswordScreen from './screens/ResetPassword';
@@ -28,13 +27,6 @@ const MySettingsStack = StackNavigator({
             screen: MySettingsScreen,
             navigationOptions: ({navigation}) => ({
                 // title: 'My Settings',
-                headerLeft: null,
-            }),
-        },
-        Signin: {
-            screen: SigninScreen,
-            navigationOptions: ({navigation}) => ({
-                // title: `Sign in`,
                 headerLeft: null,
             }),
         },
