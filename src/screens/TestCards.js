@@ -214,7 +214,7 @@ export default class TestCards extends Component {
         AsyncStorage.getItem("cardsSource").then((value) => {
             if (value) {
                 console.log('saved cards ', (value))
-                this.setState({"cardsData": (value)});
+                this.setState({"cardsData": JSON.parse(value)});
             } else {
                 AsyncStorage.setItem("cardsSource", cards);
             }

@@ -69,22 +69,26 @@ const MySettingsStack = StackNavigator({
 
 
 //Cards Tab: cards library and my cards
+/*
+ TestCardsTab: {
+ screen: TestCardsScreen,
+ navigationOptions: {
+ tabBarLabel: 'Test Cards',
+ tabBarIcon: ({tintColor, focused}) => (
+ <Ionicons
+ name={focused ? 'ios-images' : 'ios-images-outline'}
+ size={26}
+ style={{color: tintColor}}
+ />
+ ),
+
+ },
+ },
+*/
+
 const CardsTabs = TabNavigator(
     {
-        TestCardsTab: {
-            screen: TestCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Test Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
 
-            },
-        },
         MySettingsTab: {
             screen: MySettingsStack,
             navigationOptions: {
@@ -99,7 +103,20 @@ const CardsTabs = TabNavigator(
 
             },
         },
+        CardsLibraryTab: {
+            screen: CardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Cards Library',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
 
+            },
+        },
         MyCardTab: {
             screen: MyCardsScreen,
             navigationOptions: {

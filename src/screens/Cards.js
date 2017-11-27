@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 // import firebase from 'firebase';  // Initialize Firebase
 import firebaseApp from '../config/FirebaseConfig';
+import firebase from 'firebase';  // Initialize Firebase
 
 import SwipeDeck from '../components/SwipeDeck';
 
@@ -80,6 +81,7 @@ var likedCards = [], dislikedCards = [],
             code: '#2980b9'
         }];
 
+var storageRef = firebaseApp.storage().ref('/images');
 
 export default class Cards extends Component {
 
@@ -139,8 +141,74 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards, signin: true});
     }
 
+
+    firebaseAsyncImage = (data, resolve, reject) => {
+
+        var cardsSource;
+        setTimeout(function () {
+            var thisRef = storageRef.child(data.imageName + '.jpg');
+            thisRef.getDownloadURL().then(function (url) {
+                console.log('url!', url);
+
+                cardsSource = {
+                    id: Date.now().toString(36),
+                    uri: url,
+                    name: Date.now().toString(36),
+                    code: '#2980b9'
+                }
+                resolve(cardsSource);
+            });
+
+            //
+        }, 2000);
+    }
+
+    getAllAsyncImages = () => {
+
+        // Create an array of promises
+        var promises = [];
+        var self = this;
+        for (var i = 1; i < 5; i++) {
+            // Fill the array with promises which initiate some async work
+            promises.push(new Promise(function (resolve, reject) {
+                self.firebaseAsyncImage({imageName: i}, resolve, reject);
+            }));
+        }
+
+        // Return a Promise.all promise of the array
+        return Promise.all(promises);
+    }
+
     refreshImages = () => {
-        this.setState({cardsData: cards})
+        AsyncStorage.getItem("cardsSource").then((value) => {
+            if (value) {
+                console.log('saved cards ', (value))
+                this.setState({"cardsData": JSON.parse(value)});
+            } else {
+                AsyncStorage.setItem("cardsSource", cards);
+            }
+
+        }).done();
+        // this.setState({cardsData: cards})
+    }
+
+    componentWillMount() {
+        console.log('GrandChild will mount.');
+        var self = this;
+        var result = this.getAllAsyncImages().then(function (results) {
+            console.log('All async calls completed successfully:');
+            console.log(' --> ', (results));
+
+            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                .then(self.setState({cardsData: results})
+                );
+        }, function (reason) {
+            console.log('Some async call failed:');
+            console.log(' --> ', reason);
+        });
+        // this.fetchFirebaseData();
+
+
     }
 
     componentDidMount() {
