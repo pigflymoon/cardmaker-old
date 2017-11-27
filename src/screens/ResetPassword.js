@@ -55,7 +55,7 @@ export default class ResetPassword extends Component {
                 self.setState({
                     infoMessage: `Reset password sent to the emailAddress,please check your email ${emailAddress}`
                 });
-                self.props.navigation.navigate('Signin');
+                self.props.navigation.navigate('MySettings');
             }, function (error) {
                 self.setState({
                     errorMessage: 'Error' + error

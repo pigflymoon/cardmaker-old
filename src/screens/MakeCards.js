@@ -129,7 +129,7 @@ export default class MakeCards extends Component {
 
     }
     navigateToSignin = () => {
-        this.props.navigation.navigate('Signin', {});
+        this.props.navigation.navigate('MySettings', {});
 
     }
 

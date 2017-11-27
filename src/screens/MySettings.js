@@ -1,21 +1,36 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {Card, Button, List, ListItem, Icon,} from 'react-native-elements';
+import {
+    Card, List, ListItem, Icon,
+    Button,
+    FormInput,
+    FormLabel,
+    FormValidationMessage,
+
+} from 'react-native-elements';
 import firebaseApp from '../config/FirebaseConfig';
 
+import formStyle from '../styles/form';
+import buttonStyle from '../styles/button';
 import bg1 from '../assets/images/bg1.jpg';
 import layoutStyle from '../styles/layout';
-import buttonStyle from '../styles/button';
 import colors from '../styles/colors';
+
 
 export default class MySettings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             showSignCard: true,
+            welcomeCard: false,
+            showSignBox: false,
             mycard: false,
             username: '',
-            title:'',
+            title: '',
+            email: '',
+            password: '',
+            name: '',
+            errorMessage: ''
 
 
         }
@@ -23,7 +38,8 @@ export default class MySettings extends Component {
 
     navigateToSignin = () => {
         console.log('this.props.navigation', this.props.navigation)
-        this.props.navigation.navigate('Signin', {});
+        // this.props.navigation.navigate('Signin', {});
+        this.setState({showSignBox: true, showSignCard: false, welcomeCard: false,})
 
     }
     handleSignout = () => {
@@ -31,54 +47,204 @@ export default class MySettings extends Component {
         firebaseApp.auth().signOut().then(function () {
             // Sign-out successful.
             console.log('Sign out successfully')
-            self.setState({showSignCard: true})
+
+            self.setState({showSignBox: false, showSignCard: true, welcomeCard: false,})
         }).catch(function (error) {
             // An error happened.
             console.log('error', error)
         });
     }
+//sign in box
+    setEmail = (text) => {
+        this.setState({email: text});
+
+    }
+
+    setPassword = (text) => {
+        this.setState({password: text});
+
+    }
+
+    handleSignin = (e) => {
+        var self = this;
+        e.preventDefault();
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(function (user) {
+                firebaseApp.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        // self.screenProps({signin: true});
+                        // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
+                        self.setState({
+                            user: user,
+                            signin: true,
+                            welcomeCard: true,
+                            showSignCard: false,
+                            showSignBox: false,
+                            title: `Welcome ${user.displayName} to cardmaker`,
+                            //
+                        })
+                        // self.props.navigation.navigate('MySettings', {user: user,signin: true});
+
+                    } else {
+                        // this.setState({errorMessage: user})
+                        console.log('error', user)
+                    }
+                })
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('errorCode', errorCode)
+                switch (errorCode) {
+                    case 'auth/invalid-email':
+                    case 'auth/user-disabled':
+                    case 'auth/operation-not-allowed':
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        self.setState({
+                            errorMessage: errorMessage
+                        });
+                        break;
+                    default:
+                        self.setState({
+                            errorMessage: 'Error'
+                        });
+                }
+            });
 
 
-    componentDidMount() {
-        console.log(' Sign in props', this.props)
-        const {state} = this.props.navigation;
-        console.log('Mount Sign in passed state', state)
-        if (state.params != undefined) {
-            this.setState({title:`Welcome ${state.params.user.displayName} to cardmaker`,showSignCard: false, username: state.params.user.displayName});
-        }
+    }
+
+    navigateToSignup = () => {
+        this.props.navigation.navigate('Signup', {});
+    }
+
+    navigateToResetPassword = () => {
+        this.props.navigation.navigate('ResetPassword', {});
+    }
+//end
+    // componentDidMount() {
+    //     console.log(' Sign in props', this.props)
+    //     const {state} = this.props.navigation;
+    //     if (state.params != undefined) {
+    //         this.setState({
+    //             title: `Welcome ${state.params.user.displayName} to cardmaker`,
+    //             showSignCard: false,
+    //             username: state.params.user.displayName
+    //         });
+    //     }
+    // }
+
+    renderSignBox = () => {
+        return (
+            <View style={formStyle.container}>
+
+                <View style={formStyle.inputsContainer}>
+
+                    <View style={formStyle.inputContainer}>
+
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                            Email
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                        />
+                    </View>
+
+                    <View style={formStyle.inputContainer}>
+
+                        <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                            Password
+                        </FormLabel>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setPassword(text)}
+                        />
+                    </View>
+
+                    {this.state.errorMessage ?
+                        <FormValidationMessage containerStyle={formStyle.validateContainer}
+                                               labelStyle={formStyle.validateLabel}>
+                            {this.state.errorMessage}
+                        </FormValidationMessage>
+                        : null
+                    }
+                </View>
+
+                <View style={[formStyle.largerFooterContainer]}>
+                    <Button
+                        onPress={this.handleSignin}
+                        icon={{name: 'done'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title="Sign in"
+                    />
+                    <View style={formStyle.textInfoContainer}>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.navigateToResetPassword}>
+                            <View><Text style={formStyle.textLink}>Forgot Password? </Text></View>
+                        </TouchableOpacity>
+                        <View>
+                            <Text style={formStyle.plainText}> or </Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
+                            <View><Text style={formStyle.textLink}>Sign up.</Text></View>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+
+            </View>
+        );
     }
 
     render() {
+
+
+        // if (this.props.navigation.state.params) {
+        //     const {user, signin} = this.props.navigation.state.params;
+        //     title = user.displayName;
+        //     showBox = !signin;
+        // }
+
+
         return (
             <View style={layoutStyle.container}>
-                {this.state.showSignCard ?
-                    <Card
-                        title='Welcome to cardmaker'
-                        image={bg1}>
-                        <Text style={{marginBottom: 10}}>
-                            Please sign in to make your card, have fun!
-                        </Text>
-                        <Button
-                            icon={{name: 'perm-identity'}}
-                            buttonStyle={buttonStyle.submitButton}
-                            title='Sign in /Sign up'
-                            onPress={this.navigateToSignin}
-                        />
-                    </Card> :
-                    <Card
-                        title={this.state.title}
-                        image={bg1}>
-                        <Text style={{marginBottom: 10}}>
-                            Please pick your picture from libaray to make your card, have fun!
-                        </Text>
-                        <Button
-                            icon={{name: 'perm-identity'}}
-                            buttonStyle={buttonStyle.submitButton}
-                            title='Sign out'
-                            onPress={this.handleSignout}
-                        />
-                    </Card>
+                {this.state.showSignCard && <Card
+                    title='Welcome to cardmaker'
+                    image={bg1}>
+                    <Text style={{marginBottom: 10}}>
+                        Please sign in to make your card, have fun!
+                    </Text>
+                    <Button
+                        icon={{name: 'perm-identity'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title='Sign in /Sign up'
+                        onPress={this.navigateToSignin}
+                    />
+                </Card>}
+                {this.state.welcomeCard && <Card
+                    title={this.state.title}
+                    image={bg1}>
+                    <Text style={{marginBottom: 10}}>
+                        Please pick your picture from libaray to make your card, have fun!
+                    </Text>
+                    <Button
+                        icon={{name: 'perm-identity'}}
+                        buttonStyle={buttonStyle.submitButton}
+                        title='Sign out'
+                        onPress={this.handleSignout}
+                    />
+                </Card>
                 }
+
+                {this.state.showSignBox && this.renderSignBox()}
 
             </View>
         );
