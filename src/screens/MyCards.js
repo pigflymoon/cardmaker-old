@@ -45,13 +45,15 @@ export default class MyCards extends Component {
         chooseCards = nextProps.navigation.state.params.likedCards;
         var signin = nextProps.navigation.state.params.signin;
 
-        var user = firebaseApp.auth().currentUser;
+        // var user = firebaseApp.auth().currentUser;
         var self = this;
         console.log('my cards nextprops,', nextProps)
-        if (user) {
-            self.setState({chooseCards: chooseCards, signin: signin});
-        }
-        console.log('pass liked cards', chooseCards)
+        console.log('my cards chooseCards,', chooseCards)
+
+        console.log('my cards signin,', signin)
+
+        this.setState({chooseCards: chooseCards, signin: signin});
+        console.log('pass chooseCards cards', chooseCards)
     }
 
     chooseCard = (item) => {
@@ -64,7 +66,10 @@ export default class MyCards extends Component {
     gotoMakeCards = () => {
         console.log('this.state.makecards', this.state.makeCards)
         if (this.state.makeCards) {
-            this.props.navigation.navigate('MakeCardsTab', {chooseCards: this.state.makeCards, signin: this.state.signin});
+            this.props.navigation.navigate('MakeCardsTab', {
+                chooseCards: this.state.makeCards,
+                signin: this.state.signin
+            });
 
         } else {
             Alert.alert('Please choose a picture');
@@ -89,11 +94,12 @@ export default class MyCards extends Component {
 
     render() {
         const {params} = this.props.navigation.state;
-        console.log('My cards **********params********', params)
+        console.log('My cards **********(this.state.chooseCards && this.state.signin)********', (this.state.chooseCards && this.state.signin))
+        var renderCard = (this.state.chooseCards && this.state.signin);
         return (
             <View style={cardStyle.container}>
                 {this.renderHeader()}
-                {(this.state.chooseCards && this.state.signin) ?
+                {renderCard ?
                     <GridView
                         itemWidth={130}
                         items={this.state.chooseCards}

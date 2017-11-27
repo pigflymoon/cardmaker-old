@@ -62,7 +62,7 @@ const DATA = [
     },
 
 ];
-var likedCards = [], dislikedCards = [],
+var likedCards = [], dislikedCards = [], savedCards = [],
     cards = [
         {
             id: 6,
@@ -124,9 +124,13 @@ export default class Cards extends Component {
 
     onSwipeRight(card) {
         console.log('Card liked: ' + card.name, 'Card is ', card);
-
         likedCards.push(card);
-        console.log('likedCards ', likedCards)
+
+        var savedCard = new Map(likedCards.map(obj => [obj.uri, obj]));
+
+        // To get the unique objects
+        savedCards = Array.from(savedCard.values());
+
 
     }
 
@@ -137,8 +141,8 @@ export default class Cards extends Component {
     }
 
     gotoMyCards = () => {
-        console.log('pass likedCards', likedCards)
-        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards, signin: true});
+        console.log('pass savedCards', savedCards)
+        this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
 
@@ -194,18 +198,7 @@ export default class Cards extends Component {
 
     componentWillMount() {
         console.log('GrandChild will mount.');
-        var self = this;
-        var result = this.getAllAsyncImages().then(function (results) {
-            console.log('All async calls completed successfully:');
-            console.log(' --> ', (results));
 
-            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                .then(self.setState({cardsData: results})
-                );
-        }, function (reason) {
-            console.log('Some async call failed:');
-            console.log(' --> ', reason);
-        });
         // this.fetchFirebaseData();
 
 
@@ -217,7 +210,18 @@ export default class Cards extends Component {
         firebaseApp.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log('#########sign in -- Cards #########', user)
-                self.setState({signin: true})
+                self.setState({signin: true});
+                var result = self.getAllAsyncImages().then(function (results) {
+                    console.log('All async calls completed successfully:');
+                    console.log(' --> ', (results));
+
+                    AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                        .then(self.setState({cardsData: results})
+                        );
+                }, function (reason) {
+                    console.log('Some async call failed:');
+                    console.log(' --> ', reason);
+                });
             } else {
                 console.log('no user?')
                 self.setState({signin: false})
