@@ -71,7 +71,20 @@ const MySettingsStack = StackNavigator({
 //Cards Tab: cards library and my cards
 const CardsTabs = TabNavigator(
     {
+        TestCardsTab: {
+            screen: TestCardsScreen,
+            navigationOptions: {
+                tabBarLabel: 'Test Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
 
+            },
+        },
         MySettingsTab: {
             screen: MySettingsStack,
             navigationOptions: {
@@ -86,20 +99,7 @@ const CardsTabs = TabNavigator(
 
             },
         },
-        CardsLibraryTab: {
-            screen: CardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Cards Library',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
 
-            },
-        },
         MyCardTab: {
             screen: MyCardsScreen,
             navigationOptions: {
@@ -179,19 +179,6 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        SettingsTab: {
-            screen: SettingsTab,
-            navigationOptions: {
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            },
-        },
         CardsTab: {
             screen: CardsTab,
             navigationOptions: {
@@ -206,7 +193,19 @@ const StacksInTabs = TabNavigator(
             }
 
         },
-
+        SettingsTab: {
+            screen: SettingsTab,
+            navigationOptions: {
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            },
+        },
 
     },
     {

@@ -25,7 +25,10 @@ export default class SwipeDeck extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log('this.props.data', this.props.data)
+        this.state = {
+            cards: this.props.data
+        }
         const position = new Animated.ValueXY();
 
         const panResponder = PanResponder.create({
@@ -52,9 +55,15 @@ export default class SwipeDeck extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.data !== this.props.data) {
-            this.setState({index: 0});
+        console.log('*********nextProps***********', nextProps.data)
+        if (nextProps != undefined) {
+            this.setState({cards: nextProps.data})
         }
+
+        // if ((nextProps.data !== this.props.data) && (nextProps != undefined)) {
+        //     this.setState({index: 0});
+        //     this.renderCards(nextProps)
+        // }
     }
 
     componentWillUpdate() {
@@ -100,40 +109,87 @@ export default class SwipeDeck extends Component {
         };
     }
 
-    renderCards() {
-        console.log('this.stat.index',this.state.index)
-        console.log('this.props.data',this.props.data.length)
+    renderCards(nextProps) {
+        console.log('nextProps?????', nextProps)
 
-        if (this.state.index >= this.props.data.length) {
-            return this.props.renderNoMoreCards();
-        }
+        if (nextProps != undefined) {
+            return this.state.cards
+                .map((item, i) => {
+                    if (i < this.state.index) {
+                        return null;
+                    } else if (i === this.state.index) {
+                        return (
+                            <Animated.View
+                                key={item.id}
+                                style={[this.getCardStyle(), styles.cardStyle]}
+                                {...this.state.panResponder.panHandlers}
+                            >
+                                {nextProps.renderCard(item)}
+                            </Animated.View>
+                        );
+                    }
 
-        console.log('props data',this.props.data)
-        return this.props.data
-            .map((item, i) => {
-                if (i < this.state.index) {
-                    return null;
-                } else if (i === this.state.index) {
                     return (
                         <Animated.View
                             key={item.id}
-                            style={[this.getCardStyle(), styles.cardStyle]}
-                            {...this.state.panResponder.panHandlers}
+                            style={[styles.cardStyle, {zIndex: 0}]}
                         >
-                            {this.props.renderCard(item)}
+                            {nextProps.renderCard(item)}
                         </Animated.View>
                     );
-                }
+                }).reverse();
+        } else {//first itme
 
-                return (
-                    <Animated.View
-                        key={item.id}
-                        style={[styles.cardStyle, {zIndex: 0}]}
-                    >
-                        {this.props.renderCard(item)}
-                    </Animated.View>
-                );
-            }).reverse();
+            console.log('this.state.cards',this.state.cards)
+            console.log('Array???',Array.isArray(this.state.cards))
+            if(Array.isArray(this.state.cards)){
+                var a = this.state.cards
+                console.log('a length',a)
+            }
+
+            if (this.state.cards != undefined) {
+                console.log('this.state.index', this.state.index)
+                console.log('this.state.cards.length',this.state.cards.length)
+                // if (this.state.index >= this.state.cards.length) {
+                //     return this.props.renderNoMoreCards();
+                // }
+                //
+                //
+                // if (this.state.cards.length < 1) {
+                //     return (
+                //         <View>No data</View>
+                //     )
+                // }
+                return this.state.cards
+                    .map((item, i) => {
+                    console.log('item',item)
+                        if (i < this.state.index) {
+                            return null;
+                        } else if (i === this.state.index) {
+                            return (
+                                <Animated.View
+                                    key={item.id}
+                                    style={[this.getCardStyle(), styles.cardStyle]}
+                                    {...this.state.panResponder.panHandlers}
+                                >
+                                    {this.props.renderCard(item)}
+                                </Animated.View>
+                            );
+                        }
+
+                        return (
+                            <Animated.View
+                                key={item.id}
+                                style={[styles.cardStyle, {zIndex: 0}]}
+                            >
+                                {this.props.renderCard(item)}
+                            </Animated.View>
+                        );
+                    }).reverse();
+            }
+
+        }
+
 
     }
 
@@ -141,12 +197,13 @@ export default class SwipeDeck extends Component {
         // console.warn(
         //     `Warning: SwipeDeck has been deprecated and will be removed in a future version of React Native Elements. To keep up with it's development you can check the project here(https://github.com/Monte9/react-native-tinder-cards).`
         // );
-
         return (
             <View>
                 {this.renderCards()}
             </View>
         );
+
+
     }
 }
 

@@ -19,6 +19,8 @@ import {List, ListItem, Card, Tile, Icon, Button} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
+// import firebase from 'firebase';  // Initialize Firebase
+
 
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 var verifyproductionHost = Config.receiptVerify.Host.productionHost;
@@ -31,7 +33,7 @@ import Utils from '../utils/utils';
 import colors from '../styles/colors';
 import listStyle from '../styles/list';
 import SettingStyle from '../styles/setting';
-
+var cardsSource = [];
 export default class Settings extends Component {
 
     constructor(props, context) {
@@ -39,7 +41,7 @@ export default class Settings extends Component {
         this.state = {
             version: '1.0',
             isPro: 'DISABLED',
-            showUsgs: false,//remove in-purchase
+            showProData: false,//remove in-purchase
 
         };
 
@@ -70,6 +72,33 @@ export default class Settings extends Component {
     }
 
 
+    getImageByName = (name) => {
+        console.log('name', name);
+        var storageRef = firebase.storage().ref('/images');
+
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child(name + '.jpg');
+        console.log('thisRef', thisRef);
+        //put request upload file to firebase storage
+        thisRef.getDownloadURL().then(function (url) {
+            console.log('Uploaded a blob or file!', url);
+            cardsSource.push({
+                id: name,
+                uri: url,
+                name: name,
+                code: '#2980b9'
+            })
+        });
+
+    }
+    getImagesByName = () => {
+        console.log('names')
+        this.getImageByName('1');
+        this.getImageByName('2')
+        this.getImageByName('3')
+        this.getImageByName('4')
+
+    }
     onPay = () => {
         var self = this;
         InAppUtils.canMakePayments((enabled) => {
@@ -105,7 +134,20 @@ export default class Settings extends Component {
                                                     if (status == prop) {
                                                         if (status == 0) {
                                                             AsyncStorage.setItem("isPro", 'true');
-                                                            self.setState({showUsgs: true, isPro: 'Available'})
+                                                            self.setState({showProData: true, isPro: 'Available'})
+
+                                                            //update images datasource
+                                                            // let showDataSource = ['GEONET', 'USGS'];//
+                                                            // let showDataSource = ['GEONET'];//, 'USGS'
+
+
+                                                            // self.setState({showProData: true, isPro: 'Available'}, function () {
+                                                            //     self.getImagesByName();
+                                                            //     AsyncStorage.setItem('dataSource', data.toLowerCase()).then(this.setState({dataSource: data}));
+                                                            //
+                                                            // })
+
+                                                            //
                                                         } else {
                                                             Alert.alert('Message: ' + statusCode[prop].message);
                                                         }
@@ -146,7 +188,7 @@ export default class Settings extends Component {
                     response.forEach((purchase) => {
                         if (purchase.productIdentifier === productIdentifier) {
                             // Handle purchased product.
-                            this.setState({showUsgs: true, isPro: 'Available'});
+                            this.setState({showProData: true, isPro: 'Available'});
                             Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
 
                         }
@@ -194,8 +236,8 @@ export default class Settings extends Component {
     }
 
     titleStyle = () => {
-        const {showUsgs} = this.state;
-        if (showUsgs) {
+        const {showProData} = this.state;
+        if (showProData) {
             return {
                 color: colors.green
             }

@@ -95,33 +95,6 @@ export default class Cards extends Component {
         }
     }
 
-    getImageByName = (name) => {
-        console.log('name', name);
-        var storageRef = firebase.storage().ref('/images');
-
-        //dynamically set reference to the file name
-        var thisRef = storageRef.child(name + '.jpg');
-        console.log('thisRef', thisRef);
-        //put request upload file to firebase storage
-        thisRef.getDownloadURL().then(function (url) {
-            console.log('Uploaded a blob or file!', url);
-            cards.push({
-                id: name,
-                uri: url,
-                name: name,
-                code: '#2980b9'
-            })
-        });
-
-    }
-    getImagesByName = () => {
-        console.log('names')
-        this.getImageByName('1');
-        this.getImageByName('2')
-        this.getImageByName('3')
-        this.getImageByName('4')
-
-    }
 
     renderCard(card) {
         return (
@@ -166,20 +139,8 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: likedCards, signin: true});
     }
 
-    setUid = (value) => {
-        this.uid = value;
-    }
-
-    getUid = () => {
-        return this.uid;
-    }
-
-    setName = (value) => {
-        this.displayName = value;
-    }
-
-    getName = () => {
-        return this.displayName;
+    refreshImages = () => {
+        this.setState({cardsData: cards})
     }
 
     componentDidMount() {
@@ -216,8 +177,6 @@ export default class Cards extends Component {
     }
 
     renderHeader() {
-        const {params} = this.props.navigation.state;
-        console.log('**********params********', params)
         return ((this.state.signin) ?
             <View style={cardStyle.header}>
 
@@ -243,6 +202,28 @@ export default class Cards extends Component {
 
     }
 
+    renderFooter() {
+        return (
+            <View style={cardStyle.footer}>
+                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
+                    <Icon
+                        containerStyle={{
+                            backgroundColor: 'white',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                        }}
+                        name="replay"
+                        size={30}
+                        color="orange"
+                        onPress={this.refreshImages}
+                    />
+                </View>
+
+
+            </View>
+        );
+    }
 
     render() {
 
@@ -259,6 +240,7 @@ export default class Cards extends Component {
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
+                {this.renderFooter()}
             </View>
         );
     }

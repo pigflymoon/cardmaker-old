@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage,} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
 
@@ -9,6 +9,7 @@ import firebase from 'firebase';  // Initialize Firebase
 import RNFetchBlob from 'react-native-fetch-blob';
 import firebaseApp from '../config/FirebaseConfig';
 // import bg from './src/images/bg.jpg';
+import BackgroundTimer from 'react-native-background-timer';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
@@ -71,6 +72,7 @@ var likedCards = [], dislikedCards = [], cards = [{
     code: '#2980b9'
 }];
 
+var storageRef = firebase.storage().ref('/images');
 export default class TestCards extends Component {
 
 
@@ -90,7 +92,7 @@ export default class TestCards extends Component {
         var storageRef = firebase.storage().ref('/images');
 
         //dynamically set reference to the file name
-        var thisRef = storageRef.child(name+'.jpg');
+        var thisRef = storageRef.child(name + '.jpg');
         console.log('thisRef', thisRef);
         //put request upload file to firebase storage
         thisRef.getDownloadURL().then(function (url) {
@@ -105,47 +107,120 @@ export default class TestCards extends Component {
 
     }
     getImagesByName = () => {
-        console.log('names')
-        this.getImageByName('1');
-        this.getImageByName('2')
-        this.getImageByName('3')
-        this.getImageByName('4')
+        var storageRef = firebase.storage().ref('/images');
+        var cardsSource = [];
+        for (var i = 1; i <= 4; i++) {
+            var thisRef = storageRef.child(i + '.jpg');
+            thisRef.getDownloadURL().then(function (url) {
+                console.log('url!', url);
+                cardsSource.push({
+                    id: Date.now().toString(36),
+                    uri: url,
+                    name: Date.now().toString(36),
+                    code: '#2980b9'
+                })
+                console.log('cardsSource', cardsSource)
+            });
+
+        }
+
+        // return cardsSource;
+
+        // this.getImageByName('1');
+        // this.getImageByName('2')
+        // this.getImageByName('3')
+        // this.getImageByName('4')
 
     }
+
+
+    firebaseAsyncImage = (data, resolve, reject) => {
+
+        var cardsSource;
+        setTimeout(function () {
+            var thisRef = storageRef.child(data.imageName + '.jpg');
+            thisRef.getDownloadURL().then(function (url) {
+                console.log('url!', url);
+
+                cardsSource = {
+                    id: Date.now().toString(36),
+                    uri: url,
+                    name: Date.now().toString(36),
+                    code: '#2980b9'
+                }
+                resolve(cardsSource);
+            });
+
+            //
+        }, 2000);
+    }
+
+    getAllAsyncImages = () => {
+
+        // Create an array of promises
+        var promises = [];
+        var self = this;
+        for (var i = 1; i < 5; i++) {
+            // Fill the array with promises which initiate some async work
+            promises.push(new Promise(function (resolve, reject) {
+                self.firebaseAsyncImage({imageName: i}, resolve, reject);
+            }));
+        }
+
+        // Return a Promise.all promise of the array
+        return Promise.all(promises);
+    }
+
     componentWillMount() {
         console.log('GrandChild will mount.');
+        var self = this;
+        var result = this.getAllAsyncImages().then(function (results) {
+            console.log('All async calls completed successfully:');
+            console.log(' --> ', (results));
 
+            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                .then(self.setState({cardsData: results})
+                );
+        }, function (reason) {
+            console.log('Some async call failed:');
+            console.log(' --> ', reason);
+        });
+        // this.fetchFirebaseData();
 
 
     }
 
     componentDidMount() {
         console.log('GrandChild did mount.');
-        this.getImagesByName();
-        this.setState({
-            cardsData: cards
-        })
+
+
+        // console.log('updata cards data',this.state.cardsData)
+        // this.getImagesByName();
+        // AsyncStorage.setItem('cardsSource', JSON.stringify(cards)).then(this.setState({cardsData: cards}));
+
+        //
+        // this.setState({
+        //     cardsData: cards
+        // })
     }
 
 
-    getImages = () => {
-        var self = this;
-        var storageRef = firebase.storage().ref("images/1.jpg");///avatar.jpeg
-        storageRef.getDownloadURL().then(function (url) {
-            console.log(url);
-            var addImage = {
-                id: 9,
-                uri: url,
-                name: 'cat',
-                code: '#2980b9'
-            }
-            console.log('this.state.cardsData', self.state.cardsData)
-            var cardsData = self.state.cardsData;
-            cardsData.push(addImage);
-            console.log('cards ', cardsData)
-            self.setState({cardsData: cardsData})
-        });
+    gotoMyCards = () => {
+        console.log('pass likedCards', likedCards)
+        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
+    }
 
+    refreshImages = () => {
+        AsyncStorage.getItem("cardsSource").then((value) => {
+            if (value) {
+                console.log('saved cards ', (value))
+                this.setState({"cardsData": (value)});
+            } else {
+                AsyncStorage.setItem("cardsSource", cards);
+            }
+
+        }).done();
+        // this.setState({cardsData: cards})
     }
 
     renderCard(card) {
@@ -177,7 +252,7 @@ export default class TestCards extends Component {
 
         likedCards.push(card);
         console.log('likedCards ', likedCards)
-        // this.setState({likedCards: likedCards});
+        ;
 
     }
 
@@ -185,11 +260,6 @@ export default class TestCards extends Component {
         // console.log('Card disliked: ' + card.name, 'Card is ', card);
         dislikedCards.push(card);
 
-    }
-
-    gotoMyCards = () => {
-        console.log('pass likedCards', likedCards)
-        this.props.navigation.navigate('MyCardTab', {likedCards: likedCards});
     }
 
 
@@ -238,6 +308,29 @@ export default class TestCards extends Component {
     }
 
 
+    renderFooter() {
+        return (
+            <View style={cardStyle.footer}>
+                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
+                    <Icon
+                        containerStyle={{
+                            backgroundColor: 'white',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                        }}
+                        name="replay"
+                        size={30}
+                        color="orange"
+                        onPress={this.refreshImages}
+                    />
+                </View>
+
+
+            </View>
+        );
+    }
+
     render() {
         return (
             <View style={cardStyle.cardsContainer}>
@@ -252,6 +345,8 @@ export default class TestCards extends Component {
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
+                {this.renderFooter()}
+
             </View>
         );
     }
