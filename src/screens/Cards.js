@@ -150,18 +150,21 @@ export default class Cards extends Component {
 
         var cardsSource;
         setTimeout(function () {
-            var thisRef = storageRef.child(data.imageName + '.jpg');
-            thisRef.getDownloadURL().then(function (url) {
-                console.log('url!', url);
+            if (storageRef.child(data.imageName + '.jpg')) {
+                var thisRef = storageRef.child(data.imageName + '.jpg');
+                thisRef.getDownloadURL().then(function (url) {
+                    console.log('url!', url);
 
-                cardsSource = {
-                    id: Date.now().toString(36),
-                    uri: url,
-                    name: Date.now().toString(36),
-                    code: '#2980b9'
-                }
-                resolve(cardsSource);
-            });
+                    cardsSource = {
+                        id: Date.now().toString(36),
+                        uri: url,
+                        name: Date.now().toString(36),
+                        code: '#2980b9'
+                    }
+                    resolve(cardsSource);
+                });
+            }
+
 
             //
         }, 2000);
@@ -214,6 +217,7 @@ export default class Cards extends Component {
                 var result = self.getAllAsyncImages().then(function (results) {
                     console.log('All async calls completed successfully:');
                     console.log(' --> ', (results));
+                    results = results.concat(self.state.cardsData)
 
                     AsyncStorage.setItem('cardsSource', JSON.stringify(results))
                         .then(self.setState({cardsData: results})
