@@ -124,17 +124,6 @@ export default class MySettings extends Component {
         this.props.navigation.navigate('ResetPassword', {});
     }
 //end
-    // componentDidMount() {
-    //     console.log(' Sign in props', this.props)
-    //     const {state} = this.props.navigation;
-    //     if (state.params != undefined) {
-    //         this.setState({
-    //             title: `Welcome ${state.params.user.displayName} to cardmaker`,
-    //             showSignCard: false,
-    //             username: state.params.user.displayName
-    //         });
-    //     }
-    // }
 
     renderSignBox = () => {
         return (

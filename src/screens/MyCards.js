@@ -14,14 +14,14 @@ import firebaseApp from '../config/FirebaseConfig';
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
-var chooseCards = [];
+
 
 export default class MyCards extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             makeCards: null,
-            chooseCards: null,
+            chooseCards: [],
             signin: false
         }
 
@@ -36,35 +36,29 @@ export default class MyCards extends Component {
                 self.setState({signin: true})
             } else {
                 console.log('no user?')
-                self.setState({signin: false})
+                self.setState({signin: false, chooseCards: []})
             }
         });
     }
 
     componentWillReceiveProps(nextProps) {
-        chooseCards = nextProps.navigation.state.params.likedCards;
-        var signin = nextProps.navigation.state.params.signin;
+        var chooseCards = nextProps.navigation.state.params.likedCards;
+        // var signin = nextProps.navigation.state.params.signin;
 
-        // var user = firebaseApp.auth().currentUser;
-        var self = this;
-        console.log('my cards nextprops,', nextProps)
-        console.log('my cards chooseCards,', chooseCards)
-
-        console.log('my cards signin,', signin)
-
-        this.setState({chooseCards: chooseCards, signin: signin});
         console.log('pass chooseCards cards', chooseCards)
+
+
+        this.setState({chooseCards: chooseCards});
+
     }
 
     chooseCard = (item) => {
-        console.log('choose the ', item)
         this.setState({
             makeCards: item,
         })
     }
 
     gotoMakeCards = () => {
-        console.log('this.state.makecards', this.state.makeCards)
         if (this.state.makeCards) {
             this.props.navigation.navigate('MakeCardsTab', {
                 chooseCards: this.state.makeCards,
@@ -93,9 +87,8 @@ export default class MyCards extends Component {
     }
 
     render() {
-        const {params} = this.props.navigation.state;
-        console.log('My cards **********(this.state.chooseCards && this.state.signin)********', (this.state.chooseCards && this.state.signin))
-        var renderCard = (this.state.chooseCards && this.state.signin);
+        var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
+
         return (
             <View style={cardStyle.container}>
                 {this.renderHeader()}

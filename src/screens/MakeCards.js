@@ -37,7 +37,6 @@ export default class MakeCards extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            moviesList: [],
             makeCard: null,
             title: '',
             caption: '',
@@ -62,10 +61,10 @@ export default class MakeCards extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
-        var signin = nextProps.navigation.state.params.signin;
+        // var signin = nextProps.navigation.state.params.signin;
 
         console.log('makecard', makeCard)
-        this.setState({makeCard: makeCard, signin: signin});
+        this.setState({makeCard: makeCard});
     }
 
 
@@ -246,27 +245,5 @@ export default class MakeCards extends Component {
     }
 
 
-    getMoviesFromApiAsync = () => {
-        var url = 'https://dog.ceo/api/breed/hound/afghan/images';
-        // var url = 'https://api.geonet.org.nz/quake?MMI=0';//http://droidtute.com/reactexample/sample_api/getMovieList.php';
-        var self = this;
-        axios.get(url)
-            .then(function (result) {
-                console.log('result', result.data.message)
-                self.setState({moviesList: result.data.message});
-                // return result.data.data.pins;
-
-            });
-        // return fetch('http://droidtute.com/reactexample/sample_api/getMovieList.php')
-        //     .then((response) => response.json())
-        //     .then((responseJson) => {
-        //         // alert(JSON.stringify(responseJson))
-        //         this.setState({moviesList: responseJson.movieList}) // this will update state to re-render ui
-        //         return responseJson.movieList;
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
-    }
 
 }
