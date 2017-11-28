@@ -63,7 +63,7 @@ export default class MyCards extends Component {
             });
 
         } else {
-            Alert.alert('Please choose a picture');
+            Alert.alert('Please choose a template');
         }
 
     }
