@@ -19,8 +19,6 @@ import {List, ListItem, Card, Tile, Icon, Button} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
-// import firebase from 'firebase';  // Initialize Firebase
-
 
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 var verifyproductionHost = Config.receiptVerify.Host.productionHost;

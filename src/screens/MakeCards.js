@@ -17,7 +17,6 @@ import {
     Card,
     Button,
 } from 'react-native-elements';
-import axios from 'axios';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
 import firebaseApp from '../config/FirebaseConfig';
 
@@ -50,7 +49,6 @@ export default class MakeCards extends Component {
 
         firebaseApp.auth().onAuthStateChanged(function (user) {
             if (user) {
-                console.log('#########sign in -- Make Cards #########', user)
                 self.setState({signin: true})
             } else {
                 console.log('no user?')
@@ -61,9 +59,6 @@ export default class MakeCards extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
-        // var signin = nextProps.navigation.state.params.signin;
-
-        console.log('makecard', makeCard)
         this.setState({makeCard: makeCard});
     }
 
@@ -243,7 +238,5 @@ export default class MakeCards extends Component {
 
 
     }
-
-
 
 }

@@ -14,8 +14,6 @@ import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 import bg1 from '../assets/images/bg1.jpg';
 import layoutStyle from '../styles/layout';
-import colors from '../styles/colors';
-
 
 export default class MySettings extends Component {
     constructor(props, context) {

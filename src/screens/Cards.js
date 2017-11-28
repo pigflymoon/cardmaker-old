@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
-// import firebase from 'firebase';  // Initialize Firebase
 import firebaseApp from '../config/FirebaseConfig';
-import firebase from 'firebase';  // Initialize Firebase
 
 import SwipeDeck from '../components/SwipeDeck';
 
@@ -123,11 +121,8 @@ export default class Cards extends Component {
     }
 
     onSwipeRight(card) {
-        console.log('Card liked: ' + card.name, 'Card is ', card);
         likedCards.push(card);
-
         var savedCard = new Map(likedCards.map(obj => [obj.uri, obj]));
-
         // To get the unique objects
         savedCards = Array.from(savedCard.values());
 
@@ -153,8 +148,6 @@ export default class Cards extends Component {
             if (storageRef.child(data.imageName + '.jpg')) {
                 var thisRef = storageRef.child(data.imageName + '.jpg');
                 thisRef.getDownloadURL().then(function (url) {
-                    console.log('url!', url);
-
                     cardsSource = {
                         id: Date.now().toString(36),
                         uri: url,
@@ -197,14 +190,6 @@ export default class Cards extends Component {
 
         }).done();
         // this.setState({cardsData: cards})
-    }
-
-    componentWillMount() {
-        console.log('GrandChild will mount.');
-
-        // this.fetchFirebaseData();
-
-
     }
 
     componentDidMount() {
