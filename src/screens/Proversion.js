@@ -7,7 +7,7 @@ import {
     Image,
 } from 'react-native';
 import {
-    Card, Text,Button
+    Card, Text, Button
 } from 'react-native-elements';
 
 import SettingStyle from '../styles/setting';
@@ -25,16 +25,16 @@ export default class Proversion extends Component {
         return (
             <ScrollView style={SettingStyle.container}>
                 <Card
-                    title="PRO Version ($1.49)"
+                    title="PRO Version ($2.99)"
                     image={probg}>
                     <View style={SettingStyle.infoContainer}>
                         <Text style={[SettingStyle.fonts, SettingStyle.proTitle]} h6>Thank you for your support</Text>
                         <Text style={[SettingStyle.fonts, SettingStyle.proTitle]} h6>Love and share</Text>
 
-                        <Text style={SettingStyle.fonts} h5>* More quakes list in global or in New Zealand</Text>
-                        <Text style={SettingStyle.fonts} h5>* Even more settings</Text>
-                        <Text style={SettingStyle.fonts} h5>* All Core Features</Text>
-                        <Text style={SettingStyle.fonts} h5>* Some upcoming features</Text>
+                        <Text style={SettingStyle.fonts} h5>* More template </Text>
+                        <Text style={SettingStyle.fonts} h5>* Unique artwork straight by designer</Text>
+                        <Text style={SettingStyle.fonts} h5>* Updated variety cards, you will have surprise!</Text>
+                        <Text style={SettingStyle.fonts} h5>* More upcoming features</Text>
                     </View>
 
                 </Card>

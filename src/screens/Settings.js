@@ -19,10 +19,11 @@ import {List, ListItem, Card, Tile, Icon, Button} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
+import axios from 'axios';
 
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
-var verifyproductionHost = Config.receiptVerify.Host.productionHost;
-var verifyHost = verifyproductionHost;
+// var verifyproductionHost = Config.receiptVerify.Host.productionHost;
+var verifyHost = verifysandboxHost;
 import firebaseReceriptApp from '../config/FirebaseReceiptsconfig';
 
 import Config from '../config/ApiConfig';
@@ -70,33 +71,6 @@ export default class Settings extends Component {
     }
 
 
-    getImageByName = (name) => {
-        console.log('name', name);
-        var storageRef = firebase.storage().ref('/images');
-
-        //dynamically set reference to the file name
-        var thisRef = storageRef.child(name + '.jpg');
-        console.log('thisRef', thisRef);
-        //put request upload file to firebase storage
-        thisRef.getDownloadURL().then(function (url) {
-            console.log('Uploaded a blob or file!', url);
-            cardsSource.push({
-                id: name,
-                uri: url,
-                name: name,
-                code: '#2980b9'
-            })
-        });
-
-    }
-    getImagesByName = () => {
-        console.log('names')
-        this.getImageByName('1');
-        this.getImageByName('2')
-        this.getImageByName('3')
-        this.getImageByName('4')
-
-    }
     onPay = () => {
         var self = this;
         InAppUtils.canMakePayments((enabled) => {
@@ -237,11 +211,11 @@ export default class Settings extends Component {
         const {showProData} = this.state;
         if (showProData) {
             return {
-                color: colors.green
+                color: colors.secondary2
             }
         } else {
             return {
-                color: colors.red
+                color: colors.red1
             }
         }
 

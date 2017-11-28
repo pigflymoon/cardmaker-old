@@ -8,7 +8,7 @@ export default Config = {
         url: 'http://quakechat.kiwiinfo.com/'
     },
     products: {
-        productIdentifier: 'com.lucy.quakechat.productid'
+        productIdentifier: 'com.lucy.cardmaker.productid'
     },
 
     receiptVerify: {
