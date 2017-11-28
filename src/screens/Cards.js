@@ -5,6 +5,7 @@ import {Button, Card, Icon,} from 'react-native-elements';
 import firebaseApp from '../config/FirebaseConfig';
 
 import SwipeDeck from '../components/SwipeDeck';
+import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
@@ -93,6 +94,9 @@ export default class Cards extends Component {
             likedCards: [],
             dislikedCards: [],
         }
+        AsyncStorage.setItem("dataSource", "false");
+        AsyncStorage.setItem('cardsSource', JSON.stringify(cards));
+
     }
 
 
@@ -140,45 +144,6 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
-
-    firebaseAsyncImage = (data, resolve, reject) => {
-
-        var cardsSource;
-        setTimeout(function () {
-            if (storageRef.child(data.imageName + '.jpg')) {
-                var thisRef = storageRef.child(data.imageName + '.jpg');
-                thisRef.getDownloadURL().then(function (url) {
-                    cardsSource = {
-                        id: Date.now().toString(36),
-                        uri: url,
-                        name: Date.now().toString(36),
-                        code: '#2980b9'
-                    }
-                    resolve(cardsSource);
-                });
-            }
-
-
-            //
-        }, 2000);
-    }
-
-    getAllAsyncImages = () => {
-
-        // Create an array of promises
-        var promises = [];
-        var self = this;
-        for (var i = 1; i < 5; i++) {
-            // Fill the array with promises which initiate some async work
-            promises.push(new Promise(function (resolve, reject) {
-                self.firebaseAsyncImage({imageName: i}, resolve, reject);
-            }));
-        }
-
-        // Return a Promise.all promise of the array
-        return Promise.all(promises);
-    }
-
     refreshImages = () => {
         AsyncStorage.getItem("cardsSource").then((value) => {
             if (value) {
@@ -195,27 +160,42 @@ export default class Cards extends Component {
     componentDidMount() {
         var self = this;
 
-        firebaseApp.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                console.log('#########sign in -- Cards #########', user)
-                self.setState({signin: true});
-                var result = self.getAllAsyncImages().then(function (results) {
-                    console.log('All async calls completed successfully:');
-                    console.log(' --> ', (results));
-                    results = results.concat(self.state.cardsData)
 
-                    AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                        .then(self.setState({cardsData: results})
-                        );
-                }, function (reason) {
-                    console.log('Some async call failed:');
-                    console.log(' --> ', reason);
-                });
-            } else {
-                console.log('no user?')
-                self.setState({signin: false})
-            }
-        });
+        //
+            firebaseApp.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    console.log('#########sign in -- Cards #########', user)
+                    self.setState({signin: true});
+                    AsyncStorage.getItem("dataSource").then((value) => {
+                        console.log('***********dataSource**********', value)
+                        if (value == 'true') {
+                            var result = fetchAllAsyncImages().then(function (results) {
+                                console.log('All async calls completed successfully:');
+                                console.log(' --> ', (results));
+                                results = results.concat(self.state.cardsData)
+
+                                AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                                    .then(self.setState({cardsData: results})
+                                    );
+                            }, function (reason) {
+                                console.log('Some async call failed:');
+                                console.log(' --> ', reason);
+                            });
+                        } else {
+                            AsyncStorage.setItem("dataSource", 'false');
+                        }
+
+                    }).done();
+
+                } else {
+                    console.log('no user?')
+                    self.setState({signin: false})
+                }
+            });
+
+        //
+
+
     }
 
 

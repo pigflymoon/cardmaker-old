@@ -20,6 +20,7 @@ import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
+import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 // var verifyproductionHost = Config.receiptVerify.Host.productionHost;
@@ -106,18 +107,24 @@ export default class Settings extends Component {
                                                     if (status == prop) {
                                                         if (status == 0) {
                                                             AsyncStorage.setItem("isPro", 'true');
-                                                            self.setState({showProData: true, isPro: 'Available'})
+                                                            self.setState({
+                                                                showProData: true,
+                                                                isPro: 'Available'
+                                                            }, function () {
+                                                                AsyncStorage.setItem('dataSource', 'true')
+                                                                var result = fetchAllAsyncImages().then(function (results) {
+                                                                    console.log('All async calls completed successfully:');
+                                                                    console.log(' --> ', (results));
+                                                                    // results = results.concat(self.state.cardsData)
 
-                                                            //update images datasource
-                                                            // let showDataSource = ['GEONET', 'USGS'];//
-                                                            // let showDataSource = ['GEONET'];//, 'USGS'
+                                                                    AsyncStorage.setItem('cardsSource', JSON.stringify(results)).done();
 
+                                                                }, function (reason) {
+                                                                    console.log('Some async call failed:');
+                                                                    console.log(' --> ', reason);
+                                                                });
+                                                            })
 
-                                                            // self.setState({showProData: true, isPro: 'Available'}, function () {
-                                                            //     self.getImagesByName();
-                                                            //     AsyncStorage.setItem('dataSource', data.toLowerCase()).then(this.setState({dataSource: data}));
-                                                            //
-                                                            // })
 
                                                             //
                                                         } else {
@@ -161,6 +168,18 @@ export default class Settings extends Component {
                         if (purchase.productIdentifier === productIdentifier) {
                             // Handle purchased product.
                             this.setState({showProData: true, isPro: 'Available'});
+                            AsyncStorage.setItem('dataSource', 'true')
+                            var result = fetchAllAsyncImages().then(function (results) {
+                                console.log('All async calls completed successfully:');
+                                console.log(' --> ', (results));
+                                // results = results.concat(self.state.cardsData)
+
+                                AsyncStorage.setItem('cardsSource', JSON.stringify(results)).done();
+
+                            }, function (reason) {
+                                console.log('Some async call failed:');
+                                console.log(' --> ', reason);
+                            });
                             Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
 
                         }
@@ -271,7 +290,6 @@ export default class Settings extends Component {
 
 
                 </List>
-
 
 
                 <List>
