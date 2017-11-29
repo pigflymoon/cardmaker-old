@@ -64,21 +64,39 @@ const DATA = [
 var likedCards = [], dislikedCards = [], savedCards = [],
     cards = [
         {
-            id: 6,
-            uri: 'https://i.imgur.com/WktFupPb.jpg',
+            id: 5,
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F6.jpg?alt=media&token=50f3a849-98fb-420d-8b54-cf68261d2e05',
             name: 'GREEN SEA',
             code: '#16a085'
         },
         {
-            id: 7,
-            uri: 'https://i.imgur.com/gM5yeySb.jpg',
+            id: 6,
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F7.jpg?alt=media&token=c11fa710-ac4e-41ca-abda-53ee7aeb3cd0',
             name: 'NEPHRITIS', code: '#27ae60'
         }, {
-            id: 8,
+            id: 7,
             uri: 'https://i.imgur.com/YrLxxk8b.jpg',
             name: 'BELIZE HOLE',
             code: '#2980b9'
-        }];
+        }, {
+            id: 8,
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F8.jpg?alt=media&token=3519d43c-cd06-4967-a7eb-0021f8665f37',
+            name: 'GREEN SEA',
+            code: '#16a085'
+        },
+        {
+            id: 9,
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F9.jpg?alt=media&token=c7dcecb4-459f-4378-8dfb-043bad674037',
+            name: 'NEPHRITIS', code: '#27ae60'
+        },
+        {
+            id: 10,
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F10.jpg?alt=media&token=11fb39c4-3109-4811-86e7-ee5905999528',
+            name: 'BELIZE HOLE',
+            code: '#2980b9'
+        },
+
+    ];
 
 var storageRef = firebaseApp.storage().ref('/images');
 
@@ -162,36 +180,36 @@ export default class Cards extends Component {
 
 
         //
-            firebaseApp.auth().onAuthStateChanged(function (user) {
-                if (user) {
-                    console.log('#########sign in -- Cards #########', user)
-                    self.setState({signin: true});
-                    AsyncStorage.getItem("dataSource").then((value) => {
-                        console.log('***********dataSource**********', value)
-                        if (value == 'true') {
-                            var result = fetchAllAsyncImages().then(function (results) {
-                                console.log('All async calls completed successfully:');
-                                console.log(' --> ', (results));
-                                results = results.concat(self.state.cardsData)
+        firebaseApp.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('#########sign in -- Cards #########', user)
+                self.setState({signin: true});
+                AsyncStorage.getItem("dataSource").then((value) => {
+                    console.log('***********dataSource**********', value)
+                    if (value == 'true') {
+                        var result = fetchAllAsyncImages().then(function (results) {
+                            console.log('All async calls completed successfully:');
+                            console.log(' --> ', (results));
+                            results = results.concat(self.state.cardsData)
 
-                                AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                                    .then(self.setState({cardsData: results})
-                                    );
-                            }, function (reason) {
-                                console.log('Some async call failed:');
-                                console.log(' --> ', reason);
-                            });
-                        } else {
-                            AsyncStorage.setItem("dataSource", 'false');
-                        }
+                            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                                .then(self.setState({cardsData: results})
+                                );
+                        }, function (reason) {
+                            console.log('Some async call failed:');
+                            console.log(' --> ', reason);
+                        });
+                    } else {
+                        AsyncStorage.setItem("dataSource", 'false');
+                    }
 
-                    }).done();
+                }).done();
 
-                } else {
-                    console.log('no user?')
-                    self.setState({signin: false})
-                }
-            });
+            } else {
+                console.log('no user?')
+                self.setState({signin: false})
+            }
+        });
 
         //
 

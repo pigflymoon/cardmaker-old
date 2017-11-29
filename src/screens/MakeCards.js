@@ -79,7 +79,7 @@ export default class MakeCards extends Component {
     getDataUri(canvas, url, callback) {
         const image = new CanvasImage(canvas);
         canvas.width = SCREEN_WIDTH;
-        canvas.height = 400;
+        canvas.height = SCREEN_WIDTH;
         const context = canvas.getContext('2d');
         image.src = url;
         image.addEventListener('load', () => {
@@ -150,9 +150,13 @@ export default class MakeCards extends Component {
 
                     <View style={cardStyle.imageListContainer}>
                         <View style={[formStyle.container, cardStyle.imageContainer]}>
-                            <Image style={{height: 150}}
+                            <Image style={{
+                                flex:1,
+
+                            }}
+                                   resizeMethod="center"
                                    source={{uri: (this.state.makeCard).uri}}
-                                   resizeMode='cover'/>
+                            />
                         </View>
                         <View style={formStyle.inputsContainer}>
 
@@ -208,7 +212,7 @@ export default class MakeCards extends Component {
                     </View>
 
                     <View style={cardStyle.previewContainer}>
-                        <Canvas ref="canvasImage"/>
+                        <Canvas ref="canvasImage" style={cardStyle.canvasContainer}/>
                     </View>
 
 

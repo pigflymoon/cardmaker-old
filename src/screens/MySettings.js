@@ -149,10 +149,11 @@ export default class MySettings extends Component {
                             Password
                         </FormLabel>
                         <FormInput
-                            ref="email"
-                            containerRef="emailcontainerRef"
-                            textInputRef="emailInputRef"
-                            placeholder="Please enter your email..."
+                            ref="password"
+                            secureTextEntry
+                            containerRef="passwordcontainerRef"
+                            textInputRef="passwordInputRef"
+                            placeholder="Please enter your password..."
                             onChangeText={(text) => this.setPassword(text)}
                         />
                     </View>

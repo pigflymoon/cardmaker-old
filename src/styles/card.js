@@ -97,8 +97,13 @@ export default{
         flex: 1,
         flexDirection: 'row',
         flexGrow: 2,
-
-
+        // width: width * 0.92,
+    },
+    canvasContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        flexGrow: 2,
+        // width: width * 0.915,
     },
     inputStyle: {
         width: equalWidth - 20,
