@@ -18,18 +18,6 @@ export default class Copyright extends Component {
                 link: 'https://github.com/react-native-training/react-native-elements',
             },
             {
-                name: 'react-native-gifted-chat',
-                link: 'https://github.com/FaridSafi/react-native-gifted-chat',
-            },
-            {
-                name: 'react-native-maps',
-                link: 'https://github.com/airbnb/react-native-maps',
-            },
-            {
-                name: 'react-native-push-notification',
-                link: 'https://github.com/zo0r/react-native-push-notification'
-            },
-            {
                 name: 'react-navigation',
                 linke: 'https://github.com/react-community/react-navigation'
             },
@@ -48,8 +36,12 @@ export default class Copyright extends Component {
                 link: 'https://github.com/oblador/react-native-vector-icons',
             },
             {
-                name: 'react-native-appstate-listener',
-                link: 'https://github.com/CodingZeal/react-native-appstate-listener',
+                name: 'react-native-background-timer',
+                link: 'git@github.com:ocetnik/react-native-background-timer.git',
+            },
+            {
+                name: 'react-native-super-grid',
+                link: 'git@github.com:saleel/react-native-super-grid.git'
             },
 
         ];
