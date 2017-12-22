@@ -194,7 +194,7 @@ export default class Cards extends Component {
                         var result = fetchAllAsyncImages().then(function (results) {
                             console.log('All async calls completed successfully:');
                             console.log(' --> ', (results));
-                            results = results.concat(self.state.cardsData)
+                            // results = results.concat(self.state.cardsData)
 
                             AsyncStorage.setItem('cardsSource', JSON.stringify(results))
                                 .then(self.setState({cardsData: results})
@@ -231,26 +231,7 @@ export default class Cards extends Component {
                 console.log('#########sign in -- Cards #########', user)
                 self.setState({signin: true});
                 AsyncStorage.getItem("dataSource").then((value) => {
-                    console.log('***********dataSource**********', value)
-                    /*
-                     if (value == 'true') {
-                     var result = fetchAllAsyncImages().then(function (results) {
-                     console.log('All async calls completed successfully:');
-                     console.log(' --> ', (results));
-                     results = results.concat(self.state.cardsData)
 
-                     AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                     .then(self.setState({cardsData: results})
-                     );
-                     }, function (reason) {
-                     console.log('Some async call failed:');
-                     console.log(' --> ', reason);
-                     });
-
-                     } else {
-                     AsyncStorage.setItem("dataSource", 'false');
-                     }
-                     */
                 }).done();
 
             } else {

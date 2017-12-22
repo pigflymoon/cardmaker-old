@@ -32,7 +32,7 @@ export const fetchAllAsyncImages = () => {
     // Create an array of promises
     var promises = [];
     var self = this;
-    for (var i = 1; i < 5; i++) {
+    for (var i = 1; i < 12; i++) {
         // Fill the array with promises which initiate some async work
         promises.push(new Promise(function (resolve, reject) {
             firebaseAsyncImage({imageName: i}, resolve, reject);
