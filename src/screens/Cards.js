@@ -191,46 +191,19 @@ export default class Cards extends Component {
                 AsyncStorage.getItem("dataSource").then((value) => {
                     console.log('***********dataSource**********', value, 'value == true?', value == 'true')
                     if (value == 'true') {
-                        //
-                        // var p3 = Promise.resolve(fetchAllAsyncImages());
-                        // p3.then(function (v) {
-                        //     console.log('Resolving', v); // "Resolving"
-                        // }, function (e) {
-                        //     // not called
-                        //     console.log(' --> ', reason);
-                        // });
+                        var result = fetchAllAsyncImages().then(function (results) {
+                            console.log('All async calls completed successfully:');
+                            console.log(' --> ', (results));
+                            results = results.concat(self.state.cardsData)
 
-                        // fetchAllAsyncImages().then(function (results) {
-                        //     console.log('promises all results', results);
-                        // });
+                            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                                .then(self.setState({cardsData: results})
+                                );
+                        }, function (reason) {
+                            console.log('Some async call failed:');
+                            console.log(' --> ', reason);
+                        });
 
-                        // fetchAllAsyncImages()
-                        //     .then(function (res) {
-                        //         console.log('Promise.all', res);
-                        //     })
-                        //     .catch(function (err) {
-                        //         console.log('Promise.all error', err);
-                        //     });
-
-
-
-                        fetchAllAsyncImages();
-                        //
-                        /*
-                         var result = fetchAllAsyncImages().then(function (results) {
-                         console.log('All async calls completed successfully:');
-                         console.log(' --> ', (results));
-                         results = results.concat(self.state.cardsData)
-
-                         AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                         .then(self.setState({cardsData: results})
-                         );
-                         }, function (reason) {
-                         console.log('Some async call failed:');
-                         console.log(' --> ', reason);
-                         });
-
-                         */
                     } else {
                         AsyncStorage.setItem("dataSource", 'false');
                         AsyncStorage.setItem("cardsSource", JSON.stringify(cards));
