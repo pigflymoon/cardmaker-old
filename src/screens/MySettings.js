@@ -12,7 +12,7 @@ import firebaseApp from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
-import bg1 from '../assets/images/bg1.jpg';
+import bg1 from '../assets/images/bg.jpg';
 import layoutStyle from '../styles/layout';
 
 export default class MySettings extends Component {
