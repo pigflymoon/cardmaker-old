@@ -12,7 +12,7 @@ import {
 
 import SettingStyle from '../styles/setting';
 import colors from '../styles/colors';
-import probg from '../assets/images/bg1.jpg';
+import probg from '../assets/images/bg11.jpg';
 import buttonStyle from '../styles/button';
 
 export default class Proversion extends Component {

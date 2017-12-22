@@ -96,13 +96,17 @@ export default{
     previewContainer: {
         flex: 1,
         flexDirection: 'row',
+        height: width,
         flexGrow: 2,
         // width: width * 0.92,
     },
-    canvasContainer:{
+    canvasContainer: {
         flex: 1,
         flexDirection: 'row',
         flexGrow: 2,
+        backgroundColor: colors.white,
+        // height: width * 0.915,
+        // height:400,
         // width: width * 0.915,
     },
     inputStyle: {

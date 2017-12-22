@@ -65,36 +65,26 @@ var likedCards = [], dislikedCards = [], savedCards = [],
     cards = [
         {
             id: 5,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F6.jpg?alt=media&token=50f3a849-98fb-420d-8b54-cf68261d2e05',
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F1.jpg?alt=media&token=b23cdf5d-e0f2-4e7f-a12f-8c2db0a67384',
             name: 'GREEN SEA',
             code: '#16a085'
         },
         {
             id: 6,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F7.jpg?alt=media&token=c11fa710-ac4e-41ca-abda-53ee7aeb3cd0',
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F2.jpg?alt=media&token=1b45f877-d123-44b5-aa2f-837fe650680e',
             name: 'NEPHRITIS', code: '#27ae60'
         }, {
             id: 7,
-            uri: 'https://i.imgur.com/YrLxxk8b.jpg',
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F3.jpg?alt=media&token=8400767e-a77e-4cf9-91c8-7d85e8a84acf',
             name: 'BELIZE HOLE',
             code: '#2980b9'
         }, {
             id: 8,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F8.jpg?alt=media&token=3519d43c-cd06-4967-a7eb-0021f8665f37',
+            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F4.jpg?alt=media&token=69ac9094-09db-438a-96b5-3cc35fed2622',
             name: 'GREEN SEA',
             code: '#16a085'
         },
-        {
-            id: 9,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F9.jpg?alt=media&token=c7dcecb4-459f-4378-8dfb-043bad674037',
-            name: 'NEPHRITIS', code: '#27ae60'
-        },
-        {
-            id: 10,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F10.jpg?alt=media&token=11fb39c4-3109-4811-86e7-ee5905999528',
-            name: 'BELIZE HOLE',
-            code: '#2980b9'
-        },
+
 
     ];
 

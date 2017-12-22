@@ -76,22 +76,52 @@ export default class MakeCards extends Component {
         Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
     }
 
+
     getDataUri(canvas, url, callback) {
         const image = new CanvasImage(canvas);
         canvas.width = SCREEN_WIDTH;
-        canvas.height = SCREEN_WIDTH;
+        canvas.height = SCREEN_WIDTH * 0.904;
         const context = canvas.getContext('2d');
         image.src = url;
+        //
         image.addEventListener('load', () => {
-            var originalWidth = image.width;
-            var originalHeight = image.height;
-            var newWidth = canvas.width;
-            var newHeight = (newWidth / originalWidth) * originalHeight;
+            var imageAspectRatio = image.width / image.height;
+            var canvasAspectRatio = canvas.width / canvas.height;
+            console.log('imageAspectRatio, ', imageAspectRatio)
+            console.log('canvasAspectRatio', canvasAspectRatio)
+            var renderableHeight, renderableWidth, xStart, yStart;
+// If image's aspect ratio is less than canvas's we fit on height
+            // and place the image centrally along width
+            if (imageAspectRatio < canvasAspectRatio) {
+                renderableHeight = canvas.height;
+                renderableWidth = image.width * (renderableHeight / image.height);
+                xStart = (canvas.width - renderableWidth) / 2;
+                yStart = 0;
+            }
 
-            context.drawImage(image, 0, 0, newWidth, newHeight)
+            // If image's aspect ratio is greater than canvas's we fit on width
+            // and place the image centrally along height
+            else if (imageAspectRatio > canvasAspectRatio) {
+                renderableWidth = canvas.width
+                renderableHeight = image.height * (renderableWidth / image.width);
+                xStart = 0;
+                yStart = (canvas.height - renderableHeight) / 2;
+            }
+
+            // Happy path - keep aspect ratio
+            else {
+                renderableHeight = canvas.height;
+                renderableWidth = canvas.width;
+                xStart = 0;
+                yStart = 0;
+            }
+
+            context.drawImage(image, xStart, yStart, renderableWidth, renderableHeight);
+
+            //
+
             var title = this.state.title;
             var caption = this.state.caption;
-
 
             context.font = "italic bold 30px Hoefler";
 
@@ -151,10 +181,10 @@ export default class MakeCards extends Component {
                     <View style={cardStyle.imageListContainer}>
                         <View style={[formStyle.container, cardStyle.imageContainer]}>
                             <Image style={{
-                                flex:1,
+                                flex: 1,
 
                             }}
-                                   resizeMethod="center"
+                                   resizeMethod="scale"
                                    source={{uri: (this.state.makeCard).uri}}
                             />
                         </View>
