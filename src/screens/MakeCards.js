@@ -128,7 +128,7 @@ export default class MakeCards extends Component {
             context.textAlign = "start";
             context.textBaseline = "bottom";
             context.fillStyle = colors.red1;  //<======= here
-            context.fillText(title, 60, 250);
+            context.fillText(title, 100, 250);
 
             context.font = "bold 24px Hoefler";
             context.fillStyle = colors.orange1;
