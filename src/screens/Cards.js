@@ -66,22 +66,22 @@ var likedCards = [], dislikedCards = [], savedCards = [],
         {
             id: 5,
             uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F1.jpg?alt=media&token=b23cdf5d-e0f2-4e7f-a12f-8c2db0a67384',
-            name: 'GREEN SEA',
+            name: '1',
             code: '#16a085'
         },
         {
             id: 6,
             uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F2.jpg?alt=media&token=1b45f877-d123-44b5-aa2f-837fe650680e',
-            name: 'NEPHRITIS', code: '#27ae60'
+            name: '2', code: '#27ae60'
         }, {
             id: 7,
             uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F3.jpg?alt=media&token=8400767e-a77e-4cf9-91c8-7d85e8a84acf',
-            name: 'BELIZE HOLE',
+            name: '3',
             code: '#2980b9'
         }, {
             id: 8,
             uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F4.jpg?alt=media&token=69ac9094-09db-438a-96b5-3cc35fed2622',
-            name: 'GREEN SEA',
+            name: '4',
             code: '#16a085'
         },
 
@@ -152,16 +152,99 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
+    promiseAll = (promises) => {
+        var results = [];
+        var completedPromises = 0;
+        return new Promise(function (resolve, reject) {
+            promises.forEach(function (promise, index) {
+                promise.then(function (value) {
+                    results[index] = value;
+                    completedPromises += 1;
+                    if (completedPromises === promises.length) {
+                        resolve(results);
+                    }
+                }).catch(function (error) {
+                    reject(error);
+                });
+            });
+        });
+    }
     refreshImages = () => {
-        AsyncStorage.getItem("cardsSource").then((value) => {
-            if (value) {
-                console.log('saved cards ', (value))
-                this.setState({"cardsData": JSON.parse(value)});
-            } else {
-                AsyncStorage.setItem("cardsSource", cards);
-            }
+        /*
+         AsyncStorage.getItem("cardsSource").then((value) => {
+         if (value) {
+         console.log('saved cards ', (value))
+         this.setState({"cardsData": JSON.parse(value)});
+         } else {
+         AsyncStorage.setItem("cardsSource", cards);
+         }
 
-        }).done();
+         }).done();
+         */
+        /**/
+        var self = this;
+
+        firebaseApp.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log('#########REFRESh sign in -- Cards #########', user)
+                self.setState({signin: true});
+                AsyncStorage.getItem("dataSource").then((value) => {
+                    console.log('***********dataSource**********', value, 'value == true?', value == 'true')
+                    if (value == 'true') {
+                        //
+                        // var p3 = Promise.resolve(fetchAllAsyncImages());
+                        // p3.then(function (v) {
+                        //     console.log('Resolving', v); // "Resolving"
+                        // }, function (e) {
+                        //     // not called
+                        //     console.log(' --> ', reason);
+                        // });
+
+                        // fetchAllAsyncImages().then(function (results) {
+                        //     console.log('promises all results', results);
+                        // });
+
+                        // fetchAllAsyncImages()
+                        //     .then(function (res) {
+                        //         console.log('Promise.all', res);
+                        //     })
+                        //     .catch(function (err) {
+                        //         console.log('Promise.all error', err);
+                        //     });
+
+
+
+                        fetchAllAsyncImages();
+                        //
+                        /*
+                         var result = fetchAllAsyncImages().then(function (results) {
+                         console.log('All async calls completed successfully:');
+                         console.log(' --> ', (results));
+                         results = results.concat(self.state.cardsData)
+
+                         AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                         .then(self.setState({cardsData: results})
+                         );
+                         }, function (reason) {
+                         console.log('Some async call failed:');
+                         console.log(' --> ', reason);
+                         });
+
+                         */
+                    } else {
+                        AsyncStorage.setItem("dataSource", 'false');
+                        AsyncStorage.setItem("cardsSource", JSON.stringify(cards));
+
+                    }
+
+                }).done();
+
+            } else {
+                console.log('no user?')
+                self.setState({signin: false})
+            }
+        });
+
         // this.setState({cardsData: cards})
     }
 
@@ -176,23 +259,25 @@ export default class Cards extends Component {
                 self.setState({signin: true});
                 AsyncStorage.getItem("dataSource").then((value) => {
                     console.log('***********dataSource**********', value)
-                    if (value == 'true') {
-                        var result = fetchAllAsyncImages().then(function (results) {
-                            console.log('All async calls completed successfully:');
-                            console.log(' --> ', (results));
-                            results = results.concat(self.state.cardsData)
+                    /*
+                     if (value == 'true') {
+                     var result = fetchAllAsyncImages().then(function (results) {
+                     console.log('All async calls completed successfully:');
+                     console.log(' --> ', (results));
+                     results = results.concat(self.state.cardsData)
 
-                            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                                .then(self.setState({cardsData: results})
-                                );
-                        }, function (reason) {
-                            console.log('Some async call failed:');
-                            console.log(' --> ', reason);
-                        });
-                    } else {
-                        AsyncStorage.setItem("dataSource", 'false');
-                    }
+                     AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                     .then(self.setState({cardsData: results})
+                     );
+                     }, function (reason) {
+                     console.log('Some async call failed:');
+                     console.log(' --> ', reason);
+                     });
 
+                     } else {
+                     AsyncStorage.setItem("dataSource", 'false');
+                     }
+                     */
                 }).done();
 
             } else {
