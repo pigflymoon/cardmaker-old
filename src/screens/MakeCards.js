@@ -128,11 +128,11 @@ export default class MakeCards extends Component {
 
             context.textAlign = "start";
             context.textBaseline = "bottom";
-            context.fillStyle = colors.red1;  //<======= here
+            context.fillStyle = Utils.getRandomColor();  //<======= here
             context.fillText(title, 100, 250);
 
             context.font = "bold 24px Hoefler";
-            context.fillStyle = colors.orange1;
+            context.fillStyle = Utils.getRandomColor();
             context.fillText(caption, 150, 300);
             canvas.toDataURL().then((dataUrl) => {
                 //get rid of extra "" of the return value ""dsdsfs""
