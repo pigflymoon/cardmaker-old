@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth,db,storage} from '../config/FirebaseConfig';
 
 import SwipeDeck from '../components/SwipeDeck';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
@@ -88,7 +89,7 @@ var likedCards = [], dislikedCards = [], savedCards = [],
 
     ];
 
-var storageRef = firebaseApp.storage().ref('/images');
+var storageRef = storage.ref('/images');
 
 export default class Cards extends Component {
 
@@ -184,7 +185,7 @@ export default class Cards extends Component {
         /**/
         var self = this;
 
-        firebaseApp.auth().onAuthStateChanged(function (user) {
+        auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log('#########REFRESh sign in -- Cards #########', user)
                 self.setState({signin: true});
@@ -226,7 +227,7 @@ export default class Cards extends Component {
 
 
         //
-        firebaseApp.auth().onAuthStateChanged(function (user) {
+        auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log('#########sign in -- Cards #########', user)
                 self.setState({signin: true});

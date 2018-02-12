@@ -6,7 +6,8 @@ import {
     FormInput,
     FormLabel,
 } from 'react-native-elements';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -44,7 +45,7 @@ export default class Signup extends Component {
     registerUserAndWaitEmailVerification(email, password) {
         var self = this;
         return new Promise(function (resolve, reject) {
-            firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+            auth.createUserWithEmailAndPassword(email, password).then(function (user) {
                 if (user) {
                     user.updateProfile({displayName: self.state.name});
                     console.log('email',email)

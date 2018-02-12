@@ -8,7 +8,8 @@ import {
     FormValidationMessage,
 
 } from 'react-native-elements';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth,db} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -42,7 +43,7 @@ export default class MySettings extends Component {
     }
     handleSignout = () => {
         var self = this;
-        firebaseApp.auth().signOut().then(function () {
+        auth.signOut().then(function () {
             // Sign-out successful.
             console.log('Sign out successfully')
 
@@ -66,9 +67,9 @@ export default class MySettings extends Component {
     handleSignin = (e) => {
         var self = this;
         e.preventDefault();
-        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(function (user) {
-                firebaseApp.auth().onAuthStateChanged(function (user) {
+                auth.onAuthStateChanged(function (user) {
                     if (user) {
                         // self.screenProps({signin: true});
                         // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});

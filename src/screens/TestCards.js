@@ -7,7 +7,9 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import firebase from 'firebase';  // Initialize Firebase
 import RNFetchBlob from 'react-native-fetch-blob';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth,db,storage} from '../config/FirebaseConfig';
+
 // import bg from './src/images/bg.jpg';
 import BackgroundTimer from 'react-native-background-timer';
 
@@ -72,7 +74,7 @@ var likedCards = [], dislikedCards = [], cards = [{
     code: '#2980b9'
 }];
 
-var storageRef = firebase.storage().ref('/images');
+var storageRef = storage.ref('/images');
 export default class TestCards extends Component {
 
 
@@ -89,7 +91,7 @@ export default class TestCards extends Component {
 
     getImageByName = (name) => {
         console.log('name', name);
-        var storageRef = firebase.storage().ref('/images');
+        var storageRef = storage.ref('/images');
 
         //dynamically set reference to the file name
         var thisRef = storageRef.child(name + '.jpg');
@@ -107,7 +109,7 @@ export default class TestCards extends Component {
 
     }
     getImagesByName = () => {
-        var storageRef = firebase.storage().ref('/images');
+        var storageRef = storage.ref('/images');
         var cardsSource = [];
         for (var i = 1; i <= 4; i++) {
             var thisRef = storageRef.child(i + '.jpg');

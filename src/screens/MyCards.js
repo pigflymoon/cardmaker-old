@@ -8,7 +8,9 @@ import {
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth,db,storage} from '../config/FirebaseConfig';
+
 import {Icon, Card, Button} from 'react-native-elements';
 
 import colors from '../styles/colors';
@@ -29,7 +31,7 @@ export default class MyCards extends Component {
     componentDidMount() {
         var self = this;
 
-        firebaseApp.auth().onAuthStateChanged(function (user) {
+        auth.onAuthStateChanged(function (user) {
             if (user) {
                 self.setState({signin: true})
             } else {

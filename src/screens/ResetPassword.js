@@ -13,7 +13,8 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -48,7 +49,7 @@ export default class ResetPassword extends Component {
                 showInfo: true
             });
         } else {
-            var auth = firebaseApp.auth();
+            // var auth = firebaseApp.auth();
             var emailAddress = this.state.email;
             auth.sendPasswordResetEmail(emailAddress).then(function () {
                 // Email sent.

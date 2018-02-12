@@ -13,7 +13,8 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -55,7 +56,7 @@ export default class VerifyEmail extends Component {
                                 clearInterval(interval);
                                 interval = null;
 
-                                firebaseApp.auth().onAuthStateChanged((user) => {
+                                auth.onAuthStateChanged((user) => {
                                     self.setState({
                                         isLoading: false
                                     });

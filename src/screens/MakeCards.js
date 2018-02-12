@@ -18,7 +18,8 @@ import {
     Button,
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
-import firebaseApp from '../config/FirebaseConfig';
+// import firebaseApp from '../config/FirebaseConfig';
+import {auth,db,storage} from '../config/FirebaseConfig';
 
 import Utils from '../utils/utils';
 import colors from '../styles/colors';
@@ -47,7 +48,7 @@ export default class MakeCards extends Component {
     componentDidMount() {
         var self = this;
 
-        firebaseApp.auth().onAuthStateChanged(function (user) {
+        auth.onAuthStateChanged(function (user) {
             if (user) {
                 self.setState({signin: true})
             } else {
