@@ -7,6 +7,7 @@ import {auth, db, storage} from '../config/FirebaseConfig';
 import {onceGetImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
+import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
@@ -199,7 +200,7 @@ export default class Cards extends Component {
                                     id: key,
                                     uri: downloadImages[key].downloadUrl,
                                     name: downloadImages[key].Name,
-                                    code: '#2980b9'
+                                    code: Utils.getRandomColor(),
                                 }
                             )
                         )
@@ -212,21 +213,7 @@ export default class Cards extends Component {
                     })
                     if (value == 'true') {
 
-                        /*
-                         var result = fetchAllAsyncImages().then(function (results) {
-                         console.log('All async calls completed successfully:');
-                         console.log(' --> ', (results));
-                         // results = results.concat(self.state.cardsData)
 
-                         AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                         .then(self.setState({cardsData: results})
-                         );
-                         }, function (reason) {
-                         console.log('Some async call failed:');
-                         console.log(' --> ', reason);
-                         });
-
-                         */
                         onceGetImages().then(snapshot => {
                             console.log('snapshot', snapshot.val());
                             // this.setState(() => ({images: snapshot.val()}));
