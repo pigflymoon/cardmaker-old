@@ -3,8 +3,8 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-nat
 
 import {Button, Card, Icon,} from 'react-native-elements';
 // import firebaseApp from '../config/FirebaseConfig';
-import {auth,db,storage} from '../config/FirebaseConfig';
-
+import {auth, db, storage} from '../config/FirebaseConfig';
+import {onceGetImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 
@@ -191,19 +191,46 @@ export default class Cards extends Component {
                 self.setState({signin: true});
                 AsyncStorage.getItem("dataSource").then((value) => {
                     console.log('***********dataSource**********', value, 'value == true?', value == 'true')
-                    if (value == 'true') {
-                        var result = fetchAllAsyncImages().then(function (results) {
-                            console.log('All async calls completed successfully:');
-                            console.log(' --> ', (results));
-                            // results = results.concat(self.state.cardsData)
+                    onceGetImages().then(snapshot => {
+                        console.log('snapshot', snapshot.val());
+                        var downloadImages = snapshot.val();
+                        var images = Object.keys(downloadImages).map(key => (
+                                {
+                                    id: key,
+                                    uri: downloadImages[key].downloadUrl,
+                                    name: downloadImages[key].Name,
+                                    code: '#2980b9'
+                                }
+                            )
+                        )
+                        AsyncStorage.setItem('cardsSource', JSON.stringify(images))
+                            .then(self.setState({cardsData: images})
+                            );
+                        console.log('images,', images)
 
-                            AsyncStorage.setItem('cardsSource', JSON.stringify(results))
-                                .then(self.setState({cardsData: results})
-                                );
-                        }, function (reason) {
-                            console.log('Some async call failed:');
-                            console.log(' --> ', reason);
-                        });
+                        // this.setState(() => ({images: snapshot.val()}));
+                    })
+                    if (value == 'true') {
+
+                        /*
+                         var result = fetchAllAsyncImages().then(function (results) {
+                         console.log('All async calls completed successfully:');
+                         console.log(' --> ', (results));
+                         // results = results.concat(self.state.cardsData)
+
+                         AsyncStorage.setItem('cardsSource', JSON.stringify(results))
+                         .then(self.setState({cardsData: results})
+                         );
+                         }, function (reason) {
+                         console.log('Some async call failed:');
+                         console.log(' --> ', reason);
+                         });
+
+                         */
+                        onceGetImages().then(snapshot => {
+                            console.log('snapshot', snapshot.val());
+                            // this.setState(() => ({images: snapshot.val()}));
+                        })
 
                     } else {
                         AsyncStorage.setItem("dataSource", 'false');
