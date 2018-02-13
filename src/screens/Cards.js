@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-nat
 import {Button, Card, Icon,} from 'react-native-elements';
 // import firebaseApp from '../config/FirebaseConfig';
 import {auth, db, storage} from '../config/FirebaseConfig';
-import {onceGetImages} from '../config/db';
+import {onceGetImages, onceGetDefaultImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 import Utils from '../utils/utils';
@@ -171,6 +171,33 @@ export default class Cards extends Component {
             });
         });
     }
+
+    getDefaultImages = () => {
+        var self = this;
+
+
+        onceGetDefaultImages().then(snapshot => {
+            console.log('snapshot', snapshot.val());
+            var downloadImages = snapshot.val();
+            var images = Object.keys(downloadImages).map(key => (
+                    {
+                        id: key,
+                        uri: downloadImages[key].downloadUrl,
+                        name: downloadImages[key].Name,
+                        code: Utils.getRandomColor(),
+                    }
+                )
+            )
+            AsyncStorage.setItem('cardsSource', JSON.stringify(images))
+                .then(self.setState({cardsData: images})
+                );
+            console.log('images,', images)
+
+        });
+
+    }
+
+
     refreshImages = () => {
         /*
          AsyncStorage.getItem("cardsSource").then((value) => {
@@ -245,9 +272,10 @@ export default class Cards extends Component {
             if (user) {
                 console.log('#########sign in -- Cards #########', user)
                 self.setState({signin: true});
-                AsyncStorage.getItem("dataSource").then((value) => {
-
-                }).done();
+                self.getDefaultImages();
+                // AsyncStorage.getItem("dataSource").then((value) => {
+                //
+                // }).done();
 
             } else {
                 console.log('no user?')
