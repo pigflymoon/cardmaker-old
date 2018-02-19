@@ -3,8 +3,8 @@ import {db} from './FirebaseConfig';
 //User API
 
 
-export const onceGetImages = () =>
-    db.ref('uploadImages').once('value');
+export const onceGetPaidImages = () =>
+    db.ref('paidUploadImages').once('value');
 
-export const onceGetDefaultImages = () =>
-    db.ref('defaultUploadImages').once('value');
+export const onceGetFreeImages = () =>
+    db.ref('freeUploadImages').once('value');

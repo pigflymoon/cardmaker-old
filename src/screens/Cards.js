@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-nat
 import {Button, Card, Icon,} from 'react-native-elements';
 // import firebaseApp from '../config/FirebaseConfig';
 import {auth, db, storage} from '../config/FirebaseConfig';
-import {onceGetImages, onceGetDefaultImages} from '../config/db';
+import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 import Utils from '../utils/utils';
@@ -172,12 +172,12 @@ export default class Cards extends Component {
         });
     }
 
-    getDefaultImages = () => {
+    getFreeImages = () => {
         var self = this;
 
 
-        onceGetDefaultImages().then(snapshot => {
-            console.log('snapshot', snapshot.val());
+        onceGetFreeImages().then(snapshot => {
+            console.log(' free snapshot', snapshot.val());
             var downloadImages = snapshot.val();
             var images = Object.keys(downloadImages).map(key => (
                     {
@@ -219,8 +219,8 @@ export default class Cards extends Component {
                 self.setState({signin: true});
                 AsyncStorage.getItem("dataSource").then((value) => {
                     console.log('***********dataSource**********', value, 'value == true?', value == 'true')
-                    onceGetImages().then(snapshot => {
-                        console.log('snapshot', snapshot.val());
+                    onceGetPaidImages().then(snapshot => {
+                        console.log('paid snapshot', snapshot.val());
                         var downloadImages = snapshot.val();
                         var images = Object.keys(downloadImages).map(key => (
                                 {
@@ -241,7 +241,7 @@ export default class Cards extends Component {
                     if (value == 'true') {
 
 
-                        onceGetImages().then(snapshot => {
+                        onceGetPaidImages().then(snapshot => {
                             console.log('snapshot', snapshot.val());
                             // this.setState(() => ({images: snapshot.val()}));
                         })
@@ -272,7 +272,7 @@ export default class Cards extends Component {
             if (user) {
                 console.log('#########sign in -- Cards #########', user)
                 self.setState({signin: true});
-                self.getDefaultImages();
+                self.getFreeImages();
                 // AsyncStorage.getItem("dataSource").then((value) => {
                 //
                 // }).done();
@@ -347,7 +347,7 @@ export default class Cards extends Component {
                         name="replay"
                         size={30}
                         color="orange"
-                        onPress={this.refreshImages}
+                        onPress={(e) => this.refreshImages(e)}
                     />
                 </View>
 
