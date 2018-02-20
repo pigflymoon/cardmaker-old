@@ -31,8 +31,9 @@ export default{
     headerCenter: {
         flex: 6,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         alignSelf: 'center',
+        marginLeft: 15,
     },
     titleContainer: {
         flex: 1,

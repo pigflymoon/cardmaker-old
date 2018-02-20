@@ -74,7 +74,14 @@ export default class MyCards extends Component {
         return (
             <View style={cardStyle.header}>
                 <View style={cardStyle.headerCenter}>
-                    <Text style={cardStyle.title}>Make My Cards</Text>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>1. choose your card by just click it</Text>
+                    </View>
+                    <View style={cardStyle.titleContainer}>
+                        <Icon name="card-giftcard"  color={colors.primary1} size={20}/>
+                        <Text style={cardStyle.title}>2. Add it to Make Cards</Text>
+                    </View>
                 </View>
                 <View style={cardStyle.headerRightIcon}>
                     <Icon name="card-giftcard" color={colors.primary1} size={35}
