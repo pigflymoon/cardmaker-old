@@ -191,7 +191,7 @@ export default class Cards extends Component {
 
             } else {
                 console.log('no user?')
-                self.setState({signin: false})
+                self.setState({signin: false, cardsData: []})
             }
         });
 

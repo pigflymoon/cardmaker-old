@@ -36,7 +36,7 @@ export default class MySettings extends Component {
     }
 
     navigateToSignin = () => {
-        console.log('this.props.navigation', this.props.navigation)
+        // console.log('this.props.navigation', this.props.navigation)
         // this.props.navigation.navigate('Signin', {});
         this.setState({showSignBox: true, showSignCard: false, welcomeCard: false,})
 
