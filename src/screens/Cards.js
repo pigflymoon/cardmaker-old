@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
-// import firebaseApp from '../config/FirebaseConfig';
-import {auth, db, storage} from '../config/FirebaseConfig';
+import {auth} from '../config/FirebaseConfig';
 import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
-import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
+// import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
@@ -15,82 +14,8 @@ import cardStyle from '../styles/card';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-// test data
-const DATA = [
-    {
-        id: 1,
-        uri: 'https://i.imgur.com/wO7pizCb.jpg',
-        name: 'TURQUOISE',
-        code: '#1abc9c'
-    }, {
-        id: 2,
-        uri: 'https://i.imgur.com/AD3MbBi.jpg',
-        name: 'EMERALD',
-        code: '#2ecc71'
-    },
-    {
-        id: 3,
-        uri: 'https://i.imgur.com/mtbl1crb.jpg',
-        name: 'PETER RIVER',
-        code: '#3498db'
-    }, {
-        id: 4,
-        uri: 'https://i.imgur.com/igt12tfb.jpg',
-        name: 'AMETHYST',
-        code: '#9b59b6'
-    },
-    {
-        id: 5,
-        uri: 'https://i.imgur.com/QxR8tQhb.jpg',
-        name: 'WET ASPHALT',
-        code: '#34495e'
-    }, {
-        id: 6,
-        uri: 'https://i.imgur.com/WktFupPb.jpg',
-        name: 'GREEN SEA',
-        code: '#16a085'
-    },
-    {
-        id: 7,
-        uri: 'https://i.imgur.com/gM5yeySb.jpg',
-        name: 'NEPHRITIS', code: '#27ae60'
-    },
-    {
-        id: 8,
-        uri: 'https://i.imgur.com/YrLxxk8b.jpg',
-        name: 'BELIZE HOLE',
-        code: '#2980b9'
-    },
+var likedCards = [], dislikedCards = [], savedCards = [];
 
-];
-var likedCards = [], dislikedCards = [], savedCards = [],
-    cards = [
-        {
-            id: 5,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F1.jpg?alt=media&token=b23cdf5d-e0f2-4e7f-a12f-8c2db0a67384',
-            name: '1',
-            code: '#16a085'
-        },
-        {
-            id: 6,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F2.jpg?alt=media&token=1b45f877-d123-44b5-aa2f-837fe650680e',
-            name: '2', code: '#27ae60'
-        }, {
-            id: 7,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F3.jpg?alt=media&token=8400767e-a77e-4cf9-91c8-7d85e8a84acf',
-            name: '3',
-            code: '#2980b9'
-        }, {
-            id: 8,
-            uri: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/images%2F4.jpg?alt=media&token=69ac9094-09db-438a-96b5-3cc35fed2622',
-            name: '4',
-            code: '#16a085'
-        },
-
-
-    ];
-
-var storageRef = storage.ref('/images');
 
 export default class Cards extends Component {
 
@@ -100,12 +25,12 @@ export default class Cards extends Component {
 
         this.state = {
             signin: false,
-            cardsData: cards,
+            cardsData: [],
             likedCards: [],
             dislikedCards: [],
         }
-        AsyncStorage.setItem("dataSource", "false");
-        AsyncStorage.setItem('cardsSource', JSON.stringify(cards));
+        AsyncStorage.setItem("dataSource", "false");//test set user is paid user true
+        AsyncStorage.setItem('cardsSource', '');
 
     }
 
@@ -171,11 +96,8 @@ export default class Cards extends Component {
             });
         });
     }
-
     getFreeImages = () => {
         var self = this;
-
-
         onceGetFreeImages().then(snapshot => {
             console.log(' free snapshot', snapshot.val());
             var downloadImages = snapshot.val();
@@ -194,65 +116,55 @@ export default class Cards extends Component {
             console.log('images,', images)
 
         });
+    }
+    getPaidImages = () => {
+        var self = this;
+        onceGetPaidImages().then(snapshot => {
+            console.log('paid snapshot', snapshot.val());
+            var downloadImages = snapshot.val();
+            var images = Object.keys(downloadImages).map(key => (
+                    {
+                        id: key,
+                        uri: downloadImages[key].downloadUrl,
+                        name: downloadImages[key].Name,
+                        code: Utils.getRandomColor(),
+                    }
+                )
+            );
+            //concat free images and paid images
+            var cardsData = self.state.cardsData;
+            console.log('free cardsData is :', cardsData)
+            cardsData = cardsData.concat((images));
+            console.log('concat cardsData is :', cardsData)
+            //
+            AsyncStorage.setItem('cardsSource', JSON.stringify(cardsData))
+                .then(self.setState({cardsData: cardsData}));
+        });
+    }
 
+    getImages = () => {
+        //
+        this.getFreeImages();
+        AsyncStorage.getItem("dataSource").then((value) => {
+            if (value == 'true') {//
+                //paid user
+                // AsyncStorage.getItem("dataSource").then((value) => {
+                console.log('***********dataSource**********', value, 'value == true?', value == 'true')
+                this.getPaidImages();
+            }
+        }).done();
     }
 
 
     refreshImages = () => {
-        /*
-         AsyncStorage.getItem("cardsSource").then((value) => {
-         if (value) {
-         console.log('saved cards ', (value))
-         this.setState({"cardsData": JSON.parse(value)});
-         } else {
-         AsyncStorage.setItem("cardsSource", cards);
-         }
-
-         }).done();
-         */
-        /**/
+        this.setState({cardsData: []});
         var self = this;
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log('#########REFRESh sign in -- Cards #########', user)
                 self.setState({signin: true});
-                AsyncStorage.getItem("dataSource").then((value) => {
-                    console.log('***********dataSource**********', value, 'value == true?', value == 'true')
-                    onceGetPaidImages().then(snapshot => {
-                        console.log('paid snapshot', snapshot.val());
-                        var downloadImages = snapshot.val();
-                        var images = Object.keys(downloadImages).map(key => (
-                                {
-                                    id: key,
-                                    uri: downloadImages[key].downloadUrl,
-                                    name: downloadImages[key].Name,
-                                    code: Utils.getRandomColor(),
-                                }
-                            )
-                        )
-                        AsyncStorage.setItem('cardsSource', JSON.stringify(images))
-                            .then(self.setState({cardsData: images})
-                            );
-                        console.log('images,', images)
-
-                        // this.setState(() => ({images: snapshot.val()}));
-                    })
-                    if (value == 'true') {
-
-
-                        onceGetPaidImages().then(snapshot => {
-                            console.log('snapshot', snapshot.val());
-                            // this.setState(() => ({images: snapshot.val()}));
-                        })
-
-                    } else {
-                        AsyncStorage.setItem("dataSource", 'false');
-                        AsyncStorage.setItem("cardsSource", JSON.stringify(cards));
-
-                    }
-
-                }).done();
+                self.getImages();
 
             } else {
                 console.log('no user?')
@@ -272,7 +184,7 @@ export default class Cards extends Component {
             if (user) {
                 console.log('#########sign in -- Cards #########', user)
                 self.setState({signin: true});
-                self.getFreeImages();
+                self.getImages();
                 // AsyncStorage.getItem("dataSource").then((value) => {
                 //
                 // }).done();
