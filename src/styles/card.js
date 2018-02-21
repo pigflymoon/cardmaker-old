@@ -141,6 +141,7 @@ export default{
         borderRadius: 5,
         padding: 10,
         height: 150,
+        backgroundColor:"#234234"
     },
     itemName: {
         fontSize: 16,

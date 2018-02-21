@@ -6,7 +6,6 @@ import {auth} from '../config/FirebaseConfig';
 import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 // import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
-import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
@@ -29,7 +28,7 @@ export default class Cards extends Component {
             likedCards: [],
             dislikedCards: [],
         }
-        AsyncStorage.setItem("dataSource", "false");//test set user is paid user true
+        AsyncStorage.setItem("dataSource", "true");//test set user is paid user true
         AsyncStorage.setItem('cardsSource', '');
 
     }
@@ -106,7 +105,7 @@ export default class Cards extends Component {
                         id: key,
                         uri: downloadImages[key].downloadUrl,
                         name: downloadImages[key].Name,
-                        code: Utils.getRandomColor(),
+
                     }
                 )
             )
@@ -127,7 +126,7 @@ export default class Cards extends Component {
                         id: key,
                         uri: downloadImages[key].downloadUrl,
                         name: downloadImages[key].Name,
-                        code: Utils.getRandomColor(),
+
                     }
                 )
             );

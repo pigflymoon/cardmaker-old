@@ -9,21 +9,24 @@ import {
 
 import GridView from 'react-native-super-grid';
 // import firebaseApp from '../config/FirebaseConfig';
-import {auth,db,storage} from '../config/FirebaseConfig';
+import {auth, db, storage} from '../config/FirebaseConfig';
 
 import {Icon, Card, Button} from 'react-native-elements';
+import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
 
-
 export default class MyCards extends Component {
     constructor(props, context) {
         super(props, context);
+
         this.state = {
             makeCards: null,
             chooseCards: [],
-            signin: false
+            signin: false,
+            backgroundColor: "#5fba7d",
+
         }
 
     }
@@ -46,15 +49,28 @@ export default class MyCards extends Component {
 
         console.log('pass chooseCards cards', chooseCards)
 
-
-        this.setState({chooseCards: chooseCards});
+        this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards),});
 
     }
 
-    chooseCard = (item) => {
+    initialSelectedItem = (chooseCards) => {
+        let selectedItemTemp = []
+        for (let i = 0; i < chooseCards.length; i++) { //section.time_slots is your FlatList data
+            selectedItemTemp.push(false)
+        }
+        return selectedItemTemp;
+
+    }
+
+    chooseCard = (item, index) => {
+        var selectedItem = this.initialSelectedItem(this.state.chooseCards);
+
+        selectedItem[index] = !selectedItem[index];
         this.setState({
             makeCards: item,
-        })
+            selectedItem,
+        });
+
     }
 
     gotoMakeCards = () => {
@@ -79,7 +95,7 @@ export default class MyCards extends Component {
                         <Text style={cardStyle.title}>1. choose your card by just click it</Text>
                     </View>
                     <View style={cardStyle.titleContainer}>
-                        <Icon name="card-giftcard"  color={colors.primary1} size={20}/>
+                        <Icon name="card-giftcard" color={colors.primary1} size={20}/>
                         <Text style={cardStyle.title}>2. Add it to Make Cards</Text>
                     </View>
                 </View>
@@ -103,15 +119,17 @@ export default class MyCards extends Component {
                         itemWidth={130}
                         items={this.state.chooseCards}
                         style={cardStyle.gridView}
-                        renderItem={item => (
-                            <View style={[cardStyle.itemContainer, {backgroundColor: item.code}]}>
-                                <TouchableHighlight onPress={() => this.chooseCard(item)} underlayColor='#99d9f4'>
+                        renderItem={(item, index) => (
+
+                            <TouchableHighlight onPress={() => this.chooseCard(item, index)} underlayColor='#99d9f4'>
+                                <View
+                                    style={[cardStyle.itemContainer, {backgroundColor: (this.state.selectedItem[index]) ? '#EF85D0' : '#5fba7d'}]}>
                                     <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
                                         <Text style={cardStyle.itemName}>{item.name}</Text>
-                                        <Text style={cardStyle.itemCode}>{item.code}</Text>
                                     </ImageBackground>
-                                </TouchableHighlight>
-                            </View>
+                                </View>
+                            </TouchableHighlight>
+
 
 
                         )}
