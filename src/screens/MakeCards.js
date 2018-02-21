@@ -180,12 +180,12 @@ export default class MakeCards extends Component {
                 <View style={[cardStyle.cardsContainer]}>
 
                     <View style={cardStyle.imageListContainer}>
-                        <View style={[formStyle.container, cardStyle.imageContainer]}>
+                        <View style={[formStyle.container, cardStyle.imageContainer,cardStyle.thumbnail]}>
                             <Image style={{
                                 flex: 1,
 
                             }}
-                                   resizeMethod="scale"
+                                   resizeMethod="container"
                                    source={{uri: (this.state.makeCard).uri}}
                             />
                         </View>

@@ -134,7 +134,9 @@ export default{
     },
     imageContainer: {
         height: 130,
-        // width: 150,
+    },
+    thumbnail:{
+        height: 160,
     },
     itemContainer: {
         justifyContent: 'flex-end',
