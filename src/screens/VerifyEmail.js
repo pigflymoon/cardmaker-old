@@ -83,9 +83,12 @@ export default class VerifyEmail extends Component {
                     });
                 }, 1000 * 30);
             }).catch(function (error) {
-            var errorMessage = error.message + ' (' + error.code + ')';
-            console.log(errorMessage)
-            // self.setState({showErrorInfo: true, errorInfo: errorMessage});
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            self.setState({
+                errorMessage: errorMessage
+            });
         });
 
 
@@ -97,7 +100,7 @@ export default class VerifyEmail extends Component {
         return (
             <View style={formStyle.container}>
                 {this.state.isLoading ? (
-                        <View style={chat.loading}>
+                        <View style={formStyle.loading}>
                             <ActivityIndicator size='large'/>
                         </View>
                     ) : (

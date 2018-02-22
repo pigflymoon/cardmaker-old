@@ -71,7 +71,7 @@ export default class ResetPassword extends Component {
         return (
             <View style={formStyle.container}>
                 {this.state.isLoading ? (
-                        <View style={chat.loading}>
+                        <View style={formStyle.loading}>
                             <ActivityIndicator size='large'/>
                         </View>
                     ) : (

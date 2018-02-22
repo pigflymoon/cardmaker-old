@@ -5,13 +5,20 @@ import {
     Text,
     FormInput,
     FormLabel,
+    FormValidationMessage,
 } from 'react-native-elements';
 // import firebaseApp from '../config/FirebaseConfig';
 import {auth} from '../config/FirebaseConfig';
+import {doCreateUser} from '../config/db';
+
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
 
+
+const byPropKey = (properTyName, value) => ({
+    [properTyName]: value,
+});
 
 export default class Signup extends Component {
     constructor(props) {
@@ -47,15 +54,41 @@ export default class Signup extends Component {
         return new Promise(function (resolve, reject) {
             auth.createUserWithEmailAndPassword(email, password).then(function (user) {
                 if (user) {
-                    user.updateProfile({displayName: self.state.name});
-                    console.log('email',email)
-                    self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
+                    // Create a user in your own accessible Firebase Database too
+                    doCreateUser(user.uid, self.state.name, email)
+                        .then(() => {
+                            user.updateProfile({displayName: self.state.name});
+                            console.log('email', email)
+                            self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
+                        })
+                        .catch(error => {
+                            this.setState(byPropKey('error', error));
+                        });
+                    //
+
                 }
-            }).catch(function (error) {
-                var errorMessage = error.message + ' (' + error.code + ')';
-                console.log('errorMessage', errorMessage)
-                // self.setState({showErrorInfo: true, errorInfo: errorMessage});
-            });
+            })
+             .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log('errorCode', errorCode)
+                    switch (errorCode) {
+                        case 'auth/email-already-in-use':
+                        case 'auth/invalid-email':
+                        case 'auth/operation-not-allowed':
+                        case 'auth/weak-password':
+                            self.setState({
+                                errorMessage: errorMessage
+                            });
+                            break;
+                        default:
+                            self.setState({
+                                errorMessage: 'Error'
+                            });
+                    }
+                });
+
         });
     }
 
@@ -115,7 +148,13 @@ export default class Signup extends Component {
                         />
                     </View>
 
-
+                    {this.state.errorMessage ?
+                        <FormValidationMessage containerStyle={formStyle.validateContainer}
+                                               labelStyle={formStyle.validateLabel}>
+                            {this.state.errorMessage}
+                        </FormValidationMessage>
+                        : null
+                    }
                 </View>
 
                 <View style={formStyle.footerContainer}>
