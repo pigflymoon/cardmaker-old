@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
 
 import {Button, Card, Icon,} from 'react-native-elements';
-import {auth} from '../config/FirebaseConfig';
+import {auth, db} from '../config/FirebaseConfig';
 import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
 // import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
@@ -141,49 +141,50 @@ export default class Cards extends Component {
         });
     }
 
-    getImages = () => {
+    getImages = (userrole) => {
         //
-        this.getFreeImages();
-        AsyncStorage.getItem("dataSource").then((value) => {
-            if (value == 'true') {//
-                //paid user
-                // AsyncStorage.getItem("dataSource").then((value) => {
-                console.log('***********dataSource**********', value, 'value == true?', value == 'true')
-                this.getPaidImages();
-            }
-        }).done();
+        console.log('userrole is ',userrole.paid_user);
+        if (!userrole.paid_user) {
+            this.getFreeImages();
+        } else {
+            this.getFreeImages();
+            this.getPaidImages();
+        }
+
+        // AsyncStorage.getItem("dataSource").then((value) => {
+        //     if (value == 'true') {//
+        //         //paid user
+        //         // AsyncStorage.getItem("dataSource").then((value) => {
+        //         console.log('***********dataSource**********', value, 'value == true?', value == 'true')
+        //         this.getPaidImages();
+        //     }
+        // }).done();
     }
 
 
     refreshImages = () => {
         this.setState({cardsData: []});
         var self = this;
-
-        auth.onAuthStateChanged(function (user) {
-            if (user) {
-                console.log('#########REFRESh sign in -- Cards #########', user)
-                self.setState({signin: true});
-                self.getImages();
-
-            } else {
-                console.log('no user?')
-                self.setState({signin: false})
-            }
-        });
-
-        // this.setState({cardsData: cards})
+        this.getUserImages();
     }
 
-    componentDidMount() {
+    getUserImages = () => {
         var self = this;
+        auth.onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                var userId = auth.currentUser.uid;
+                console.log('current userid,', userId);
+                db.ref('/users/' + userId).once('value').then(function (snapshot) {
+                    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+                    var userrole = (snapshot.val() && snapshot.val().role) || 'free_user';
+                    console.log('username is: ', username, 'role is: ', userrole)
+                    self.setState({signin: true, authUser, userrole: userrole});
+                    self.getImages(userrole);
+                    // ...
+                });
+                console.log('#########sign in -- Cards #########', authUser)
 
 
-        //
-        auth.onAuthStateChanged(function (user) {
-            if (user) {
-                console.log('#########sign in -- Cards #########', user)
-                self.setState({signin: true});
-                self.getImages();
                 // AsyncStorage.getItem("dataSource").then((value) => {
                 //
                 // }).done();
@@ -193,6 +194,14 @@ export default class Cards extends Component {
                 self.setState({signin: false, cardsData: []})
             }
         });
+    }
+
+    componentDidMount() {
+       this.getUserImages();
+
+
+        //
+
 
         //
 
