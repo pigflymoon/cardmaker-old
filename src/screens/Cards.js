@@ -5,7 +5,6 @@ import {Button, Card, Icon,} from 'react-native-elements';
 import {auth, db} from '../config/FirebaseConfig';
 import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
 import SwipeDeck from '../components/SwipeDeck';
-// import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
@@ -143,22 +142,13 @@ export default class Cards extends Component {
 
     getImages = (userrole) => {
         //
-        console.log('userrole is ',userrole.paid_user);
+        console.log('userrole is ', userrole.paid_user);
         if (!userrole.paid_user) {
             this.getFreeImages();
         } else {
             this.getFreeImages();
             this.getPaidImages();
         }
-
-        // AsyncStorage.getItem("dataSource").then((value) => {
-        //     if (value == 'true') {//
-        //         //paid user
-        //         // AsyncStorage.getItem("dataSource").then((value) => {
-        //         console.log('***********dataSource**********', value, 'value == true?', value == 'true')
-        //         this.getPaidImages();
-        //     }
-        // }).done();
     }
 
 
@@ -176,18 +166,13 @@ export default class Cards extends Component {
                 console.log('current userid,', userId);
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-                    var userrole = (snapshot.val() && snapshot.val().role) || 'free_user';
+                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
                     console.log('username is: ', username, 'role is: ', userrole)
                     self.setState({signin: true, authUser, userrole: userrole});
                     self.getImages(userrole);
                     // ...
                 });
                 console.log('#########sign in -- Cards #########', authUser)
-
-
-                // AsyncStorage.getItem("dataSource").then((value) => {
-                //
-                // }).done();
 
             } else {
                 console.log('no user?')
@@ -197,17 +182,8 @@ export default class Cards extends Component {
     }
 
     componentDidMount() {
-       this.getUserImages();
-
-
-        //
-
-
-        //
-
-
+        this.getUserImages();
     }
-
 
     renderNoMoreCards() {
         return (

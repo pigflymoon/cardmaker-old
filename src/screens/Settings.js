@@ -21,6 +21,7 @@ import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
+import {auth, db} from '../config/FirebaseConfig';
 
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 // var verifyproductionHost = Config.receiptVerify.Host.productionHost;
@@ -39,7 +40,7 @@ export default class Settings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            version: '1.0.0',
+            version: '1.0.1',
             isPro: 'DISABLED',
             showProData: false,//remove in-purchase
 
@@ -59,7 +60,7 @@ export default class Settings extends Component {
     }
 
     onRate() {
-        let link = 'https://itunes.apple.com/cn/app/quakechat/id1304970962';
+        let link = 'https://itunes.apple.com/nz/app/cardmaker-app/id1318023993';
         //
         if (Platform.OS === 'ios') {
             if (StoreReview.isAvailable) {
@@ -71,6 +72,28 @@ export default class Settings extends Component {
         return Utils.goToURL(link);
     }
 
+    upDateRole = () => {
+        //update db user
+        var self = this;
+        auth.onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                var userId = auth.currentUser.uid;
+                console.log('current userid,', userId);
+
+                db.ref('/users/' + userId).update({
+                    role: {
+                        admin: false,
+                        free_user: true,
+                        paid_user: true,
+                    }
+                })
+
+            } else {
+                console.log('no user?')
+                self.setState({signin: false, cardsData: []})
+            }
+        });
+    }
 
     onPay = () => {
         var self = this;
@@ -111,19 +134,9 @@ export default class Settings extends Component {
                                                                 showProData: true,
                                                                 isPro: 'Available'
                                                             }, function () {
-                                                                AsyncStorage.setItem('dataSource', 'true')
-                                                                var result = fetchAllAsyncImages().then(function (results) {
-                                                                    console.log('All async calls completed successfully:');
-                                                                    console.log(' --> ', (results));
-                                                                    // results = results.concat(self.state.cardsData)
-
-                                                                    AsyncStorage.setItem('cardsSource', JSON.stringify(results)).done();
-
-                                                                }, function (reason) {
-                                                                    console.log('Some async call failed:');
-                                                                    console.log(' --> ', reason);
-                                                                });
-                                                            })
+                                                                // AsyncStorage.setItem('dataSource', 'true');
+                                                                this.upDateRole();
+                                                            });
 
 
                                                             //
@@ -168,18 +181,10 @@ export default class Settings extends Component {
                         if (purchase.productIdentifier === productIdentifier) {
                             // Handle purchased product.
                             this.setState({showProData: true, isPro: 'Available'});
-                            AsyncStorage.setItem('dataSource', 'true')
-                            var result = fetchAllAsyncImages().then(function (results) {
-                                console.log('All async calls completed successfully:');
-                                console.log(' --> ', (results));
-                                // results = results.concat(self.state.cardsData)
+                            // AsyncStorage.setItem('dataSource', 'true');
+                            //update db user
+                            this.upDateRole();
 
-                                AsyncStorage.setItem('cardsSource', JSON.stringify(results)).done();
-
-                            }, function (reason) {
-                                console.log('Some async call failed:');
-                                console.log(' --> ', reason);
-                            });
                             Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
 
                         }
