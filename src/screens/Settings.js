@@ -319,6 +319,7 @@ export default class Settings extends Component {
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'perm-device-information', color: colors.grey2}}
+                        hideChevron
                         title={`Version`}
                         subtitle={this.state.version}
                     />

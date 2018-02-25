@@ -7,14 +7,19 @@ import Utils from '../utils/utils';
 export default class Copyright extends Component {
 
     render() {
-        const bsdProjects = [{
-            name: 'React Native',
-            link: 'https://github.com/facebook/react-native',
-        }];
+        const bsdProjects = [];
 
         const mitProjects = [
             {
-                name: 'React Native Elements',
+                name: 'react',
+                link: 'https://github.com/facebook/react',
+            },
+            {
+                name: 'react-native',
+                link: 'https://github.com/facebook/react-native',
+            },
+            {
+                name: 'react-native-elements',
                 link: 'https://github.com/react-native-training/react-native-elements',
             },
             {
@@ -27,17 +32,21 @@ export default class Copyright extends Component {
             },
 
             {
-                name: 'React Native Share',
+                name: 'react-native-share',
                 link: 'https://github.com/EstebanFuentealba/react-native-share',
             },
 
             {
-                name: 'React Native Vector Icons',
+                name: 'react-native-vector-icons',
                 link: 'https://github.com/oblador/react-native-vector-icons',
             },
             {
                 name: 'react-native-background-timer',
                 link: 'git@github.com:ocetnik/react-native-background-timer.git',
+            },
+            {
+                name: 'react-native-store-review',
+                link: 'https://github.com/oblador/react-native-store-review',
             },
             {
                 name: 'react-native-super-grid',
@@ -48,32 +57,40 @@ export default class Copyright extends Component {
 
         return (
             <View>
-                <Label text="MIT"/>
-                <List containerStyle={{borderTopWidth: 0}}>
-                    {mitProjects.map((project, index) =>
-                        <ListItem
-                            rightIcon={{name: 'open-in-new'}}
-                            key={`index-${project.name}`}
-                            title={project.name}
-                            onPress={() => {
-                                Utils.goToURL(project.link);
-                            }}
-                        />,
-                    )}
-                </List>
-                <Label text="BSD"/>
-                <List containerStyle={{borderTopWidth: 0}}>
-                    {bsdProjects.map(project =>
-                        <ListItem
-                            rightIcon={{name: 'open-in-new'}}
-                            key={`index-${project.name}`}
-                            title={project.name}
-                            onPress={() => {
-                                Utils.goToURL(project.link);
-                            }}
-                        />,
-                    )}
-                </List>
+                {mitProjects.length > 0 ?
+                    <View>
+                        <Label text="MIT"/>
+                        <List containerStyle={{borderTopWidth: 0}}>
+                            {mitProjects.map((project, index) =>
+                                <ListItem
+                                    rightIcon={{name: 'open-in-new'}}
+                                    key={`index-${project.name}`}
+                                    title={project.name}
+                                    onPress={() => {
+                                        Utils.goToURL(project.link);
+                                    }}
+                                />,
+                            )}
+                        </List>
+                    </View> : null}
+
+                {bsdProjects.length > 0 ?
+                    <View>
+                        <Label text="BSD"/>
+                        <List containerStyle={{borderTopWidth: 0}}>
+                            {bsdProjects.map(project =>
+                                <ListItem
+                                    rightIcon={{name: 'open-in-new'}}
+                                    key={`index-${project.name}`}
+                                    title={project.name}
+                                    onPress={() => {
+                                        Utils.goToURL(project.link);
+                                    }}
+                                />,
+                            )}
+                        </List>
+                    </View> : null}
+
             </View>
         );
     }
