@@ -150,7 +150,7 @@ export default class Cards extends Component {
                 }}
                 featuredTitle="No more cards"
                 featuredTitleStyle={{fontSize: 25}}
-                image={{uri: {refreshMore}}}
+                image={refreshMore}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
                     height: SCREEN_HEIGHT - 252

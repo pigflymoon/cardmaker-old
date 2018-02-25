@@ -79,7 +79,7 @@ export default class MySettings extends Component {
                             welcomeCard: true,
                             showSignCard: false,
                             showSignBox: false,
-                            title: `Welcome ${user.displayName} to cardmaker`,
+                            title: `Hi ${user.displayName}, Welcome to cardmaker!`,
                             //
                         })
                         // self.props.navigation.navigate('MySettings', {user: user,signin: true});
