@@ -8,6 +8,7 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
+import refreshMore from '../assets/images/refresh-more.jpg';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -149,7 +150,7 @@ export default class Cards extends Component {
                 }}
                 featuredTitle="No more cards"
                 featuredTitleStyle={{fontSize: 25}}
-                image={{uri: 'https://i.imgflip.com/1j2oed.jpg'}}
+                image={{uri: {refreshMore}}}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
                     height: SCREEN_HEIGHT - 252
