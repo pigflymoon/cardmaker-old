@@ -14,10 +14,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 var likedCards = [], dislikedCards = [], savedCards = [];
 
-
 export default class Cards extends Component {
-
-
     constructor(props, context) {
         super(props, context);
 
@@ -27,11 +24,8 @@ export default class Cards extends Component {
             likedCards: [],
             dislikedCards: [],
         }
-        AsyncStorage.setItem("dataSource", "true");//test set user is paid user true
         AsyncStorage.setItem('cardsSource', '');
-
     }
-
 
     renderCard(card) {
         return (
@@ -62,63 +56,36 @@ export default class Cards extends Component {
         var savedCard = new Map(likedCards.map(obj => [obj.uri, obj]));
         // To get the unique objects
         savedCards = Array.from(savedCard.values());
-
-
     }
 
     onSwipeLeft(card) {
-        console.log('Card disliked: ' + card.name, 'Card is ', card);
         dislikedCards.push(card);
-
     }
 
     gotoMyCards = () => {
-        console.log('pass savedCards', savedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
-    promiseAll = (promises) => {
-        var results = [];
-        var completedPromises = 0;
-        return new Promise(function (resolve, reject) {
-            promises.forEach(function (promise, index) {
-                promise.then(function (value) {
-                    results[index] = value;
-                    completedPromises += 1;
-                    if (completedPromises === promises.length) {
-                        resolve(results);
-                    }
-                }).catch(function (error) {
-                    reject(error);
-                });
-            });
-        });
-    }
     getFreeImages = () => {
         var self = this;
         onceGetFreeImages().then(snapshot => {
-            console.log(' free snapshot', snapshot.val());
             var downloadImages = snapshot.val();
             var images = Object.keys(downloadImages).map(key => (
                     {
                         id: key,
                         uri: downloadImages[key].downloadUrl,
                         name: downloadImages[key].Name,
-
                     }
                 )
             )
             AsyncStorage.setItem('cardsSource', JSON.stringify(images))
                 .then(self.setState({cardsData: images})
                 );
-            console.log('images,', images)
-
         });
     }
     getPaidImages = () => {
         var self = this;
         onceGetPaidImages().then(snapshot => {
-            console.log('paid snapshot', snapshot.val());
             var downloadImages = snapshot.val();
             var images = Object.keys(downloadImages).map(key => (
                     {
@@ -131,9 +98,7 @@ export default class Cards extends Component {
             );
             //concat free images and paid images
             var cardsData = self.state.cardsData;
-            console.log('free cardsData is :', cardsData)
             cardsData = cardsData.concat((images));
-            console.log('concat cardsData is :', cardsData)
             //
             AsyncStorage.setItem('cardsSource', JSON.stringify(cardsData))
                 .then(self.setState({cardsData: cardsData}));
@@ -141,8 +106,6 @@ export default class Cards extends Component {
     }
 
     getImages = (userrole) => {
-        //
-        console.log('userrole is ', userrole.paid_user);
         if (!userrole.paid_user) {
             this.getFreeImages();
         } else {
@@ -150,7 +113,6 @@ export default class Cards extends Component {
             this.getPaidImages();
         }
     }
-
 
     refreshImages = () => {
         this.setState({cardsData: []});
@@ -163,19 +125,12 @@ export default class Cards extends Component {
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 var userId = auth.currentUser.uid;
-                console.log('current userid,', userId);
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
-                    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    console.log('username is: ', username, 'role is: ', userrole)
                     self.setState({signin: true, authUser, userrole: userrole});
                     self.getImages(userrole);
-                    // ...
                 });
-                console.log('#########sign in -- Cards #########', authUser)
-
             } else {
-                console.log('no user?')
                 self.setState({signin: false, cardsData: []})
             }
         });
@@ -253,10 +208,8 @@ export default class Cards extends Component {
     }
 
     render() {
-
         return (
             <View style={cardStyle.cardsContainer}>
-
                 {this.renderHeader()}
                 <View style={cardStyle.deck}>
                     <SwipeDeck
@@ -272,6 +225,3 @@ export default class Cards extends Component {
         );
     }
 }
-
-
-
