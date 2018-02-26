@@ -9,7 +9,7 @@ import {
 
 } from 'react-native-elements';
 // import firebaseApp from '../config/FirebaseConfig';
-import {auth,db} from '../config/FirebaseConfig';
+import {auth, db} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
@@ -73,13 +73,14 @@ export default class MySettings extends Component {
                     if (user) {
                         // self.screenProps({signin: true});
                         // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
+                        var displayName = user.displayName ? user.displayName :(user.email).split("@")[0];;
                         self.setState({
                             user: user,
                             signin: true,
                             welcomeCard: true,
                             showSignCard: false,
                             showSignBox: false,
-                            title: `Hi ${user.displayName}, Welcome to cardmaker!`,
+                            title: `Hi ${displayName}, Welcome to cardmaker!`,
                             //
                         })
                         // self.props.navigation.navigate('MySettings', {user: user,signin: true});

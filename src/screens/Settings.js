@@ -241,6 +241,30 @@ export default class Settings extends Component {
         }
 
     }
+    getUserRole = () => {
+        var self = this;
+        auth.onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                var userId = auth.currentUser.uid;
+                db.ref('/users/' + userId).once('value').then(function (snapshot) {
+                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
+                    var isPaidUser = userrole.paid_user;
+                    if (isPaidUser) {
+                        self.setState({
+                            showProData: true,
+                            isPro: 'Available'
+                        });
+                    }
+
+
+                });
+            }
+        });
+    }
+
+    componentDidMount() {
+        this.getUserRole();
+    }
 
     render() {
         return (
