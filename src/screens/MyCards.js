@@ -126,6 +126,11 @@ export default class MyCards extends Component {
         );
     }
 
+    navigateToSignin = () => {
+        this.props.navigation.navigate('MySettings', {});
+
+    }
+
     renderSignCard() {
         return (
             <Card title='Welcome to cardmaker'>

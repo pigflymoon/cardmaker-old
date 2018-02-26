@@ -8,7 +8,7 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
-import refreshMore from '../assets/images/refresh-more.jpg';
+import refreshMore from '../assets/images/refreshMore.jpg';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
