@@ -47,7 +47,7 @@ export default class MakeCards extends Component {
 
     componentDidMount() {
         var self = this;
-        if(this.props.navigation.state.params){
+        if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
             console.log('makeCard passed in props,', makeCard)
@@ -74,6 +74,9 @@ export default class MakeCards extends Component {
         this.setState({makeCard: makeCard});
     }
 
+    componentWillUnmount() {
+        this.setState({makeCard: null});
+    }
 
     setWishwords = (text) => {
         this.setState({title: text});

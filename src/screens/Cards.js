@@ -25,10 +25,11 @@ export default class Cards extends Component {
             likedCards: [],
             dislikedCards: [],
         }
-        AsyncStorage.setItem('cardsSource', '');
+        // AsyncStorage.setItem('cardsSource', '');
     }
 
     renderCard(card) {
+        console.log('card', card,'this.state,',this.state)
         return (
             <Card
                 key={card.id}
@@ -64,28 +65,39 @@ export default class Cards extends Component {
     }
 
     gotoMyCards = () => {
-        console.log('savedCards in Cards',savedCards)
+        console.log('savedCards in Cards', savedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
     getFreeImages = () => {
+
+
         var self = this;
-        onceGetFreeImages().then(snapshot => {
-            var downloadImages = snapshot.val();
-            var images = Object.keys(downloadImages).map(key => (
-                    {
-                        id: key,
-                        uri: downloadImages[key].downloadUrl,
-                        name: downloadImages[key].Name,
-                    }
-                )
-            )
-            AsyncStorage.setItem('cardsSource', JSON.stringify(images))
-                .then(self.setState({cardsData: images})
-                );
+        return new Promise(function (resolve, reject) {
+            // some async operation here
+            setTimeout(function () {
+                // resolve the promise with some value
+
+                onceGetFreeImages().then(snapshot => {
+                    var downloadImages = snapshot.val();
+                    var images = Object.keys(downloadImages).map(key => (
+                            {
+                                id: key,
+                                uri: downloadImages[key].downloadUrl,
+                                name: downloadImages[key].Name,
+                            }
+                        )
+                    )
+                    resolve(images)
+                });
+
+
+            }, 500);
         });
+
+
     }
-    getPaidImages = () => {
+    getPaidImages = (freeImages) => {
         var self = this;
         onceGetPaidImages().then(snapshot => {
             var downloadImages = snapshot.val();
@@ -99,21 +111,27 @@ export default class Cards extends Component {
                 )
             );
             //concat free images and paid images
-            var cardsData = self.state.cardsData;
+            var cardsData = freeImages;//self.state.cardsData;
             cardsData = cardsData.concat((images));
             //
-            AsyncStorage.setItem('cardsSource', JSON.stringify(cardsData))
-                .then(self.setState({cardsData: cardsData}));
+            self.setState({cardsData: cardsData});
+            // AsyncStorage.setItem('cardsSource', JSON.stringify(cardsData))
+            //     .then(self.setState({cardsData: cardsData}));
         });
     }
 
     getImages = (userrole) => {
-        this.setState({cardsData: []});
+        var self = this;
+        console.log('userrole.paid_user', userrole.paid_user)
         if (!userrole.paid_user) {
+            console.log('called???')
             this.getFreeImages();
         } else {
-            this.getFreeImages();
-            this.getPaidImages();
+            this.getFreeImages().then(function (val) {
+                console.log('val is,',val)
+                self.getPaidImages(val);
+            })
+
         }
     }
 
@@ -140,7 +158,15 @@ export default class Cards extends Component {
     }
 
     componentDidMount() {
+        this.setState({cardsData: []});
+
         this.getUserImages();
+    }
+    componentWillUnmount() {
+
+        this.setState({cardsData: []});
+
+
     }
 
     renderNoMoreCards() {
