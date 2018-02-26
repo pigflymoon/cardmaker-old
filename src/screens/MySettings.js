@@ -31,15 +31,11 @@ export default class MySettings extends Component {
             name: '',
             errorMessage: ''
 
-
         }
     }
 
     navigateToSignin = () => {
-        // console.log('this.props.navigation', this.props.navigation)
-        // this.props.navigation.navigate('Signin', {});
         this.setState({showSignBox: true, showSignCard: false, welcomeCard: false,})
-
     }
     handleSignout = () => {
         var self = this;
@@ -73,7 +69,8 @@ export default class MySettings extends Component {
                     if (user) {
                         // self.screenProps({signin: true});
                         // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
-                        var displayName = user.displayName ? user.displayName :(user.email).split("@")[0];;
+                        var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+                        ;
                         self.setState({
                             user: user,
                             signin: true,
@@ -194,16 +191,33 @@ export default class MySettings extends Component {
         );
     }
 
+    componentDidMount() {
+        var self = this;
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                // self.screenProps({signin: true});
+                // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
+                var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+                ;
+                self.setState({
+                    user: user,
+                    signin: true,
+                    welcomeCard: true,
+                    showSignCard: false,
+                    showSignBox: false,
+                    title: `Hi ${displayName}, Welcome to cardmaker!`,
+                    //
+                })
+                // self.props.navigation.navigate('MySettings', {user: user,signin: true});
+
+            } else {
+                // this.setState({errorMessage: user})
+                console.log('error', user)
+            }
+        })
+    }
+
     render() {
-
-
-        // if (this.props.navigation.state.params) {
-        //     const {user, signin} = this.props.navigation.state.params;
-        //     title = user.displayName;
-        //     showBox = !signin;
-        // }
-
-
         return (
             <View style={layoutStyle.container}>
                 {this.state.showSignCard && <Card
