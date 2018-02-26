@@ -64,6 +64,7 @@ export default class Cards extends Component {
     }
 
     gotoMyCards = () => {
+        console.log('savedCards in Cards',savedCards)
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
@@ -107,6 +108,7 @@ export default class Cards extends Component {
     }
 
     getImages = (userrole) => {
+        this.setState({cardsData: []});
         if (!userrole.paid_user) {
             this.getFreeImages();
         } else {

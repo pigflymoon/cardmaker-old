@@ -19,7 +19,7 @@ import {
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
 // import firebaseApp from '../config/FirebaseConfig';
-import {auth,db,storage} from '../config/FirebaseConfig';
+import {auth, db, storage} from '../config/FirebaseConfig';
 
 import Utils from '../utils/utils';
 import colors from '../styles/colors';
@@ -47,6 +47,16 @@ export default class MakeCards extends Component {
 
     componentDidMount() {
         var self = this;
+        if(this.props.navigation.state.params){
+            var makeCard = this.props.navigation.state.params.chooseCards;
+            var signin = this.props.navigation.state.params.signin;
+            console.log('makeCard passed in props,', makeCard)
+            if (makeCard.length > 0) {
+                this.setState({makeCard: makeCard, signin: signin});
+            }
+
+        }
+
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
@@ -60,6 +70,7 @@ export default class MakeCards extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
+        console.log('makeCard passed in nextprops,', makeCard)
         this.setState({makeCard: makeCard});
     }
 
@@ -117,6 +128,7 @@ export default class MakeCards extends Component {
                 yStart = 0;
             }
 
+            console.log('renderableWidth', renderableWidth, 'renderableHeight', renderableHeight)
             context.drawImage(image, xStart, yStart, renderableWidth, renderableHeight);
 
             //
@@ -134,6 +146,7 @@ export default class MakeCards extends Component {
             context.font = "bold 24px Hoefler";
             context.fillStyle = Utils.getRandomColor();
             context.fillText(caption, 150, 300);
+            console.log('canvas width', canvas.width)
             canvas.toDataURL().then((dataUrl) => {
                 //get rid of extra "" of the return value ""dsdsfs""
                 dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));
@@ -180,7 +193,7 @@ export default class MakeCards extends Component {
                 <View style={[cardStyle.cardsContainer]}>
 
                     <View style={cardStyle.imageListContainer}>
-                        <View style={[formStyle.container, cardStyle.imageContainer,cardStyle.thumbnail]}>
+                        <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
                             <Image style={{
                                 flex: 1,
 

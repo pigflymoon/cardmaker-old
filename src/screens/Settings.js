@@ -20,9 +20,7 @@ import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
-import {fetchAllAsyncImages} from '../utils/FetchImagesByApi';
 import {auth, db} from '../config/FirebaseConfig';
-
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 // var verifyproductionHost = Config.receiptVerify.Host.productionHost;
 var verifyHost = verifysandboxHost;
@@ -34,7 +32,6 @@ import Utils from '../utils/utils';
 import colors from '../styles/colors';
 import listStyle from '../styles/list';
 import SettingStyle from '../styles/setting';
-var cardsSource = [];
 export default class Settings extends Component {
 
     constructor(props, context) {
@@ -324,7 +321,6 @@ export default class Settings extends Component {
                         subtitle={this.state.version}
                     />
                 </List>
-
             </ScrollView>
         )
     }

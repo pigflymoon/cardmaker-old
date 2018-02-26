@@ -108,7 +108,7 @@ export default{
         backgroundColor: colors.white,
         // height: width * 0.915,
         // height:400,
-        // width: width * 0.915,
+        width: width * 0.915,
     },
     inputStyle: {
         width: equalWidth - 20,

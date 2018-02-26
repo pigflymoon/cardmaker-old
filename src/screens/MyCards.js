@@ -16,6 +16,7 @@ import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';
+import buttonStyle from '../styles/button';
 
 export default class MyCards extends Component {
     constructor(props, context) {
@@ -33,14 +34,31 @@ export default class MyCards extends Component {
 
     componentDidMount() {
         var self = this;
+        if (this.props.navigation.state.params) {
+            var chooseCards = this.props.navigation.state.params.likedCards;
+            var signin = this.props.navigation.state.params.signin;
+
+            console.log('pass chooseCards cards in props', chooseCards)
+            if (chooseCards.length > 0) {
+                this.setState({
+                    signin: signin,
+                    chooseCards: chooseCards,
+                    selectedItem: this.initialSelectedItem(chooseCards)
+                })
+            }
+        }
+
 
         auth.onAuthStateChanged(function (user) {
-            if (user) {
-                self.setState({signin: true})
-            } else {
+            console.log('user?', user)
+            if (!user) {
                 self.setState({signin: false, chooseCards: []})
+            } else {
+                self.setState({signin: true})
             }
         });
+
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,7 +67,7 @@ export default class MyCards extends Component {
 
         console.log('pass chooseCards cards', chooseCards)
 
-        this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards),});
+        this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards)});
 
     }
 
@@ -108,37 +126,77 @@ export default class MyCards extends Component {
         );
     }
 
-    render() {
-        var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
-
+    renderSignCard() {
         return (
-            <View style={cardStyle.container}>
-                {this.renderHeader()}
-                {renderCard ?
-                    <GridView
-                        itemWidth={130}
-                        items={this.state.chooseCards}
-                        style={cardStyle.gridView}
-                        renderItem={(item, index) => (
-
-                            <TouchableHighlight onPress={() => this.chooseCard(item, index)} underlayColor='#99d9f4'>
-                                <View
-                                    style={[cardStyle.itemContainer, {backgroundColor: (this.state.selectedItem[index]) ? '#EF85D0' : '#5fba7d'}]}>
-                                    <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
-                                        <Text style={cardStyle.itemName}>{item.name}</Text>
-                                    </ImageBackground>
-                                </View>
-                            </TouchableHighlight>
-
-
-
-                        )}
-                    /> : null}
-
-            </View>
+            <Card title='Welcome to cardmaker'>
+                <Text style={{marginBottom: 10}}>
+                    Please sign in then choose picture to make card
+                </Text>
+                <Button
+                    icon={{name: 'perm-identity'}}
+                    buttonStyle={buttonStyle.submitButton}
+                    title='Sign in /Sign up'
+                    onPress={this.navigateToSignin}
+                />
+            </Card>
         );
+    }
+
+    renderCards() {
+        return (
+            <GridView
+                itemWidth={130}
+                items={this.state.chooseCards}
+                style={cardStyle.gridView}
+                renderItem={(item, index) => (
+                    <TouchableHighlight onPress={() => this.chooseCard(item, index)}
+                                        underlayColor='#99d9f4'>
+                        <View
+                            style={[cardStyle.itemContainer, {backgroundColor: (this.state.selectedItem[index]) ? '#EF85D0' : '#5fba7d'}]}>
+                            <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
+                                <Text style={cardStyle.itemName}>{item.name}</Text>
+                            </ImageBackground>
+                        </View>
+                    </TouchableHighlight>
+
+
+                )}
+            />
+        );
+    }
+
+    render() {
+        console.log('this.state.chooseCards.length', this.state.chooseCards.length, 'signin?', this.state.signin)
+        var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
+        var renderSign = this.state.signin;
+        console.log('renderCard?', renderCard)
+        if (renderCard) {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderHeader()}
+                    {this.renderCards()}
+
+                </View>
+            )
+
+        }
+        if (!renderSign) {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderSignCard()}
+                </View>
+            )
+        } else {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderHeader()}
+                </View>
+            )
+        }
+
 
     }
+
 }
 
 
