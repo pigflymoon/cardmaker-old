@@ -54,7 +54,7 @@ export default class Settings extends Component {
     };
 
     onShare = () => {
-        const message = 'I am using QuakeChat. Life is s more meaningful when you share,chat and help each other! :) Download QuakeChat for iOS, and start QuakeChating with friends today.'
+        const message = 'I am using Cardmaker App. Life is s more meaningful when you share with others! :) Download Cardmaker App for iOS, and start make cards for your families and friends today!'
         const url = Config.share.url;
         Utils.shareText(message, url)
     }

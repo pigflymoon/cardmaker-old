@@ -5,8 +5,9 @@ import {
     Text,
     Alert,
     Linking,
+    Share as NativeShare,
 } from 'react-native';
-import Share, {ShareSheet, Button} from 'react-native-share';
+import Share  from 'react-native-share';
 export default class Utils {
     static goToURL = (url) => {
         Linking.canOpenURL(url).then(supported => {
@@ -25,24 +26,25 @@ export default class Utils {
             }
         });
     }
-    static shareText = (message, url, imageUrl) => {
+    static shareText = (message, url) => {
         var shareText = {
-            title: 'QuakeChat-Chat,share and help',
+            title: 'Cardmaker App,love and share!',
             message: message,
             url: url,
-            image: imageUrl,
+            // image: imageUrl,
 
 
         };
-        Share.share(shareText, {
+        NativeShare.share(shareText, {
             // Android only:
-            dialogTitle: 'CardMaker',
+            dialogTitle: 'Cardmaker App',
             // iOS only:
 
         })
     }
 
     static shareImage = (imageUrl,message,caption) => {
+        console.log('imageurl,',imageUrl,'message,',message,'caption',caption)
         if (imageUrl) {
             let shareImageBase64 = {
                 title: caption,

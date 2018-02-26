@@ -185,7 +185,7 @@ export default class MakeCards extends Component {
                                 flex: 1,
 
                             }}
-                                   resizeMethod="container"
+                                   resizeMethod="resize"
                                    source={{uri: (this.state.makeCard).uri}}
                             />
                         </View>
