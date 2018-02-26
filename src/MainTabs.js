@@ -12,14 +12,14 @@ import ResetPasswordScreen from './screens/ResetPassword';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
-import TestCardsScreen from './screens/TestCards';
+// import TestCardsScreen from './screens/TestCards';
 
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import colors from '../src/styles/colors';
+// import colors from '../src/styles/colors';
 
 
 const MySettingsStack = StackNavigator({
@@ -143,13 +143,13 @@ const CardsTabs = TabNavigator(
         tabBarPosition: 'top',
         animationEnabled: false,
         swipeEnabled: false,
-        tabBarOptions: {
-            tabStyle: {
-                borderBottomWidth: 1,
-                borderBottomColor: colors.greyOutline,
-
-            },
-        },
+        // tabBarOptions: {
+        //     tabStyle: {
+        //         borderBottomWidth: 1,
+        //         borderBottomColor: colors.greyOutline,
+        //
+        //     },
+        // },
     }
 );
 
