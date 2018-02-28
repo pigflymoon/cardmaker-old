@@ -27,6 +27,8 @@ export default class MyCards extends Component {
             chooseCards: [],
             signin: false,
             backgroundColor: "#5fba7d",
+            selectedIndex: 0,
+            selectedItem: [{id: '0', value: '0'}],
 
         }
 
@@ -72,23 +74,40 @@ export default class MyCards extends Component {
     }
 
     initialSelectedItem = (chooseCards) => {
-        let selectedItemTemp = []
-        for (let i = 0; i < chooseCards.length; i++) { //section.time_slots is your FlatList data
-            selectedItemTemp.push(false)
-        }
-        return selectedItemTemp;
+        // let selectedItemTemp = [];
+        var result = chooseCards.map(card => ({id: card.id, value: false}));
+        return result;
+    }
+
+    chooseCard = (card) => {
+
+        var selectedItem = this.initialSelectedItem(this.state.chooseCards);
+
+        var selectedIndex = 0;
+        selectedItem.forEach(function (item, i) {
+            if (card.id == item.id) {
+                item.value = !item.value;
+                selectedIndex = i;
+            }
+
+        })
+        this.setState({
+            makeCards: card,
+            selectedItem,
+            selectedIndex: selectedIndex
+        });
 
     }
 
-    chooseCard = (item, index) => {
-        var selectedItem = this.initialSelectedItem(this.state.chooseCards);
+    getItemColor = (item) => {
+        var items = this.state.selectedItem;
+        console.log('selectedInex is ,', this.state.selectedIndex, 'item is ', item)
 
-        selectedItem[index] = !selectedItem[index];
-        this.setState({
-            makeCards: item,
-            selectedItem,
-        });
-
+        if ((items[this.state.selectedIndex].id == item.id) && (items[this.state.selectedIndex].value == true)) {
+            return '#EF85D0';
+        } else {
+            return '#5fba7d';
+        }
     }
 
     gotoMakeCards = () => {
@@ -131,6 +150,7 @@ export default class MyCards extends Component {
 
     }
 
+
     renderSignCard() {
         return (
             <Card title='Welcome to cardmaker'>
@@ -153,11 +173,11 @@ export default class MyCards extends Component {
                 itemWidth={130}
                 items={this.state.chooseCards}
                 style={cardStyle.gridView}
-                renderItem={(item, index) => (
-                    <TouchableHighlight onPress={() => this.chooseCard(item, index)}
+                renderItem={(item) => (
+                    <TouchableHighlight onPress={() => this.chooseCard(item)}
                                         underlayColor='#99d9f4'>
                         <View
-                            style={[cardStyle.itemContainer, {backgroundColor: (this.state.selectedItem[index]) ? '#EF85D0' : '#5fba7d'}]}>
+                            style={[cardStyle.itemContainer, {backgroundColor: this.getItemColor(item)}]}>
                             <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
                                 <Text style={cardStyle.itemName}>{item.name}</Text>
                             </ImageBackground>

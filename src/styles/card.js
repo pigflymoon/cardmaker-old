@@ -135,7 +135,7 @@ export default{
     imageContainer: {
         height: 130,
     },
-    thumbnail:{
+    thumbnail: {
         height: 160,
     },
     itemContainer: {
@@ -143,7 +143,7 @@ export default{
         borderRadius: 5,
         padding: 10,
         height: 150,
-        backgroundColor:"#234234"
+        backgroundColor: "#234234"
     },
     itemName: {
         fontSize: 16,
@@ -155,4 +155,7 @@ export default{
         fontSize: 12,
         color: '#fff',
     },
+    // itemColor: {
+    //     backgroundColor: '#5fba7d',
+    // }
 }
