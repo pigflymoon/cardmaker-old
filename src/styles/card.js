@@ -155,7 +155,4 @@ export default{
         fontSize: 12,
         color: '#fff',
     },
-    // itemColor: {
-    //     backgroundColor: '#5fba7d',
-    // }
 }
