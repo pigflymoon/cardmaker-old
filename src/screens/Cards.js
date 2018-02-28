@@ -29,7 +29,7 @@ export default class Cards extends Component {
     }
 
     renderCard(card) {
-        console.log('card', card,'this.state,',this.state)
+        console.log('card', card, 'this.state,', this.state)
         return (
             <Card
                 key={card.id}
@@ -80,15 +80,18 @@ export default class Cards extends Component {
 
                 onceGetFreeImages().then(snapshot => {
                     var downloadImages = snapshot.val();
-                    var images = Object.keys(downloadImages).map(key => (
-                            {
-                                id: key,
-                                uri: downloadImages[key].downloadUrl,
-                                name: downloadImages[key].Name,
-                            }
+                    if (downloadImages) {
+                        var images = Object.keys(downloadImages).map(key => (
+                                {
+                                    id: key,
+                                    uri: downloadImages[key].downloadUrl,
+                                    name: downloadImages[key].Name,
+                                }
+                            )
                         )
-                    )
-                    resolve(images)
+                        resolve(images)
+                    }
+
                 });
 
 
@@ -101,22 +104,23 @@ export default class Cards extends Component {
         var self = this;
         onceGetPaidImages().then(snapshot => {
             var downloadImages = snapshot.val();
-            var images = Object.keys(downloadImages).map(key => (
-                    {
-                        id: key,
-                        uri: downloadImages[key].downloadUrl,
-                        name: downloadImages[key].Name,
+            if (downloadImages) {
+                var images = Object.keys(downloadImages).map(key => (
+                        {
+                            id: key,
+                            uri: downloadImages[key].downloadUrl,
+                            name: downloadImages[key].Name,
 
-                    }
-                )
-            );
-            //concat free images and paid images
-            var cardsData = freeImages;//self.state.cardsData;
-            cardsData = cardsData.concat((images));
-            //
-            self.setState({cardsData: cardsData});
-            // AsyncStorage.setItem('cardsSource', JSON.stringify(cardsData))
-            //     .then(self.setState({cardsData: cardsData}));
+                        }
+                    )
+                );
+                //concat free images and paid images
+                var cardsData = freeImages;//self.state.cardsData;
+                cardsData = cardsData.concat((images));
+                //
+                self.setState({cardsData: cardsData});
+            }
+
         });
     }
 
@@ -128,7 +132,7 @@ export default class Cards extends Component {
             this.getFreeImages();
         } else {
             this.getFreeImages().then(function (val) {
-                console.log('val is,',val)
+                console.log('val is,', val)
                 self.getPaidImages(val);
             })
 
@@ -162,6 +166,7 @@ export default class Cards extends Component {
 
         this.getUserImages();
     }
+
     componentWillUnmount() {
 
         this.setState({cardsData: []});
