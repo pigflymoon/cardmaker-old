@@ -70,8 +70,6 @@ export default class Cards extends Component {
     }
 
     getFreeImages = () => {
-
-
         var self = this;
         return new Promise(function (resolve, reject) {
             // some async operation here
@@ -100,28 +98,30 @@ export default class Cards extends Component {
 
 
     }
-    getPaidImages = (freeImages) => {
+    getPaidImages = () => {
         var self = this;
-        onceGetPaidImages().then(snapshot => {
-            var downloadImages = snapshot.val();
-            if (downloadImages) {
-                var images = Object.keys(downloadImages).map(key => (
-                        {
-                            id: key,
-                            uri: downloadImages[key].downloadUrl,
-                            name: downloadImages[key].Name,
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                onceGetPaidImages().then(snapshot => {
+                    var downloadImages = snapshot.val();
+                    if (downloadImages) {
+                        var images = Object.keys(downloadImages).map(key => (
+                                {
+                                    id: key,
+                                    uri: downloadImages[key].downloadUrl,
+                                    name: downloadImages[key].Name,
 
-                        }
-                    )
-                );
-                //concat free images and paid images
-                var cardsData = freeImages;//self.state.cardsData;
-                cardsData = cardsData.concat((images));
-                //
-                self.setState({cardsData: cardsData});
-            }
+                                }
+                            )
+                        );
+                        resolve(images)
 
-        });
+                    }
+
+                });
+            }, 500)
+        })
+
     }
 
     getImages = (userrole) => {
@@ -129,11 +129,22 @@ export default class Cards extends Component {
         console.log('userrole.paid_user', userrole.paid_user)
         if (!userrole.paid_user) {
             console.log('called???')
-            this.getFreeImages();
+            this.getFreeImages().then(function (images) {
+                self.setState({cardsData: images});
+            });
         } else {
-            this.getFreeImages().then(function (val) {
+            this.getPaidImages().then(function (val) {
                 console.log('val is,', val)
-                self.getPaidImages(val);
+                //concat free images and paid images
+                var cardsData = val;//self.state.cardsData;
+                // cardsData = cardsData.concat((images));
+                //
+
+                self.getFreeImages().then(function (images) {
+                    var freeImages = images;
+                    cardsData = cardsData.concat((freeImages));
+                    self.setState({cardsData: cardsData});
+                });
             })
 
         }
