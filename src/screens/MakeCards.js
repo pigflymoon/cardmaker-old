@@ -45,19 +45,19 @@ export default class MakeCards extends Component {
         }
     }
 
-    componentDidMount() {
-        var self = this;
+    componentWillMount() {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
-            console.log('makeCard passed in props,', makeCard)
-            if (makeCard.length > 0) {
+            if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin});
             }
 
         }
+    }
 
-
+    componentDidMount() {
+        var self = this;
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 self.setState({signin: true})
