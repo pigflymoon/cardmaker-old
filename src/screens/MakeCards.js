@@ -18,7 +18,6 @@ import {
     Button,
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
-// import firebaseApp from '../config/FirebaseConfig';
 import {auth, db, storage} from '../config/FirebaseConfig';
 
 import Utils from '../utils/utils';
@@ -95,21 +94,26 @@ export default class MakeCards extends Component {
     getDataUri(canvas, url, callback) {
         const image = new CanvasImage(canvas);
         canvas.width = SCREEN_WIDTH;
-        canvas.height = SCREEN_WIDTH * 0.904;
+        canvas.height = SCREEN_WIDTH; //* 0.904
+        // this.canvas.width = 600;
+        // // this.canvas.height = 800;
+
+        // canvas.autoScale();
+        console.log('canvas width is :', canvas.width, 'height is :', canvas.height);
         const context = canvas.getContext('2d');
         image.src = url;
         //
         image.addEventListener('load', () => {
-            var imageAspectRatio = image.width / image.height;
-            var canvasAspectRatio = canvas.width / canvas.height;
-            console.log('imageAspectRatio, ', imageAspectRatio)
-            console.log('canvasAspectRatio', canvasAspectRatio)
+            var imageAspectRatio = (image.width / image.height).toFixed(1);
+            var canvasAspectRatio = (canvas.width / canvas.height).toFixed(1);
+            console.log('imageAspectRatio is , ', imageAspectRatio)
+            console.log('canvasAspectRatio is ', canvasAspectRatio)
             var renderableHeight, renderableWidth, xStart, yStart;
 // If image's aspect ratio is less than canvas's we fit on height
             // and place the image centrally along width
             if (imageAspectRatio < canvasAspectRatio) {
                 renderableHeight = canvas.height;
-                renderableWidth = image.width * (renderableHeight / image.height);
+                renderableWidth = (image.width * (renderableHeight / image.height)).toFixed(0);
                 xStart = (canvas.width - renderableWidth) / 2;
                 yStart = 0;
             }
@@ -118,7 +122,7 @@ export default class MakeCards extends Component {
             // and place the image centrally along height
             else if (imageAspectRatio > canvasAspectRatio) {
                 renderableWidth = canvas.width
-                renderableHeight = image.height * (renderableWidth / image.width);
+                renderableHeight = (image.height * (renderableWidth / image.width)).toFixed(0);
                 xStart = 0;
                 yStart = (canvas.height - renderableHeight) / 2;
             }
@@ -149,7 +153,8 @@ export default class MakeCards extends Component {
             context.font = "bold 24px Hoefler";
             context.fillStyle = Utils.getRandomColor();
             context.fillText(caption, 150, 300);
-            console.log('canvas width', canvas.width)
+            console.log('canvas width', canvas.width);
+
             canvas.toDataURL().then((dataUrl) => {
                 //get rid of extra "" of the return value ""dsdsfs""
                 dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));

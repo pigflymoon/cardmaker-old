@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {Card, Button, List, ListItem, Icon,} from 'react-native-elements';
 
-import bg1 from '../assets/images/bg11.jpg';
+import bg1 from '../assets/images/bg1.jpg';
 import layoutStyle from '../styles/layout';
 import colors from '../styles/colors';
 import Copyright from '../components/Copyright';
@@ -13,7 +13,7 @@ export default class About extends Component {
         return (
             <ScrollView style={layoutStyle.container}>
                 <Card
-                    title='ACKNOWLEDGEMENTS'
+                    title='FEATURES AND ACKNOWLEDGEMENTS'
                     image={bg1}>
                     <Text style={{marginBottom: 10}}>
                         1. Multiple template

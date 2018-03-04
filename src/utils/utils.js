@@ -44,7 +44,6 @@ export default class Utils {
     }
 
     static shareImage = (imageUrl,message,caption) => {
-        console.log('imageurl,',imageUrl,'message,',message,'caption',caption)
         if (imageUrl) {
             let shareImageBase64 = {
                 title: caption,
