@@ -8,6 +8,10 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
+    Platform,
+    Picker,
+    Item,
+    ScrollView,
 } from 'react-native';
 import {
     Icon,
@@ -16,10 +20,11 @@ import {
     FormValidationMessage,
     Card,
     Button,
+    Badge,
 } from 'react-native-elements';
 import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
 import {auth, db, storage} from '../config/FirebaseConfig';
-
+import Marker from 'react-native-image-marker'
 import Utils from '../utils/utils';
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
@@ -41,6 +46,7 @@ export default class MakeCards extends Component {
             caption: '',
             checked: false,
             signin: false,
+            position: 'bottomRight'
         }
     }
 
@@ -90,6 +96,48 @@ export default class MakeCards extends Component {
         Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
     }
 
+    updatePosition = (position) => {
+        let showPositions = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
+
+        this.setState({position: position}, function () {
+            for (let position of showPositions) {
+                if (this.state.position === position) {
+                    let index = showPositions.indexOf(position);
+                    let value = position;
+                    // let value = ( index == 0 ) ? 0 : (index + 2);
+                    // AsyncStorage.setItem('postionValue', value.toString());
+                    // this.setState({postionValue: value});
+                }
+
+            }
+        })
+
+    }
+    imageMarker = (url) => {
+        //
+
+        var title = this.state.title;
+        var caption = this.state.caption;
+        var text = title + '\n' + caption;
+        var textColor = Utils.getRandomColor();
+        var position = this.state.position;
+        console.log('positon is ', position)
+
+        //
+        Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', 44)
+            .then((path) => {
+                this.setState({
+                    show: true,
+                    imageUrl: Platform.OS === 'android' ? 'file://' + path : path
+                })
+
+                console.log('image path is ,', path)
+            }).catch((err) => {
+            console.log('====================================')
+            console.log(err)
+            console.log('====================================')
+        })
+    }
 
     getDataUri(canvas, url, callback) {
         const image = new CanvasImage(canvas);
@@ -199,72 +247,118 @@ export default class MakeCards extends Component {
         if ((this.state.makeCard) && (this.state.signin)) {
             return (
                 <View style={[cardStyle.cardsContainer]}>
+                    <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
+                        <Image style={{
+                            flex: 1,
 
+                        }}
+                               resizeMethod="resize"
+                               source={{uri: (this.state.makeCard).uri}}
+                        />
+                    </View>
                     <View style={cardStyle.imageListContainer}>
-                        <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
-                            <Image style={{
-                                flex: 1,
+                        <View style={{
+                            width: '40%',
 
-                            }}
-                                   resizeMethod="resize"
-                                   source={{uri: (this.state.makeCard).uri}}
-                            />
-                        </View>
-                        <View style={formStyle.inputsContainer}>
+                        }}>
 
-                            <View style={formStyle.inputContainer}>
+                            <View style={formStyle.inputsContainer}>
 
-                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                    Wish words
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="wishwords"
-                                           containerRef="wishwordscontainerRef"
-                                           textInputRef="wishwordsInputRef"
-                                           placeholder="Please enter wish words"
-                                           onChangeText={(text) => this.setWishwords(text)}
-                                />
-                            </View>
+                                <View style={formStyle.inputContainer}>
 
-                            <View style={formStyle.inputContainer}>
-
-                                <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                    Name
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="Name"
-                                           containerRef="namecontainerRef"
-                                           textInputRef="nameInputRef"
-                                           placeholder="Please Sign your name"
-                                           onChangeText={(text) => this.setName(text)}
-                                />
-                            </View>
-
-
-                            {this.state.errorMessage ?
-                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                    {this.state.errorMessage}
-                                </FormValidationMessage>
-                                : null
-                            }
-                            <View style={cardStyle.iconContainer}>
-                                <View style={cardStyle.shareRightIcon}>
-                                    <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
-                                          onPress={() => this.drawCanvas((this.state.makeCard).uri)}
+                                    <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                        Wish words
+                                    </FormLabel>
+                                    <FormInput inputStyle={cardStyle.inputStyle}
+                                               ref="wishwords"
+                                               containerRef="wishwordscontainerRef"
+                                               textInputRef="wishwordsInputRef"
+                                               placeholder="Please enter wish words"
+                                               onChangeText={(text) => this.setWishwords(text)}
                                     />
                                 </View>
-                                <View style={cardStyle.shareRightIcon}>
-                                    <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
-                                          onPress={this.onShare}
+
+                                <View style={formStyle.inputContainer}>
+
+                                    <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                        Name
+                                    </FormLabel>
+                                    <FormInput inputStyle={cardStyle.inputStyle}
+                                               ref="Name"
+                                               containerRef="namecontainerRef"
+                                               textInputRef="nameInputRef"
+                                               placeholder="Please Sign your name"
+                                               onChangeText={(text) => this.setName(text)}
                                     />
+                                </View>
+
+
+                                {this.state.errorMessage ?
+                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                        {this.state.errorMessage}
+                                    </FormValidationMessage>
+                                    : null
+                                }
+
+                            </View>
+                        </View>
+                        <View style={{
+                            width: '55%',
+                        }}>
+                            <View style={cardStyle.editContainer}>
+                                <View style={cardStyle.markerTextContainer}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>topLeft</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>topCenter</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>topRight</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>bottomLeft</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>bottomCenter</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>bottomRight</Text>
+                                    </Badge>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                        <Text>center</Text>
+                                    </Badge>
+                                </View>
+                                <View style={cardStyle.iconsContainer}>
+                                    <View style={cardStyle.shareRightIcon}>
+                                        <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
+                                              onPress={() => this.imageMarker((this.state.makeCard).uri)}
+                                        />
+                                    </View>
+                                    <View style={cardStyle.shareRightIcon}>
+                                        <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                              onPress={this.onShare}
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>
+
 
                     </View>
 
+
                     <View style={cardStyle.previewContainer}>
-                        <Canvas ref="canvasImage" style={cardStyle.canvasContainer}/>
+                        <View
+                            style={{flex: 1}}
+                        >
+                            {
+                                this.state.show
+                                    ? <Image source={{uri: this.state.imageUrl}} resizeMode='contain'
+                                             style={cardStyle.preview}/>
+                                    : null
+                            }
+                        </View>
                     </View>
 
 

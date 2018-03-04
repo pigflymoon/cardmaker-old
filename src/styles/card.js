@@ -53,12 +53,19 @@ export default{
         alignSelf: 'center',
         marginRight: 20,
     },
-    iconContainer: {
+    editContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginTop: 10,
+
+        // marginTop: 10,
     },
+    // iconContainer: {
+    //     flex: 1,
+    //     flexDirection: 'row',
+    //     justifyContent: 'flex-start',
+    //     marginTop: 10,
+    //     // paddingVertical: 5,
+    //     // flexWrap: 'wrap'
+    // },
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
@@ -87,6 +94,8 @@ export default{
         flex: 1,
         backgroundColor: '#F5FCFF',
         flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
     },
     imageContainer: {
         justifyContent: 'flex-start',
@@ -155,4 +164,23 @@ export default{
         fontSize: 12,
         color: '#fff',
     },
+    preview: {
+        width,
+        height: 300,
+        flex: 1
+    },
+    markerTextContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        // marginHorizontal: 2,
+        flexWrap: 'wrap',
+        flexGrow: 2.5,
+    },
+    iconsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        flexGrow: 1,
+    }
 }
