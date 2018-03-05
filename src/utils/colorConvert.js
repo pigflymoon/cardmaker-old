@@ -1,104 +1,62 @@
 var colorConvert = {
-    bound: function (value) {
-        if (value < 0) {
-            value = 0;
-        }
-        if (value > 1) {
-            value = 1;
-        }
-        return value;
-    },
-    componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-    },
+    hsv2rgb: function (h, s, v) {
+        var hsv_h = Number(h);
+        var hsv_s = Number(s);
+        var hsv_v = Number(v);
 
-    gbToHex(r, g, b) {
-        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-    },
+        var i = Math.floor(hsv_h * 6);
+        var f = hsv_h * 6 - i;
+        var p = hsv_v * (1 - hsv_s);
+        var q = hsv_v * (1 - f * hsv_s);
+        var t = hsv_v * (1 - (1 - f) * hsv_s);
 
-
-    hsvToRgb: function (h, s, v) {
-        console.log('h ', h, 's ', 'v ', v)
-        var r, g, b;
-        var i;
-        var f, p, q, t;
-
-        // Make sure our arguments stay in-range
-        h = Math.max(0, Math.min(360, h));
-        s = Math.max(0, Math.min(100, s));
-        v = Math.max(0, Math.min(100, v));
-
-        // We accept saturation and value arguments from 0 to 100 because that's
-        // how Photoshop represents those values. Internally, however, the
-        // saturation and value are calculated from a range of 0 to 1. We make
-        // That conversion here.
-        s /= 100;
-        v /= 100;
-
-        if (s == 0) {
-            // Achromatic (grey)
-            r = g = b = v;
-            return [
-                Math.round(r * 255),
-                Math.round(g * 255),
-                Math.round(b * 255)
-            ];
-        }
-
-        h /= 60; // sector 0 to 5
-        i = Math.floor(h);
-        f = h - i; // factorial part of h
-        p = v * (1 - s);
-        q = v * (1 - s * f);
-        t = v * (1 - s * (1 - f));
-
-        switch (i) {
+        var rgb_r = 0, rgb_g = 0, rgb_b = 0;
+        switch (i % 6) {
             case 0:
-                r = v;
-                g = t;
-                b = p;
+                rgb_r = hsv_v;
+                rgb_g = t;
+                rgb_b = p;
                 break;
-
             case 1:
-                r = q;
-                g = v;
-                b = p;
+                rgb_r = q;
+                rgb_g = hsv_v;
+                rgb_b = p;
                 break;
-
             case 2:
-                r = p;
-                g = v;
-                b = t;
+                rgb_r = p;
+                rgb_g = hsv_v;
+                rgb_b = t;
                 break;
-
             case 3:
-                r = p;
-                g = q;
-                b = v;
+                rgb_r = p;
+                rgb_g = q;
+                rgb_b = hsv_v;
                 break;
-
             case 4:
-                r = t;
-                g = p;
-                b = v;
+                rgb_r = t;
+                rgb_g = p;
+                rgb_b = hsv_v;
                 break;
-
-            default: // case 5:
-                r = v;
-                g = p;
-                b = q;
+            case 5:
+                rgb_r = hsv_v, rgb_g = p, rgb_b = q;
+                break;
         }
-
-
-        console.log('r is ', r, 'g is ', g, 'b is ', b)
         return {
-            r: Math.round(r * 255),
-            g: Math.round(g * 255),
-            b: Math.round(b * 255)
-        };
-
-
+            r: Math.floor(rgb_r * 255),
+            g: Math.floor(rgb_g * 255),
+            b: Math.floor(rgb_g * 255),
+        }
+    },
+    rgbToHex: function (R, G, B) {
+        return colorConvert.toHex(R) + colorConvert.toHex(G) + colorConvert.toHex(B);
+    },
+    toHex: function (n) {
+        n = parseInt(n, 10);
+        if (isNaN(n))
+            return "00";
+        n = Math.max(0, Math.min(n, 255));
+        return "0123456789ABCDEF".charAt((n - n % 16) / 16)
+            + "0123456789ABCDEF".charAt(n % 16);
     }
 
 

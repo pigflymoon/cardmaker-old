@@ -70,7 +70,7 @@ export default{
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         alignSelf: 'center',
         // alignItems: 'center',
 
@@ -187,7 +187,7 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        height: 30,
+        // height: 30,
         // flexGrow: 1,
     },
     badgeBg: {

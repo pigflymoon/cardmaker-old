@@ -26,7 +26,6 @@ import {ColorWheel} from 'react-native-color-wheel';
 import {auth, db, storage} from '../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
 import  Utils from '../utils/utils';
-import colorConvert from '../utils/colorConvert';
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
@@ -132,13 +131,9 @@ export default class MakeCards extends Component {
     }
 
     setTextColor = (color) => {
-        console.log('color is ', color)
-        var rgbColor = colorConvert.hsvToRgb(color.h, color.s, color.v);
-        var hexColor =colorConvert.gbToHex(rgbColor.r,rgbColor.g,rgbColor.b);
-        console.log('hexColor is ', hexColor)
-        // color = `rgb(${color.r},${color.g},${color.b})`;
-        // console.log('color is ', color)
-        this.setState({textColor: `${hexColor}`})
+        console.log('color is ', color.hexColor, 'hsvColor is :', color.hsvColor)
+        var hexColor = color ? color.hexColor : colors.primary
+        this.setState({textColor: hexColor})
     }
     imageMarker = (url) => {
         //
@@ -319,8 +314,8 @@ export default class MakeCards extends Component {
                                 <ColorWheel
                                     initialColor="#ee0000"
                                     onColorChange={(color) => this.setTextColor(color)}
-                                    style={{width: Dimensions.get('window').width}}
-                                    thumbStyle={{height: 30, width: 30, borderRadius: 30}}/>
+                                    style={{width: 100}}
+                                    thumbStyle={{height: 10, width: 10, borderRadius: 10}}/>
 
                             </View>
                             <View style={cardStyle.shareRightIcon}>
@@ -338,9 +333,7 @@ export default class MakeCards extends Component {
 
 
                     <View style={cardStyle.previewContainer}>
-                        <View
-                            style={{flex: 1}}
-                        >
+                        <View style={{flex: 1}}>
                             {
                                 this.state.show
                                     ? <Image source={{uri: this.state.imageUrl}} resizeMode='contain'
