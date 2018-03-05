@@ -46,7 +46,8 @@ export default class MakeCards extends Component {
             caption: '',
             checked: false,
             signin: false,
-            position: 'bottomRight'
+            position: 'bottomRight',
+            textColor: colors.grey0,
         }
     }
 
@@ -112,6 +113,9 @@ export default class MakeCards extends Component {
             }
         })
 
+    }
+    setMarkerPosition = (position) => {
+        this.setState({position: position, textColor: colors.white});
     }
     imageMarker = (url) => {
         //
@@ -307,25 +311,33 @@ export default class MakeCards extends Component {
                         }}>
                             <View style={cardStyle.editContainer}>
                                 <View style={cardStyle.markerTextContainer}>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
-                                        <Text>topLeft</Text>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           textStyle={{color: this.state.textColor}}
+                                           value={'topLeft'}
+                                           onPress={() => this.setMarkerPosition('topLeft')}>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('topCenter')}>
                                         <Text>topCenter</Text>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('topRight')}>
                                         <Text>topRight</Text>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('bottomLeft')}>
                                         <Text>bottomLeft</Text>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('bottomCenter')}>
                                         <Text>bottomCenter</Text>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('bottomRight')}>
                                         <Text>bottomRight</Text>
                                     </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}>
+                                    <Badge containerStyle={{backgroundColor: 'violet'}}
+                                           onPress={() => this.setMarkerPosition('center')}>
                                         <Text>center</Text>
                                     </Badge>
                                 </View>
