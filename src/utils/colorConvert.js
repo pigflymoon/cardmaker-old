@@ -12,6 +12,7 @@ var colorConvert = {
         var hex = c.toString(16);
         return hex.length == 1 ? "0" + hex : hex;
     },
+
     gbToHex(r, g, b) {
         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     },
@@ -103,12 +104,5 @@ var colorConvert = {
 
 }
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
 
-function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
 module.exports = colorConvert;
