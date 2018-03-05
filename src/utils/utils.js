@@ -8,6 +8,7 @@ import {
     Share as NativeShare,
 } from 'react-native';
 import Share  from 'react-native-share';
+
 export default class Utils {
     static goToURL = (url) => {
         Linking.canOpenURL(url).then(supported => {
@@ -43,7 +44,7 @@ export default class Utils {
         })
     }
 
-    static shareImage = (imageUrl,message,caption) => {
+    static shareImage = (imageUrl, message, caption) => {
         if (imageUrl) {
             let shareImageBase64 = {
                 title: caption,
@@ -65,5 +66,6 @@ export default class Utils {
         }
         return color;
     }
+
 
 }

@@ -22,15 +22,15 @@ import {
     Button,
     Badge,
 } from 'react-native-elements';
-import Canvas, {Image as CanvasImage, Path2D} from 'react-native-canvas';
+import {ColorWheel} from 'react-native-color-wheel';
 import {auth, db, storage} from '../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
-import Utils from '../utils/utils';
+import  Utils from '../utils/utils';
+import colorConvert from '../utils/colorConvert';
 import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
-import CardTextBadege from '../components/CardTextBadge';
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_WIDTH = width;
@@ -47,6 +47,7 @@ export default class MakeCards extends Component {
             checked: false,
             signin: false,
             position: 'bottomRight',
+            textColor: colors.primary,
             selectedItem: [{name: "topLeft", value: false},
                 {name: "topCenter", value: false},
                 {name: "topRight", value: false},
@@ -130,15 +131,24 @@ export default class MakeCards extends Component {
 
     }
 
+    setTextColor = (color) => {
+        console.log('color is ', color)
+        var rgbColor = colorConvert.hsvToRgb(color.h, color.s, color.v);
+        var hexColor =colorConvert.gbToHex(rgbColor.r,rgbColor.g,rgbColor.b);
+        console.log('hexColor is ', hexColor)
+        // color = `rgb(${color.r},${color.g},${color.b})`;
+        // console.log('color is ', color)
+        this.setState({textColor: `${hexColor}`})
+    }
     imageMarker = (url) => {
         //
 
         var title = this.state.title;
         var caption = this.state.caption;
         var text = title + '\n' + caption;
-        var textColor = Utils.getRandomColor();
+        var textColor = this.state.textColor;
         var position = this.state.position;
-        console.log('positon is ', position)
+        console.log('textColor is ', textColor)
 
         //
         Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', 44)
@@ -193,21 +203,26 @@ export default class MakeCards extends Component {
         if ((this.state.makeCard) && (this.state.signin)) {
             return (
                 <View style={[cardStyle.cardsContainer]}>
-                    <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
-                        <Image style={{
-                            flex: 1,
 
-                        }}
-                               resizeMethod="resize"
-                               source={{uri: (this.state.makeCard).uri}}
-                        />
-                    </View>
                     <View style={cardStyle.imageListContainer}>
                         <View style={{
                             width: '40%',
 
                         }}>
+                            <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
+                                <Image style={{
+                                    flex: 1,
 
+                                }}
+                                       resizeMethod="resize"
+                                       source={{uri: (this.state.makeCard).uri}}
+                                />
+                            </View>
+
+                        </View>
+                        <View style={{
+                            width: '55%',
+                        }}>
                             <View style={formStyle.inputsContainer}>
 
                                 <View style={formStyle.inputContainer}>
@@ -247,72 +262,78 @@ export default class MakeCards extends Component {
                                 }
 
                             </View>
-                        </View>
-                        <View style={{
-                            width: '55%',
-                        }}>
-                            <View style={cardStyle.editContainer}>
-                                <View style={cardStyle.markerTextContainer}>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('topLeft')}}
-                                           value='topLeft'
-                                           onPress={() => {
-                                               this.updateChoice('topLeft')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('topCenter')}}
-                                           value='topCenter'
-                                           onPress={() => {
-                                               this.updateChoice('topCenter')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('topRight')}}
-                                           value='topRight'
-                                           onPress={() => {
-                                               this.updateChoice('topRight')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('bottomLeft')}}
-                                           value='bottomLeft'
-                                           onPress={() => {
-                                               this.updateChoice('bottomLeft')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('bottomCenter')}}
-                                           value='bottomCenter'
-                                           onPress={() => {
-                                               this.updateChoice('bottomCenter')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('bottomRight')}}
-                                           value='bottomRight'
-                                           onPress={() => {
-                                               this.updateChoice('bottomRight')
-                                           }}/>
-                                    <Badge containerStyle={cardStyle.badgeBg}
-                                           textStyle={{color: this.getItemColor('center')}}
-                                           value='center'
-                                           onPress={() => {
-                                               this.updateChoice('center')
-                                           }}/>
 
-                                </View>
-                                <View style={cardStyle.iconsContainer}>
-                                    <View style={cardStyle.shareRightIcon}>
-                                        <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
-                                              onPress={() => this.imageMarker((this.state.makeCard).uri)}
-                                        />
-                                    </View>
-                                    <View style={cardStyle.shareRightIcon}>
-                                        <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
-                                              onPress={this.onShare}
-                                        />
-                                    </View>
-                                </View>
+                        </View>
+
+
+                    </View>
+                    <View style={cardStyle.editContainer}>
+                        <View style={cardStyle.markerTextContainer}>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('topLeft')}}
+                                   value='topLeft'
+                                   onPress={() => {
+                                       this.updateChoice('topLeft')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('topCenter')}}
+                                   value='topCenter'
+                                   onPress={() => {
+                                       this.updateChoice('topCenter')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('topRight')}}
+                                   value='topRight'
+                                   onPress={() => {
+                                       this.updateChoice('topRight')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('bottomLeft')}}
+                                   value='bottomLeft'
+                                   onPress={() => {
+                                       this.updateChoice('bottomLeft')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('bottomCenter')}}
+                                   value='bottomCenter'
+                                   onPress={() => {
+                                       this.updateChoice('bottomCenter')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('bottomRight')}}
+                                   value='bottomRight'
+                                   onPress={() => {
+                                       this.updateChoice('bottomRight')
+                                   }}/>
+                            <Badge containerStyle={cardStyle.badgeBg}
+                                   textStyle={{color: this.getItemColor('center')}}
+                                   value='center'
+                                   onPress={() => {
+                                       this.updateChoice('center')
+                                   }}/>
+
+
+                        </View>
+                        <View style={cardStyle.iconsContainer}>
+                            <View style={cardStyle.shareRightIcon}>
+                                <ColorWheel
+                                    initialColor="#ee0000"
+                                    onColorChange={(color) => this.setTextColor(color)}
+                                    style={{width: Dimensions.get('window').width}}
+                                    thumbStyle={{height: 30, width: 30, borderRadius: 30}}/>
+
+                            </View>
+                            <View style={cardStyle.shareRightIcon}>
+                                <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
+                                      onPress={() => this.imageMarker((this.state.makeCard).uri)}
+                                />
+                            </View>
+                            <View style={cardStyle.shareRightIcon}>
+                                <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                      onPress={this.onShare}
+                                />
                             </View>
                         </View>
-
-
                     </View>
 
 

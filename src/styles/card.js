@@ -55,7 +55,8 @@ export default{
     },
     editContainer: {
         flex: 1,
-
+        // height: 100,
+        backgroundColor: colors.white,
         // marginTop: 10,
     },
     // iconContainer: {
@@ -96,11 +97,14 @@ export default{
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',
+        // flexGrow: 1.5,
+        height: 300,
+
     },
     imageContainer: {
         justifyContent: 'flex-start',
         paddingRight: 15,
-        paddingTop: 15,
+        // paddingTop: 15,
 
     },
     previewContainer: {
@@ -110,15 +114,15 @@ export default{
         flexGrow: 2,
         // width: width * 0.92,
     },
-    canvasContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexGrow: 2,
-        backgroundColor: colors.white,
-        // height: width * 0.915,
-        // height:400,
-        width: width * 0.915,
-    },
+    // canvasContainer: {
+    //     flex: 1,
+    //     flexDirection: 'row',
+    //     flexGrow: 2,
+    //     backgroundColor: colors.white,
+    //     // height: width * 0.915,
+    //     // height:400,
+    //     width: width * 0.915,
+    // },
     inputStyle: {
         width: equalWidth - 20,
         fontSize: 12,
@@ -145,7 +149,7 @@ export default{
         height: 130,
     },
     thumbnail: {
-        height: 160,
+        height: 220,
     },
     itemContainer: {
         justifyContent: 'flex-end',
@@ -165,7 +169,6 @@ export default{
         color: '#fff',
     },
     preview: {
-        width,
         height: 300,
         flex: 1
     },
@@ -175,15 +178,19 @@ export default{
         justifyContent: 'flex-start',
         // marginHorizontal: 2,
         flexWrap: 'wrap',
-        flexGrow: 2.5,
+        height: 50,
+        marginTop: 5,
+
+        // flexGrow: 2.5,
     },
     iconsContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        flexGrow: 1,
+        height: 30,
+        // flexGrow: 1,
     },
-    badgeBg:{
-        backgroundColor:colors.primary2
+    badgeBg: {
+        backgroundColor: colors.primary2
     }
 }
