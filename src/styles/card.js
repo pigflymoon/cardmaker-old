@@ -182,5 +182,8 @@ export default{
         flexDirection: 'row',
         justifyContent: 'flex-start',
         flexGrow: 1,
+    },
+    badgeBg:{
+        backgroundColor:colors.primary2
     }
 }

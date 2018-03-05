@@ -30,7 +30,7 @@ import colors from '../styles/colors';
 import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
-
+import CardTextBadege from '../components/CardTextBadge';
 
 const {width, height} = Dimensions.get('window');
 const SCREEN_WIDTH = width;
@@ -47,7 +47,15 @@ export default class MakeCards extends Component {
             checked: false,
             signin: false,
             position: 'bottomRight',
-            textColor: colors.grey0,
+            selectedItem: [{name: "topLeft", value: false},
+                {name: "topCenter", value: false},
+                {name: "topRight", value: false},
+                {name: "bottomLeft", value: false},
+                {name: "bottomCenter", value: false},
+                {name: "bottomRight", value: false},
+                {name: "center", value: false}],
+            selectedIndex: 0,
+
         }
     }
 
@@ -97,26 +105,31 @@ export default class MakeCards extends Component {
         Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
     }
 
-    updatePosition = (position) => {
-        let showPositions = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
 
-        this.setState({position: position}, function () {
-            for (let position of showPositions) {
-                if (this.state.position === position) {
-                    let index = showPositions.indexOf(position);
-                    let value = position;
-                    // let value = ( index == 0 ) ? 0 : (index + 2);
-                    // AsyncStorage.setItem('postionValue', value.toString());
-                    // this.setState({postionValue: value});
-                }
+    updateChoice(type) {
 
+        //
+        var self = this;
+        let showPosition = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
+
+        var selectedItem = showPosition.map(position => ({name: position, value: false}));
+
+        var selectedIndex = 0;
+        selectedItem.forEach(function (item, i) {
+            if (item.name == type) {
+                item.value = !item.value;
+                selectedIndex = i;
+                self.setState({
+                    selectedItem,
+                    selectedIndex: selectedIndex,
+                    position: item.name
+                });
             }
+
         })
 
     }
-    setMarkerPosition = (position) => {
-        this.setState({position: position, textColor: colors.white});
-    }
+
     imageMarker = (url) => {
         //
 
@@ -143,89 +156,18 @@ export default class MakeCards extends Component {
         })
     }
 
-    getDataUri(canvas, url, callback) {
-        const image = new CanvasImage(canvas);
-        canvas.width = SCREEN_WIDTH;
-        canvas.height = SCREEN_WIDTH; //* 0.904
-        // this.canvas.width = 600;
-        // // this.canvas.height = 800;
 
-        // canvas.autoScale();
-        console.log('canvas width is :', canvas.width, 'height is :', canvas.height);
-        const context = canvas.getContext('2d');
-        image.src = url;
-        //
-        image.addEventListener('load', () => {
-            var imageAspectRatio = (image.width / image.height).toFixed(1);
-            var canvasAspectRatio = (canvas.width / canvas.height).toFixed(1);
-            console.log('imageAspectRatio is , ', imageAspectRatio)
-            console.log('canvasAspectRatio is ', canvasAspectRatio)
-            var renderableHeight, renderableWidth, xStart, yStart;
-// If image's aspect ratio is less than canvas's we fit on height
-            // and place the image centrally along width
-            if (imageAspectRatio < canvasAspectRatio) {
-                renderableHeight = canvas.height;
-                renderableWidth = (image.width * (renderableHeight / image.height)).toFixed(0);
-                xStart = (canvas.width - renderableWidth) / 2;
-                yStart = 0;
-            }
+    getItemColor = (item) => {
+        var items = this.state.selectedItem;
+        console.log('name is ', items[this.state.selectedIndex].name, 'item name is ', item)
 
-            // If image's aspect ratio is greater than canvas's we fit on width
-            // and place the image centrally along height
-            else if (imageAspectRatio > canvasAspectRatio) {
-                renderableWidth = canvas.width
-                renderableHeight = (image.height * (renderableWidth / image.width)).toFixed(0);
-                xStart = 0;
-                yStart = (canvas.height - renderableHeight) / 2;
-            }
-
-            // Happy path - keep aspect ratio
-            else {
-                renderableHeight = canvas.height;
-                renderableWidth = canvas.width;
-                xStart = 0;
-                yStart = 0;
-            }
-
-            console.log('renderableWidth', renderableWidth, 'renderableHeight', renderableHeight)
-            context.drawImage(image, xStart, yStart, renderableWidth, renderableHeight);
-
-            //
-
-            var title = this.state.title;
-            var caption = this.state.caption;
-
-            context.font = "italic bold 30px Hoefler";
-
-            context.textAlign = "start";
-            context.textBaseline = "bottom";
-            context.fillStyle = Utils.getRandomColor();  //<======= here
-            context.fillText(title, 100, 250);
-
-            context.font = "bold 24px Hoefler";
-            context.fillStyle = Utils.getRandomColor();
-            context.fillText(caption, 150, 300);
-            console.log('canvas width', canvas.width);
-
-            canvas.toDataURL().then((dataUrl) => {
-                //get rid of extra "" of the return value ""dsdsfs""
-                dataUrl = dataUrl.substring(dataUrl.indexOf("\"") + 1, dataUrl.lastIndexOf("\""));
-                callback(dataUrl);
-            });
-
-        });
-
+        if ((items[this.state.selectedIndex].name == item) && (items[this.state.selectedIndex].value == true)) {
+            return colors.white;
+        } else {
+            return colors.grey0;
+        }
     }
 
-
-    drawCanvas = (url) => {
-        var canvas = this.refs.canvasImage;
-        var self = this;
-        this.getDataUri(canvas, url, function (dataUri) {
-            self.setState({imageUrl: dataUri});
-        })
-
-    }
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
 
@@ -311,35 +253,49 @@ export default class MakeCards extends Component {
                         }}>
                             <View style={cardStyle.editContainer}>
                                 <View style={cardStyle.markerTextContainer}>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           textStyle={{color: this.state.textColor}}
-                                           value={'topLeft'}
-                                           onPress={() => this.setMarkerPosition('topLeft')}>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('topCenter')}>
-                                        <Text>topCenter</Text>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('topRight')}>
-                                        <Text>topRight</Text>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('bottomLeft')}>
-                                        <Text>bottomLeft</Text>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('bottomCenter')}>
-                                        <Text>bottomCenter</Text>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('bottomRight')}>
-                                        <Text>bottomRight</Text>
-                                    </Badge>
-                                    <Badge containerStyle={{backgroundColor: 'violet'}}
-                                           onPress={() => this.setMarkerPosition('center')}>
-                                        <Text>center</Text>
-                                    </Badge>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('topLeft')}}
+                                           value='topLeft'
+                                           onPress={() => {
+                                               this.updateChoice('topLeft')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('topCenter')}}
+                                           value='topCenter'
+                                           onPress={() => {
+                                               this.updateChoice('topCenter')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('topRight')}}
+                                           value='topRight'
+                                           onPress={() => {
+                                               this.updateChoice('topRight')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('bottomLeft')}}
+                                           value='bottomLeft'
+                                           onPress={() => {
+                                               this.updateChoice('bottomLeft')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('bottomCenter')}}
+                                           value='bottomCenter'
+                                           onPress={() => {
+                                               this.updateChoice('bottomCenter')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('bottomRight')}}
+                                           value='bottomRight'
+                                           onPress={() => {
+                                               this.updateChoice('bottomRight')
+                                           }}/>
+                                    <Badge containerStyle={cardStyle.badgeBg}
+                                           textStyle={{color: this.getItemColor('center')}}
+                                           value='center'
+                                           onPress={() => {
+                                               this.updateChoice('center')
+                                           }}/>
+
                                 </View>
                                 <View style={cardStyle.iconsContainer}>
                                     <View style={cardStyle.shareRightIcon}>
