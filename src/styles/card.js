@@ -160,13 +160,8 @@ export default{
     },
     itemName: {
         fontSize: 16,
-        color: '#fff',
+        color: colors.primary1,
         fontWeight: '600',
-    },
-    itemCode: {
-        fontWeight: '600',
-        fontSize: 12,
-        color: '#fff',
     },
     preview: {
         height: 300,

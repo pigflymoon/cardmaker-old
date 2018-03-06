@@ -163,8 +163,9 @@ export default class Cards extends Component {
                 var userId = auth.currentUser.uid;
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    self.setState({signin: true, authUser, userrole: userrole});
                     self.getImages(userrole);
+                    self.setState({signin: true, authUser, userrole: userrole});
+
                 });
             } else {
                 self.setState({signin: false, cardsData: []})
@@ -172,12 +173,18 @@ export default class Cards extends Component {
         });
     }
 
+    componentWillMount() {
+        // this.getUserImages();
+    }
+
     componentDidMount() {
+        console.log('cards mount ')
         this.getUserImages();
     }
 
     componentWillUnmount() {
         this.setState({cardsData: []});
+
     }
 
     renderNoMoreCards() {
@@ -199,7 +206,7 @@ export default class Cards extends Component {
     }
 
     renderHeader() {
-        return ((this.state.signin) ?
+        return (
             <View style={cardStyle.header}>
 
                 <View style={cardStyle.headerCenter}>
@@ -220,7 +227,8 @@ export default class Cards extends Component {
                 </View>
 
 
-            </View> : null);
+            </View>
+        );
 
     }
 
