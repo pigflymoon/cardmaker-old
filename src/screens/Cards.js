@@ -173,16 +173,11 @@ export default class Cards extends Component {
     }
 
     componentDidMount() {
-        this.setState({cardsData: []});
-
         this.getUserImages();
     }
 
     componentWillUnmount() {
-
         this.setState({cardsData: []});
-
-
     }
 
     renderNoMoreCards() {
