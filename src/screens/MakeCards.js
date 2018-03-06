@@ -109,6 +109,7 @@ export default class MakeCards extends Component {
     updateChoice(type) {
 
         //
+        console.log('update choice')
         var self = this;
         let showPosition = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
 
@@ -131,22 +132,36 @@ export default class MakeCards extends Component {
     }
 
     setTextColor = (color) => {
-        console.log('color is ', color.hexColor, 'hsvColor is :', color.hsvColor)
         var hexColor = color ? color.hexColor : colors.primary
         this.setState({textColor: hexColor})
     }
-    imageMarker = (url) => {
-        //
+    insertEnter = (str, n) => {
+        var len = str.length;//获取字符的长度
+        var strTemp = '';
+        if (len > n) {//如果字符的长度大于指定的长度
+            strTemp = str.substring(0, n);//那么截取指定长度的字符串
+            str = str.substring(n, len);//截取剩余的字符串
+            //在截取的指定长度的字符串添加<br />标签实现换行并返回
+            return strTemp + '\n' + this.insertEnter(str, n);
+        } else {
+            return str;
+        }
+    }
 
+    imageMarker = (url) => {
         var title = this.state.title;
         var caption = this.state.caption;
+        console.log('title is ',title)
+
+        title = this.insertEnter(title,26)
         var text = title + '\n' + caption;
         var textColor = this.state.textColor;
         var position = this.state.position;
+        var textSize = 60;
         console.log('textColor is ', textColor)
 
         //
-        Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', 44)
+        Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', textSize)
             .then((path) => {
                 this.setState({
                     show: true,
@@ -162,16 +177,7 @@ export default class MakeCards extends Component {
     }
 
 
-    getItemColor = (item) => {
-        var items = this.state.selectedItem;
-        console.log('name is ', items[this.state.selectedIndex].name, 'item name is ', item)
 
-        if ((items[this.state.selectedIndex].name == item) && (items[this.state.selectedIndex].value == true)) {
-            return colors.white;
-        } else {
-            return colors.grey0;
-        }
-    }
 
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
@@ -227,9 +233,12 @@ export default class MakeCards extends Component {
                                     </FormLabel>
                                     <FormInput inputStyle={cardStyle.inputStyle}
                                                ref="wishwords"
+                                               multiline
+                                               numberOfLines = {4}
+                                               maxLength = {52}
                                                containerRef="wishwordscontainerRef"
                                                textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words"
+                                               placeholder="Please enter wish words(length less than 52)"
                                                onChangeText={(text) => this.setWishwords(text)}
                                     />
                                 </View>
@@ -241,6 +250,7 @@ export default class MakeCards extends Component {
                                     </FormLabel>
                                     <FormInput inputStyle={cardStyle.inputStyle}
                                                ref="Name"
+                                               maxLength = {26}
                                                containerRef="namecontainerRef"
                                                textInputRef="nameInputRef"
                                                placeholder="Please Sign your name"
@@ -265,43 +275,49 @@ export default class MakeCards extends Component {
                     <View style={cardStyle.editContainer}>
                         <View style={cardStyle.markerTextContainer}>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('topLeft')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
                                    value='topLeft'
                                    onPress={() => {
                                        this.updateChoice('topLeft')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('topCenter')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='topCenter'
                                    onPress={() => {
                                        this.updateChoice('topCenter')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('topRight')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='topRight'
                                    onPress={() => {
                                        this.updateChoice('topRight')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('bottomLeft')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='bottomLeft'
                                    onPress={() => {
                                        this.updateChoice('bottomLeft')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('bottomCenter')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='bottomCenter'
                                    onPress={() => {
                                        this.updateChoice('bottomCenter')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('bottomRight')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='bottomRight'
                                    onPress={() => {
                                        this.updateChoice('bottomRight')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: this.getItemColor('center')}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+
                                    value='center'
                                    onPress={() => {
                                        this.updateChoice('center')

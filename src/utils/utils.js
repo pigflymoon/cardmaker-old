@@ -58,7 +58,7 @@ export default class Utils {
 
     }
 
-    static getRandomColor() {
+    static getRandomColor = () => {
         var letters = '0123456789ABCDEF';
         var color = '#';
         for (var i = 0; i < 6; i++) {
@@ -66,6 +66,7 @@ export default class Utils {
         }
         return color;
     }
+
 
 
 }
