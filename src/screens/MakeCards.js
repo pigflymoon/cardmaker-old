@@ -23,7 +23,7 @@ import {
     Badge,
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
-import {auth, db, storage} from '../config/FirebaseConfig';
+import {auth} from '../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
 import  Utils from '../utils/utils';
 import colors from '../styles/colors';
@@ -45,7 +45,7 @@ export default class MakeCards extends Component {
             caption: '',
             checked: false,
             signin: false,
-            position: 'bottomRight',
+            position: 'bottomCenter',
             textColor: colors.primary,
             selectedItem: [{name: "topLeft", value: false},
                 {name: "topCenter", value: false},
@@ -55,7 +55,6 @@ export default class MakeCards extends Component {
                 {name: "bottomRight", value: false},
                 {name: "center", value: false}],
             selectedIndex: 0,
-
         }
     }
 
@@ -66,7 +65,6 @@ export default class MakeCards extends Component {
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin});
             }
-
         }
     }
 
@@ -107,9 +105,6 @@ export default class MakeCards extends Component {
 
 
     updateChoice(type) {
-
-        //
-        console.log('update choice')
         var self = this;
         let showPosition = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
 
@@ -151,9 +146,9 @@ export default class MakeCards extends Component {
     imageMarker = (url) => {
         var title = this.state.title;
         var caption = this.state.caption;
-        console.log('title is ',title)
+        console.log('title is ', title)
 
-        title = this.insertEnter(title,26)
+        title = this.insertEnter(title, 26)
         var text = title + '\n' + caption;
         var textColor = this.state.textColor;
         var position = this.state.position;
@@ -175,8 +170,6 @@ export default class MakeCards extends Component {
             console.log('====================================')
         })
     }
-
-
 
 
     navigateToSignin = () => {
@@ -225,17 +218,16 @@ export default class MakeCards extends Component {
                             width: '55%',
                         }}>
                             <View style={formStyle.inputsContainer}>
-
-                                <View style={formStyle.inputContainer}>
-
-                                    <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                <View style={cardStyle.inputContainer}>
+                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                               labelStyle={cardStyle.labelStyle}>
                                         Wish words
                                     </FormLabel>
                                     <FormInput inputStyle={cardStyle.inputStyle}
                                                ref="wishwords"
                                                multiline
-                                               numberOfLines = {4}
-                                               maxLength = {52}
+                                               numberOfLines={4}
+                                               maxLength={52}
                                                containerRef="wishwordscontainerRef"
                                                textInputRef="wishwordsInputRef"
                                                placeholder="Please enter wish words(length less than 52)"
@@ -243,22 +235,20 @@ export default class MakeCards extends Component {
                                     />
                                 </View>
 
-                                <View style={formStyle.inputContainer}>
-
-                                    <FormLabel containerStyle={formStyle.labelContainerStyle}>
+                                <View style={cardStyle.inputContainer}>
+                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                               labelStyle={cardStyle.labelStyle}>
                                         Name
                                     </FormLabel>
                                     <FormInput inputStyle={cardStyle.inputStyle}
                                                ref="Name"
-                                               maxLength = {26}
+                                               maxLength={26}
                                                containerRef="namecontainerRef"
                                                textInputRef="nameInputRef"
                                                placeholder="Please Sign your name"
                                                onChangeText={(text) => this.setName(text)}
                                     />
                                 </View>
-
-
                                 {this.state.errorMessage ?
                                     <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                         {this.state.errorMessage}
@@ -275,48 +265,48 @@ export default class MakeCards extends Component {
                     <View style={cardStyle.editContainer}>
                         <View style={cardStyle.markerTextContainer}>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
                                    value='topLeft'
                                    onPress={() => {
                                        this.updateChoice('topLeft')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='topCenter'
                                    onPress={() => {
                                        this.updateChoice('topCenter')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='topRight'
                                    onPress={() => {
                                        this.updateChoice('topRight')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='bottomLeft'
                                    onPress={() => {
                                        this.updateChoice('bottomLeft')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='bottomCenter'
                                    onPress={() => {
                                        this.updateChoice('bottomCenter')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='bottomRight'
                                    onPress={() => {
                                        this.updateChoice('bottomRight')
                                    }}/>
                             <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true))?colors.white:colors.grey0}}
+                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
 
                                    value='center'
                                    onPress={() => {

@@ -13,9 +13,19 @@ export default{
     },
     cardsContainer: {
         flex: 1,
-        // borderTopWidth: 5,
-        // borderTopColor: colors.primary1,
-        // backgroundColor: 'rgba(211, 211, 211, 0.4)',
+    },
+    inputContainer: {
+        height: 62,
+    },
+    inputStyle: {
+        width: equalWidth - 20,
+        fontSize: 12,
+        paddingTop: 0,
+        marginBottom: 2,
+
+    },
+    labelStyle: {
+        marginTop: 5,
     },
     header: {
         height: 50,
@@ -104,8 +114,6 @@ export default{
     imageContainer: {
         justifyContent: 'flex-start',
         paddingRight: 15,
-        // paddingTop: 15,
-
     },
     previewContainer: {
         flex: 1,
@@ -114,20 +122,7 @@ export default{
         flexGrow: 2,
         // width: width * 0.92,
     },
-    // canvasContainer: {
-    //     flex: 1,
-    //     flexDirection: 'row',
-    //     flexGrow: 2,
-    //     backgroundColor: colors.white,
-    //     // height: width * 0.915,
-    //     // height:400,
-    //     width: width * 0.915,
-    // },
-    inputStyle: {
-        width: equalWidth - 20,
-        fontSize: 12,
 
-    },
     footer: {
         height: 64,
         flexDirection: 'row',
