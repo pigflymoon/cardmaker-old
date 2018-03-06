@@ -168,7 +168,6 @@ export default{
         justifyContent: 'flex-start',
         // marginHorizontal: 2,
         flexWrap: 'wrap',
-        height: 50,
         marginTop: 5,
 
         // flexGrow: 2.5,
@@ -177,8 +176,8 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        // height: 30,
-        // flexGrow: 1,
+        marginBottom: 15,
+
     },
     badgeBg: {
         backgroundColor: colors.primary2

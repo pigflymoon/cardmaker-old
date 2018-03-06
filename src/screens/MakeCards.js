@@ -152,7 +152,7 @@ export default class MakeCards extends Component {
         var text = title + '\n' + caption;
         var textColor = this.state.textColor;
         var position = this.state.position;
-        var textSize = 60;
+        var textSize = 48;
         console.log('textColor is ', textColor)
 
         //
@@ -321,7 +321,8 @@ export default class MakeCards extends Component {
                                     initialColor="#ee0000"
                                     onColorChange={(color) => this.setTextColor(color)}
                                     style={{width: 100}}
-                                    thumbStyle={{height: 10, width: 10, borderRadius: 10}}/>
+                                    thumbSize={20}
+                                    thumbStyle={{height: 50, width: 50, borderRadius:50}}/>
 
                             </View>
                             <View style={cardStyle.shareRightIcon}>
