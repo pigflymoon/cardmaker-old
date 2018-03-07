@@ -21,9 +21,9 @@ import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {auth, db} from '../config/FirebaseConfig';
-var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
-// var verifyproductionHost = Config.receiptVerify.Host.productionHost;
-var verifyHost = verifysandboxHost;
+// var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
+var verifyproductionHost = Config.receiptVerify.Host.productionHost;
+var verifyHost = verifyproductionHost;
 
 import {onceGetReceipts, doCreateReceipt} from '../config/db';
 
