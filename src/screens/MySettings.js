@@ -52,12 +52,10 @@ export default class MySettings extends Component {
 //sign in box
     setEmail = (text) => {
         this.setState({errorMessage: '', email: text});
-
     }
 
     setPassword = (text) => {
         this.setState({errorMessage: '', password: text});
-
     }
 
     handleSignin = (e) => {
@@ -65,14 +63,9 @@ export default class MySettings extends Component {
         e.preventDefault();
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(function (signuser) {
-                console.log('signuser is ', signuser)
                 auth.onAuthStateChanged(function (user) {
-                    console.log('user is ', user)
                     if (user) {
-                        // self.screenProps({signin: true});
-                        // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
                         var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
-                        ;
                         self.setState({
                             user: user,
                             signin: true,
@@ -84,7 +77,6 @@ export default class MySettings extends Component {
                         })
 
                     } else {
-                        // this.setState({errorMessage: user})
                         console.log('error', user)
                     }
                 })
@@ -197,8 +189,6 @@ export default class MySettings extends Component {
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
-                // self.screenProps({signin: true});
-                // self.props.navigation.navigate('CardsLibraryTab', {user: user,signin: true});
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
 
                 self.setState({
@@ -210,7 +200,6 @@ export default class MySettings extends Component {
                     title: `Hi ${displayName}, Welcome to cardmaker!`,
                     //
                 })
-                // self.props.navigation.navigate('MySettings', {user: user,signin: true});
 
             } else {
                 // this.setState({errorMessage: user})

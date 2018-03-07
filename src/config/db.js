@@ -1,8 +1,4 @@
 import {db} from './FirebaseConfig';
-
-//User API
-
-
 export const onceGetPaidImages = () =>
     db.ref('paidUploadImages').once('value');
 

@@ -7,14 +7,10 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-// import firebaseApp from '../config/FirebaseConfig';
 import {auth} from '../config/FirebaseConfig';
 import {doCreateUser} from '../config/db';
-
-
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
-
 
 const byPropKey = (properTyName, value) => ({
     [properTyName]: value,
@@ -27,7 +23,6 @@ export default class Signup extends Component {
             email: '',
             name: '',
             password: '',
-
         };
     }
 
@@ -37,16 +32,13 @@ export default class Signup extends Component {
 
     setName = (text) => {
         this.setState({name: text});
-
     }
     setPassword = (text) => {
         this.setState({password: text});
-
     }
 
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
-
     }
 
     registerUserAndWaitEmailVerification(email, password) {
@@ -65,7 +57,6 @@ export default class Signup extends Component {
                             this.setState(byPropKey('error', error));
                         });
                     //
-
                 }
             })
              .catch(function (error) {

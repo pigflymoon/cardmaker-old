@@ -43,9 +43,7 @@ export default class Settings extends Component {
             showProData: false,//remove in-purchase
 
         };
-
     }
-
 
     onAbout = () => {
         this.props.navigation.navigate('About', {});
@@ -76,8 +74,6 @@ export default class Settings extends Component {
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 var userId = auth.currentUser.uid;
-                console.log('current userid,', userId);
-
                 db.ref('/users/' + userId).update({
                     role: {
                         admin: false,
@@ -254,7 +250,6 @@ export default class Settings extends Component {
                             isPro: 'Available'
                         });
                     }
-
 
                 });
             }else{

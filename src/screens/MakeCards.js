@@ -31,11 +31,7 @@ import formStyle from '../styles/form';
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
 
-const {width, height} = Dimensions.get('window');
-const SCREEN_WIDTH = width;
-
 export default class MakeCards extends Component {
-
 
     constructor(props) {
         super(props)
@@ -74,7 +70,6 @@ export default class MakeCards extends Component {
             if (user) {
                 self.setState({signin: true})
             } else {
-                console.log('no user?')
                 self.setState({signin: false})
             }
         });
@@ -82,7 +77,6 @@ export default class MakeCards extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
-        console.log('makeCard passed in nextprops,', makeCard)
         this.setState({makeCard: makeCard});
     }
 
@@ -96,7 +90,6 @@ export default class MakeCards extends Component {
 
     setName = (text) => {
         this.setState({caption: text});
-
     }
 
     onShare = () => {
@@ -107,9 +100,7 @@ export default class MakeCards extends Component {
     updateChoice(type) {
         var self = this;
         let showPosition = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
-
         var selectedItem = showPosition.map(position => ({name: position, value: false}));
-
         var selectedIndex = 0;
         selectedItem.forEach(function (item, i) {
             if (item.name == type) {
@@ -136,7 +127,7 @@ export default class MakeCards extends Component {
         if (len > n) {//如果字符的长度大于指定的长度
             strTemp = str.substring(0, n);//那么截取指定长度的字符串
             str = str.substring(n, len);//截取剩余的字符串
-            //在截取的指定长度的字符串添加<br />标签实现换行并返回
+            //在截取的指定长度的字符串添加\n 标签实现换行并返回
             return strTemp + '\n' + this.insertEnter(str, n);
         } else {
             return str;
@@ -153,8 +144,6 @@ export default class MakeCards extends Component {
         var textColor = this.state.textColor;
         var position = this.state.position;
         var textSize = 48;
-        console.log('textColor is ', textColor)
-
         //
         Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', textSize)
             .then((path) => {
@@ -162,19 +151,13 @@ export default class MakeCards extends Component {
                     show: true,
                     imageUrl: Platform.OS === 'android' ? 'file://' + path : path
                 })
-
-                console.log('image path is ,', path)
             }).catch((err) => {
-            console.log('====================================')
             console.log(err)
-            console.log('====================================')
         })
     }
 
-
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
-
     }
 
     renderSignCard() {
@@ -199,24 +182,16 @@ export default class MakeCards extends Component {
                 <View style={[cardStyle.cardsContainer]}>
 
                     <View style={cardStyle.imageListContainer}>
-                        <View style={{
-                            width: '40%',
-
-                        }}>
+                        <View style={{width: '40%',}}>
                             <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
-                                <Image style={{
-                                    flex: 1,
-
-                                }}
+                                <Image style={{flex: 1,}}
                                        resizeMethod="resize"
                                        source={{uri: (this.state.makeCard).uri}}
                                 />
                             </View>
 
                         </View>
-                        <View style={{
-                            width: '55%',
-                        }}>
+                        <View style={{width: '55%',}}>
                             <View style={formStyle.inputsContainer}>
                                 <View style={cardStyle.inputContainer}>
                                     <FormLabel containerStyle={cardStyle.labelContainerStyle}
@@ -255,7 +230,6 @@ export default class MakeCards extends Component {
                                     </FormValidationMessage>
                                     : null
                                 }
-
                             </View>
 
                         </View>
@@ -322,7 +296,7 @@ export default class MakeCards extends Component {
                                     onColorChange={(color) => this.setTextColor(color)}
                                     style={{width: 100}}
                                     thumbSize={20}
-                                    thumbStyle={{height: 50, width: 50, borderRadius:50}}/>
+                                    thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
 
                             </View>
                             <View style={cardStyle.shareRightIcon}>
@@ -372,10 +346,6 @@ export default class MakeCards extends Component {
                     {this.renderSignCard()}
                 </View>
             )
-
         }
-
-
     }
-
 }

@@ -222,7 +222,6 @@ export default class TestCards extends Component {
             }
 
         }).done();
-        // this.setState({cardsData: cards})
     }
 
     renderCard(card) {

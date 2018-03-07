@@ -25,11 +25,9 @@ export default class Cards extends Component {
             likedCards: [],
             dislikedCards: [],
         }
-        // AsyncStorage.setItem('cardsSource', '');
     }
 
     renderCard(card) {
-        console.log('card', card, 'this.state,', this.state)
         return (
             <Card
                 key={card.id}
@@ -126,20 +124,13 @@ export default class Cards extends Component {
 
     getImages = (userrole) => {
         var self = this;
-        console.log('userrole.paid_user', userrole.paid_user)
         if (!userrole.paid_user) {
-            console.log('called???')
             this.getFreeImages().then(function (images) {
                 self.setState({cardsData: images});
             });
         } else {
             this.getPaidImages().then(function (val) {
-                console.log('val is,', val)
-                //concat free images and paid images
-                var cardsData = val;//self.state.cardsData;
-                // cardsData = cardsData.concat((images));
-                //
-
+                var cardsData = val;
                 self.getFreeImages().then(function (images) {
                     var freeImages = images;
                     cardsData = cardsData.concat((freeImages));
@@ -173,18 +164,12 @@ export default class Cards extends Component {
         });
     }
 
-    componentWillMount() {
-        // this.getUserImages();
-    }
-
     componentDidMount() {
-        console.log('cards mount ')
         this.getUserImages();
     }
 
     componentWillUnmount() {
         this.setState({cardsData: []});
-
     }
 
     renderNoMoreCards() {

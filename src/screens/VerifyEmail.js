@@ -152,8 +152,6 @@ export default class VerifyEmail extends Component {
                         </View>
                     )}
             </View>
-
-
         );
     }
 }
