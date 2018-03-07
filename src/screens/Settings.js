@@ -24,7 +24,8 @@ import {auth, db} from '../config/FirebaseConfig';
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 // var verifyproductionHost = Config.receiptVerify.Host.productionHost;
 var verifyHost = verifysandboxHost;
-import firebaseReceriptApp from '../config/FirebaseReceiptsconfig';
+
+import {onceGetReceipts, doCreateReceipt} from '../config/db';
 
 import Config from '../config/ApiConfig';
 import Utils from '../utils/utils';
@@ -120,7 +121,7 @@ export default class Settings extends Component {
                                     })
                                         .then(function (response) {
                                             if (response.data.receipt) {
-                                                self.sendRecipt(response.data.receipt, receiptData);
+                                                self.sendRecipt(response.data.receipt);
                                                 var status = response.data.status;
                                                 var statusCode = Config.receiptVerify.statusCode;
                                                 for (var prop in statusCode) {
@@ -195,33 +196,31 @@ export default class Settings extends Component {
         this.props.navigation.navigate('Proversion', {});
     };
 
-    sendRecipt = (receipt, receiptData) => {
-        var self = this;
-        this.receiptsRef = firebaseReceriptApp.database().ref('receipts');
-        // var newPostRef = this.receiptsRef.push();
-        var transactionKey = ( (receipt.in_app)[0].transaction_id) ? ( (receipt.in_app)[0].transaction_id).toString() : null;
+    sendRecipt = (receipt) => {
+
+        var transactionKey = ((receipt.in_app)[0].transaction_id) ? ( (receipt.in_app)[0].transaction_id).toString() : null;
         if (transactionKey) {
-            this.receiptsRef.once('value', function (snapshot) {
+            onceGetReceipts().then(snapshot => {
                 if (snapshot) {
                     if (snapshot.hasChild(transactionKey)) {
                         console.log('exists')
                     } else {
-                        self.receiptsRef.child(transactionKey).set({
-                            receiptData: receiptData,
-                            transaction_id: (receipt.in_app)[0].transaction_id,
-                            application_version: receipt.application_version,
-                            bundle_id: receipt.bundle_id,
-                            original_application_version: receipt.original_application_version,
-                            original_purchase_date: receipt.original_purchase_date,
-                            original_purchase_date_pst: receipt.original_purchase_date_pst,
-                            receipt_creation_date: receipt.receipt_creation_date,
-                            receipt_creation_date_pst: receipt.receipt_creation_date_pst,
-                            receipt_type: receipt.receipt_type,
-                        });
+                        // Create a receipt in your own accessible Firebase Database too
+                        doCreateReceipt(transactionKey, receipt)
+                            .then(() => {
+                                console.log('Got the receipt!')
+                                // user.updateProfile({displayName: self.state.name});
+                                // console.log('email', email)
+                                // self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
+                            })
+                            .catch(error => {
+                                console.log(('error', error))
+                            });
+                        //
                     }
                 }
-
             });
+
 
         }
 
@@ -257,6 +256,11 @@ export default class Settings extends Component {
                     }
 
 
+                });
+            }else{
+                self.setState({
+                    showProData: false,
+                    isPro: 'DISABLED'
                 });
             }
         });
