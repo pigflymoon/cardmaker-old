@@ -13,7 +13,7 @@ import {auth, db} from '../config/FirebaseConfig';
 
 import formStyle from '../styles/form';
 import buttonStyle from '../styles/button';
-import bg1 from '../assets/images/bg.jpg';
+import bg1 from '../assets/images/bg1.jpg';
 import layoutStyle from '../styles/layout';
 
 export default class MySettings extends Component {
