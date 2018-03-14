@@ -20,75 +20,75 @@ import FastImage from 'react-native-fast-image';
 import Masonry from 'react-native-masonry';
 
 // list of images
-let data = [
-    {
-        data: {
-            caption: 'Summer Recipies',
-            user: {
-                name: 'Henry'
-            },
-        },
-        uri: 'https://s-media-cache-ak0.pinimg.com/736x/32/7f/d9/327fd98ae0146623ca8954884029297b.jpg',
-        renderFooter: (data) => {
-            return (
-                <View key='brick-header'
-                      style={{backgroundColor: 'white', padding: 5, paddingRight: 9, paddingLeft: 9}}>
-                    <Text style={{lineHeight: 20, fontSize: 14}}>{data.caption}</Text>
-                </View>
-            )
-        },
-        renderHeader: (data) => {
-            return (
-                <View key='brick-footer' style={styles.headerTop}>
-                    <Image
-                        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsO3JMW5pmK-pq9g3T-1znMMK8IEELKnasQ6agJANePV7Z0nwp9w' }}
-                        style={styles.userPic}/>
-                    <Text style={styles.userName}>{data.user.name}</Text>
-                </View>
-            )
-        }
-    },
-    {
-        id: 1,
-        uri: 'https://s-media-cache-ak0.pinimg.com/736x/b1/21/df/b121df29b41b771d6610dba71834e512.jpg',
-    },
-    // {
-    //     id: 2,
-    //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpD8mz-2Wwix8hHbGgR-mCFQVFTF7TF7hU05BxwLVO1PS5j-rZA',
-    // },
-
-    {
-        id: 2,
-        uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-03/17/15/enhanced/webdr13/enhanced-6527-1426620797-18.jpg'
-    },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2014-12/1/15/enhanced/webdr02/enhanced-18393-1417466529-5.jpg'
-    // },
-    // {
-    //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXTmdaGSOFK8iBeYqoA6_XiQGGWvu6KGnqAxXYyvJA-JKin8ImQ'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-04/3/15/enhanced/webdr06/enhanced-24427-1428089292-2.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-12/28/12/asset/buzzfeed-prod-web-09/sub-buzz-24236-1482944714-1.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-03/7/17/enhanced/webdr08/enhanced-buzz-8155-1457391039-5.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2017-03/30/12/asset/buzzfeed-prod-fastlane-01/sub-buzz-24597-1490890739-1.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-01/14/20/campaign_images/webdr15/which-delicious-mexican-food-item-are-you-based-o-2-20324-1452822970-1_dblbig.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-11/30/10/enhanced/webdr15/enhanced-18265-1448896942-17.jpg'
-    // },
-    // {
-    //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-12/30/16/enhanced/webdr04/enhanced-15965-1451509932-6.jpg'
-    // }
-];
+// let data = [
+//     {
+//         data: {
+//             caption: 'Summer Recipies',
+//             user: {
+//                 name: 'Henry'
+//             },
+//         },
+//         uri: 'https://s-media-cache-ak0.pinimg.com/736x/32/7f/d9/327fd98ae0146623ca8954884029297b.jpg',
+//         renderFooter: (data) => {
+//             return (
+//                 <View key='brick-header'
+//                       style={{backgroundColor: 'white', padding: 5, paddingRight: 9, paddingLeft: 9}}>
+//                     <Text style={{lineHeight: 20, fontSize: 14}}>{data.caption}</Text>
+//                 </View>
+//             )
+//         },
+//         renderHeader: (data) => {
+//             return (
+//                 <View key='brick-footer' style={styles.headerTop}>
+//                     <Image
+//                         source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsO3JMW5pmK-pq9g3T-1znMMK8IEELKnasQ6agJANePV7Z0nwp9w'}}
+//                         style={styles.userPic}/>
+//                     <Text style={styles.userName}>{data.user.name}</Text>
+//                 </View>
+//             )
+//         }
+//     },
+//     // {
+//     //     id: 1,
+//     //     uri: 'https://s-media-cache-ak0.pinimg.com/736x/b1/21/df/b121df29b41b771d6610dba71834e512.jpg',
+//     // },
+//     // {
+//     //     id: 2,
+//     //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpD8mz-2Wwix8hHbGgR-mCFQVFTF7TF7hU05BxwLVO1PS5j-rZA',
+//     // },
+//
+//     // {
+//     //     id: 2,
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-03/17/15/enhanced/webdr13/enhanced-6527-1426620797-18.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2014-12/1/15/enhanced/webdr02/enhanced-18393-1417466529-5.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXTmdaGSOFK8iBeYqoA6_XiQGGWvu6KGnqAxXYyvJA-JKin8ImQ'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-04/3/15/enhanced/webdr06/enhanced-24427-1428089292-2.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-12/28/12/asset/buzzfeed-prod-web-09/sub-buzz-24236-1482944714-1.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-03/7/17/enhanced/webdr08/enhanced-buzz-8155-1457391039-5.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2017-03/30/12/asset/buzzfeed-prod-fastlane-01/sub-buzz-24597-1490890739-1.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-01/14/20/campaign_images/webdr15/which-delicious-mexican-food-item-are-you-based-o-2-20324-1452822970-1_dblbig.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-11/30/10/enhanced/webdr15/enhanced-18265-1448896942-17.jpg'
+//     // },
+//     // {
+//     //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-12/30/16/enhanced/webdr04/enhanced-15965-1451509932-6.jpg'
+//     // }
+// ];
 
 const addData = [
     {
@@ -145,11 +145,79 @@ const addData = [
 export default class MasonryScreen extends Component {
     constructor() {
         super();
-
+        // console.log('data is ',data)
         this.state = {
-            columns: 2,
+            columns: 3,
             padding: 5,
-            data,
+            data:[
+                {
+                    data: {
+                        caption: 'Summer Recipies',
+                        user: {
+                            name: 'Henry'
+                        },
+                    },
+                    uri: 'https://s-media-cache-ak0.pinimg.com/736x/32/7f/d9/327fd98ae0146623ca8954884029297b.jpg',
+                    renderFooter: (data) => {
+                        return (
+                            <View key='brick-header'
+                                  style={{backgroundColor: 'white', padding: 5, paddingRight: 9, paddingLeft: 9}}>
+                                <Text style={{lineHeight: 20, fontSize: 14}}>{data.caption}</Text>
+                            </View>
+                        )
+                    },
+                    renderHeader: (data) => {
+                        return (
+                            <View key='brick-footer' style={styles.headerTop}>
+                                <Image
+                                    source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsO3JMW5pmK-pq9g3T-1znMMK8IEELKnasQ6agJANePV7Z0nwp9w'}}
+                                    style={styles.userPic}/>
+                                <Text style={styles.userName}>{data.user.name}</Text>
+                            </View>
+                        )
+                    }
+                },
+                // {
+                //     id: 1,
+                //     uri: 'https://s-media-cache-ak0.pinimg.com/736x/b1/21/df/b121df29b41b771d6610dba71834e512.jpg',
+                // },
+                // {
+                //     id: 2,
+                //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpD8mz-2Wwix8hHbGgR-mCFQVFTF7TF7hU05BxwLVO1PS5j-rZA',
+                // },
+
+                // {
+                //     id: 2,
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-03/17/15/enhanced/webdr13/enhanced-6527-1426620797-18.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2014-12/1/15/enhanced/webdr02/enhanced-18393-1417466529-5.jpg'
+                // },
+                // {
+                //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXTmdaGSOFK8iBeYqoA6_XiQGGWvu6KGnqAxXYyvJA-JKin8ImQ'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-04/3/15/enhanced/webdr06/enhanced-24427-1428089292-2.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-12/28/12/asset/buzzfeed-prod-web-09/sub-buzz-24236-1482944714-1.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-03/7/17/enhanced/webdr08/enhanced-buzz-8155-1457391039-5.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2017-03/30/12/asset/buzzfeed-prod-fastlane-01/sub-buzz-24597-1490890739-1.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-01/14/20/campaign_images/webdr15/which-delicious-mexican-food-item-are-you-based-o-2-20324-1452822970-1_dblbig.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-11/30/10/enhanced/webdr15/enhanced-18265-1448896942-17.jpg'
+                // },
+                // {
+                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-12/30/16/enhanced/webdr04/enhanced-15965-1451509932-6.jpg'
+                // }
+            ],
             refreshing: false,
             waiting: false,
             listHeight: 0,
@@ -159,23 +227,23 @@ export default class MasonryScreen extends Component {
 
     _addData = () => {
 
-        var arr = data.concat(addData).reduce(function(prev, current, index, array){
-
-            if(!(current.id in prev.keys)) {
-                prev.keys[current.id] = index;
-                prev.result.push(current);
-            }
-            else{
-                prev.result[prev.keys[current.id]] = current;
-            }
-
-            return prev;
-        },{result: [], keys: {}}).result;
-        var appendedData = arr;
+        // var arr = data.concat(addData).reduce(function (prev, current, index, array) {
+        //
+        //     if (!(current.id in prev.keys)) {
+        //         prev.keys[current.id] = index;
+        //         prev.result.push(current);
+        //     }
+        //     else {
+        //         prev.result[prev.keys[current.id]] = current;
+        //     }
+        //
+        //     return prev;
+        // }, {result: [], keys: {}}).result;
+        // var appendedData = arr;
         // const appendedData = [...data, ...addData];
-        console.log('appendData is ', appendedData)
+        // console.log('appendData is ', appendedData)
         this.setState({
-            data: appendedData
+            data: addData
         });
     }
     refresh = () => {
@@ -203,14 +271,14 @@ export default class MasonryScreen extends Component {
     // }
     handleScroll = (event) => {
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
-        // console.log('listHeight',this.state.listHeight);
-        // console.log('scrollViewHeight',this.state.scrollViewHeight);
-        // console.log('bottomOfList', bottomOfList);
+        console.log('listHeight', this.state.listHeight);
+        console.log('scrollViewHeight', this.state.scrollViewHeight);
+        console.log('bottomOfList', bottomOfList);
 
         let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
         // let viewHeight = event.nativeEvent.layout;
-        // console.log('currentOffset is :', currentOffset);
-        if (bottomOfList == currentOffset) {
+        console.log('currentOffset is :', currentOffset);
+        if (bottomOfList <= currentOffset) {
             // if (!this.state.waiting) {
             //     this.setState({waiting: true});
             //     // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
@@ -223,37 +291,22 @@ export default class MasonryScreen extends Component {
 
     }
 
+    componentWillUnmount() {
+        this.setState({
+            data: []
+        });
+    }
+
 
     render() {
+        console.log('state data is ,', this.state.data)
         return (
             <View style={{flex: 1, backgroundColor: '#f4f4f4'}}>
                 <View style={[styles.center, styles.header]}>
-                    <Text style={{ fontWeight: '800', fontSize: 20 }}>Masonry Demo</Text>
+                    <Text style={{fontWeight: '800', fontSize: 20}}>Masonry Demo</Text>
                 </View>
-
-                <View style={[styles.center, styles.buttonGroup, { marginTop: 10, marginBottom: 25 }]}>
-                    <TouchableHighlight style={styles.button} onPress={() => this.setState({ columns: 2 })}>
-                        <Text>2 Column</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.button} onPress={() => this.setState({ columns: 3 })}>
-                        <Text>3 Columns</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.button} onPress={() => this.setState({ columns: 6 })}>
-                        <Text>6 Columns</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.button} onPress={() => this.setState({ columns: 9 })}>
-                        <Text>9 Columns</Text>
-                    </TouchableHighlight>
-                </View>
-
-                <View style={[styles.buttonGroup, {marginLeft: 4}]}>
-                    <TouchableHighlight style={styles.button} onPress={this._addData}>
-                        <Text>Push New Data</Text>
-                    </TouchableHighlight>
-                </View>
-
                 <View
-                    style={[styles.center, styles.slider, { marginTop: 10, marginBottom: 25, flexDirection: 'column'}]}>
+                    style={[styles.center, styles.slider, {marginTop: 10, marginBottom: 25, flexDirection: 'column'}]}>
                     <View style={{paddingLeft: 10}}>
                         <Text>Dynamically adjust padding: {this.state.padding}</Text>
                     </View>
@@ -273,11 +326,11 @@ export default class MasonryScreen extends Component {
                     onScroll={this.handleScroll}
                     scrollEventThrottle={16}
                     onContentSizeChange={ (contentWidth, contentHeight) => {
-                        this.setState({listHeight: contentHeight })
+                        this.setState({listHeight: contentHeight})
                     }}
                     onLayout={ (e) => {
                         const height = e.nativeEvent.layout.height
-                        this.setState({scrollViewHeight: height })
+                        this.setState({scrollViewHeight: height})
                     }}
                     ref={ (ref) => this.scrollView = ref }
                 >
