@@ -3,7 +3,8 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-nat
 
 import {Button, Card, Icon,} from 'react-native-elements';
 import {auth, db} from '../config/FirebaseConfig';
-import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
+// import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
+import { getFreeImages, getPaidImages } from '../utils/firebaseImages';
 import SwipeDeck from '../components/SwipeDeck';
 
 import colors from '../styles/colors';
@@ -67,71 +68,24 @@ export default class Cards extends Component {
         this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
-    getFreeImages = () => {
-        var self = this;
-        return new Promise(function (resolve, reject) {
-            // some async operation here
-            setTimeout(function () {
-                // resolve the promise with some value
 
-                onceGetFreeImages().then(snapshot => {
-                    var downloadImages = snapshot.val();
-                    if (downloadImages) {
-                        var images = Object.keys(downloadImages).map(key => (
-                                {
-                                    id: key,
-                                    uri: downloadImages[key].downloadUrl,
-                                    name: downloadImages[key].Name,
-                                }
-                            )
-                        )
-                        resolve(images)
-                    }
-
-                });
-
-
-            }, 500);
-        });
-
-
-    }
-    getPaidImages = () => {
-        var self = this;
-        return new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                onceGetPaidImages().then(snapshot => {
-                    var downloadImages = snapshot.val();
-                    if (downloadImages) {
-                        var images = Object.keys(downloadImages).map(key => (
-                                {
-                                    id: key,
-                                    uri: downloadImages[key].downloadUrl,
-                                    name: downloadImages[key].Name,
-
-                                }
-                            )
-                        );
-                        resolve(images)
-
-                    }
-
-                });
-            }, 500)
-        })
-
-    }
 
     getImages = (userrole) => {
         var self = this;
         if (!userrole.paid_user) {
-            this.getFreeImages().then(function (images) {
+            console.log('called???')
+            getFreeImages().then(function (images) {
                 self.setState({cardsData: images});
             });
         } else {
-            this.getPaidImages().then(function (val) {
-                var cardsData = val;
-                self.getFreeImages().then(function (images) {
+            getPaidImages().then(function (val) {
+                console.log('val is,', val)
+                //concat free images and paid images
+                var cardsData = val;//self.state.cardsData;
+                // cardsData = cardsData.concat((images));
+                //
+
+                getFreeImages().then(function (images) {
                     var freeImages = images;
                     cardsData = cardsData.concat((freeImages));
                     self.setState({cardsData: cardsData});
