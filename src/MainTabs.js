@@ -13,7 +13,7 @@ import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 // import TestCardsScreen from './screens/TestCards';
-
+import MasonryScreen from './screens/MasonryScreen';
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
@@ -85,6 +85,20 @@ const CardsTabs = TabNavigator(
             screen: MySettingsStack,
             navigationOptions: {
                 tabBarLabel: 'Me',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
+        MasonryTab:{
+            screen: MasonryScreen,
+            navigationOptions: {
+                tabBarLabel: 'Masonry',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-images' : 'ios-images-outline'}
