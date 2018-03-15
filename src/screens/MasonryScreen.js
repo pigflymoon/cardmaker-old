@@ -18,7 +18,10 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Masonry from 'react-native-masonry';
-
+import axios from 'axios';
+import {getFreeImages, getPaidImages, getPages} from '../utils/firebaseImages';
+import {auth, db} from '../config/FirebaseConfig';
+import {CREDENTIAL} from '../config/credentialDB';
 // list of images
 // let data = [
 //     {
@@ -149,75 +152,9 @@ export default class MasonryScreen extends Component {
         this.state = {
             columns: 3,
             padding: 5,
-            data:[
-                {
-                    data: {
-                        caption: 'Summer Recipies',
-                        user: {
-                            name: 'Henry'
-                        },
-                    },
-                    uri: 'https://s-media-cache-ak0.pinimg.com/736x/32/7f/d9/327fd98ae0146623ca8954884029297b.jpg',
-                    renderFooter: (data) => {
-                        return (
-                            <View key='brick-header'
-                                  style={{backgroundColor: 'white', padding: 5, paddingRight: 9, paddingLeft: 9}}>
-                                <Text style={{lineHeight: 20, fontSize: 14}}>{data.caption}</Text>
-                            </View>
-                        )
-                    },
-                    renderHeader: (data) => {
-                        return (
-                            <View key='brick-footer' style={styles.headerTop}>
-                                <Image
-                                    source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsO3JMW5pmK-pq9g3T-1znMMK8IEELKnasQ6agJANePV7Z0nwp9w'}}
-                                    style={styles.userPic}/>
-                                <Text style={styles.userName}>{data.user.name}</Text>
-                            </View>
-                        )
-                    }
-                },
-                // {
-                //     id: 1,
-                //     uri: 'https://s-media-cache-ak0.pinimg.com/736x/b1/21/df/b121df29b41b771d6610dba71834e512.jpg',
-                // },
-                // {
-                //     id: 2,
-                //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpD8mz-2Wwix8hHbGgR-mCFQVFTF7TF7hU05BxwLVO1PS5j-rZA',
-                // },
+            signin: false,
+            cardsData: [],
 
-                // {
-                //     id: 2,
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-03/17/15/enhanced/webdr13/enhanced-6527-1426620797-18.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2014-12/1/15/enhanced/webdr02/enhanced-18393-1417466529-5.jpg'
-                // },
-                // {
-                //     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXTmdaGSOFK8iBeYqoA6_XiQGGWvu6KGnqAxXYyvJA-JKin8ImQ'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-04/3/15/enhanced/webdr06/enhanced-24427-1428089292-2.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-12/28/12/asset/buzzfeed-prod-web-09/sub-buzz-24236-1482944714-1.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-03/7/17/enhanced/webdr08/enhanced-buzz-8155-1457391039-5.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2017-03/30/12/asset/buzzfeed-prod-fastlane-01/sub-buzz-24597-1490890739-1.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-01/14/20/campaign_images/webdr15/which-delicious-mexican-food-item-are-you-based-o-2-20324-1452822970-1_dblbig.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-11/30/10/enhanced/webdr15/enhanced-18265-1448896942-17.jpg'
-                // },
-                // {
-                //     uri: 'https://img.buzzfeed.com/buzzfeed-static/static/2015-12/30/16/enhanced/webdr04/enhanced-15965-1451509932-6.jpg'
-                // }
-            ],
             refreshing: false,
             waiting: false,
             listHeight: 0,
@@ -243,32 +180,10 @@ export default class MasonryScreen extends Component {
         // const appendedData = [...data, ...addData];
         // console.log('appendData is ', appendedData)
         this.setState({
-            data: addData
+            cardsData: addData
         });
     }
-    refresh = () => {
-        console.log('refreshing...')
-        // if (!this.state.isConnected) {
-        //     this.setState({
-        //         refreshing: false
-        //     });
-        // } else {
-        //     this.setState({
-        //         refreshing: true,
-        //     });
-        //     this.fetchNews(true);
-        // }
 
-    }
-    // onEndReached = () => {
-    //
-    //     if (!this.state.waiting) {
-    //         this.setState({waiting: true});
-    //         // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
-    //         console.log('loading more!!!');
-    //         this._addData();
-    //     }
-    // }
     handleScroll = (event) => {
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
         console.log('listHeight', this.state.listHeight);
@@ -279,22 +194,126 @@ export default class MasonryScreen extends Component {
         // let viewHeight = event.nativeEvent.layout;
         console.log('currentOffset is :', currentOffset);
         if (bottomOfList <= currentOffset) {
-            // if (!this.state.waiting) {
-            //     this.setState({waiting: true});
-            //     // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
-            //     console.log('Reach the bottom, load data!!!');
-            //     this._addData();
-            // }
             this._addData();
         }
-        // console.log('viewHeight is : ', viewHeight);
+    }
 
+    getImages = (userrole) => {
+        var self = this;
+        if (!userrole.paid_user) {
+            console.log('called???')
+            getFreeImages().then(function (images) {
+                self.setState({cardsData: images});
+            });
+        } else {
+            getPaidImages().then(function (val) {
+                console.log('val is,', val)
+                //concat free images and paid images
+                var cardsData = val;//self.state.cardsData;
+                // cardsData = cardsData.concat((images));
+                //
+
+                getFreeImages().then(function (images) {
+                    var freeImages = images;
+                    cardsData = cardsData.concat((freeImages));
+                    self.setState({cardsData: cardsData});
+                });
+            })
+
+        }
+    }
+
+    refreshImages = () => {
+        this.setState({cardsData: []});
+        var self = this;
+        this.getUserImages();
+    }
+
+    getUserImages = () => {
+        var self = this;
+
+        auth.onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                //
+                var imageRef = db.ref('freeUploadImages');
+                var peopleUrl = imageRef.toString() + `.json?auth=${CREDENTIAL}&shallow=true`;
+                console.log('***********json url is ', peopleUrl)
+                //
+
+                var pageLength = 2;
+
+                axios.get(peopleUrl)
+                    .then(function (res) {
+                        console.log('**************res is ', res)
+                        var keys = Object.keys(res.data).sort(function (a) {
+                            // We're sorting with parseInt because we're using SWAPI keys.
+                            // Firebase push keys work fine with the default sort, i.e., Object.keys(res.data).sort();
+                            return parseInt(a);
+                        }).reverse(); // Always sort keys to guarantee order!!!
+                        var keysLength = keys.length;
+                        var promises = [];
+
+                        for (var i = pageLength; i <= keysLength; i += pageLength) {
+                            // i =  2, 4, 6, 8, 10... so subtract 1 to get the zero-indexed array key
+                            var key = keys[i - 1];
+                            // limitToLast starts at the bottom and reads up the list. endAt tells us from
+                            // where to start reading up... so if we have keys 1...10, a pageLength of 2
+                            // and endAt(4), the query will return records 4 and 3. It starts at the end
+                            // and reads backwards, returning only 2 records.
+                            var query = imageRef.orderByKey().limitToLast(pageLength).endAt(key);
+                            promises.push(query.once('value'));
+                        }
+
+                        Promise.all(promises)
+                            .then(function (snaps) {
+                                var pages = [];
+                                snaps.forEach(function (snap) {
+                                    var page = [];
+                                    snap.forEach(function (childSnap) {
+                                        console.log('***********chidSnap is ', childSnap)
+                                        page.push({
+                                            id: childSnap.key,
+                                            name: childSnap.val().name,
+                                            url: childSnap.val().downloadUrl
+                                        });
+                                    });
+                                    pages.push(page);
+                                });
+                                pages.forEach(function (page, key) {
+                                    console.log('page %s: %s', key, JSON.stringify(page));
+                                });
+                                process.exit();
+                            })
+                            .catch(function (err) {
+                                console.log('error', err);
+                            });
+                    })
+                    .catch(function (err) {
+                        console.log('can not get url **************', err);
+                    });
+                ;
+                //
+                //
+                var userId = auth.currentUser.uid;
+                db.ref('/users/' + userId).once('value').then(function (snapshot) {
+                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
+                    self.getImages(userrole);
+                    self.setState({signin: true, authUser, userrole: userrole});
+
+                });
+            } else {
+                self.setState({signin: false, cardsData: []})
+            }
+        });
+    }
+
+    componentDidMount() {
+
+        this.getUserImages();
     }
 
     componentWillUnmount() {
-        this.setState({
-            data: []
-        });
+        this.setState({cardsData: []});
     }
 
 
@@ -336,7 +355,7 @@ export default class MasonryScreen extends Component {
                 >
                     <Masonry
                         sorted
-                        bricks={this.state.data}
+                        bricks={this.state.cardsData}
                         columns={this.state.columns}
                         refreshControl={
                             <RefreshControl

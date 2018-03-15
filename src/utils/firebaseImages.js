@@ -50,3 +50,33 @@ export function getPaidImages() {
         }, 500)
     })
 }
+
+export function getPages(peopleRef,accumulator, cursor) {
+    var pages = accumulator || [];
+    var query = peopleRef.orderByKey().limitToFirst(pageLength + 1); // limitToFirst starts from the top of the sorted list
+    if (cursor) { // If no cursor, start at beginning of collection... otherwise, start at the cursor
+        query = query.startAt(cursor);  // Don't forget to overwrite the query variable!
+    }
+
+    return query.once('value')
+        .then(function (snaps) {
+            var page = [];
+            var extraRecord;
+            snaps.forEach(function (childSnap) {
+                page.push({
+                    id: childSnap.getKey(),
+                    name: childSnap.val().name
+                });
+            });
+
+            if (page.length > pageLength) {
+                extraRecord = page.pop();
+                pages.push(page);
+                console.log(pages, extraRecord.id);
+                return getPages(pages, extraRecord.id);
+            } else {
+                pages.push(page);
+                return Promise.resolve(pages);
+            }
+        });
+};
