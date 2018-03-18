@@ -20,7 +20,7 @@ import FastImage from 'react-native-fast-image';
 import Masonry from 'react-native-masonry';
 import axios from 'axios';
 import {getFreeImages, getPaidImages, getPages} from '../utils/firebaseImages';
-import {auth, db} from '../config/FirebaseConfig';
+import {auth, db,firebaseApp} from '../config/FirebaseConfig';
 import {CREDENTIAL} from '../config/credentialDB';
 // list of images
 // let data = [
@@ -282,7 +282,8 @@ export default class MasonryScreen extends Component {
                                 pages.forEach(function (page, key) {
                                     console.log('page %s: %s', key, JSON.stringify(page));
                                 });
-                                process.exit();
+                                // process.exit();
+                                firebaseApp.delete();
                             })
                             .catch(function (err) {
                                 console.log('error', err);
