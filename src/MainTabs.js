@@ -12,7 +12,7 @@ import ResetPasswordScreen from './screens/ResetPassword';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
-import TestScreen from './screens/TestScreen';
+// import TestScreen from './screens/TestScreen';
 import MasonryScreen from './screens/MasonryScreen';
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
@@ -65,21 +65,6 @@ const MySettingsStack = StackNavigator({
 
 const CardsTabs = TabNavigator(
     {
-
-        MasonryTab:{
-            screen: MasonryScreen,
-            navigationOptions: {
-                tabBarLabel: 'Masonry',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
         MySettingsTab: {
             screen: MySettingsStack,
             navigationOptions: {
@@ -94,8 +79,8 @@ const CardsTabs = TabNavigator(
 
             },
         },
-        TestScreen: {
-            screen: TestScreen,
+        MasonryScreen: {
+            screen: MasonryScreen,
             navigationOptions: {
                 tabBarLabel: 'Masonry Test',
                 tabBarIcon: ({tintColor, focused}) => (
@@ -177,14 +162,7 @@ const CardsTab = StackNavigator({
 })
 
 
-const TestTab = StackNavigator({
-    Cards: {
-        screen: TestScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Test'
-        }),
-    },
-})
+
 //
 
 const SettingsTab = StackNavigator({
