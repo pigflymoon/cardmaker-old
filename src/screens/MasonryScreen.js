@@ -201,8 +201,9 @@ export default class MasonryScreen extends Component {
     getImages = (userrole) => {
         var self = this;
         if (!userrole.paid_user) {
-            console.log('called???')
+
             getFreeImages().then(function (images) {
+                console.log('called???',images)
                 self.setState({cardsData: images});
             });
         } else {
@@ -216,6 +217,7 @@ export default class MasonryScreen extends Component {
                 getFreeImages().then(function (images) {
                     var freeImages = images;
                     cardsData = cardsData.concat((freeImages));
+                    console.log('cardsData',cardsData)
                     self.setState({cardsData: cardsData});
                 });
             })

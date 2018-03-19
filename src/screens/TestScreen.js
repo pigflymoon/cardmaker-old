@@ -1,10 +1,22 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, ScrollView} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    Alert,
+    ScrollView,
+    RefreshControl,
+    ActivityIndicator,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import Masonry from 'react-native-masonry';
 import {List, ListItem} from 'react-native-elements';
 import axios from 'axios';
 import {auth, db, firebaseApp} from '../config/FirebaseConfig';
 import cardStyle from '../styles/card';
 var tempPages = [], cursorID = '', preCursorID = '', record;
+var newArr = [];
 
 export default class TestScreen extends Component {
 
@@ -14,8 +26,12 @@ export default class TestScreen extends Component {
         this.state = {
             pages: [],
             images: [],
+            cardsData: [],
             listHeight: 0,
-            scrollViewHeight: 0
+            scrollViewHeight: 0,
+            columns: 2,
+            padding: 5,
+            refreshing: false,
         }
     }
 
@@ -77,7 +93,7 @@ export default class TestScreen extends Component {
                             page.push({
                                 id: childSnap.key,
                                 name: childSnap.val().Name,
-                                url: childSnap.val().downloadUrl
+                                uri: childSnap.val().downloadUrl
                             });
                         });
                         if (page.length > pageLength) {
@@ -120,6 +136,7 @@ export default class TestScreen extends Component {
                 })
             );
     }
+
     getImagePages = (accumulator, cursor) => {
         var peopleRef = db.ref('freeUploadImages');
         var pageLength = 2;
@@ -166,19 +183,28 @@ export default class TestScreen extends Component {
          */
         var self = this;//getPages
 
-        //     });
+
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 self.getImagePages()
                     .then(function (pages) {
-                        self.setState({images: pages})
-                        // pages.map(page => {
-                        //     console.log('page is ', page)
-                        //     page.map(item => {
-                        //         console.log('item is ', item)
-                        //     })
-                        // });
-                        // console.log('pages', JSON.stringify(pages));
+                        var arrToConvert = pages;
+
+
+
+                        for (var i = 0; i < arrToConvert.length; i++) {
+                            console.log('page[i] is ',pages[i])
+                            console.log('new arr is ',newArr)
+                            newArr = newArr.concat(pages[i]);
+                        }
+                        var filteredArr = newArr.filter(function(item, index) {
+                            console.log('item is ',item,'index is, ',index)
+
+                            if (newArr.indexOf(item) == index)
+                                return item;
+                        });
+                        console.log('filteredArr',filteredArr)
+                        self.setState({images: pages, cardsData: filteredArr})
                     });
             }
         });
@@ -186,15 +212,28 @@ export default class TestScreen extends Component {
 
         //
     }
-
-    handleScroll = (event) => {
-        // this.setState({images: []})
-        var self = this, images = [];
+    componentWillUnmount() {
+        this.setState({cardsData: []});
+    }
+    handleScroll= (event) => {
+        var self = this;
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
         let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
         if (bottomOfList <= currentOffset) {
             this.getImagePages(tempPages, cursorID).then(function (pages) {
-                self.setState({images: pages})
+                var arrToConvert = pages;
+
+
+
+                for (var i = 0; i < arrToConvert.length; i++) {
+                    newArr = newArr.concat(pages[i]);
+                }
+                var filteredArr = newArr.filter(function(item, index) {
+                    if (newArr.indexOf(item) == index)
+                        return item;
+                });
+                console.log('filteredArr',filteredArr)
+                self.setState({images: pages, cardsData: filteredArr})
             });
 
         }
@@ -206,33 +245,33 @@ export default class TestScreen extends Component {
 
 
                 <Text>images</Text>
-                {(this.state.images).length > 0 ?
-                    <ScrollView
-                        onScroll={this.handleScroll}
-                        scrollEventThrottle={16}
-                        onContentSizeChange={ (contentWidth, contentHeight) => {
-                            this.setState({listHeight: contentHeight})
-                        }}
-                        onLayout={ (e) => {
-                            const height = e.nativeEvent.layout.height
-                            this.setState({scrollViewHeight: height})
-                        }}
-                        ref={ (ref) => this.scrollView = ref }
-                    >
-                        {(this.state.images).map((page, index) =>
-                            <List containerStyle={{borderTopWidth: 0}} key={index}>
-                                {page.map(item =>
-                                    <ListItem
-                                        rightIcon={{name: 'open-in-new'}}
-                                        key={`index-${item.name}`}
-                                        title={item.name}
-                                        rightTitle={item.id}
+                <ScrollView
+                    style={{flex: 1, flexGrow: 10, padding: this.state.padding}}
+                    onScroll={this.handleScroll}
+                    scrollEventThrottle={16}
+                    onContentSizeChange={ (contentWidth, contentHeight) => {
+                        this.setState({listHeight: contentHeight})
+                    }}
+                    onLayout={ (e) => {
+                        const height = e.nativeEvent.layout.height
+                        this.setState({scrollViewHeight: height})
+                    }}
+                    ref={ (ref) => this.scrollView = ref }
+                >
+                    <Masonry
+                        sorted
+                        bricks={this.state.cardsData}
+                        columns={this.state.columns}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.refresh}
+                            />
+                        }
 
-                                    />,
-                                )}
-                            </List>
-                        )}
-                    </ScrollView> : null}
+                        customImageComponent={FastImage}/>
+                </ScrollView>
+
             </View>
         );
     }
