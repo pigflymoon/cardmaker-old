@@ -141,7 +141,7 @@ export default class TestScreen extends Component {
 
     getImagePages = (accumulator, cursor) => {
         var peopleRef = db.ref('freeUploadImages');
-        var pageLength = 2;
+        var pageLength = 4;
         var pages = accumulator || [];
         var query = peopleRef.orderByKey().limitToFirst(pageLength + 1); // limitToFirst starts from the top of the sorted list
 
