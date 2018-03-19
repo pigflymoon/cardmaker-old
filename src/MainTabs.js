@@ -65,6 +65,7 @@ const MySettingsStack = StackNavigator({
 
 const CardsTabs = TabNavigator(
     {
+
         MasonryTab:{
             screen: MasonryScreen,
             navigationOptions: {
@@ -93,7 +94,20 @@ const CardsTabs = TabNavigator(
 
             },
         },
+        TestScreen: {
+            screen: TestScreen,
+            navigationOptions: {
+                tabBarLabel: 'Masonry Test',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
 
+            },
+        },
         CardsLibraryTab: {
             screen: CardsScreen,
             navigationOptions: {
@@ -196,20 +210,6 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        TestTab: {
-            screen: TestTab,
-            navigationOptions: {
-                tabBarLabel: 'Test',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-star' : 'ios-star-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                )
-            }
-
-        },
         CardsTab: {
             screen: CardsTab,
             navigationOptions: {

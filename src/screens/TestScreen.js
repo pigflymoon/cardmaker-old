@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Masonry from 'react-native-masonry';
-import {List, ListItem} from 'react-native-elements';
 import axios from 'axios';
-import {auth, db, firebaseApp} from '../config/FirebaseConfig';
+import {Icon, Card, Button} from 'react-native-elements';
+
+import {auth, db} from '../config/FirebaseConfig';
+import buttonStyle from '../styles/button';
 import cardStyle from '../styles/card';
-var tempPages = [], cursorID = '', preCursorID = '', record;
+var tempPages = [], cursorID = '', record;
 var newArr = [];
 
 export default class TestScreen extends Component {
@@ -132,7 +134,7 @@ export default class TestScreen extends Component {
                             }
                         }
 
-                    }, 1000);
+                    }, 500);
                 })
             );
     }
@@ -158,52 +160,38 @@ export default class TestScreen extends Component {
     };
 
     componentDidMount() {
-        /*
-         var ref = db.ref();
-         var peopleRef = ref.child('/swapi/people');
-         var promises = [];
-         var i = 10;
-         while (i--) {
-         promises.push(this.getSwapiPerson(i + 1) // i will be 9…0, so add 1 to match the SWAPI api
-         .then(function (res) {
-         return peopleRef.child(res.id).set(res.person);
-         }));
-         }
 
-         Promise.all(promises)
-         .then(function () {
-         console.log('Swapi data loaded');
-         // process.exit();
-         firebaseApp.delete();
-         })
-         .catch(function (err) {
-         console.log('Swapi data load error', err);
-         firebaseApp.delete();
-         });
-         */
-        var self = this;//getPages
 
+        var self = this;
+        if (this.props.navigation.state.params) {
+            var signin = this.props.navigation.state.params.signin;
+
+            this.setState({
+                signin: signin,
+
+            })
+        }
 
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
+                self.setState({signin: true});
                 self.getImagePages()
                     .then(function (pages) {
                         var arrToConvert = pages;
 
 
-
                         for (var i = 0; i < arrToConvert.length; i++) {
-                            console.log('page[i] is ',pages[i])
-                            console.log('new arr is ',newArr)
+                            console.log('page[i] is ', pages[i])
+                            console.log('new arr is ', newArr)
                             newArr = newArr.concat(pages[i]);
                         }
-                        var filteredArr = newArr.filter(function(item, index) {
-                            console.log('item is ',item,'index is, ',index)
+                        var filteredArr = newArr.filter(function (item, index) {
+                            console.log('item is ', item, 'index is, ', index)
 
                             if (newArr.indexOf(item) == index)
                                 return item;
                         });
-                        console.log('filteredArr',filteredArr)
+                        console.log('filteredArr', filteredArr)
                         self.setState({images: pages, cardsData: filteredArr})
                     });
             }
@@ -212,10 +200,12 @@ export default class TestScreen extends Component {
 
         //
     }
+
     componentWillUnmount() {
         this.setState({cardsData: []});
     }
-    handleScroll= (event) => {
+
+    handleScroll = (event) => {
         var self = this;
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
         let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
@@ -224,56 +214,84 @@ export default class TestScreen extends Component {
                 var arrToConvert = pages;
 
 
-
                 for (var i = 0; i < arrToConvert.length; i++) {
                     newArr = newArr.concat(pages[i]);
                 }
-                var filteredArr = newArr.filter(function(item, index) {
+                var filteredArr = newArr.filter(function (item, index) {
                     if (newArr.indexOf(item) == index)
                         return item;
                 });
-                console.log('filteredArr',filteredArr)
+                console.log('filteredArr', filteredArr)
                 self.setState({images: pages, cardsData: filteredArr})
             });
 
         }
     }
 
-    render() {
+    renderSignCard() {
         return (
-            <View style={cardStyle.cardsContainer}>
-
-
-                <Text>images</Text>
-                <ScrollView
-                    style={{flex: 1, flexGrow: 10, padding: this.state.padding}}
-                    onScroll={this.handleScroll}
-                    scrollEventThrottle={16}
-                    onContentSizeChange={ (contentWidth, contentHeight) => {
-                        this.setState({listHeight: contentHeight})
-                    }}
-                    onLayout={ (e) => {
-                        const height = e.nativeEvent.layout.height
-                        this.setState({scrollViewHeight: height})
-                    }}
-                    ref={ (ref) => this.scrollView = ref }
-                >
-                    <Masonry
-                        sorted
-                        bricks={this.state.cardsData}
-                        columns={this.state.columns}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                onRefresh={this.refresh}
-                            />
-                        }
-
-                        customImageComponent={FastImage}/>
-                </ScrollView>
-
-            </View>
+            <Card title='Welcome to cardmaker'>
+                <Text style={{marginBottom: 10}}>
+                    Please sign in then choose picture to make card
+                </Text>
+                <Button
+                    icon={{name: 'perm-identity'}}
+                    buttonStyle={buttonStyle.submitButton}
+                    title='Sign in /Sign up'
+                    onPress={this.navigateToSignin}
+                />
+            </Card>
         );
+    }
+
+    render() {
+
+        var renderSign = this.state.signin;
+
+        if (renderSign) {
+            return (
+                <View style={cardStyle.cardsContainer}>
+
+
+                    <Text>images</Text>
+                    <ScrollView
+                        style={{flex: 1, flexGrow: 10, padding: this.state.padding}}
+                        onScroll={this.handleScroll}
+                        scrollEventThrottle={16}
+                        onContentSizeChange={ (contentWidth, contentHeight) => {
+                            this.setState({listHeight: contentHeight})
+                        }}
+                        onLayout={ (e) => {
+                            const height = e.nativeEvent.layout.height
+                            this.setState({scrollViewHeight: height})
+                        }}
+                        ref={ (ref) => this.scrollView = ref }
+                    >
+                        <Masonry
+                            sorted
+                            bricks={this.state.cardsData}
+                            columns={this.state.columns}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={this.refresh}
+                                />
+                            }
+
+                            customImageComponent={FastImage}/>
+                    </ScrollView>
+
+                </View>
+            );
+
+        } else {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderSignCard()}
+                </View>
+            )
+        }
+
     }
 }
 
