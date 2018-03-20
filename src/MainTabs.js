@@ -12,9 +12,7 @@ import ResetPasswordScreen from './screens/ResetPassword';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
-import MasonryScreenTest from './screens/MasonryScreenTest';
-import ListScreenTest from './screens/ListScreenTest';
-
+// import TestScreen from './screens/TestScreen';
 import MasonryScreen from './screens/MasonryScreen';
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
@@ -81,38 +79,10 @@ const CardsTabs = TabNavigator(
 
             },
         },
-        // ListTestScreen: {
-        //     screen: ListScreenTest,
-        //     navigationOptions: {
-        //         tabBarLabel: 'List Test',
-        //         tabBarIcon: ({tintColor, focused}) => (
-        //             <Ionicons
-        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
-        //                 size={26}
-        //                 style={{color: tintColor}}
-        //             />
-        //         ),
-        //
-        //     },
-        // },
-        // MasonryTestScreen: {
-        //     screen: MasonryScreenTest,
-        //     navigationOptions: {
-        //         tabBarLabel: 'Masonry Test',
-        //         tabBarIcon: ({tintColor, focused}) => (
-        //             <Ionicons
-        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
-        //                 size={26}
-        //                 style={{color: tintColor}}
-        //             />
-        //         ),
-        //
-        //     },
-        // },
         MasonryScreen: {
             screen: MasonryScreen,
             navigationOptions: {
-                tabBarLabel: 'Masonry',
+                tabBarLabel: 'Masonry Test',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-images' : 'ios-images-outline'}

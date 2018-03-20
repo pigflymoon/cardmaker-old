@@ -180,23 +180,186 @@ export default class MasonryScreen extends Component {
 
     };
 
+    getFreeImages = (accumulator, cursor) => {
+
+         // new Promise((resolve, reject) => {
+            var peopleRef = db.ref('freeUploadImages');
+            var pageLength = 4;
+            var pages = accumulator || [];
+            var query = peopleRef.orderByKey().limitToFirst(pageLength + 1); // limitToFirst starts from the top of the sorted list
+            console.log('cursor :', cursor)
+            console.log('accumulator :', accumulator)
+            if (cursor) { // If no cursor, start at beginning of collection... otherwise, start at the cursor
+
+                query = query.startAt(cursor);
+                return query.once('value')
+                    .then(
+                        snaps => new Promise(resolve => {
+                            setTimeout(() => {
+                                var page = [];
+                                var extraRecord;
+                                snaps.forEach(function (childSnap) {
+                                    page.push({
+                                        id: childSnap.key,
+                                        name: childSnap.val().Name,
+                                        uri: childSnap.val().downloadUrl
+                                    });
+                                });
+                                console.log('page.length :', page)
+                                // console.log('pageLength :', pageLength)
+
+                                if (page.length > pageLength) {
+                                    extraRecord = page.pop();
+                                    console.log('extraRecord', extraRecord)
+                                    console.log('record', record)
+
+                                    if (record == undefined) {
+                                        record = extraRecord;
+                                        pages.push(page);
+
+                                        tempPages = pages;
+                                        cursorID = extraRecord.id;
+
+
+                                        resolve(pages);
+                                    }
+                                    else if ((record.id == extraRecord.id)) {
+                                        // pages.push(page);
+                                        // resolve(pages);
+                                        return false;
+                                    } else {
+                                        record = extraRecord
+                                        pages.push(page);
+                                        tempPages = pages;
+                                        cursorID = extraRecord.id;
+                                        resolve(pages);
+                                    }
+
+                                } else {
+                                    console.log('add page ')
+                                    extraRecord = page.pop();
+                                    console.log('record.id is ,', record.id)
+                                    console.log('extraRecord.id is ,', extraRecord.id)
+                                    if ((record.id == extraRecord.id)) {
+                                        pages.push(page);
+                                        resolve(pages);
+                                        // return false;
+                                    } else {
+                                        record = extraRecord
+                                        pages.push(page);
+                                        resolve(pages);
+                                    }
+                                }
+
+                            }, 500);
+                        })
+                    );
+
+            } else {
+                console.log('No cursor!!!!!!!!!!!')
+                return query.once('value')
+                    .then(
+                        snaps => new Promise(resolve => {
+                            setTimeout(() => {
+                                var page = [];
+                                var extraRecord;
+                                snaps.forEach(function (childSnap) {
+                                    page.push({
+                                        id: childSnap.key,
+                                        name: childSnap.val().Name,
+                                        uri: childSnap.val().downloadUrl
+                                    });
+                                });
+                                console.log('page.length :', page)
+                                // console.log('pageLength :', pageLength)
+
+                                if (page.length > pageLength) {
+                                    extraRecord = page.pop();
+                                    console.log('extraRecord', extraRecord)
+                                    console.log('record', record)
+
+                                    if (record == undefined) {
+                                        record = extraRecord;
+                                        pages.push(page);
+
+                                        tempPages = pages;
+                                        cursorID = extraRecord.id;
+
+
+                                        resolve(pages);
+                                    }
+                                    else if ((record.id == extraRecord.id)) {
+                                        // pages.push(page);
+                                        // resolve(pages);
+                                        return false;
+                                    } else {
+                                        record = extraRecord
+                                        pages.push(page);
+                                        tempPages = pages;
+                                        cursorID = extraRecord.id;
+                                        resolve(pages);
+                                    }
+
+                                } else {
+                                    console.log('add page ')
+                                    extraRecord = page.pop();
+                                    console.log('record.id is ,', record.id)
+                                    console.log('extraRecord.id is ,', extraRecord.id)
+                                    if ((record.id == extraRecord.id)) {
+                                        pages.push(page);
+                                        resolve(pages);
+                                        // return false;
+                                    } else {
+                                        record = extraRecord
+                                        pages.push(page);
+                                        resolve(pages);
+                                    }
+                                }
+
+                            }, 500);
+                        })
+                    );
+
+            }
+        // });
+        // return promise;
+
+
+    };
+    // 注意这个方法前面有async关键字
+    async getImagesFromDb(userrole, accumulator, cursor, paidAccumulator, padiCursor) {
+        try {
+            // 注意这里的await语句，其所在的函数必须有async关键字声明
+            let response = await (
+                this.getFreeImages(accumulator, cursor)
+            )
+            // let responseJson = await response.json();
+            console.log('response',response)
+            return response;
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
 
     getImages = (userrole, accumulator, cursor, paidAccumulator, padiCursor) => {
         var self = this;
         return ( new Promise(resolve => {
-            setTimeout(() => {
+            // setTimeout(() => {
                 if (!userrole.paid_user) {
                     console.log('free user')
 
                     this.getFreeImagesPages(accumulator, cursor).then(function (pages) {
                         var arrToConvert = pages;
-
-
+                        console.log('pages is ',pages)
+                        console.log('arrToConvert.length ',arrToConvert.length)
                         for (var i = 0; i < arrToConvert.length; i++) {
-                            console.log('free page[i] is ', pages[i])
+                            // console.log('free page[i] is ', pages[i])
                             // console.log('new arr is ', newArr)
                             newArr = newArr.concat(pages[i]);
                         }
+                        console.log('newArr.length ',newArr.length)
+
                         var filteredArr = newArr.filter(function (item, index) {
                             console.log('item is ', item, 'index is, ', index)
 
@@ -246,7 +409,7 @@ export default class MasonryScreen extends Component {
                     })
 
                 }
-            }, 1000)
+            // }, 1000)
         }));
         /*
          if (!userrole.paid_user) {
@@ -320,9 +483,12 @@ export default class MasonryScreen extends Component {
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
                     console.log('user role ?', userrole)
-                    self.getImages(userrole, accumulator, cursor, paidAccumulator, padiCursor).then(function (data) {
-                        self.setState({cardsData: data})
+                    self.getImagesFromDb(userrole, accumulator, cursor, paidAccumulator, padiCursor).then(function (data) {
+                        console.log('data return is ',data)
                     });
+                    // self.getImages(userrole, accumulator, cursor, paidAccumulator, padiCursor).then(function (data) {
+                    //     self.setState({cardsData: data})
+                    // });
                     self.setState({signin: true, authUser, userrole: userrole});
 
                 });
@@ -358,12 +524,11 @@ export default class MasonryScreen extends Component {
         var self = this;
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
         let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
-        console.log('scrollView height', this.state.scrollViewHeight)
-        // if (bottomOfList <= currentOffset && this.state.scrollViewHeight >= 488) {
-        if (currentOffset>100) {
+        console.log('currentOffset', currentOffset)
+        if (currentOffset > 100) {//currentOffset bottomOfList <= currentOffset
             this.getImages(this.state.userrole, tempPages, cursorID, paidTempPages, padiCursorID).then(function (data) {
                 console.log('return data ', data)
-                self.setState({cardsData: data})
+                // self.setState({cardsData: data})
             });
 
             // this.getUserImages(tempPages, cursorID, paidTempPages, padiCursorID);
