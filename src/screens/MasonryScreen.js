@@ -359,7 +359,8 @@ export default class MasonryScreen extends Component {
         const bottomOfList = Math.floor(this.state.listHeight - this.state.scrollViewHeight);
         let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
         console.log('scrollView height', this.state.scrollViewHeight)
-        if (bottomOfList <= currentOffset && this.state.scrollViewHeight >= 488) {
+        // if (bottomOfList <= currentOffset && this.state.scrollViewHeight >= 488) {
+        if (currentOffset>100) {
             this.getImages(this.state.userrole, tempPages, cursorID, paidTempPages, padiCursorID).then(function (data) {
                 console.log('return data ', data)
                 self.setState({cardsData: data})
