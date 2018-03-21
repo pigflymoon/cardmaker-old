@@ -13,7 +13,9 @@ import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 // import TestScreen from './screens/TestScreen';
-import MasonryScreen from './screens/MasonryScreen';
+// import MasonryScreen from './screens/MasonryScreen';
+import MasonryScreen from './screens/MasonryScreen2';
+
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';

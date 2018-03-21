@@ -251,7 +251,7 @@ export default class MasonryScreen extends Component {
                                     }
                                 }
 
-                            }, 500);
+                            }, 5000);
                         })
                     );
 
@@ -260,7 +260,7 @@ export default class MasonryScreen extends Component {
                 return query.once('value')
                     .then(
                         snaps => new Promise(resolve => {
-                            setTimeout(() => {
+                            // setTimeout(() => {
                                 var page = [];
                                 var extraRecord;
                                 snaps.forEach(function (childSnap) {
@@ -316,7 +316,7 @@ export default class MasonryScreen extends Component {
                                     }
                                 }
 
-                            }, 500);
+                            // }, 5000);
                         })
                     );
 
