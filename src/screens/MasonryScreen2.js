@@ -37,14 +37,11 @@ export default class MasonryScreen2 extends Component {
     }
 
     getFreeImages = (accumulator, cursor) => {
-
-        // new Promise((resolve, reject) => {
         var peopleRef = db.ref('freeUploadImages');
         var pageLength = 4;
         var pages = accumulator || [];
         var query = peopleRef.orderByKey().limitToFirst(pageLength + 1); // limitToFirst starts from the top of the sorted list
-        console.log('cursor :', cursor)
-        console.log('accumulator :', accumulator)
+
         if (cursor) { // If no cursor, start at beginning of collection... otherwise, start at the cursor
 
             query = query.startAt(cursor);
@@ -61,8 +58,6 @@ export default class MasonryScreen2 extends Component {
                                     uri: childSnap.val().downloadUrl
                                 });
                             });
-                            console.log('page.length :', page)
-                            // console.log('pageLength :', pageLength)
 
                             if (page.length > pageLength) {
                                 extraRecord = page.pop();
@@ -113,7 +108,6 @@ export default class MasonryScreen2 extends Component {
             return query.once('value')
                 .then(
                     snaps => new Promise((resolve, reject) => {
-                        // setTimeout(() => {
                         var page = [];
                         var extraRecord;
                         snaps.forEach(function (childSnap) {
@@ -123,35 +117,24 @@ export default class MasonryScreen2 extends Component {
                                 uri: childSnap.val().downloadUrl
                             });
                         });
-                        console.log('page.length :', page)
-                        // console.log('pageLength :', pageLength)
 
                         if (page.length > pageLength) {
                             extraRecord = page.pop();
-                            console.log('extraRecord', extraRecord)
-                            console.log('record', record)
-
                             if (record == undefined) {
                                 record = extraRecord;
                                 pages.push(page);
 
                                 tempPages = pages;
                                 cursorID = extraRecord.id;
-
-
                                 resolve(pages);
                             }
                             else if ((record.id == extraRecord.id)) {
-                                // pages.push(page);
-                                // resolve(pages);
-                                console.log('$$$$$$$$id same&&&&&&&&&&&&')
-                                // reject('exist!')
                                 resolve(pages);
-                                // return false;
+
                             } else {
                                 record = extraRecord
-                                pages.push(page);
                                 tempPages = pages;
+                                pages.push(page);
                                 cursorID = extraRecord.id;
                                 resolve(pages);
                             }
@@ -159,9 +142,7 @@ export default class MasonryScreen2 extends Component {
                         } else {
                             console.log('add page ')
                             extraRecord = page.pop();
-                            console.log('record.id is ,', record.id)
-                            console.log('extraRecord.id is ,', extraRecord.id)
-                            console.log('id same ?', record.id == extraRecord.id)
+
                             if ((record.id == extraRecord.id)) {
                                 resolve(pages);
                             } else {
@@ -188,8 +169,7 @@ export default class MasonryScreen2 extends Component {
             let response = await (
                 this.getFreeImages(accumulator, cursor)
             )
-            // let responseJson = await response.json();
-            console.log('response', response)
+
             return response;
         } catch (error) {
             console.error(error);
@@ -204,22 +184,16 @@ export default class MasonryScreen2 extends Component {
                 var userId = auth.currentUser.uid;
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
 
-                    // self.getImages(userrole, accumulator, cursor, paidAccumulator, padiCursor).then(function (data) {
-                    // });
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    console.log('user role ?', userrole)
                     self.setState({signin: true, authUser, userrole: userrole});
 
                     self.getImagesFromDb(userrole, accumulator, cursor, paidAccumulator, padiCursor).then(function (pages) {
-                        // console.log('data return is ', data)
                         var newArr = [];
                         var arrToConvert = pages;
-                        console.log('pages is ',pages)
-                        console.log('arrToConvert.length ',arrToConvert.length)
+
                         for (var i = 0; i < arrToConvert.length; i++) {
                             newArr = newArr.concat(pages[i]);
                         }
-                        console.log('newArr.length ',newArr.length)
 
                         self.setState({cardsData: newArr})
                     });
@@ -263,26 +237,11 @@ export default class MasonryScreen2 extends Component {
             this.getImagesFromDb(this.state.userrole, tempPages, cursorID, paidTempPages, padiCursorID).then(function (pages) {
                 var newArr = [];
                 var arrToConvert = pages;
-                console.log('pages is ',pages)
-                console.log('arrToConvert.length ',arrToConvert.length)
                 for (var i = 0; i < arrToConvert.length; i++) {
-                    // console.log('free page[i] is ', pages[i])
-                    // console.log('new arr is ', newArr)
                     newArr = newArr.concat(pages[i]);
                 }
-                console.log('arrToConvert.length ',newArr.length)
-                //
-                // var filteredArr = newArr.filter(function (item, index) {
-                //     console.log('item is ', item, 'index is, ', index)
-                //
-                //     if (newArr.indexOf(item) == index)
-                //         return item;
-                // });
                 self.setState({cardsData: newArr})
-                // self.setState({cardsData: data})
             });
-
-            // this.getUserImages(tempPages, cursorID, paidTempPages, padiCursorID);
 
 
         }

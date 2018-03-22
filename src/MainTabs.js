@@ -15,7 +15,7 @@ import MakeCardsScreen from './screens/MakeCards';
 // import TestScreen from './screens/TestScreen';
 // import MasonryScreen from './screens/MasonryScreen';
 import MasonryScreen from './screens/MasonryScreen2';
-
+import MasonryScreenTest from './screens/MasonryScreenTest';
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
@@ -83,6 +83,20 @@ const CardsTabs = TabNavigator(
         },
         MasonryScreen: {
             screen: MasonryScreen,
+            navigationOptions: {
+                tabBarLabel: 'Masonry',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
+        MasonryScreenTest: {
+            screen: MasonryScreenTest,
             navigationOptions: {
                 tabBarLabel: 'Masonry Test',
                 tabBarIcon: ({tintColor, focused}) => (
