@@ -12,13 +12,10 @@ import ResetPasswordScreen from './screens/ResetPassword';
 import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
-// import TestScreen from './screens/TestScreen';
-// import MasonryScreen from './screens/MasonryScreen';
 
 import MasonryListScreen from './screens/ListScreenTest';
 import BoardModelScreen from './screens/BoardModel';
-import MasonryScreen from './screens/MasonryScreen2';
-import MasonryScreenTest from './screens/MasonryScreenTest';
+
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
@@ -75,11 +72,6 @@ const CardsListStack = StackNavigator({
         },
         BoardModel: {
             screen: BoardModelScreen,
-            navigationOptions: ({navigation}) => ({
-
-                // headerTitle:'Go Back'
-                // header: null,header
-            }),
         },
 
 
