@@ -6,7 +6,7 @@ import {CREDENTIAL} from '../config/credentialDB';
 import axios from 'axios';
 let referenceToOldestKey = '', lastKey = '';
 
-export default class ListScreenTest extends Component {
+export default class CardsListScreen extends Component {
     state = {
         data: [],
         page: 0,
