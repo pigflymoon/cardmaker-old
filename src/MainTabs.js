@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Button, ScrollView, Alert} from 'react-native';
+import {ScrollView, Alert} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import MySettingsScreen from './screens/MySettings';
 import SignupScreen from './screens/Signup';
@@ -16,6 +16,7 @@ import MakeCardsScreen from './screens/MakeCards';
 // import MasonryScreen from './screens/MasonryScreen';
 
 import MasonryListScreen from './screens/ListScreenTest';
+import BoardModelScreen from './screens/BoardModel';
 import MasonryScreen from './screens/MasonryScreen2';
 import MasonryScreenTest from './screens/MasonryScreenTest';
 import SettingsScreen from './screens/Settings';
@@ -24,8 +25,7 @@ import ProversionScreen from './screens/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import colors from '../src/styles/colors';
-
-
+import {Icon} from 'react-native-elements'
 const MySettingsStack = StackNavigator({
         MySettings: {
             screen: MySettingsScreen,
@@ -65,6 +65,54 @@ const MySettingsStack = StackNavigator({
 
 
 //Cards Tab: cards library and my cards
+const CardsListStack = StackNavigator({
+        MySettings: {
+            screen: MasonryListScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'My Settings',
+                headerLeft: null,
+            }),
+        },
+        BoardModel: {
+            screen: BoardModelScreen,
+            navigationOptions: ({navigation}) => ({
+
+                // headerTitle:'Go Back'
+                // header: null,header
+            }),
+        },
+
+
+    },
+    {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+);
+BoardModelScreen.navigationOptions = props => {
+    const {navigation} = props;
+    const {state} = navigation;
+    const {params} = state;
+    return {
+        // headerBackImage: params.headerBackImage,
+        headerTitle: `Choose Boards`,
+        // Render a button on the right side of the header.
+        // When pressed switches the screen to edit mode.
+        headerRight: (
+            <Icon
+                raised
+                name='close'
+                type='font-awesome'
+                color='#f50'
+                onPress={() =>
+                    navigation.goBack()}
+            />
+
+
+
+        ),
+    };
+};
 
 
 const CardsTabs = TabNavigator(
@@ -83,10 +131,10 @@ const CardsTabs = TabNavigator(
 
             },
         },
-        MasonryListScreen: {
-            screen: MasonryListScreen,
+        CardsListTab: {
+            screen: CardsListStack,
             navigationOptions: {
-                tabBarLabel: 'Masonry List',
+                tabBarLabel: 'Cards List',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-images' : 'ios-images-outline'}
@@ -97,34 +145,35 @@ const CardsTabs = TabNavigator(
 
             },
         },
-        MasonryScreen: {
-            screen: MasonryScreen,
-            navigationOptions: {
-                tabBarLabel: 'Masonry',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-        MasonryScreenTest: {
-            screen: MasonryScreenTest,
-            navigationOptions: {
-                tabBarLabel: 'Masonry Test',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
+        //
+        // MasonryScreen: {
+        //     screen: MasonryScreen,
+        //     navigationOptions: {
+        //         tabBarLabel: 'Masonry',
+        //         tabBarIcon: ({tintColor, focused}) => (
+        //             <Ionicons
+        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
+        //                 size={26}
+        //                 style={{color: tintColor}}
+        //             />
+        //         ),
+        //
+        //     },
+        // },
+        // MasonryScreenTest: {
+        //     screen: MasonryScreenTest,
+        //     navigationOptions: {
+        //         tabBarLabel: 'Masonry Test',
+        //         tabBarIcon: ({tintColor, focused}) => (
+        //             <Ionicons
+        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
+        //                 size={26}
+        //                 style={{color: tintColor}}
+        //             />
+        //         ),
+        //
+        //     },
+        // },
         CardsLibraryTab: {
             screen: CardsScreen,
             navigationOptions: {

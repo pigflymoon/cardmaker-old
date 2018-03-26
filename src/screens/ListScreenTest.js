@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {ActivityIndicator, FlatList, Text, View} from "react-native";
-import {List, ListItem,Tile,Card,Button} from "react-native-elements";
+import {List, ListItem, Tile, Card, Button} from "react-native-elements";
 import {auth, db} from '../config/FirebaseConfig';
 import {CREDENTIAL} from '../config/credentialDB';
 import axios from 'axios';
@@ -218,7 +218,7 @@ export default class ListScreenTest extends Component {
                     }
                     console.log('##########First all pages are :', newArr)
                     images = [...images, ...newArr]
-                    console.log('images are  ',images)
+                    console.log('images are  ', images)
                     self.setState({cardsData: images, lastKey: lastKey, loading: false})
                 }
             }
@@ -269,7 +269,12 @@ export default class ListScreenTest extends Component {
         });
 
     }
+
+    navigateToBoard = () => {
+        this.props.navigation.navigate('BoardModel', {likedCards: []});
+    }
     keyExtractor = (item, index) => `key${index}`;
+
     render() {
         return (
             <View>
@@ -287,17 +292,18 @@ export default class ListScreenTest extends Component {
 
 
                             <Card
-                            key={`${item.id}`}
-                            title={`${item.name}`}
-                            image={{uri: item.uri}}>
-                            <Text style={{marginBottom: 10}}>
-                            The idea with React Native Elements is more about component structure than actual design.
-                            </Text>
-                            <Button
-                            icon={{name: 'code'}}
-                            backgroundColor='#03A9F4'
-                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            title='VIEW NOW' />
+                                key={`${item.id}`}
+                                title={`${item.name}`}
+                                image={{uri: item.uri}}
+                            >
+
+                                <Button
+                                    icon={{name: 'add-to-photos'}}
+                                    backgroundColor='#03A9F4'
+                                    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                                    title='Save'
+                                    onPress={this.navigateToBoard}
+                                />
                             </Card>
 
                         }
