@@ -4,7 +4,7 @@ import {List, ListItem, Tile, Card, Button} from "react-native-elements";
 import {auth, db} from '../config/FirebaseConfig';
 import {CREDENTIAL} from '../config/credentialDB';
 import axios from 'axios';
-let referenceToOldestKey = '', lastKey = '';
+let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
 
 export default class CardsListScreen extends Component {
     state = {
@@ -108,9 +108,9 @@ export default class CardsListScreen extends Component {
     };
 
     getFreeImages = () => {
-        console.log('referenceToOldestKey is', referenceToOldestKey)
+        console.log('freeReferenceToOldestKey is', freeReferenceToOldestKey)
         this.setState({loading: true});
-        if (!referenceToOldestKey) {
+        if (!freeReferenceToOldestKey) {
             return db.ref('freeUploadImages')
                 .orderByKey()
                 .limitToLast(5)
@@ -132,7 +132,7 @@ export default class CardsListScreen extends Component {
 
                     // self.setState({cardsData: results})
 
-                    referenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                    freeReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                     resolve(results);
 
                     // Do what you want to do with the data, i.e.
@@ -145,7 +145,7 @@ export default class CardsListScreen extends Component {
         } else {
             return db.ref('freeUploadImages')
                 .orderByKey()
-                .endAt(referenceToOldestKey)
+                .endAt(freeReferenceToOldestKey)
                 .limitToLast(5)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
@@ -167,7 +167,7 @@ export default class CardsListScreen extends Component {
                     // self.setState({cardsData:results})
 
 
-                    referenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                    freeReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                     resolve(results);
                     // Do what you want to do with the data, i.e.
                     // append to page or dispatch({ … }) if using redux
@@ -180,51 +180,172 @@ export default class CardsListScreen extends Component {
 
     }
 
-    async fetchData() {
-        try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let response = await (
-                this.getFreeImages()
-            );
-            console.log('response is ', response)
+    getPaidImages = () => {
+        console.log('paidReferenceToOldestKey is', paidReferenceToOldestKey)
+        // this.setState({loading: true});
+        if (!paidReferenceToOldestKey) {
+            console.log('key is ~~~~~~~~~~~~~')
+            return db.ref('paidUploadImages')
+                .orderByKey()
+                .limitToLast(5)
+                .once('value')
+                .then((snapshot) => new Promise((resolve) => {
+                    // changing to reverse chronological order (latest first)
+                    let arrayOfKeys = Object.keys(snapshot.val())
+                        .sort()
+                        .reverse();
+                    // transforming to array
+                    console.log('arrayOfKeys ', arrayOfKeys)
+                    let results = arrayOfKeys
+                        .map((key) => {
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
+                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                        });
+                    console.log('result is ', results)
+                    // storing reference
 
-            return response;
-        } catch (error) {
-            console.error(error);
+                    // self.setState({cardsData: results})
+
+                    paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                    resolve(results);
+
+                    // Do what you want to do with the data, i.e.
+                    // append to page or dispatch({ … }) if using redux
+                }))
+                .catch((error) => {
+                    console.log('error')
+                })
+
+        } else {
+
+            return db.ref('paidUploadImages')
+                .orderByKey()
+                .endAt(paidReferenceToOldestKey)
+                .limitToLast(5)
+                .once('value')
+                .then((snapshot) => new Promise((resolve) => {
+                    // changing to reverse chronological order (latest first)
+                    // & removing duplicate
+                    let arrayOfKeys = Object.keys(snapshot.val())
+                        .sort()
+                        .reverse()
+                        .slice(1);
+                    // transforming to array
+                    let results = arrayOfKeys
+                        .map((key) => {
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
+                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                        });
+                    // updating reference
+                    console.log('result is ', results)
+
+                    // self.setState({cardsData:results})
+
+
+                    paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                    resolve(results);
+                    // Do what you want to do with the data, i.e.
+                    // append to page or dispatch({ … }) if using redux
+                }))
+                .catch((error) => {
+                    console.log('error')
+                });
+
         }
-
 
     }
 
-    handleEnd = () => {
+    fetchData() {
+        // try {
+        //     // 注意这里的await语句，其所在的函数必须有async关键字声明
+        //     let response = await (
+        //         this.getUserImages()
+        //     );
+        //     console.log('response is ', response)
+        //
+        //     return response;
+        // } catch (error) {
+        //     console.error(error);
+        // }
+        // this.getUserImages()
+
+    }
+
+    getUserImages = (isPaidUser) => {
         var self = this;
+        if (isPaidUser) {
+            this.getPaidImages().then(function (pages) {
+                console.log('*******First data return is********* ', pages)
+                var newArr = [];
 
-        this.fetchData().then(function (pages) {
-            console.log('*******First data return is********* ', pages)
-            var newArr = [];
-            var images = self.state.cardsData;
+                if (pages.length > 0) {
+                    var arrToConvert = pages;
+                    lastPaidKey = pages[pages.length - 1].id;
+                    console.log('#######last key is ', lastPaidKey)
 
-            if (pages.length > 0) {
-                var arrToConvert = pages;
-                lastKey = pages[pages.length - 1].id;
-                console.log('#######last key is ', lastKey)
+                    console.log('#######saved last key is ', self.state.lastPaidKey)
+                    if (lastPaidKey == self.state.lastPaidKey) {
+                        return false;
+                    } else {
+                        for (var i = 0; i < arrToConvert.length; i++) {
+                            newArr = newArr.concat(pages[i]);
+                        }
+                        console.log('##########First all paid pages are :', newArr)
 
-                console.log('#######saved last key is ', self.state.lastKey)
-                if (lastKey == self.state.lastKey) {
-                    return false;
-                } else {
-                    for (var i = 0; i < arrToConvert.length; i++) {
-                        newArr = newArr.concat(pages[i]);
+                        return newArr
                     }
-                    console.log('##########First all pages are :', newArr)
-                    images = [...images, ...newArr]
-                    console.log('images are  ', images)
-                    self.setState({cardsData: images, lastKey: lastKey, loading: false})
                 }
-            }
 
 
-        });
+            }).then(function (paidPages) {
+                //
+                console.log('returned paid pages are :', paidPages)
+                if (paidPages == undefined) {
+                    paidPages = [];
+                }
+                self.getFreeImages().then(function (freePages) {
+                    var newFreeArr = [], newArr = [];
+
+                    if (freePages.length > 0) {
+                        var arrToConvert = freePages;
+                        lastFreeKey = freePages[freePages.length - 1].id;
+                        console.log('#######last key  free is ', lastFreeKey)
+
+                        console.log('#######saved last free key is ', self.state.lastFreeKey)
+                        if (lastFreeKey == self.state.lastFreeKey) {
+                            return false;
+                        } else {
+                            for (var i = 0; i < arrToConvert.length; i++) {
+                                newFreeArr = newFreeArr.concat(freePages[i]);
+                            }
+                            console.log('##########First all free pages are :', newFreeArr)
+
+                            newArr = paidPages.concat(newFreeArr);
+                            self.setState({cardsData: newArr, lastFreeKey: lastFreeKey, loading: false})
+
+                        }
+                    } else {
+
+                        self.setState({cardsData: paidPages, lastFreeKey: lastFreeKey, loading: false})
+
+                    }
+
+                    console.log(newArr)
+                })
+
+                //
+            });
+        }
+        // else {
+        //     this.getFreeImages().then(function (paidImages) {
+        //         console.log('******************FreeImages are :', paidImages)
+        //     });
+        // }
+
+    }
+
+    handleScrollToEnd = () => {
+        this.getUserImages(this.state.isPaidUser);
     };
 
     componentDidMount() {
@@ -234,33 +355,12 @@ export default class CardsListScreen extends Component {
             if (authUser) {
                 var userId = auth.currentUser.uid;
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
+                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
+                    var isPaidUser = userrole.paid_user;
+                    console.log('isPaid user?', isPaidUser)
+                    self.setState({signin: true, authUser, userrole: userrole, isPaidUser: isPaidUser});
 
-                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    self.setState({signin: true, authUser, userrole: userrole});
-
-                    self.fetchData().then(function (pages) {
-                        console.log('*******First data return is********* ', pages)
-                        var newArr = [];
-
-                        if (pages.length > 0) {
-                            var arrToConvert = pages;
-                            lastKey = pages[pages.length - 1].id;
-                            console.log('#######last key is ', lastKey)
-
-                            console.log('#######saved last key is ', self.state.lastKey)
-                            if (lastKey == self.state.lastKey) {
-                                return false;
-                            } else {
-                                for (var i = 0; i < arrToConvert.length; i++) {
-                                    newArr = newArr.concat(pages[i]);
-                                }
-                                console.log('##########First all pages are :', newArr)
-                                self.setState({cardsData: newArr, lastKey: lastKey, loading: false})
-                            }
-                        }
-
-
-                    });
+                    self.getUserImages(isPaidUser);
 
                 });
             } else {
@@ -282,7 +382,7 @@ export default class CardsListScreen extends Component {
                     <FlatList
                         data={this.state.cardsData}
                         keyExtractor={this.keyExtractor}
-                        onEndReached={() => this.handleEnd()}
+                        onEndReached={() => this.handleScrollToEnd()}
                         onEndReachedThreshold={0}
                         ListFooterComponent={() =>
                             this.state.loading
