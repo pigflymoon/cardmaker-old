@@ -165,33 +165,7 @@ export default class CardsListScreen extends Component {
 
     }
 
-    fetchDataTest = async() => {
-        var resultA = await (new Promise(function (resolve, reject) {
-            setTimeout(() => resolve(4), 2000);
-        }));
-        // some processing
-        var resultB = await (new Promise(function (resolve, reject) {
-            setTimeout(() => resolve(4), 2000);
-        }));
-        // more processing
-        // Promise.all([resultA, resultB])
-        //     .then(function (results) {
-        //         // we only get here if ALL promises fulfill
-        //         var total = 0;
-        //         results.forEach(function (item) {
-        //             // process item
-        //             console.log('item ,', item)
-        //             total += item;
-        //
-        //         });
-        //         console.log('total is ', total)
-        //     })
-        //     .catch(function (err) {
-        //         // Will catch failure of first failed promise
-        //         console.log("Failed:", err);
-        //     });
-        // return resultA + resultB // something using both resultA and resultB
-    }
+
 
     fetchData = async(isPaidUser) => {
         var self = this;
@@ -321,98 +295,9 @@ export default class CardsListScreen extends Component {
             console.log('total is :',total)
             return freePages
         }
-        // some processing
-
-        // more processing
-
-        // Promise.all([paidPages, freePages])
-        //     .then(function (results) {
-        //         console.log('results is ', results)
-        //         // we only get here if ALL promises fulfill
-        //         // var total = 0;
-        //         // results.forEach(function (item) {
-        //         //     // process item
-        //         //     console.log('item ,', item)
-        //         //     total += item;
-        //         //
-        //         // });
-        //         // console.log('total is ',total)
-        //     })
-        //     .catch(function (err) {
-        //         // Will catch failure of first failed promise
-        //         console.log("Failed:", err);
-        //     });
 
     }
-    getUserImages = (isPaidUser) => {
-        var self = this;
-        if (isPaidUser) {
-            this.getPaidImages().then(function (pages) {
-                console.log('******* data return is********* ', pages)
-                var newPaidArr = [];
-                var images = self.state.paidCards;
-                if (pages.length > 0) {
-                    var arrToConvert = pages;
-                    lastPaidKey = pages[pages.length - 1].id;
-                    console.log('#######last key is ', lastPaidKey)
 
-                    console.log('#######saved last lastPaidKey is ', self.state.lastPaidKey)
-                    console.log('arrToConvert ', arrToConvert)
-                    if (lastPaidKey == self.state.lastPaidKey) {
-                        return false;
-                    } else {
-                        for (var i = 0; i < arrToConvert.length; i++) {
-                            newPaidArr = newPaidArr.concat(pages[i]);
-                        }
-                        console.log('######### state image  are :', images)
-
-                        images = [...images, ...newPaidArr]
-                        self.setState({lastPaidKey: lastPaidKey})
-
-                        console.log('######### paid pages are :', images)
-                        // self.setState({cardsData: images, loading: false})
-
-                        return images
-                    }
-                } else {
-                    // return false;
-                    self.setState({cardsData: images, loading: false})
-
-                }
-
-
-            }).then(function (paidPages) {
-                //
-
-                var images = self.state.cardsData;
-
-                if (paidPages && paidPages.length > 0) {
-                    var totalImages = [...images, ...paidPages]
-                    console.log('images are :', totalImages)
-                    self.setState({cardsData: totalImages, loading: false})
-
-                } else {
-                    console.log('fetch free images')
-
-
-                }
-
-
-                // if (paidPages == undefined) {
-                //     paidPages = [];
-                // }
-
-
-                //
-            });
-        }
-        // else {
-        //     this.getFreeImages().then(function (paidImages) {
-        //         console.log('******************FreeImages are :', paidImages)
-        //     });
-        // }
-
-    }
 
     handleScrollToEnd = () => {
         console.log('scroll loading is ', this.state.loading)
@@ -432,7 +317,6 @@ export default class CardsListScreen extends Component {
 
 
             })
-            // this.getUserImages(this.state.isPaidUser);
         }
     };
 
