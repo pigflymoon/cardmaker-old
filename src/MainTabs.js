@@ -13,15 +13,18 @@ import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 
-import CardsListScreen from './screens/CardsListScreen';
+import CardsListScreen from './screens/CardsList';
 import BoardModelScreen from './screens/BoardModel';
+
+import BoardsScreen from './screens/Boards';
+import PinsScreen from './screens/Pins';
+
 
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import colors from '../src/styles/colors';
 import {Icon} from 'react-native-elements'
 const MySettingsStack = StackNavigator({
         MySettings: {
@@ -198,6 +201,91 @@ const CardsTab = StackNavigator({
 })
 
 
+//Boards
+const MyBoardsStack = StackNavigator({
+        MySettings: {
+            screen: BoardsScreen,
+            navigationOptions: ({navigation}) => ({
+                // title: 'My Settings',
+                headerLeft: null,
+            }),
+        },
+
+    },
+    {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+);
+
+const MyPinsStack = StackNavigator({
+        MySettings: {
+            screen: PinsScreen,
+            navigationOptions: ({navigation}) => ({
+                headerLeft: null,
+            }),
+        },
+
+    },
+    {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+);
+const BoardsTabs = TabNavigator(
+    {
+        MyBoardsTab: {
+            screen: MyBoardsStack,
+            navigationOptions: {
+                tabBarLabel: 'Boards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
+        MyPinsTab: {
+            screen: MyPinsStack,
+            navigationOptions: {
+                tabBarLabel: 'Pins',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+
+            },
+        },
+
+
+    },
+    {
+        tabBarPosition: 'top',
+        animationEnabled: false,
+        swipeEnabled: false,
+        // tabBarOptions: {
+        //     tabStyle: {
+        //         borderBottomWidth: 1,
+        //         borderBottomColor: colors.greyOutline,
+        //
+        //     },
+        // },
+    }
+);
+const BoardsTab = StackNavigator({
+    Boards: {
+        screen: BoardsTabs,
+        navigationOptions: ({navigation}) => ({
+            title: 'My Boards'
+        }),
+    },
+})
 //
 
 const SettingsTab = StackNavigator({
@@ -223,6 +311,20 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
+        BoardTab: {
+            screen: BoardsTab,
+            navigationOptions: {
+                tabBarLabel: 'Boards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                )
+            }
+
+        },
         CardsTab: {
             screen: CardsTab,
             navigationOptions: {

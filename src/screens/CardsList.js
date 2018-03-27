@@ -4,7 +4,7 @@ import {List, ListItem, Tile, Card, Button} from "react-native-elements";
 import {auth, db} from '../config/FirebaseConfig';
 let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
 
-export default class CardsListScreen extends Component {
+export default class CardsList extends Component {
     state = {
         data: [],
         page: 0,
