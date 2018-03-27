@@ -12,7 +12,6 @@ import GridView from 'react-native-super-grid';
 import {auth, db, storage} from '../config/FirebaseConfig';
 
 import {Icon, Card, Button} from 'react-native-elements';
-import Utils from '../utils/utils';
 
 import colors from '../styles/colors';
 import cardStyle from '../styles/card';

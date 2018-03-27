@@ -1,25 +1,88 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity,
+    TouchableHighlight,
+    ImageBackground,
+} from 'react-native';
+import GridView from 'react-native-super-grid';
 
 
+import boardStyle from '../styles/board';
 
 import layoutStyle from '../styles/layout';
+import bg1 from '../assets/images/bg12.jpg';
+
+var boardsTest = [
+
+    {
+        id: "-L8-8d7Uxr9jKi0XGeI4_image",
+        uri: "http://fakeimg.pl/360x360/222/?text=3",
+        name: "catus_poster.jpeg"
+    },
+    {
+        id: "-L8-8d7pQL-t6AMS1Gak_image",
+        uri: "http://fakeimg.pl/360x360/222/?text=3",
+        name: "lotus_poster.jpeg"
+    }
+]
 
 export default class Boards extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
 
-
+            myBoards: [{
+                id: "-L8-8d7Uxr9jKi0XGeI4_image",
+                uri: "http://fakeimg.pl/360x360/222/?text=3",
+                name: "catus_poster.jpeg"
+            },
+                {
+                    id: "-L8-8d7pQL-t6AMS1Gak_image",
+                    uri: "http://fakeimg.pl/360x360/222/?text=3",
+                    name: "lotus_poster.jpeg"
+                }]
         }
     }
 
 
+    renderCards() {
+        return (
+            <GridView
+                itemWidth={260}
+                items={this.state.myBoards}
+                style={boardStyle.gridView}
+                renderItem={(item) => (
+                    <View style={boardStyle.itemContainer}>
+                        <TouchableHighlight onPress={() => this.chooseCard(item)}
+                                            underlayColor='#99d9f4'>
+                            <View style={boardStyle.boardsContainer}>
+
+                                <ImageBackground source={bg1} style={[boardStyle.boardContainer,boardStyle.boardContainerLeft]}>
+
+                                </ImageBackground>
+                                <ImageBackground source={bg1} style={[boardStyle.boardContainer,boardStyle.boardContainerRight]}>
+
+                                </ImageBackground>
+                            </View>
+                        </TouchableHighlight>
+                        <Text style={boardStyle.itemName}>{item.name}</Text>
+                    </View>
+
+
+
+                )}
+            />
+        );
+    }
 
     render() {
         return (
             <View style={layoutStyle.container}>
-               <Text>Boards</Text>
+                {this.renderCards()}
 
             </View>
         );
