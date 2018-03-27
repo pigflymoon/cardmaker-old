@@ -2,25 +2,18 @@ import React, {Component} from "react";
 import {ActivityIndicator, FlatList, Text, View} from "react-native";
 import {List, ListItem, Tile, Card, Button} from "react-native-elements";
 import {auth, db} from '../config/FirebaseConfig';
-import {CREDENTIAL} from '../config/credentialDB';
-import axios from 'axios';
 let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
 
 export default class CardsListScreen extends Component {
     state = {
         data: [],
         page: 0,
-        loading: true,
+        loading: false,
         cardsData: [],
         lodingFinished: false,
         freeCards: [],
         paidCards: [],
     };
-
-    // componentWillMount() {
-    //     this.fetchData1();
-    // }
-
 
     getFreeImages = () => {
         console.log('freeReferenceToOldestKey is', freeReferenceToOldestKey)
@@ -172,7 +165,185 @@ export default class CardsListScreen extends Component {
 
     }
 
+    fetchDataTest = async() => {
+        var resultA = await (new Promise(function (resolve, reject) {
+            setTimeout(() => resolve(4), 2000);
+        }));
+        // some processing
+        var resultB = await (new Promise(function (resolve, reject) {
+            setTimeout(() => resolve(4), 2000);
+        }));
+        // more processing
+        // Promise.all([resultA, resultB])
+        //     .then(function (results) {
+        //         // we only get here if ALL promises fulfill
+        //         var total = 0;
+        //         results.forEach(function (item) {
+        //             // process item
+        //             console.log('item ,', item)
+        //             total += item;
+        //
+        //         });
+        //         console.log('total is ', total)
+        //     })
+        //     .catch(function (err) {
+        //         // Will catch failure of first failed promise
+        //         console.log("Failed:", err);
+        //     });
+        // return resultA + resultB // something using both resultA and resultB
+    }
 
+    fetchData = async(isPaidUser) => {
+        var self = this;
+        if(isPaidUser){
+            var paidPages = await (new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    self.getPaidImages().then(function (paidPages) {
+                        console.log('paidPages ', paidPages)
+                        var newPaidArr = [];
+                        var images = self.state.freeCards;
+                        if (paidPages.length > 0) {
+                            var arrToConvert = paidPages;
+                            lastPaidKey = paidPages[paidPages.length - 1].id;
+                            console.log('#######last key is ', lastPaidKey)
+
+                            console.log('#######saved last lastPaidKey is ', self.state.lastPaidKey)
+                            console.log('arrToConvert ', arrToConvert)
+                            if (lastPaidKey == self.state.lastPaidKey) {
+                                console.log(' key same')
+                                // return false;
+                                resolve(images)
+                            } else {
+                                for (var i = 0; i < arrToConvert.length; i++) {
+                                    newPaidArr = newPaidArr.concat(paidPages[i]);
+                                }
+                                console.log('######### state image  are :', images)
+
+                                images = [...images, ...newPaidArr]
+                                self.setState({lastPaidKey: lastPaidKey})
+
+                                console.log('######### paid pages are :', images)
+                                resolve(images)
+                                // return images
+                            }
+                        } else {
+                            self.setState({lodingFinished: true})
+                            resolve(images)
+                            // return false;
+                        }
+
+
+                    }), 2000
+                });
+            }));
+            var freePages = await (new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    self.getFreeImages().then(function (freePages) {
+                        console.log('freepages ', freePages)
+                        var newFreeArr = [];
+                        var images = self.state.freeCards;
+                        if (freePages.length > 0) {
+                            var arrToConvert = freePages;
+                            lastFreeKey = freePages[freePages.length - 1].id;
+                            console.log('#######last key is ', lastFreeKey)
+
+                            console.log('#######saved last lastFreeKey is ', self.state.lastFreeKey)
+                            console.log('arrToConvert ', arrToConvert)
+                            if (lastFreeKey == self.state.lastFreeKey) {
+                                // return false;
+                                resolve(images)
+                            } else {
+                                for (var i = 0; i < arrToConvert.length; i++) {
+                                    newFreeArr = newFreeArr.concat(freePages[i]);
+                                }
+                                console.log('######### state image  are :', images)
+
+                                images = [...images, ...newFreeArr]
+                                self.setState({lastFreeKey: lastFreeKey})
+
+                                console.log('######### free pages are :', images)
+                                resolve(images)
+                                // return images
+                            }
+                        } else {
+                            self.setState({lodingFinished: true})
+                            resolve(images)
+                            // return false;
+                        }
+
+
+                    }), 2000
+                });
+            }));
+            return [...paidPages,...freePages]
+        }else{
+            console.log('isPaid User?',isPaidUser)
+            var freePages = await (new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    self.getFreeImages().then(function (freePages) {
+                        console.log('freepages ', freePages)
+                        var newFreeArr = [];
+                        var images = self.state.freeCards;
+                        if (freePages.length > 0) {
+                            var arrToConvert = freePages;
+                            lastFreeKey = freePages[freePages.length - 1].id;
+                            console.log('#######last key is ', lastFreeKey)
+
+                            console.log('#######saved last lastFreeKey is ', self.state.lastFreeKey)
+                            console.log('arrToConvert ', arrToConvert)
+                            if (lastFreeKey == self.state.lastFreeKey) {
+                                // return false;
+                                resolve(images)
+                            } else {
+                                for (var i = 0; i < arrToConvert.length; i++) {
+                                    newFreeArr = newFreeArr.concat(freePages[i]);
+                                }
+                                console.log('######### state image  are :', images)
+
+                                images = [...images, ...newFreeArr]
+                                self.setState({lastFreeKey: lastFreeKey})
+
+                                console.log('######### free pages are :', images)
+                                resolve(images)
+                                // return images
+                            }
+                        } else {
+                            self.setState({lodingFinished: true})
+                            resolve(images)
+                            // return false;
+                        }
+
+
+                    }), 2000
+                });
+            }));
+            var total = freePages
+            console.log('total is :',total)
+            return freePages
+        }
+        // some processing
+
+        // more processing
+
+        // Promise.all([paidPages, freePages])
+        //     .then(function (results) {
+        //         console.log('results is ', results)
+        //         // we only get here if ALL promises fulfill
+        //         // var total = 0;
+        //         // results.forEach(function (item) {
+        //         //     // process item
+        //         //     console.log('item ,', item)
+        //         //     total += item;
+        //         //
+        //         // });
+        //         // console.log('total is ',total)
+        //     })
+        //     .catch(function (err) {
+        //         // Will catch failure of first failed promise
+        //         console.log("Failed:", err);
+        //     });
+
+    }
     getUserImages = (isPaidUser) => {
         var self = this;
         if (isPaidUser) {
@@ -199,11 +370,14 @@ export default class CardsListScreen extends Component {
                         self.setState({lastPaidKey: lastPaidKey})
 
                         console.log('######### paid pages are :', images)
+                        // self.setState({cardsData: images, loading: false})
 
                         return images
                     }
                 } else {
-                    return false;
+                    // return false;
+                    self.setState({cardsData: images, loading: false})
+
                 }
 
 
@@ -242,11 +416,23 @@ export default class CardsListScreen extends Component {
 
     handleScrollToEnd = () => {
         console.log('scroll loading is ', this.state.loading)
+        var self = this;
         if (this.state.lodingFinished) {
             return false
         } else {
 
-            this.getUserImages(this.state.isPaidUser);
+            this.fetchData(this.state.isPaidUser).then(function (pages) {
+                console.log('data are ', pages)
+                console.log('******* data return is********* ', pages)
+                var images = self.state.cardsData;
+                images = [...images, ...pages]
+                console.log('******* total images is********* ', images)
+
+                self.setState({cardsData: images, loading: false})
+
+
+            })
+            // this.getUserImages(this.state.isPaidUser);
         }
     };
 
@@ -262,7 +448,14 @@ export default class CardsListScreen extends Component {
                     console.log('isPaid user?', isPaidUser)
                     self.setState({signin: true, authUser, userrole: userrole, isPaidUser: isPaidUser});
 
-                    self.getUserImages(isPaidUser);
+                    self.fetchData(isPaidUser).then(function (pages) {
+                        console.log('data are ', pages)
+                        console.log('******* data return is********* ', pages)
+                        self.setState({cardsData: pages, loading: false})
+
+
+                    })
+                    //
 
                 });
             } else {
@@ -278,22 +471,24 @@ export default class CardsListScreen extends Component {
     keyExtractor = (item, index) => `key${index}`;
 
     render() {
-        console.log('state cardsData ??', this.state.cardsData)
         return (
             <View>
-                <List>
+
                     <FlatList
                         data={this.state.cardsData}
                         keyExtractor={this.keyExtractor}
                         onEndReached={() => this.handleScrollToEnd()}
                         onEndReachedThreshold={0}
+                        shouldItemUpdate={(props,nextProps)=>
+                        {
+                            return props.item!==nextProps.item
+
+                        }  }
                         ListFooterComponent={() =>
                             this.state.loading
                                 ? <ActivityIndicator size="large" animating/>
                                 : null}
                         renderItem={({item}) =>
-
-
                             <Card
                                 key={`${item.id}`}
                                 title={`${item.name}`}
@@ -310,8 +505,9 @@ export default class CardsListScreen extends Component {
                             </Card>
 
                         }
+
                     />
-                </List>
+
             </View>
         );
     }
