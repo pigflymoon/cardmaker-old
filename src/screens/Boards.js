@@ -48,6 +48,10 @@ export default class Boards extends Component {
         }
     }
 
+    navigateToBoard = () => {
+        this.props.navigation.navigate('BoardDeck', {});
+
+    }
 
     renderCards() {
         return (
@@ -57,7 +61,7 @@ export default class Boards extends Component {
                 style={boardStyle.gridView}
                 renderItem={(item) => (
                     <View style={boardStyle.itemContainer}>
-                        <TouchableHighlight onPress={() => this.chooseCard(item)}
+                        <TouchableHighlight onPress={() => this.navigateToBoard(item)}
                                             underlayColor='#99d9f4'>
                             <View style={boardStyle.boardsContainer}>
                                 <View style={[boardStyle.boardContainer, boardStyle.boardContainerLeft]}>

@@ -17,7 +17,7 @@ import CardsListScreen from './screens/CardsList';
 import BoardModelScreen from './screens/BoardModel';
 
 import BoardsScreen from './screens/Boards';
-import PinsScreen from './screens/Pins';
+import BoardDeckScreen from './screens/BoardDeck';
 
 
 import SettingsScreen from './screens/Settings';
@@ -203,7 +203,7 @@ const CardsTab = StackNavigator({
 
 //Boards
 const MyBoardsStack = StackNavigator({
-        MySettings: {
+        MyBoards: {
             screen: BoardsScreen,
             navigationOptions: ({navigation}) => ({
                 // title: 'My Settings',
@@ -219,8 +219,8 @@ const MyBoardsStack = StackNavigator({
 );
 
 const MyPinsStack = StackNavigator({
-        MySettings: {
-            screen: PinsScreen,
+        BoardDeck: {
+            screen: BoardDeckScreen,
             navigationOptions: ({navigation}) => ({
                 headerLeft: null,
             }),
