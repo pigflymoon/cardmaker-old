@@ -60,13 +60,25 @@ export default class Boards extends Component {
                         <TouchableHighlight onPress={() => this.chooseCard(item)}
                                             underlayColor='#99d9f4'>
                             <View style={boardStyle.boardsContainer}>
+                                <View style={[boardStyle.boardContainer, boardStyle.boardContainerLeft]}>
+                                    <Image source={bg1} style={boardStyle.leftImage}>
 
-                                <ImageBackground source={bg1} style={[boardStyle.boardContainer,boardStyle.boardContainerLeft]}>
+                                    </Image>
+                                </View>
+                                <View style={[boardStyle.boardContainer, boardStyle.boardContainerRight]}>
+                                    <View style={boardStyle.boardRightTopContainer}>
+                                        <Image source={bg1} style={boardStyle.rightImage}>
+                                        </Image>
+                                    </View>
+                                    <View style={boardStyle.boardRightBottomContainer}>
+                                        <Image source={bg1} style={boardStyle.rightImage}>
 
-                                </ImageBackground>
-                                <ImageBackground source={bg1} style={[boardStyle.boardContainer,boardStyle.boardContainerRight]}>
+                                        </Image>
+                                    </View>
 
-                                </ImageBackground>
+                                </View>
+
+
                             </View>
                         </TouchableHighlight>
                         <Text style={boardStyle.itemName}>{item.name}</Text>

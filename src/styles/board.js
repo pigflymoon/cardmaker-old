@@ -2,9 +2,7 @@ import {
     Dimensions,
 } from 'react-native';
 import colors from '../styles/colors';
-const {width} = Dimensions.get('window');
 
-const equalWidth = (width / 2 )
 export default{
     //cards
     container: {
@@ -17,13 +15,8 @@ export default{
     },
     boardsContainer: {
         flex: 1,
-        flexDirection:'row',
-        borderRadius: 10,
-        borderWidth: 10,
-        borderColor: colors.white,
-        // padding: 10,
-        height: 240,
-        // backgroundColor: colors.primary1
+        flexDirection: 'row',
+        // height: 240,
     },
     itemContainer: {
         justifyContent: 'flex-end',
@@ -33,19 +26,47 @@ export default{
     boardContainer: {
         height: 220,
     },
-    boardContainerLeft: {
-        backgroundColor: '#f7941d',
-        flex: 1,
-        flexGrow:2,
-        borderRightWidth: 10,
-        borderColor: colors.white,
+    leftImage: {
+        height: 220,
+        width: 220,
     },
-    boardContainerRight: {
-        backgroundColor: '#8d5022',
+
+    rightImage: {
+        height: 105,
+        width: 105,
+    },
+
+    boardContainerLeft: {
+        // backgroundColor: '#f7941d',
         flex: 1,
-        flexGrow:1,
+        flexGrow: 2,
+        marginRight: 10,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 0,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 0,
+        overflow: 'hidden',
 
     },
+    boardContainerRight: {
+        flex: 1,
+        flexGrow: 1,
+        flexDirection: 'column',
+    },
+    boardRightTopContainer: {
+        height: 105,
+        width: 105,
+        marginBottom: 10,
+        borderTopRightRadius: 5,
+        overflow: 'hidden',
+    },
+    boardRightBottomContainer: {
+        height: 105,
+        width: 105,
+        borderBottomRightRadius: 5,
+        overflow: 'hidden',
+    },
+
 
     itemName: {
         fontSize: 18,
