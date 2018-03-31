@@ -124,10 +124,11 @@ export default class Explore extends Component {
         return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
     }
 
-    renderCarousel=(data,title)=> {
+    renderCarousel = (data, title, subtitle) => {
         return (
-            <View style={carouselStyle.container}>
-                <Text style={carouselStyle.title}>{title}</Text>
+            <View style={[carouselStyle.carouselContainer]}>
+
+
                 <Carousel
                     data={data}
                     renderItem={this._renderItem}
@@ -158,9 +159,15 @@ export default class Explore extends Component {
                     style={carouselStyle.scrollview}
                     scrollEventThrottle={200}
                     directionalLockEnabled={true}>
-                    {this.renderCarousel(ENTRIES1,'Holidays')}
-                    {this.renderCarousel(ENTRIES2,'Birthday')}
-                    {this.renderCarousel(ENTRIES3,'Wedding')}
+                    <View>
+
+                        <View style={carouselStyle.container}>
+                            <Text style={carouselStyle.title}>{'Holidays'}</Text>
+                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                        </View>
+                        {this.renderCarousel(ENTRIES1, 'Holidays', 'Browse All')}
+                    </View>
+
 
                 </ScrollView>
             </View>

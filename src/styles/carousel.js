@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import colors from '../styles/colors';
 //
 // export const colors = {
@@ -9,11 +9,22 @@ import colors from '../styles/colors';
 // };
 
 export default StyleSheet.create({
-    container:{
-        paddingVertical: 30
+
+
+    carouselContainer: {
+        paddingVertical: 10,
 
     },
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        paddingHorizontal: 8,
+        paddingTop: 20,
 
+        // alignSelf: 'center',
+    },
     gradient: {
         ...StyleSheet.absoluteFillObject
     },
@@ -22,25 +33,26 @@ export default StyleSheet.create({
     },
 
     title: {
-        paddingHorizontal: 30,
+        // paddingHorizontal: 10,
         backgroundColor: 'transparent',
         color: colors.grey1,
         fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'left'
+        // width: '50%',
+        // textAlign: 'left'
+    },
+    subtitle: {
+        // paddingHorizontal: 0,
+        backgroundColor: 'transparent',
+        color: colors.primary1,
+        fontSize: 16,
+        // fontWeight: 'bold',
+        // alignSelf: 'flex-end',
     },
     titleDark: {
         color: colors.grey1,
     },
-    subtitle: {
-        marginTop: 5,
-        paddingHorizontal: 30,
-        backgroundColor: 'transparent',
-        color: colors.grey1,
-        fontSize: 13,
-        fontStyle: 'italic',
-        textAlign: 'left'
-    },
+
     slider: {
         marginTop: 15,
         overflow: 'visible' // for custom animations
