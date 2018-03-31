@@ -14,11 +14,9 @@ import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 
 import CardsListScreen from './screens/CardsList';
-import BoardModelScreen from './screens/BoardModel';
 
-import BoardsScreen from './screens/Boards';
-import BoardDeckScreen from './screens/BoardDeck';
-
+import ExploreScreen from './screens/Explore';
+import ProfileScreen from './screens/Profile';
 
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
@@ -73,36 +71,17 @@ const CardsListStack = StackNavigator({
                 headerLeft: null,
             }),
         },
-        BoardModel: {
-            screen: BoardModelScreen,
-        },
+
     },
     {
         headerMode: 'none',
         mode: 'modal',
     }
 );
-BoardModelScreen.navigationOptions = props => {
-    const {navigation} = props;
-    const {state} = navigation;
-    const {params} = state;
-    return {
-        headerTitle: `Choose Boards`,
-        headerRight: (
-            <Icon
-                raised
-                name='close'
-                type='font-awesome'
-                color='#f50'
-                onPress={() =>
-                    navigation.goBack()}
-            />
-        ),
-    };
-};
 
 
-const CardsTabs = TabNavigator(
+
+const MyCardsTabs = TabNavigator(
     {
         MySettingsTab: {
             screen: MySettingsStack,
@@ -189,104 +168,33 @@ const CardsTabs = TabNavigator(
         // },
     }
 );
+const ExploreTab = StackNavigator({
+    Explore: {
+        screen: ExploreScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Explore'
+        }),
+    },
+})
 
 
-const CardsTab = StackNavigator({
+const MyCardsTab = StackNavigator({
     Cards: {
-        screen: CardsTabs,
+        screen: MyCardsTabs,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards'
+            title: 'My Cards'
         }),
     },
 })
 
-
-//Boards
-const MyBoardsStack = StackNavigator({
-        MyBoards: {
-            screen: BoardsScreen,
-            navigationOptions: ({navigation}) => ({
-                // title: 'My Settings',
-                headerLeft: null,
-            }),
-        },
-
-    },
-    {
-        headerMode: 'none',
-        mode: 'modal',
-    }
-);
-
-const MyPinsStack = StackNavigator({
-        BoardDeck: {
-            screen: BoardDeckScreen,
-            navigationOptions: ({navigation}) => ({
-                headerLeft: null,
-            }),
-        },
-
-    },
-    {
-        headerMode: 'none',
-        mode: 'modal',
-    }
-);
-const BoardsTabs = TabNavigator(
-    {
-        MyBoardsTab: {
-            screen: MyBoardsStack,
-            navigationOptions: {
-                tabBarLabel: 'Boards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-        MyPinsTab: {
-            screen: MyPinsStack,
-            navigationOptions: {
-                tabBarLabel: 'Pins',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-
-
-    },
-    {
-        tabBarPosition: 'top',
-        animationEnabled: false,
-        swipeEnabled: false,
-        // tabBarOptions: {
-        //     tabStyle: {
-        //         borderBottomWidth: 1,
-        //         borderBottomColor: colors.greyOutline,
-        //
-        //     },
-        // },
-    }
-);
-const BoardsTab = StackNavigator({
-    Boards: {
-        screen: BoardsTabs,
+const ProfileTab = StackNavigator({
+    Explore: {
+        screen: ProfileScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'My Boards'
+            title: 'Profile'
         }),
     },
 })
-//
 
 const SettingsTab = StackNavigator({
     Settings: {
@@ -311,10 +219,10 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        BoardTab: {
-            screen: BoardsTab,
+        ExploreTab: {
+            screen: ExploreTab,
             navigationOptions: {
-                tabBarLabel: 'Boards',
+                tabBarLabel: 'Explore',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-images' : 'ios-images-outline'}
@@ -325,13 +233,27 @@ const StacksInTabs = TabNavigator(
             }
 
         },
-        CardsTab: {
-            screen: CardsTab,
+        MyCardsTab: {
+            screen: MyCardsTab,
             navigationOptions: {
-                tabBarLabel: 'Cards',
+                tabBarLabel: 'My Cards',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-star' : 'ios-star-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                )
+            }
+
+        },
+        ProfileTab: {
+            screen: ProfileTab,
+            navigationOptions: {
+                tabBarLabel: 'Profile',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-person' : 'ios-person-outline'}
                         size={26}
                         style={{color: tintColor}}
                     />
