@@ -127,8 +127,6 @@ export default class Explore extends Component {
     renderCarousel = (data, title, subtitle) => {
         return (
             <View style={[carouselStyle.carouselContainer]}>
-
-
                 <Carousel
                     data={data}
                     renderItem={this._renderItem}
@@ -159,7 +157,7 @@ export default class Explore extends Component {
                     style={carouselStyle.scrollview}
                     scrollEventThrottle={200}
                     directionalLockEnabled={true}>
-                    <View>
+                    <View style={layoutStyle.container}>
 
                         <View style={carouselStyle.container}>
                             <Text style={carouselStyle.title}>{'Holidays'}</Text>
@@ -167,7 +165,14 @@ export default class Explore extends Component {
                         </View>
                         {this.renderCarousel(ENTRIES1, 'Holidays', 'Browse All')}
                     </View>
+                    <View style={layoutStyle.container}>
 
+                        <View style={carouselStyle.container}>
+                            <Text style={carouselStyle.title}>{'Birthday'}</Text>
+                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                        </View>
+                        {this.renderCarousel(ENTRIES2, 'Birthday', 'Browse All')}
+                    </View>
 
                 </ScrollView>
             </View>
