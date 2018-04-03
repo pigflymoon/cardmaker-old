@@ -19,7 +19,6 @@ import {sliderWidth, itemWidth} from '../styles/sliderEntry';
 
 import SliderEntry from '../components/SliderEntry';
 import  logo from '../assets/images/logo.png';
-
 import {
     getFreeBirthdayImages,
     getFreeHolidayImages,
