@@ -28,7 +28,7 @@ export default StyleSheet.create({
     gradient: {
         ...StyleSheet.absoluteFillObject
     },
-    scrollview: {
+    scrollView: {
         flex: 1
     },
 
