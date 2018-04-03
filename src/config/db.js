@@ -5,6 +5,9 @@ export const onceGetPaidImages = () =>
 export const onceGetFreeImages = () =>
     db.ref('freeUploadImages').once('value');
 
+export const onceGetImages = () =>
+    db.ref('upImages').once('value');
+
 export const doCreateUser = (id, username, email) =>
     db.ref(`users/${id}`).set({
         username,

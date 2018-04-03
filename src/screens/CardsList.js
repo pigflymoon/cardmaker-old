@@ -19,9 +19,9 @@ export default class CardsList extends Component {
         console.log('freeReferenceToOldestKey is', freeReferenceToOldestKey)
         this.setState({loading: true});
         if (!freeReferenceToOldestKey) {
-            return db.ref('freeUploadImages')
+            return db.ref('uploadImages')
                 .orderByKey()
-                .limitToLast(5)
+                .limitToFirst(15)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
                     // changing to reverse chronological order (latest first)
@@ -51,7 +51,8 @@ export default class CardsList extends Component {
                 })
 
         } else {
-            return db.ref('freeUploadImages')
+            console.log('called????')
+            return db.ref('uploadImages')
                 .orderByKey()
                 .endAt(freeReferenceToOldestKey)
                 .limitToLast(5)
@@ -93,7 +94,7 @@ export default class CardsList extends Component {
         // this.setState({loading: true});
         if (!paidReferenceToOldestKey) {
             console.log('key is ~~~~~~~~~~~~~')
-            return db.ref('paidUploadImages')
+            return db.ref('uploadImages')
                 .orderByKey()
                 .limitToLast(5)
                 .once('value')
@@ -126,7 +127,7 @@ export default class CardsList extends Component {
 
         } else {
             console.log('paidReferenceToOldestKey is ', paidReferenceToOldestKey)
-            return db.ref('paidUploadImages')
+            return db.ref('uploadImages')
                 .orderByKey()
                 .endAt(paidReferenceToOldestKey)
                 .limitToLast(5)
@@ -210,46 +211,7 @@ export default class CardsList extends Component {
                     }), 2000
                 });
             }));
-            var freePages = await (new Promise(function (resolve, reject) {
-                setTimeout(() => {
-                    self.getFreeImages().then(function (freePages) {
-                        console.log('freepages ', freePages)
-                        var newFreeArr = [];
-                        var images = self.state.freeCards;
-                        if (freePages.length > 0) {
-                            var arrToConvert = freePages;
-                            lastFreeKey = freePages[freePages.length - 1].id;
-                            console.log('#######last key is ', lastFreeKey)
-
-                            console.log('#######saved last lastFreeKey is ', self.state.lastFreeKey)
-                            console.log('arrToConvert ', arrToConvert)
-                            if (lastFreeKey == self.state.lastFreeKey) {
-                                // return false;
-                                resolve(images)
-                            } else {
-                                for (var i = 0; i < arrToConvert.length; i++) {
-                                    newFreeArr = newFreeArr.concat(freePages[i]);
-                                }
-                                console.log('######### state image  are :', images)
-
-                                images = [...images, ...newFreeArr]
-                                self.setState({lastFreeKey: lastFreeKey})
-
-                                console.log('######### free pages are :', images)
-                                resolve(images)
-                                // return images
-                            }
-                        } else {
-                            self.setState({lodingFinished: true})
-                            resolve(images)
-                            // return false;
-                        }
-
-
-                    }), 2000
-                });
-            }));
-            return [...paidPages,...freePages]
+            return paidPages
         }else{
             console.log('isPaid User?',isPaidUser)
             var freePages = await (new Promise(function (resolve, reject) {
