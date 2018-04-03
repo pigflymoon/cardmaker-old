@@ -17,6 +17,10 @@ import carouselStyle from '../styles/carousel';
 import {sliderWidth, itemWidth} from '../styles/sliderEntry';
 
 import SliderEntry from '../components/SliderEntry';
+
+import {getFreeUploadImages} from '../utils/FetchImagesByApi';
+
+
 export const ENTRIES1 = [
     {
         title: 'Beautiful and dramatic Antelope Canyon',
@@ -117,7 +121,9 @@ const {width, height} = Dimensions.get('window');
 export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {}
+        this.state = {
+            cardsData: [],
+        }
     }
 
     _renderItem({item, index}) {
@@ -147,9 +153,18 @@ export default class Explore extends Component {
             </View>
         );
     }
+    fetchFreeImages = (isPaidUser) => {
+        var self = this;
+        getFreeUploadImages().then(function (images) {
+            self.setState({cardsData: images});
+        });
+    }
+
+    componentDidMount() {
+        this.fetchFreeImages();
+    }
 
     render() {
-        console.log('sliderWidth', sliderWidth, 'width is ', width)
 
         return (
             <View style={layoutStyle.container}>
@@ -163,7 +178,7 @@ export default class Explore extends Component {
                             <Text style={carouselStyle.title}>{'Holidays'}</Text>
                             <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                         </View>
-                        {this.renderCarousel(ENTRIES1, 'Holidays', 'Browse All')}
+                        {this.renderCarousel(this.state.cardsData, 'Holidays', 'Browse All')}
                     </View>
                     <View style={layoutStyle.container}>
 

@@ -2,89 +2,37 @@ import {
     AsyncStorage,
     Alert,
 } from 'react-native';
-// import firebaseApp from '../config/FirebaseConfig';
-import {auth,db,storage} from '../config/FirebaseConfig';
-
-var storageRef = storage.ref('/images');
-
-const firebaseAsyncImage = (data, resolve, reject) => {
-
-    var cardsSource;
-    setTimeout(function () {
-        if (storageRef.child(data.imageName + '.jpg')) {
-            var thisRef = storageRef.child(data.imageName + '.jpg');
-            thisRef.getDownloadURL().then(function (url) {
-                cardsSource = {
-                    id: Date.now().toString(36),
-                    uri: url,
-                    name: Date.now().toString(36),
-                    code: '#2980b9'
-                }
-                resolve(cardsSource);
-            });
-        }
+import {auth, db, storage} from '../config/FirebaseConfig';
 
 
-        //
-    }, 2000);
-}
-
-const onceGetImages = () =>
-    db.ref('uploadImages').once('value');
-
-// const firebaseImage = (data, resolve, reject) => {
-//
-//     var cardsSource;
-//     setTimeout(function () {
-//         db.onceGetImages().then(snapshot => {
-//             console.log('snapshot', snapshot.val());
-//             // this.setState(() => ({images: snapshot.val()}));
-//         })
-//         // if (storageRef.child(data.imageName + '.jpg')) {
-//         //     var thisRef = storageRef.child(data.imageName + '.jpg');
-//         //     thisRef.getDownloadURL().then(function (url) {
-//         //         cardsSource = {
-//         //             id: Date.now().toString(36),
-//         //             uri: url,
-//         //             name: Date.now().toString(36),
-//         //             code: '#2980b9'
-//         //         }
-//         //         resolve(cardsSource);
-//         //     });
-//         // }
-//
-//
-//         //
-//     }, 2000);
-// }
-// export const fetchAllImages = () => {
-//
-//     // Create an array of promises
-//     var promises = [];
-//     var self = this;
-//     for (var i = 1; i < 12; i++) {
-//         // Fill the array with promises which initiate some async work
-//         promises.push(new Promise(function (resolve, reject) {
-//             firebaseAsyncImage({imageName: i}, resolve, reject);
-//         }));
-//     }
-//
-//     // Return a Promise.all promise of the array
-//     return Promise.all(promises);
-// }
-
-export const fetchAllAsyncImages = () => {
-
-    // Create an array of promises
-    var promises = [];
+export function getFreeUploadImages() {
     var self = this;
-    for (var i = 1; i < 12; i++) {
-        // Fill the array with promises which initiate some async work
-        promises.push(new Promise(function (resolve, reject) {
-            firebaseAsyncImage({imageName: i}, resolve, reject);
-        }));
-    }
+    return new Promise(function (resolve, reject) {
+        // some async operation here
+        setTimeout(function () {
+            // resolve the promise with some value
 
-    // Return a Promise.all promise of the array
-    return Promise.all(promises);
+            db.ref('uploadImages').limitToFirst(8).on("value", function (snapshot) {
+                console.log('snapshot ', snapshot);
+                var downloadImages = snapshot.val();
+                if (downloadImages) {
+                    var images = Object.keys(downloadImages).map(key => (
+                            {
+                                id: key,
+                                title: downloadImages[key].Name,
+                                subtitle: downloadImages[key].Name,
+                                illustration: downloadImages[key].downloadUrl,
+
+                            }
+                        )
+                    )
+                    resolve(images)
+                }
+
+            });
+
+
+        }, 500);
+    });
 }
+
