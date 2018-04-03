@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
+import Placeholder from 'rn-placeholder';
 
 import layoutStyle from '../styles/layout';
 import carouselStyle from '../styles/carousel';
@@ -25,6 +26,17 @@ import {
     getFreeWeddingImages,
     getFreeOtherImages
 } from '../utils/FetchImagesByApi';
+
+const words = [
+
+    {
+        width: '60%',
+    },
+    {
+        width: '40%',
+    },
+];
+
 export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
@@ -43,27 +55,34 @@ export default class Explore extends Component {
         return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
     }
 
-    renderCarousel = (data, title, subtitle) => {
+    renderCarousel = (data, title, subtitle, isLoaded) => {
+        const heightStyle = {height: 150};
+
         return (
-            <View style={[carouselStyle.carouselContainer]}>
-                <Carousel
-                    data={data}
-                    renderItem={this._renderItem}
-                    sliderWidth={sliderWidth}
-                    itemWidth={itemWidth}
-                    inactiveSlideScale={0.95}
-                    inactiveSlideOpacity={1}
-                    enableMomentum={true}
-                    activeSlideAlignment={'start'}
-                    containerCustomStyle={carouselStyle.slider}
-                    contentContainerCustomStyle={carouselStyle.sliderContentContainer}
-                    activeAnimationType={'spring'}
-                    activeAnimationOptions={{
-                        friction: 4,
-                        tension: 40
-                    }}
-                />
+
+            <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
+                <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
+                    <Carousel
+                        data={data}
+                        renderItem={this._renderItem}
+                        sliderWidth={sliderWidth}
+                        itemWidth={itemWidth}
+                        inactiveSlideScale={0.95}
+                        inactiveSlideOpacity={1}
+                        enableMomentum={true}
+                        activeSlideAlignment={'start'}
+                        containerCustomStyle={carouselStyle.slider}
+                        contentContainerCustomStyle={carouselStyle.sliderContentContainer}
+                        activeAnimationType={'spring'}
+                        activeAnimationOptions={{
+                            friction: 4,
+                            tension: 40
+                        }}
+                    />
+                </Placeholder.MultiWords>
             </View>
+
+
         );
     }
     fetchBirthdayImages = () => {
@@ -92,11 +111,22 @@ export default class Explore extends Component {
         });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.fetchBirthdayImages();
         this.fetchHolidayImages();
         this.fetchWeddingImages();
         this.fetchOtherImages();
+        this.setState({
+            contentIsLoading: true
+        });
+
+        setTimeout(() => {
+            this.setState({contentIsLoading: false});
+        }, 4000);
+    }
+
+    componentDidMount() {
+
         // this.fetchPaidImages();
         this.resetAnimation();
 
@@ -135,7 +165,7 @@ export default class Explore extends Component {
                                 <Text style={carouselStyle.title}>{'Birthday'}</Text>
                                 <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                             </View>
-                            {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All')}
+                            {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
                         <View style={layoutStyle.container}>
 
@@ -143,7 +173,7 @@ export default class Explore extends Component {
                                 <Text style={carouselStyle.title}>{'Holidays'}</Text>
                                 <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                             </View>
-                            {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All')}
+                            {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
                         <View style={layoutStyle.container}>
 
@@ -151,7 +181,7 @@ export default class Explore extends Component {
                                 <Text style={carouselStyle.title}>{'Wedding'}</Text>
                                 <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                             </View>
-                            {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All')}
+                            {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
 
                         <View style={layoutStyle.container}>
@@ -160,7 +190,7 @@ export default class Explore extends Component {
                                 <Text style={carouselStyle.title}>{'Others'}</Text>
                                 <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                             </View>
-                            {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All')}
+                            {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
                     </ScrollView>
                 </Loader>

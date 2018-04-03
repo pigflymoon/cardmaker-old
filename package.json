@@ -35,6 +35,7 @@
     "react-native-store-review": "^0.1.3",
     "react-native-super-grid": "git+https://github.com/pigflymoon/react-native-super-grid.git",
     "react-native-vector-icons": "^4.5.0",
-    "react-navigation": "^1.0.0-beta.19"
+    "react-navigation": "^1.0.0-beta.19",
+    "rn-placeholder": "^1.2.0"
   }
 }
