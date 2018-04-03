@@ -18,7 +18,7 @@ import {sliderWidth, itemWidth} from '../styles/sliderEntry';
 
 import SliderEntry from '../components/SliderEntry';
 
-import {getFreeUploadImages} from '../utils/FetchImagesByApi';
+import {getFreeBirthdayImages, getFreeHolidayImages, getFreeWeddingImages,getFreeOtherImages} from '../utils/FetchImagesByApi';
 
 
 export const ENTRIES1 = [
@@ -122,7 +122,10 @@ export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            cardsData: [],
+            birthdayImages: [],
+            holidayImages: [],
+            weddingImages: [],
+            otherImages:[],
         }
     }
 
@@ -153,15 +156,39 @@ export default class Explore extends Component {
             </View>
         );
     }
-    fetchFreeImages = (isPaidUser) => {
+    fetchBirthdayImages = () => {
         var self = this;
-        getFreeUploadImages().then(function (images) {
-            self.setState({cardsData: images});
+        getFreeBirthdayImages().then(function (images) {
+            self.setState({birthdayImages: images});
+        });
+    }
+
+    fetchHolidayImages = () => {
+        var self = this;
+        getFreeHolidayImages().then(function (images) {
+            self.setState({holidayImages: images});
+        });
+    }
+    fetchWeddingImages = () => {
+        var self = this;
+        getFreeWeddingImages().then(function (images) {
+            self.setState({weddingImages: images});
+        });
+    }
+    fetchOtherImages = () => {
+        var self = this;
+        getFreeOtherImages().then(function (images) {
+            self.setState({otherImages: images});
         });
     }
 
     componentDidMount() {
-        this.fetchFreeImages();
+        this.fetchBirthdayImages();
+        this.fetchHolidayImages();
+        this.fetchWeddingImages();
+        this.fetchOtherImages();
+        // this.fetchPaidImages();
+
     }
 
     render() {
@@ -175,20 +202,36 @@ export default class Explore extends Component {
                     <View style={layoutStyle.container}>
 
                         <View style={carouselStyle.container}>
-                            <Text style={carouselStyle.title}>{'Holidays'}</Text>
+                            <Text style={carouselStyle.title}>{'Birthday'}</Text>
                             <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                         </View>
-                        {this.renderCarousel(this.state.cardsData, 'Holidays', 'Browse All')}
+                        {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All')}
                     </View>
                     <View style={layoutStyle.container}>
 
                         <View style={carouselStyle.container}>
-                            <Text style={carouselStyle.title}>{'Birthday'}</Text>
+                            <Text style={carouselStyle.title}>{'Holidays'}</Text>
                             <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                         </View>
-                        {this.renderCarousel(ENTRIES2, 'Birthday', 'Browse All')}
+                        {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All')}
+                    </View>
+                    <View style={layoutStyle.container}>
+
+                        <View style={carouselStyle.container}>
+                            <Text style={carouselStyle.title}>{'Wedding'}</Text>
+                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                        </View>
+                        {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All')}
                     </View>
 
+                    <View style={layoutStyle.container}>
+
+                        <View style={carouselStyle.container}>
+                            <Text style={carouselStyle.title}>{'Others'}</Text>
+                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                        </View>
+                        {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All')}
+                    </View>
                 </ScrollView>
             </View>
 
