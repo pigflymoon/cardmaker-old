@@ -4,7 +4,8 @@ import {
     View,
     Alert,
     ImageBackground,
-    TouchableHighlight
+    TouchableHighlight,
+    TouchableOpacity,
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
@@ -18,7 +19,7 @@ import layoutStyle from '../styles/layout';
 
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
-
+var makeCard = [];
 export default class MyCards extends Component {
     constructor(props, context) {
         super(props, context);
@@ -33,6 +34,28 @@ export default class MyCards extends Component {
 
         }
 
+    }
+
+    //right  header
+    static navigationOptions = ({navigation}) => {
+        console.log('makeCard is ', makeCard)
+        return ({
+            headerRight: (
+                <TouchableOpacity style={{paddingRight: 5}}>
+                    <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
+                          onPress={() => {
+                              console.log('state is ', navigation.state)
+                              {
+                                  navigation.navigate('MakeCard', {
+                                      chooseCards: makeCard,
+                                      signin: true
+                                  });
+                              }
+
+                          }}/>
+                </TouchableOpacity>
+            )
+        });
     }
 
     componentDidMount() {
@@ -70,6 +93,7 @@ export default class MyCards extends Component {
 
         console.log('pass chooseCards cards', chooseCards)
 
+
         this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards)});
 
     }
@@ -91,7 +115,8 @@ export default class MyCards extends Component {
                 selectedIndex = i;
             }
 
-        })
+        });
+        makeCard = card;
         this.setState({
             makeCards: card,
             selectedItem,

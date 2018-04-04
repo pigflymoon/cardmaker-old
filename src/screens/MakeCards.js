@@ -186,7 +186,7 @@ export default class MakeCards extends Component {
                             <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
                                 <Image style={{flex: 1,}}
                                        resizeMethod="resize"
-                                       source={{uri: (this.state.makeCard).uri}}
+                                       source={{uri: (this.state.makeCard).illustration}}
                                 />
                             </View>
 
@@ -301,7 +301,7 @@ export default class MakeCards extends Component {
                             </View>
                             <View style={cardStyle.shareRightIcon}>
                                 <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
-                                      onPress={() => this.imageMarker((this.state.makeCard).uri)}
+                                      onPress={() => this.imageMarker((this.state.makeCard).illustration)}
                                 />
                             </View>
                             <View style={cardStyle.shareRightIcon}>
