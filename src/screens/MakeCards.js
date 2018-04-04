@@ -118,7 +118,9 @@ export default class MakeCards extends Component {
     }
 
     setTextColor = (color) => {
-        var hexColor = color ? color.hexColor : colors.primary
+        console.log('color is ?',color)
+        var hexColor = color ? color.hexColor : colors.primary;
+
         this.setState({textColor: hexColor})
     }
     insertEnter = (str, n) => {
@@ -294,7 +296,7 @@ export default class MakeCards extends Component {
                                 <ColorWheel
                                     initialColor="#ee0000"
                                     onColorChange={(color) => this.setTextColor(color)}
-                                    style={{width: 100}}
+                                    style={{width: 60,marginLeft:20,}}
                                     thumbSize={20}
                                     thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
 
