@@ -9,7 +9,7 @@ import MySettingsScreen from './screens/MySettings';
 import SignupScreen from './screens/Signup';
 import VerifiEmailScreen from './screens/VerifyEmail';
 import ResetPasswordScreen from './screens/ResetPassword';
-import CardsScreen from './screens/Cards';
+// import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
 import MakeCardsScreen from './screens/MakeCards';
 
@@ -113,34 +113,34 @@ const MyCardsTabs = TabNavigator(
 
             },
         },
-        CardsLibraryTab: {
-            screen: CardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Cards Library',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-        MyCardTab: {
-            screen: MyCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'My Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-star' : 'ios-star-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            }
-
-        },
+        // CardsLibraryTab: {
+        //     screen: CardsScreen,
+        //     navigationOptions: {
+        //         tabBarLabel: 'Cards Library',
+        //         tabBarIcon: ({tintColor, focused}) => (
+        //             <Ionicons
+        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
+        //                 size={26}
+        //                 style={{color: tintColor}}
+        //             />
+        //         ),
+        //
+        //     },
+        // },
+        // MyCardTab: {
+        //     screen: MyCardsScreen,
+        //     navigationOptions: {
+        //         tabBarLabel: 'My Cards',
+        //         tabBarIcon: ({tintColor, focused}) => (
+        //             <Ionicons
+        //                 name={focused ? 'ios-star' : 'ios-star-outline'}
+        //                 size={26}
+        //                 style={{color: tintColor}}
+        //             />
+        //         ),
+        //     }
+        //
+        // },
 
         // MakeCardsTab: {
         //     screen: MakeCardsScreen,

@@ -14,6 +14,8 @@ import {auth, db, storage} from '../config/FirebaseConfig';
 import {Icon, Card, Button} from 'react-native-elements';
 
 import colors from '../styles/colors';
+import layoutStyle from '../styles/layout';
+
 import cardStyle from '../styles/card';
 import buttonStyle from '../styles/button';
 
@@ -177,8 +179,8 @@ export default class MyCards extends Component {
                                         underlayColor='#99d9f4'>
                         <View
                             style={[cardStyle.itemContainer, {backgroundColor: this.getItemColor(item)}]}>
-                            <ImageBackground source={{uri: item.uri}} style={cardStyle.imageContainer}>
-                                <Text style={cardStyle.itemName}>{item.name}</Text>
+                            <ImageBackground source={{uri: item.illustration}} style={cardStyle.imageContainer}>
+                                <Text style={cardStyle.itemName}>{item.title}</Text>
                             </ImageBackground>
                         </View>
                     </TouchableHighlight>
@@ -196,8 +198,8 @@ export default class MyCards extends Component {
         console.log('renderCard?', renderCard)
         if (renderCard) {
             return (
-                <View style={cardStyle.container}>
-                    {this.renderHeader()}
+                <View style={layoutStyle.container}>
+                    {/*{this.renderHeader()}*/}
                     {this.renderCards()}
 
                 </View>
@@ -206,13 +208,13 @@ export default class MyCards extends Component {
         }
         if (!renderSign) {
             return (
-                <View style={cardStyle.container}>
+                <View style={layoutStyle.container}>
                     {this.renderSignCard()}
                 </View>
             )
         } else {
             return (
-                <View style={cardStyle.container}>
+                <View style={layoutStyle.container}>
                     {this.renderHeader()}
                 </View>
             )

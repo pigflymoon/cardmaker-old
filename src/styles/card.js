@@ -7,10 +7,10 @@ const {width, height} = Dimensions.get('window');
 const equalWidth = (width / 2 )
 export default{
     //cards
-    container: {
-        flex: 1,
-        backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    },
+    // container: {
+    //     flex: 1,
+    //     backgroundColor: 'rgba(211, 211, 211, 0.4)',
+    // },
     cardsContainer: {
         flex: 1,
     },
