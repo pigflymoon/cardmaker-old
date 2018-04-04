@@ -146,6 +146,10 @@ export default class Explore extends Component {
         }, 1000);
     }
 
+    navigateToShowAll = (cardType) => {
+        this.props.navigation.navigate('CardsDeck', {cardType: cardType,editing:false});
+    }
+
     render() {
 
         return (
@@ -163,7 +167,9 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Birthday'}</Text>
-                                <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll('birthday')}>
+                                    <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                </TouchableOpacity>
                             </View>
                             {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All', (!this.state.contentIsLoading))}
                         </View>

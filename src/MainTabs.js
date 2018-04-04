@@ -18,6 +18,9 @@ import CardsListScreen from './screens/CardsList';
 import ExploreScreen from './screens/Explore';
 import ProfileScreen from './screens/Profile';
 
+import CardsDeckScreen from './screens/CardsDeck';
+
+
 import SettingsScreen from './screens/Settings';
 import AboutScreen from './screens/About';
 import ProversionScreen from './screens/Proversion';
@@ -80,7 +83,6 @@ const CardsListStack = StackNavigator({
 );
 
 
-
 const MyCardsTabs = TabNavigator(
     {
         MySettingsTab: {
@@ -140,20 +142,20 @@ const MyCardsTabs = TabNavigator(
 
         },
 
-        MakeCardsTab: {
-            screen: MakeCardsScreen,
-            navigationOptions: {
-                tabBarLabel: 'Make Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-image' : 'ios-image-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            }
-
-        },
+        // MakeCardsTab: {
+        //     screen: MakeCardsScreen,
+        //     navigationOptions: {
+        //         tabBarLabel: 'Make Cards',
+        //         tabBarIcon: ({tintColor, focused}) => (
+        //             <Ionicons
+        //                 name={focused ? 'ios-image' : 'ios-image-outline'}
+        //                 size={26}
+        //                 style={{color: tintColor}}
+        //             />
+        //         ),
+        //     }
+        //
+        // },
     },
     {
         tabBarPosition: 'top',
@@ -174,6 +176,26 @@ const ExploreTab = StackNavigator({
         navigationOptions: ({navigation}) => ({
             title: 'Explore'
         }),
+    },
+    CardsDeck: {
+        screen: CardsDeckScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cards'
+        }),
+    },
+    MyCard: {
+        screen: MyCardsScreen,
+        navigationOptions: {
+            title: 'My Cards',
+        }
+
+    },
+    MakeCard: {
+        screen: MakeCardsScreen,
+        navigationOptions: {
+            title: 'Make Card',
+        }
+
     },
 })
 

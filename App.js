@@ -21,13 +21,31 @@ export default class App extends Component {
         };
 
     }
+    getCurrentRouteName(navigationState) {
+        if (!navigationState) {
+            return null;
+        }
+        const route = navigationState.routes[navigationState.index];
+        if (route.routes) {
+            return this.getCurrentRouteName(route);
+        }
+        return route.routeName;
+    }
 
 
     render() {
         return (<MainTabs
                 screenProps={{
                     signin: this.state.signin,
+                    currentScreen: this.state.currentScreen,
 
+                }}
+                onNavigationStateChange={(prevState, currentState) => {
+                    const currentScreen = this.getCurrentRouteName(currentState);
+                    const prevScreen = this.getCurrentRouteName(prevState);
+                    if (prevScreen !== currentScreen) {
+                        this.setState({currentScreen: currentScreen})
+                    }
                 }}
             />
 
