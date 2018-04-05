@@ -10,7 +10,9 @@ import SignupScreen from './screens/Signup';
 import VerifiEmailScreen from './screens/VerifyEmail';
 import ResetPasswordScreen from './screens/ResetPassword';
 // import CardsScreen from './screens/Cards';
+import CardsScreen from './screens/Cards';
 import MyCardsScreen from './screens/MyCards';
+
 import MakeCardsScreen from './screens/MakeCards';
 
 import CardsListScreen from './screens/CardsList';
@@ -235,15 +237,15 @@ const ExploreTab = StackNavigator({
 
 const MakeCardTab = StackNavigator({
     MyCards: {
-        screen: MyCardsScreen,
+        screen: CardsScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'My Cards'
+            title: 'Cards'
         }),
     },
     CardsDeck: {
         screen: CardsDeckScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards'
+            title: 'Cards Deck'
         }),
     },
     MyCard: {
@@ -262,7 +264,7 @@ const MakeCardTab = StackNavigator({
     },
 })
 
-
+/*
 const MyCardsTab = StackNavigator({
     Cards: {
         screen: MyCardsTabs,
@@ -271,6 +273,7 @@ const MyCardsTab = StackNavigator({
         }),
     },
 })
+*/
 
 const ProfileTab = StackNavigator({
     Explore: {

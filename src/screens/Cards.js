@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
 
-import {Button, Card, Icon,} from 'react-native-elements';
+import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
 import {auth, db} from '../config/FirebaseConfig';
-// import {onceGetPaidImages, onceGetFreeImages} from '../config/db';
-import { getFreeImages, getPaidImages } from '../utils/firebaseImages';
-import SwipeDeck from '../components/SwipeDeck';
 
+import layoutStyle from '../styles/layout';
 import colors from '../styles/colors';
-import cardStyle from '../styles/card';
-import refreshMore from '../assets/images/refreshMore.jpg';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+import CardsDeck from './CardsDeck';
+var savedCards = [];
+const component1 = () => <Text>Birthday</Text>
+const component2 = () => <Text>Holiday</Text>
+const component3 = () => <Text>Wedding</Text>
+const component4 = () => <Text>Others</Text>
 
-var likedCards = [], dislikedCards = [], savedCards = [];
 
 export default class Cards extends Component {
     constructor(props, context) {
@@ -23,192 +22,95 @@ export default class Cards extends Component {
         this.state = {
             signin: false,
             cardsData: [],
-            likedCards: [],
-            dislikedCards: [],
+            selectedIndex: 0,
+            index: 0,
+            cardType: 'birthdayImages',
+
+            // likedCards: [],
+            // dislikedCards: [],
         }
     }
 
-    renderCard(card) {
-        return (
-            <Card
-                key={card.id}
-                containerStyle={{
-                    width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 250,
-                }}
-                featuredTitle={`${card.name}`}
-                featuredTitleStyle={{
-                    position: 'absolute',
-                    left: 15,
-                    bottom: 15,
-                    fontSize: 30,
-                }}
-                image={{uri: card.uri}}
-                imageStyle={{
-                    width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 252,
-                }}
-            />
-        );
+    //right  header
+    static navigationOptions = ({navigation}) => {
+        // console.log('savedCards in navigation',savedCards)
+        return ({
+            headerRight: (
+                <TouchableOpacity style={{paddingRight: 5}}>
+                    <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
+                          onPress={() => navigation.navigate('MyCard', {
+                              likedCards: savedCards,
+                          })}/>
+                </TouchableOpacity>
+            )
+        });
     }
 
-    onSwipeRight(card) {
-        likedCards.push(card);
-        var savedCard = new Map(likedCards.map(obj => [obj.uri, obj]));
-        // To get the unique objects
-        savedCards = Array.from(savedCard.values());
+    updateIndex = (selectedIndex) => {
+        console.log('selectedIndex', selectedIndex)
+
+        let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
+
+        this.setState({selectedIndex: selectedIndex}, function () {
+            for (let type of showTypes) {
+                console.log('type is ', type)
+                let index = showTypes.indexOf(type);
+
+                if (this.state.selectedIndex === index) {
+                    let index = showTypes.indexOf(type);
+                    console.log('index is ', index, 'value is ', type)
+                    this.setState({cardType: type});
+
+                }
+
+            }
+        })
+
+        // this.setState({selectedIndex})
     }
 
-    onSwipeLeft(card) {
-        dislikedCards.push(card);
-    }
-
-    gotoMyCards = () => {
-        console.log('savedCards in Cards', savedCards)
-        this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
-    }
-
-
-
-    getImages = (userrole) => {
-        var self = this;
-        if (!userrole.paid_user) {
-            console.log('called???')
-            getFreeImages().then(function (images) {
-                self.setState({cardsData: images});
-            });
-        } else {
-            getPaidImages().then(function (val) {
-                console.log('val is,', val)
-                //concat free images and paid images
-                var cardsData = val;//self.state.cardsData;
-                // cardsData = cardsData.concat((images));
-                //
-
-                getFreeImages().then(function (images) {
-                    var freeImages = images;
-                    cardsData = cardsData.concat((freeImages));
-                    self.setState({cardsData: cardsData});
-                });
-            })
-
-        }
-    }
-
-    refreshImages = () => {
-        this.setState({cardsData: []});
-        var self = this;
-        this.getUserImages();
-    }
-
-    getUserImages = () => {
+    componentWillMount() {
         var self = this;
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 var userId = auth.currentUser.uid;
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
-                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    self.getImages(userrole);
-                    self.setState({signin: true, authUser, userrole: userrole});
+                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
+                    var isPaidUser = userrole.paid_user;
+                    self.setState({signin: true, authUser, isPaidUser: isPaidUser});
 
                 });
             } else {
-                self.setState({signin: false, cardsData: []})
+                self.setState({signin: false});
+
             }
         });
-    }
-
-    componentDidMount() {
-        this.getUserImages();
-    }
-
-    componentWillUnmount() {
-        this.setState({cardsData: []});
-    }
-
-    renderNoMoreCards() {
-        return (
-            <Card
-                containerStyle={{
-                    width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 250,
-                }}
-                featuredTitle="No more cards"
-                featuredTitleStyle={{fontSize: 25}}
-                image={refreshMore}
-                imageStyle={{
-                    width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 252
-                }}
-            />
-        );
-    }
-
-    renderHeader() {
-        return (
-            <View style={cardStyle.header}>
-
-                <View style={cardStyle.headerCenter}>
-                    <View style={cardStyle.titleContainer}>
-                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
-                        <Text style={cardStyle.title}>1. Swipe your card</Text>
-                    </View>
-                    <View style={cardStyle.titleContainer}>
-                        <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={20}/>
-                        <Text style={cardStyle.title}>2. Add liked to My Cards</Text>
-                    </View>
-
-                </View>
-                <View style={cardStyle.headerRightIcon}>
-                    <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={35}
-                          onPress={this.gotoMyCards}
-                    />
-                </View>
-
-
-            </View>
-        );
 
     }
 
-    renderFooter() {
-        return (
-            <View style={cardStyle.footer}>
-                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
-                    <Icon
-                        containerStyle={{
-                            backgroundColor: 'white',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
-                        name="replay"
-                        size={30}
-                        color="orange"
-                        onPress={(e) => this.refreshImages(e)}
-                    />
-                </View>
-
-
-            </View>
-        );
+    handleSavedCards = (likedCards) => {
+        console.log('likedCards', likedCards)
+        savedCards = likedCards;
+        // this.setState({savedCard: savedCard})
     }
 
     render() {
+        const buttons = [{element: component1}, {element: component2}, {element: component3}, {element: component4}]
+        const {selectedIndex} = this.state
         return (
-            <View style={cardStyle.cardsContainer}>
-                {this.renderHeader()}
-                <View style={cardStyle.deck}>
-                    <SwipeDeck
-                        data={this.state.cardsData}
-                        renderCard={this.renderCard}
-                        renderNoMoreCards={this.renderNoMoreCards}
-                        onSwipeRight={this.onSwipeRight}
-                        onSwipeLeft={this.onSwipeLeft}
-                    />
-                </View>
-                {this.renderFooter()}
+            <View style={layoutStyle.container}>
+                <ButtonGroup
+                    onPress={this.updateIndex}
+                    selectedIndex={selectedIndex}
+                    buttons={buttons}
+                    containerStyle={{height: 40}}/>
+                <CardsDeck cardType={this.state.cardType}
+                           isPaidUser={this.state.isPaidUser}
+                           onSavedCards={this.handleSavedCards}
+                />
+
             </View>
         );
     }
 }
+

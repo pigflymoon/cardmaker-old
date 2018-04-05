@@ -33,22 +33,6 @@ export default class CardsDeck extends Component {
         }
     }
 
-    //right  header
-    static navigationOptions = ({navigation}) => {
-        // console.log('savedCards in navigation',savedCards)
-        return ({
-            headerRight: (
-                <TouchableOpacity style={{paddingRight: 5}}>
-                    <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
-                          onPress={() => navigation.navigate('MyCard', {
-                              likedCards: savedCards,
-                              signin: true
-                          })}/>
-                </TouchableOpacity>
-            )
-        });
-    }
-
 
     renderCard(card) {
         return (
@@ -74,15 +58,19 @@ export default class CardsDeck extends Component {
         );
     }
 
-    onSwipeRight(card) {
+    onSwipeRight = (card) => {
+
         likedCards.push(card);
         var savedCard = new Map(likedCards.map(obj => [obj.illustration, obj]));
         // To get the unique objects
         savedCards = Array.from(savedCard.values());
         console.log('likedCards :', likedCards, 'savedCards ', savedCards)
+        console.log('onSavedCards props ', this.props)
+        this.props.onSavedCards(savedCards);
+
     }
 
-    onSwipeLeft(card) {
+    onSwipeLeft = (card) => {
         dislikedCards.push(card);
     }
 
@@ -92,42 +80,17 @@ export default class CardsDeck extends Component {
     }
 
 
-    getImages = (userrole) => {
-        var self = this;
-        if (!userrole.paid_user) {
-            console.log('called???')
-            getFreeImages().then(function (images) {
-                self.setState({cardsData: images});
-            });
-        } else {
-            getPaidImages().then(function (val) {
-                console.log('val is,', val)
-                //concat free images and paid images
-                var cardsData = val;//self.state.cardsData;
-                // cardsData = cardsData.concat((images));
-                //
-
-                getFreeImages().then(function (images) {
-                    var freeImages = images;
-                    cardsData = cardsData.concat((freeImages));
-                    self.setState({cardsData: cardsData});
-                });
-            })
-
-        }
-    }
-
     refreshImages = () => {
-        const {cardType, userrole, signin} = this.props.navigation.state.params;
-
-        this.setState({cardsData: []});
-        this.getUserImages(cardType, userrole);
+        // const {cardType, userrole, signin} = this.props.navigation.state.params;
+        //
+        // this.setState({cardsData: []});
+        // this.getUserImages(cardType, userrole);
     }
 
-    getUserImages = (cardType = 'birthdayImages', userrole) => {
-        console.log('cardType ', cardType, '************userrole ', userrole)
+    getUserImages = (cardType = 'birthdayImages', isPaidUser) => {
+        console.log('cardType ', cardType, '************isPaidUser ', isPaidUser)
         var self = this;
-        if (!userrole.paid_user) {
+        if (!isPaidUser) {
             getFreeImages(cardType).then(function (images) {
                 console.log('images are**********', images)
                 self.setState({cardsData: images});
@@ -144,14 +107,26 @@ export default class CardsDeck extends Component {
     }
 
     componentDidMount() {
-        const {cardType, userrole, signin} = this.props.navigation.state.params;
+        const {cardType, isPaidUser} = this.props;
+        console.log('this.props is', this.props)
 
+        console.log('card type is ', cardType, 'isPaidUser ', isPaidUser)
+        // var cardType = this.props.cardType;
 
-        this.getUserImages(cardType, userrole);
+        this.getUserImages(cardType, isPaidUser);
     }
 
     componentWillUnmount() {
         this.setState({cardsData: []});
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps is', nextProps)
+        const {cardType, isPaidUser} = nextProps;
+        console.log('nextProps card type is ', cardType, 'isPaidUser ', isPaidUser)
+        // var cardType = this.props.cardType;
+
+        this.getUserImages(cardType, isPaidUser);
     }
 
     renderNoMoreCards() {
