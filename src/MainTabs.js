@@ -16,6 +16,8 @@ import MakeCardsScreen from './screens/MakeCards';
 import CardsListScreen from './screens/CardsList';
 
 import ExploreScreen from './screens/Explore';
+import CardsGalleryScreen from './screens/CardsGallery';
+
 import ProfileScreen from './screens/Profile';
 
 import CardsDeckScreen from './screens/CardsDeck';
@@ -85,6 +87,50 @@ const CardsListStack = StackNavigator({
 
 const MyCardsTabs = TabNavigator(
     {
+        CardsDeck: {
+            screen: CardsDeckScreen,
+            navigationOptions: ({navigation}) => ({
+                title: 'Cards',
+                tabBarLabel: 'Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            }),
+        },
+        MyCard: {
+            screen: MyCardsScreen,
+            navigationOptions: {
+                title: 'My Cards',
+                tabBarLabel: 'Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            }
+
+        },
+        MakeCard: {
+            screen: MakeCardsScreen,
+            navigationOptions: {
+                title: 'Make Card',
+                tabBarLabel: 'Cards',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            }
+
+        },
         MySettingsTab: {
             screen: MySettingsStack,
             navigationOptions: {
@@ -177,6 +223,23 @@ const ExploreTab = StackNavigator({
             title: 'Explore'
         }),
     },
+    CardsGallery: {
+        screen: CardsGalleryScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cards Gallery'
+        }),
+    },
+
+})
+
+
+const MakeCardTab = StackNavigator({
+    MyCards: {
+        screen: MyCardsScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'My Cards'
+        }),
+    },
     CardsDeck: {
         screen: CardsDeckScreen,
         navigationOptions: ({navigation}) => ({
@@ -255,10 +318,10 @@ const StacksInTabs = TabNavigator(
             }
 
         },
-        MyCardsTab: {
-            screen: MyCardsTab,
+        MakeCardTab: {
+            screen: MakeCardTab,
             navigationOptions: {
-                tabBarLabel: 'My Cards',
+                tabBarLabel: 'Make Card',
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-star' : 'ios-star-outline'}
