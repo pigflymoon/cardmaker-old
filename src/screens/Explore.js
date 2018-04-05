@@ -24,7 +24,9 @@ import {
     getFreeBirthdayImages,
     getFreeHolidayImages,
     getFreeWeddingImages,
-    getFreeOtherImages
+    getFreeOtherImages,
+    getAllBirthdayImages,
+
 } from '../utils/FetchImagesByApi';
 
 const words = [
@@ -87,7 +89,7 @@ export default class Explore extends Component {
     }
     fetchBirthdayImages = () => {
         var self = this;
-        getFreeBirthdayImages().then(function (images) {
+        getAllBirthdayImages().then(function (images) {
             self.setState({birthdayImages: images});
         });
     }
@@ -147,7 +149,7 @@ export default class Explore extends Component {
     }
 
     navigateToShowAll = (cardType) => {
-        this.props.navigation.navigate('CardsDeck', {cardType: cardType,editing:false});
+        this.props.navigation.navigate('CardsDeck', {cardType: cardType, editing: false});
     }
 
     render() {

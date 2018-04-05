@@ -32,8 +32,8 @@ export default class CardsList extends Component {
                     console.log('arrayOfKeys ', arrayOfKeys)
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
-                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
+                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     console.log('Free result is ', results)
                     // storing reference
@@ -67,8 +67,8 @@ export default class CardsList extends Component {
                     // transforming to array
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
-                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
+                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     // updating reference
                     console.log('free result is ', results)
@@ -107,8 +107,8 @@ export default class CardsList extends Component {
                     console.log('arrayOfKeys ', arrayOfKeys)
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
-                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
+                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     console.log('Paid result is ', results)
                     // storing reference
@@ -142,8 +142,8 @@ export default class CardsList extends Component {
                     // transforming to array
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].Name)
-                            return {id: key, name: snapshot.val()[key].Name, uri: snapshot.val()[key].downloadUrl}
+                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
+                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     // updating reference
                     console.log('paid result is ', results)

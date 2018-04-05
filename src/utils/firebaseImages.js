@@ -14,7 +14,7 @@ export function getFreeImages() {
                             {
                                 id: key,
                                 uri: downloadImages[key].downloadUrl,
-                                name: downloadImages[key].Name,
+                                name: downloadImages[key].name,
                             }
                         )
                     )
@@ -38,7 +38,7 @@ export function getPaidImages() {
                             {
                                 id: key,
                                 uri: downloadImages[key].downloadUrl,
-                                name: downloadImages[key].Name,
+                                name: downloadImages[key].name,
 
                             }
                         )

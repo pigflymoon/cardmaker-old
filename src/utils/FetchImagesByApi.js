@@ -12,7 +12,7 @@ export function getFreeBirthdayImages() {
         setTimeout(function () {
             // resolve the promise with some value
 
-            db.ref('birthdayImages').limitToFirst(8).on("value", function (snapshot) {
+            db.ref('birthdayImages').limitToFirst(3).on("value", function (snapshot) {
 
                 var downloadImages = snapshot.val();
                 console.log('downloadImages ', downloadImages);
@@ -20,7 +20,42 @@ export function getFreeBirthdayImages() {
                     var images = Object.keys(downloadImages).map(key => (
                             {
                                 id: key,
-                                title: downloadImages[key].Name,
+                                title: downloadImages[key].name,
+                                // subtitle: downloadImages[key].Name,
+                                illustration: downloadImages[key].downloadUrl,
+
+                            }
+                        )
+                    )
+                    resolve(images)
+                }
+
+            });
+
+
+        }, 500);
+    });
+}
+
+/**
+ * get all birthday images
+ * @returns {Promise}
+ */
+export function getAllBirthdayImages() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+        // some async operation here
+        setTimeout(function () {
+            // resolve the promise with some value
+            db.ref('birthdayImages').once("value", function (snapshot) {
+
+                var downloadImages = snapshot.val();
+                console.log('downloadImages ', downloadImages);
+                if (downloadImages) {
+                    var images = Object.keys(downloadImages).map(key => (
+                            {
+                                id: key,
+                                title: downloadImages[key].name,
                                 // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
 
@@ -51,7 +86,7 @@ export function getFreeHolidayImages() {
                     var images = Object.keys(downloadImages).map(key => (
                             {
                                 id: key,
-                                title: downloadImages[key].Name,
+                                title: downloadImages[key].name,
                                 // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
 
@@ -83,7 +118,7 @@ export function getFreeWeddingImages() {
                     var images = Object.keys(downloadImages).map(key => (
                             {
                                 id: key,
-                                title: downloadImages[key].Name,
+                                title: downloadImages[key].name,
                                 // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
 
@@ -114,7 +149,7 @@ export function getFreeOtherImages() {
                     var images = Object.keys(downloadImages).map(key => (
                             {
                                 id: key,
-                                title: downloadImages[key].Name,
+                                title: downloadImages[key].name,
                                 // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
 
@@ -146,7 +181,7 @@ export function getAllUploadImages() {
                     var images = Object.keys(downloadImages).map(key => (
                             {
                                 id: key,
-                                title: downloadImages[key].Name,
+                                title: downloadImages[key].name,
                                 // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
 
