@@ -40,7 +40,7 @@ export default class MyCards extends Component {
     updateIndex = (selectedIndex) => {
         console.log('selectedIndex', selectedIndex)
 
-        this.setState({selectedIndex:selectedIndex})
+        this.setState({selectedIndex})
     }
 
     render() {
