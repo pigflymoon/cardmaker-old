@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {
-
     View,
     ScrollView,
     Linking,
     Image,
 } from 'react-native';
 import {
-    Card, Text, Button
+    Card, Text,
 } from 'react-native-elements';
 
-import SettingStyle from '../styles/setting';
-import colors from '../styles/colors';
-import probg from '../assets/images/bg1.jpg';
-import buttonStyle from '../styles/button';
+import SettingStyle from '../../styles/setting';
+import probg from '../../assets/images/bg1.jpg';
 
 export default class Proversion extends Component {
 

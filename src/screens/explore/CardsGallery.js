@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
-import {Button, Card, Icon,} from 'react-native-elements';
+import {Card,} from 'react-native-elements';
 
-import {auth, db} from '../config/FirebaseConfig';
+import {db} from '../../config/FirebaseConfig';
 
-import layoutStyle from '../styles/layout';
+import layoutStyle from '../../styles/layout';
 
 let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
 
@@ -218,10 +218,26 @@ export default class CardsGallery extends Component {
 
     componentDidMount() {
         const {cardType, userrole, signin} = this.props.navigation.state.params;
-        var isPaidUser = userrole.paid_user;
-        var self = this;
+        /*
+         if (userrole && userrole.paid_user) {
+         var isPaidUser = userrole.paid_user;
 
-        this.fetchData(isPaidUser).then(function (pages) {
+
+         this.fetchData(isPaidUser).then(function (pages) {
+         console.log('data are ', pages)
+         console.log('******* data return is********* ', pages)
+         self.setState({cardsData: pages, loading: false})
+
+
+         })
+         } else {
+         console.log('sign in?')
+         // this.props.navigation.navigate('Signin', {});
+
+         }
+         */
+        var self = this;
+        this.fetchData().then(function (pages) {
             console.log('data are ', pages)
             console.log('******* data return is********* ', pages)
             self.setState({cardsData: pages, loading: false})

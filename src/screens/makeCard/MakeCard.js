@@ -23,15 +23,15 @@ import {
     Badge,
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
-import {auth} from '../config/FirebaseConfig';
+import {auth} from '../../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
-import  Utils from '../utils/utils';
-import colors from '../styles/colors';
-import formStyle from '../styles/form';
-import cardStyle from '../styles/card';
-import buttonStyle from '../styles/button';
+import  Utils from '../../utils/utils';
+import colors from '../../styles/colors';
+import formStyle from '../../styles/form';
+import cardStyle from '../../styles/card';
+import buttonStyle from '../../styles/button';
 
-export default class MakeCards extends Component {
+export default class MakeCard extends Component {
 
     constructor(props) {
         super(props)

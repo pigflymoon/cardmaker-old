@@ -15,24 +15,24 @@ import {
     TouchableHighlight,
     Image,
 } from 'react-native';
-import {List, ListItem, Card, Tile, Icon, Button} from 'react-native-elements';
+import {List, ListItem, Card,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
-import {auth, db} from '../config/FirebaseConfig';
+import {auth, db} from '../../config/FirebaseConfig';
 // var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 var verifyproductionHost = Config.receiptVerify.Host.productionHost;
 var verifyHost = verifyproductionHost;
 
-import {onceGetReceipts, doCreateReceipt} from '../config/db';
+import {onceGetReceipts, doCreateReceipt} from '../../config/db';
 
-import Config from '../config/ApiConfig';
-import Utils from '../utils/utils';
+import Config from '../../config/ApiConfig';
+import Utils from '../../utils/utils';
 
-import colors from '../styles/colors';
-import listStyle from '../styles/list';
-import SettingStyle from '../styles/setting';
+import colors from '../../styles/colors';
+import listStyle from '../../styles/list';
+import SettingStyle from '../../styles/setting';
 export default class Settings extends Component {
 
     constructor(props, context) {

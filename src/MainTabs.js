@@ -5,59 +5,52 @@
 import React from 'react';
 import {ScrollView, Alert} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
-import MySettingsScreen from './screens/MySettings';
-import SignupScreen from './screens/Signup';
-import VerifiEmailScreen from './screens/VerifyEmail';
-import ResetPasswordScreen from './screens/ResetPassword';
-// import CardsScreen from './screens/Cards';
-import CardsScreen from './screens/Cards';
-import MyCardsScreen from './screens/MyCards';
 
-import MakeCardsScreen from './screens/MakeCards';
-
-import CardsListScreen from './screens/CardsList';
-
-import ExploreScreen from './screens/Explore';
-import CardsGalleryScreen from './screens/CardsGallery';
-
-import ProfileScreen from './screens/Profile';
-
-import CardsDeckScreen from './screens/CardsDeck';
-
-
-import SettingsScreen from './screens/Settings';
-import AboutScreen from './screens/About';
-import ProversionScreen from './screens/Proversion';
+//Explore
+import ExploreScreen from './screens/explore/Explore';
+import CardsGalleryScreen from './screens/explore/CardsGallery';
+//Make card
+import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
+import MyCardsScreen from './screens/makeCard/MyCards';
+import MakeCardScreen from './screens/makeCard/MakeCard';
+//Profile
+import MySettingsScreen from './screens/profile/MySettings';
+import SignupScreen from './screens/profile/Signup';
+import VerifiEmailScreen from './screens/profile/VerifyEmail';
+import ResetPasswordScreen from './screens/profile/ResetPassword';
+//Settings
+import SettingsScreen from './screens/settings/Settings';
+import AboutScreen from './screens/settings/About';
+import ProversionScreen from './screens/settings/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Icon} from 'react-native-elements'
 const MySettingsStack = StackNavigator({
         MySettings: {
             screen: MySettingsScreen,
             navigationOptions: ({navigation}) => ({
-                // title: 'My Settings',
-                headerLeft: null,
+                title: 'Sign in',
+                // headerLeft: null,
             }),
         },
         Signup: {
             screen: SignupScreen,
             navigationOptions: ({navigation}) => ({
-                // title: 'Sign up',
-                headerLeft: null,
+                title: 'Sign up',
+                // headerLeft: null,
             }),
         },
         VerifyEmail: {
             screen: VerifiEmailScreen,
             navigationOptions: ({navigation}) => ({
-                // title: 'Verify Email',
-                headerLeft: null,
+                title: 'Verify email',
+                // headerLeft: null,
             }),
         },
         ResetPassword: {
             screen: ResetPasswordScreen,
             navigationOptions: ({navigation}) => ({
-                // title: 'Verify Email',
-                headerLeft: null,
+                title: 'Reset password',
+                // headerLeft: null,
             }),
         },
 
@@ -65,157 +58,6 @@ const MySettingsStack = StackNavigator({
     {
         headerMode: 'none',
         mode: 'modal',
-    }
-);
-
-
-//Cards Tab: cards library and my cards
-const CardsListStack = StackNavigator({
-        MySettings: {
-            screen: CardsListScreen,
-            navigationOptions: ({navigation}) => ({
-                // title: 'My Settings',
-                headerLeft: null,
-            }),
-        },
-
-    },
-    {
-        headerMode: 'none',
-        mode: 'modal',
-    }
-);
-
-
-const MyCardsTabs = TabNavigator(
-    {
-        CardsDeck: {
-            screen: CardsDeckScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Cards',
-                tabBarLabel: 'Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            }),
-        },
-        MyCard: {
-            screen: MyCardsScreen,
-            navigationOptions: {
-                title: 'My Cards',
-                tabBarLabel: 'Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            }
-
-        },
-        MakeCard: {
-            screen: MakeCardsScreen,
-            navigationOptions: {
-                title: 'Make Card',
-                tabBarLabel: 'Cards',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            }
-
-        },
-        MySettingsTab: {
-            screen: MySettingsStack,
-            navigationOptions: {
-                tabBarLabel: 'Me',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-        CardsListTab: {
-            screen: CardsListStack,
-            navigationOptions: {
-                tabBarLabel: 'Cards List',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-
-            },
-        },
-        // CardsLibraryTab: {
-        //     screen: CardsScreen,
-        //     navigationOptions: {
-        //         tabBarLabel: 'Cards Library',
-        //         tabBarIcon: ({tintColor, focused}) => (
-        //             <Ionicons
-        //                 name={focused ? 'ios-images' : 'ios-images-outline'}
-        //                 size={26}
-        //                 style={{color: tintColor}}
-        //             />
-        //         ),
-        //
-        //     },
-        // },
-        // MyCardTab: {
-        //     screen: MyCardsScreen,
-        //     navigationOptions: {
-        //         tabBarLabel: 'My Cards',
-        //         tabBarIcon: ({tintColor, focused}) => (
-        //             <Ionicons
-        //                 name={focused ? 'ios-star' : 'ios-star-outline'}
-        //                 size={26}
-        //                 style={{color: tintColor}}
-        //             />
-        //         ),
-        //     }
-        //
-        // },
-
-        // MakeCardsTab: {
-        //     screen: MakeCardsScreen,
-        //     navigationOptions: {
-        //         tabBarLabel: 'Make Cards',
-        //         tabBarIcon: ({tintColor, focused}) => (
-        //             <Ionicons
-        //                 name={focused ? 'ios-image' : 'ios-image-outline'}
-        //                 size={26}
-        //                 style={{color: tintColor}}
-        //             />
-        //         ),
-        //     }
-        //
-        // },
-    },
-    {
-        tabBarPosition: 'top',
-        animationEnabled: false,
-        swipeEnabled: false,
-        // tabBarOptions: {
-        //     tabStyle: {
-        //         borderBottomWidth: 1,
-        //         borderBottomColor: colors.greyOutline,
-        //
-        //     },
-        // },
     }
 );
 const ExploreTab = StackNavigator({
@@ -233,22 +75,14 @@ const ExploreTab = StackNavigator({
     },
 
 })
-
-
 const MakeCardTab = StackNavigator({
-    MyCards: {
-        screen: CardsScreen,
+    MyCardsDeck: {
+        screen: MyCardsDeckScreen,
         navigationOptions: ({navigation}) => ({
             title: 'Cards'
         }),
     },
-    CardsDeck: {
-        screen: CardsDeckScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Cards Deck'
-        }),
-    },
-    MyCard: {
+    MyCards: {
         screen: MyCardsScreen,
         navigationOptions: {
             title: 'My Cards',
@@ -256,34 +90,22 @@ const MakeCardTab = StackNavigator({
 
     },
     MakeCard: {
-        screen: MakeCardsScreen,
+        screen: MakeCardScreen,
         navigationOptions: {
             title: 'Make Card',
         }
 
     },
 })
-
-/*
-const MyCardsTab = StackNavigator({
-    Cards: {
-        screen: MyCardsTabs,
-        navigationOptions: ({navigation}) => ({
-            title: 'My Cards'
-        }),
-    },
-})
-*/
-
 const ProfileTab = StackNavigator({
-    Explore: {
-        screen: ProfileScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Profile'
-        }),
+    MySettingsTab: {
+        screen: MySettingsStack,
+        navigationOptions: {
+            // title: 'Profile',
+
+        },
     },
 })
-
 const SettingsTab = StackNavigator({
     Settings: {
         screen: SettingsScreen,

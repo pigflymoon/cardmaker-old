@@ -14,21 +14,20 @@ import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
 import Placeholder from 'rn-placeholder';
 
-import layoutStyle from '../styles/layout';
-import carouselStyle from '../styles/carousel';
-import {sliderWidth, itemWidth} from '../styles/sliderEntry';
-import {auth, db} from '../config/FirebaseConfig';
+import layoutStyle from '../../styles/layout';
+import carouselStyle from '../../styles/carousel';
+import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
+import {auth, db} from '../../config/FirebaseConfig';
 
-import SliderEntry from '../components/SliderEntry';
-import  logo from '../assets/images/logo.png';
+import SliderEntry from '../../components/SliderEntry';
+import  logo from '../../assets/images/logo.png';
 import {
     getFreeBirthdayImages,
     getFreeHolidayImages,
     getFreeWeddingImages,
     getFreeOtherImages,
-    getAllBirthdayImages,
-
-} from '../utils/FetchImagesByApi';
+    getFreeImages,
+} from '../../utils/FetchImagesByApi';
 
 const words = [
 
@@ -54,43 +53,10 @@ export default class Explore extends Component {
         this.maskImage = logo;
     }
 
-    _renderItem({item, index}) {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
-    }
 
-    renderCarousel = (data, title, subtitle, isLoaded) => {
-        const heightStyle = {height: 150};
-
-        return (
-
-            <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
-                <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
-                    <Carousel
-                        data={data}
-                        renderItem={this._renderItem}
-                        sliderWidth={sliderWidth}
-                        itemWidth={itemWidth}
-                        inactiveSlideScale={0.95}
-                        inactiveSlideOpacity={1}
-                        enableMomentum={true}
-                        activeSlideAlignment={'start'}
-                        containerCustomStyle={carouselStyle.slider}
-                        contentContainerCustomStyle={carouselStyle.sliderContentContainer}
-                        activeAnimationType={'spring'}
-                        activeAnimationOptions={{
-                            friction: 4,
-                            tension: 40
-                        }}
-                    />
-                </Placeholder.MultiWords>
-            </View>
-
-
-        );
-    }
-    fetchBirthdayImages = () => {
+    fetchImages = (cardType) => {
         var self = this;
-        getFreeBirthdayImages().then(function (images) {
+        getFreeImages(cardType).then(function (images) {
             self.setState({birthdayImages: images});
         });
     }
@@ -101,12 +67,14 @@ export default class Explore extends Component {
             self.setState({holidayImages: images});
         });
     }
+
     fetchWeddingImages = () => {
         var self = this;
         getFreeWeddingImages().then(function (images) {
             self.setState({weddingImages: images});
         });
     }
+
     fetchOtherImages = () => {
         var self = this;
         getFreeOtherImages().then(function (images) {
@@ -114,15 +82,26 @@ export default class Explore extends Component {
         });
     }
 
+    navigateToShowAll = (cardType) => {
+        this.props.navigation.navigate('CardsGallery', {
+            cardType: cardType,
+            userrole: this.state.userrole,
+            signIn: this.state.signIn
+        });
+    }
+
     componentWillMount() {
-        var self = this;
+
+        this.fetchImages("birthdayImages");
+        /*
+         var self = this;
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 var userId = auth.currentUser.uid;
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
                     // self.getImages(userrole);
-                    self.fetchBirthdayImages();
+                    self.fetchImages("birthdayImages");
                     // this.fetchHolidayImages();
                     // this.fetchWeddingImages();
                     // this.fetchOtherImages();
@@ -137,6 +116,7 @@ export default class Explore extends Component {
                 self.setState({signin: false, cardsData: []})
             }
         });
+        */
 
         this.setState({
             contentIsLoading: true
@@ -169,8 +149,40 @@ export default class Explore extends Component {
         }, 1000);
     }
 
-    navigateToShowAll = (cardType) => {
-        this.props.navigation.navigate('CardsGallery', {cardType: cardType, userrole: this.state.userrole,signIn:this.state.signIn});
+
+    renderItem = ({item, index}) => {
+        return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
+    }
+
+    renderCarousel = (data, title, subtitle, isLoaded) => {
+        const heightStyle = {height: 150};
+
+        return (
+
+            <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
+                <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
+                    <Carousel
+                        data={data}
+                        renderItem={this.renderItem}
+                        sliderWidth={sliderWidth}
+                        itemWidth={itemWidth}
+                        inactiveSlideScale={0.95}
+                        inactiveSlideOpacity={1}
+                        enableMomentum={true}
+                        activeSlideAlignment={'start'}
+                        containerCustomStyle={carouselStyle.slider}
+                        contentContainerCustomStyle={carouselStyle.sliderContentContainer}
+                        activeAnimationType={'spring'}
+                        activeAnimationOptions={{
+                            friction: 4,
+                            tension: 40
+                        }}
+                    />
+                </Placeholder.MultiWords>
+            </View>
+
+
+        );
     }
 
     render() {

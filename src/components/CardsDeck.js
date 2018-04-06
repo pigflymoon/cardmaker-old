@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
 
-import {Button, Card, Icon,} from 'react-native-elements';
+import { Card, Icon,} from 'react-native-elements';
 
 import SwipeDeck from '../components/SwipeDeck';
 import {
@@ -12,7 +12,6 @@ import {
 import colors from '../styles/colors';
 import layoutStyle from '../styles/layout';
 import cardStyle from '../styles/card';
-import navigationStyle from '../styles/navigation';
 
 import refreshMore from '../assets/images/refreshMore.jpg';
 
@@ -28,8 +27,6 @@ export default class CardsDeck extends Component {
         this.state = {
             signin: false,
             cardsData: [],
-            // likedCards: [],
-            // dislikedCards: [],
         }
     }
 

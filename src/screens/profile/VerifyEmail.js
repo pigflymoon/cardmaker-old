@@ -13,14 +13,14 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-// import firebaseApp from '../config/FirebaseConfig';
-import {auth} from '../config/FirebaseConfig';
+import {auth} from '../../config/FirebaseConfig';
 
-import formStyle from '../styles/form';
-import buttonStyle from '../styles/button';
+import formStyle from '../../styles/form';
+import buttonStyle from '../../styles/button';
+let interval = null;
 
 
-export default class ResetPassword extends Component {
+export default class VerifyEmail extends Component {
     constructor(props) {
         super(props);
 
@@ -36,46 +36,65 @@ export default class ResetPassword extends Component {
         this.props.navigation.navigate('Signup', {});
     }
 
-    setEmail = (text) => {
-        this.setState({email: text});
-    }
-
-
-    handleResetPassword = () => {
+    handleVerifyEmail = (e) => {
         var self = this;
+        var user = this.state.user;
 
-        if (!this.state.email) {
-            this.setState({
-                showInfo: true
-            });
-        } else {
-            // var auth = firebaseApp.auth();
-            var emailAddress = this.state.email;
-            auth.sendPasswordResetEmail(emailAddress).then(function () {
-                // Email sent.
+        e.preventDefault();
+
+        user.sendEmailVerification().then(
+            function () {
                 self.setState({
-                    infoMessage: `Reset password sent to the emailAddress,please check your email ${emailAddress}`
-                });
-                self.props.navigation.navigate('MySettings');
-            }, function (error) {
-                self.setState({
-                    errorMessage: 'Error' + error
+                    isLoading: true
                 });
 
-            })
-            .catch(function (error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    self.setState({
-                        errorMessage: errorMessage
+                interval = setInterval(() => {
+                    user.reload().then(
+                        function () {
+                            if (interval && user.emailVerified) {
+                                clearInterval(interval);
+                                interval = null;
+
+                                auth.onAuthStateChanged((user) => {
+                                    self.setState({
+                                        isLoading: false
+                                    });
+                                    clearInterval(interval);
+                                    if (user && user.emailVerified) {
+                                        self.props.navigation.navigate('CardsLibraryTab', {name: self.state.name});
+                                        clearInterval(interval);
+                                        interval = null;
+                                    } else {
+                                        self.setState({
+                                            isLoading: false
+                                        });
+                                    }
+                                });
+
+                            } else {
+                                self.setState({
+                                    isLoading: false
+                                });
+                            }
+                        }).catch(function (error) {
+                        // var errorMessage = error.message + ' (' + error.code + ')';
+                        // self.setState({showErrorInfo: true, errorInfo: errorMessage});
                     });
-                });
-            ;
-        }
+                }, 1000 * 30);
+            }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            self.setState({
+                errorMessage: errorMessage
+            });
+        });
+
+
     }
 
     render() {
+        const {email} = this.props.navigation.state.params;
 
         return (
             <View style={formStyle.container}>
@@ -96,16 +115,10 @@ export default class ResetPassword extends Component {
                                         ref="email"
                                         containerRef="emailcontainerRef"
                                         textInputRef="emailInputRef"
-                                        placeholder="Please enter your email..."
-                                        onChangeText={(text) => this.setEmail(text)}
+                                        value={email}
                                     />
                                 </View>
-                                {this.state.infoessage ?
-                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                        {this.state.infoMessage}
-                                    </FormValidationMessage>
-                                    : null
-                                }
+
 
                                 {this.state.errorMessage ?
                                     <FormValidationMessage containerStyle={formStyle.validateContainer}>
@@ -117,14 +130,17 @@ export default class ResetPassword extends Component {
 
                             <View style={[formStyle.largerFooterContainer]}>
                                 <Button
-                                    onPress={this.handleResetPassword}
+                                    onPress={this.handleVerifyEmail}
                                     icon={{name: 'done'}}
                                     buttonStyle={buttonStyle.submitButton}
-                                    title="Rest Password"
+                                    title="Confirm"
                                 />
                                 <View style={formStyle.textInfoContainer}>
+                                    <TouchableOpacity>
+                                        <View><Text style={formStyle.textLink}>Forgot Password? </Text></View>
+                                    </TouchableOpacity>
                                     <View>
-                                        <Text style={formStyle.plainText}>Don't have an account? </Text>
+                                        <Text style={formStyle.plainText}> or </Text>
                                     </View>
                                     <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
                                         <View><Text style={formStyle.textLink}>Sign up.</Text></View>
@@ -135,8 +151,6 @@ export default class ResetPassword extends Component {
                         </View>
                     )}
             </View>
-
-
         );
     }
 }

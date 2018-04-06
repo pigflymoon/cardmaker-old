@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
-import {Card, Button, List, ListItem, Icon,} from 'react-native-elements';
+import {Card,} from 'react-native-elements';
 
-import bg1 from '../assets/images/bg1.jpg';
-import layoutStyle from '../styles/layout';
-import Copyright from '../components/Copyright';
+import bg1 from '../../assets/images/bg1.jpg';
+import layoutStyle from '../../styles/layout';
+import Copyright from '../../components/Copyright';
 
 export default class About extends Component {
 

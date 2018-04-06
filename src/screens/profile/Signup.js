@@ -7,10 +7,10 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import {auth} from '../config/FirebaseConfig';
-import {doCreateUser} from '../config/db';
-import formStyle from '../styles/form';
-import buttonStyle from '../styles/button';
+import {auth} from '../../config/FirebaseConfig';
+import {doCreateUser} from '../../config/db';
+import formStyle from '../../styles/form';
+import buttonStyle from '../../styles/button';
 
 const byPropKey = (properTyName, value) => ({
     [properTyName]: value,

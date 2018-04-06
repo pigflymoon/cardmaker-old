@@ -9,16 +9,15 @@ import {
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
-// import firebaseApp from '../config/FirebaseConfig';
-import {auth, db, storage} from '../config/FirebaseConfig';
+import {auth} from '../../config/FirebaseConfig';
 
 import {Icon, Card, Button} from 'react-native-elements';
 
-import colors from '../styles/colors';
-import layoutStyle from '../styles/layout';
+import colors from '../../styles/colors';
+import layoutStyle from '../../styles/layout';
 
-import cardStyle from '../styles/card';
-import buttonStyle from '../styles/button';
+import cardStyle from '../../styles/card';
+import buttonStyle from '../../styles/button';
 var makeCard = [];
 export default class MyCards extends Component {
     constructor(props, context) {
