@@ -80,8 +80,13 @@ export default class CardsDeck extends Component {
     refreshImages = () => {
         // const {cardType, userrole, signin} = this.props.navigation.state.params;
         //
-        // this.setState({cardsData: []});
-        // this.getUserImages(cardType, userrole);
+        this.setState({cardsData: []});
+        const {cardType, isPaidUser} = this.props;
+        console.log('this.props is', this.props)
+        console.log('card type is ', cardType, 'isPaidUser ', isPaidUser)
+        // var cardType = this.props.cardType;
+
+        this.getUserImages(cardType, isPaidUser);
     }
 
     getUserImages = (cardType = 'birthdayImages', isPaidUser) => {

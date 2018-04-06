@@ -36,23 +36,6 @@ export default class MyCardsDeck extends Component {
     }
 
     //right  header
-    /*
-     static navigationOptions = ({navigation}) => {
-     // console.log('savedCards in navigation',savedCards)
-     return ({
-     headerVisible: navigation.state.params.isHeaderShow,
-
-     headerRight: (
-     <TouchableOpacity style={{paddingRight: 5}}>
-     <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
-     onPress={() => navigation.navigate('MyCard', {
-     likedCards: savedCards,
-     })}/>
-     </TouchableOpacity>
-     )
-     });
-     }
-     */
     static navigationOptions = ({navigation}) => {
         // const {signin} = navigation.state.params;
 
@@ -63,7 +46,7 @@ export default class MyCardsDeck extends Component {
                     headerRight: (
                         <TouchableOpacity style={{paddingRight: 5}}>
                             <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
-                                  onPress={() => navigation.navigate('MyCard', {
+                                  onPress={() => navigation.navigate('MyCards', {
                                       likedCards: savedCards,
                                   })}/>
                         </TouchableOpacity>
