@@ -57,9 +57,24 @@ export default class Explore extends Component {
 
     fetchImages = (cardType) => {
         var self = this;
-        getFreeImages(cardType).then(function (images) {
-            self.setState({[cardType]: images});
+        //
+        return new Promise(function (resolve, reject) {
+            // some async operation here
+            setTimeout(function () {
+                // resolve the promise with some value
+
+                getFreeImages(cardType).then(function (images) {
+                    self.setState({[cardType]: images});
+                });
+
+
+            }, 500);
         });
+        //
+        // getFreeImages(cardType).then(function (images) {
+        //     self.setState({[cardType]: images});
+        // });
+        //
     }
 
     navigateToShowAll = (cardType) => {
