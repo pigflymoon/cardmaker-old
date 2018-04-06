@@ -253,8 +253,6 @@ export default class CardsGallery extends Component {
                             title={`${item.name}`}
                             image={{uri: item.uri}}
                         >
-
-
                         </Card>
 
                     }

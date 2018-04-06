@@ -62,7 +62,7 @@ export default class Explore extends Component {
 
     fetchImages = (cardType) => {
         var self = this;
-        getAllImages(cardType).then(function (images) {
+        getFreeImages(cardType).then(function (images) {
             self.setState({[cardType]: images});
         });
     }
@@ -100,8 +100,8 @@ export default class Explore extends Component {
 
         this.fetchImages(birthdayImages);
         this.fetchImages(holidayImages);
-        // this.fetchImages(weddingImages);
-        // this.fetchImages(otherImages);
+        this.fetchImages(weddingImages);
+        this.fetchImages(otherImages);
 
 
         this.setState({
