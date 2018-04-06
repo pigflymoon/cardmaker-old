@@ -17,15 +17,10 @@ import Placeholder from 'rn-placeholder';
 import layoutStyle from '../../styles/layout';
 import carouselStyle from '../../styles/carousel';
 import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
-import {auth, db} from '../../config/FirebaseConfig';
 
 import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
 import {
-    getFreeBirthdayImages,
-    getFreeHolidayImages,
-    getFreeWeddingImages,
-    getFreeOtherImages,
     getFreeImages,
     getAllImages,
 } from '../../utils/FetchImagesByApi';
