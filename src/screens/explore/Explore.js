@@ -67,32 +67,9 @@ export default class Explore extends Component {
         });
     }
 
-    fetchHolidayImages = () => {
-        var self = this;
-        getFreeHolidayImages().then(function (images) {
-            self.setState({holidayImages: images});
-        });
-    }
-
-    fetchWeddingImages = () => {
-        var self = this;
-        getFreeWeddingImages().then(function (images) {
-            self.setState({weddingImages: images});
-        });
-    }
-
-    fetchOtherImages = () => {
-        var self = this;
-        getFreeOtherImages().then(function (images) {
-            self.setState({otherImages: images});
-        });
-    }
-
     navigateToShowAll = (cardType) => {
         this.props.navigation.navigate('CardsGallery', {
             cardType: cardType,
-            // userrole: this.state.userrole,
-            // signIn: this.state.signIn
         });
     }
 
