@@ -27,7 +27,12 @@ import {
     getFreeWeddingImages,
     getFreeOtherImages,
     getFreeImages,
+    getAllImages,
 } from '../../utils/FetchImagesByApi';
+const birthdayImages = 'birthdayImages';
+const holidayImages = 'holidayImages';
+const weddingImages = 'weddingImages';
+const otherImages = 'otherImages';
 
 const words = [
 
@@ -47,6 +52,7 @@ export default class Explore extends Component {
             holidayImages: [],
             weddingImages: [],
             otherImages: [],
+
             appReady: false,
             rootKey: Math.random(),
         };
@@ -56,8 +62,8 @@ export default class Explore extends Component {
 
     fetchImages = (cardType) => {
         var self = this;
-        getFreeImages(cardType).then(function (images) {
-            self.setState({birthdayImages: images});
+        getAllImages(cardType).then(function (images) {
+            self.setState({[cardType]: images});
         });
     }
 
@@ -85,38 +91,18 @@ export default class Explore extends Component {
     navigateToShowAll = (cardType) => {
         this.props.navigation.navigate('CardsGallery', {
             cardType: cardType,
-            userrole: this.state.userrole,
-            signIn: this.state.signIn
+            // userrole: this.state.userrole,
+            // signIn: this.state.signIn
         });
     }
 
     componentWillMount() {
 
-        this.fetchImages("birthdayImages");
-        /*
-         var self = this;
-        auth.onAuthStateChanged(function (authUser) {
-            if (authUser) {
-                var userId = auth.currentUser.uid;
-                db.ref('/users/' + userId).once('value').then(function (snapshot) {
-                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true};
-                    // self.getImages(userrole);
-                    self.fetchImages("birthdayImages");
-                    // this.fetchHolidayImages();
-                    // this.fetchWeddingImages();
-                    // this.fetchOtherImages();
-                    self.setState({signin: true, authUser, userrole: userrole});
+        this.fetchImages(birthdayImages);
+        this.fetchImages(holidayImages);
+        // this.fetchImages(weddingImages);
+        // this.fetchImages(otherImages);
 
-                });
-            } else {
-                this.fetchBirthdayImages();
-                // this.fetchHolidayImages();
-                // this.fetchWeddingImages();
-                // this.fetchOtherImages();
-                self.setState({signin: false, cardsData: []})
-            }
-        });
-        */
 
         this.setState({
             contentIsLoading: true
@@ -202,7 +188,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Birthday'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('birthdayImages')}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(birthdayImages)}>
                                     <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -212,7 +198,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Holidays'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('holidayImages')}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(holidayImages)}>
                                     <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -222,7 +208,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Wedding'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('weddingImages')}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(weddingImages)}>
                                     <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -233,7 +219,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Others'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('otherImages')}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(otherImages)}>
                                     <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                 </TouchableOpacity>
                             </View>

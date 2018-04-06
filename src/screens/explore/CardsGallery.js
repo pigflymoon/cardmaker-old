@@ -20,13 +20,11 @@ export default class CardsGallery extends Component {
             lodingFinished: false,
             freeCards: [],
             paidCards: [],
-            // likedCards: [],
-            // dislikedCards: [],
         }
     }
 
-    getPaidImages = (cardType = 'birthdayImages',) => {
-        console.log('paidReferenceToOldestKey is', paidReferenceToOldestKey)
+    getPaidImages = (cardType = 'birthdayImages') => {
+        console.log('cardType is', cardType)
         // this.setState({loading: true});
         if (!paidReferenceToOldestKey) {
             console.log('key is ~~~~~~~~~~~~~')
@@ -101,7 +99,9 @@ export default class CardsGallery extends Component {
         }
 
     }
-    fetchData = async(isPaidUser, cardType) => {
+    fetchData = async(cardType) => {
+        console.log('fetchData cardType is', cardType)
+
         var self = this;
         // if(isPaidUser){
         var paidPages = await (new Promise(function (resolve, reject) {
@@ -202,7 +202,7 @@ export default class CardsGallery extends Component {
             return false
         } else {
 
-            this.fetchData(this.state.isPaidUser, cardType).then(function (pages) {
+            this.fetchData(cardType).then(function (pages) {
                 console.log('data are ', pages)
                 console.log('******* data return is********* ', pages)
                 var images = self.state.cardsData;
@@ -217,27 +217,10 @@ export default class CardsGallery extends Component {
     };
 
     componentDidMount() {
-        const {cardType, userrole, signin} = this.props.navigation.state.params;
-        /*
-         if (userrole && userrole.paid_user) {
-         var isPaidUser = userrole.paid_user;
-
-
-         this.fetchData(isPaidUser).then(function (pages) {
-         console.log('data are ', pages)
-         console.log('******* data return is********* ', pages)
-         self.setState({cardsData: pages, loading: false})
-
-
-         })
-         } else {
-         console.log('sign in?')
-         // this.props.navigation.navigate('Signin', {});
-
-         }
-         */
+        const {cardType} = this.props.navigation.state.params;
+        console.log('cardType are ', cardType)
         var self = this;
-        this.fetchData().then(function (pages) {
+        this.fetchData(cardType).then(function (pages) {
             console.log('data are ', pages)
             console.log('******* data return is********* ', pages)
             self.setState({cardsData: pages, loading: false})
@@ -248,12 +231,7 @@ export default class CardsGallery extends Component {
     }
 
     render() {
-
-        // if (this.props.screenProps.currentScreen !== 'CardsDeck') {
-        //     return <View/>
-        // }
         const {cardType} = this.props.navigation.state.params;
-
         return (
             <View style={layoutStyle.container}>
                 <FlatList
