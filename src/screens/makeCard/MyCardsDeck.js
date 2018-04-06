@@ -29,19 +29,13 @@ export default class MyCardsDeck extends Component {
             selectedIndex: 0,
             index: 0,
             cardType: 'birthdayImages',
-
-            // likedCards: [],
-            // dislikedCards: [],
         }
     }
 
     //right  header
     static navigationOptions = ({navigation}) => {
-        // const {signin} = navigation.state.params;
-
         if (typeof (navigation.state.params) != 'undefined') {
             if (navigation.state.params.signin) {
-                console.log('sign in?')
                 return ({
                     headerRight: (
                         <TouchableOpacity style={{paddingRight: 5}}>
@@ -89,7 +83,6 @@ export default class MyCardsDeck extends Component {
             }
         })
 
-        // this.setState({selectedIndex})
     }
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
