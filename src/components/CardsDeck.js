@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
 
-import { Card, Icon,} from 'react-native-elements';
+import {Card, Icon,} from 'react-native-elements';
 
 import SwipeDeck from '../components/SwipeDeck';
 import {
@@ -73,13 +73,10 @@ export default class CardsDeck extends Component {
 
     gotoMyCards = () => {
         console.log('savedCards in Cards', savedCards)
-        // this.props.navigation.navigate('MyCardTab', {likedCards: savedCards, signin: true});
     }
 
 
     refreshImages = () => {
-        // const {cardType, userrole, signin} = this.props.navigation.state.params;
-        //
         this.setState({cardsData: []});
         const {cardType, isPaidUser} = this.props;
         console.log('this.props is', this.props)
@@ -110,11 +107,6 @@ export default class CardsDeck extends Component {
 
     componentDidMount() {
         const {cardType, isPaidUser} = this.props;
-        console.log('this.props is', this.props)
-
-        console.log('card type is ', cardType, 'isPaidUser ', isPaidUser)
-        // var cardType = this.props.cardType;
-
         this.getUserImages(cardType, isPaidUser);
     }
 
@@ -124,9 +116,11 @@ export default class CardsDeck extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('nextProps is', nextProps)
+        if (nextProps.cardType != this.props.cardType) {
+            console.log('card type is different')
+            likedCards = [];//cardtype is different ,clean the likedcards
+        }
         const {cardType, isPaidUser} = nextProps;
-        console.log('nextProps card type is ', cardType, 'isPaidUser ', isPaidUser)
-        // var cardType = this.props.cardType;
 
         this.getUserImages(cardType, isPaidUser);
     }

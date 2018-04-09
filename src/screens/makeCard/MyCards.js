@@ -97,6 +97,11 @@ export default class MyCards extends Component {
 
     }
 
+    componentWillUnmount() {
+        console.log('my cards unmount**************')
+        this.setState({chooseCards: []})
+    }
+
     initialSelectedItem = (chooseCards) => {
         // let selectedItemTemp = [];
         var result = chooseCards.map(card => ({id: card.id, value: false}));

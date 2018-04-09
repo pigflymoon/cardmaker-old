@@ -34,30 +34,32 @@ export default class MyCardsDeck extends Component {
 
     //right  header
     static navigationOptions = ({navigation}) => {
-        if (typeof (navigation.state.params) != 'undefined') {
-            if (navigation.state.params.signin) {
-                return ({
-                    headerRight: (
-                        <TouchableOpacity style={{paddingRight: 5}}>
-                            <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
-                                  onPress={() => navigation.navigate('MyCards', {
-                                      likedCards: savedCards,
-                                  })}/>
-                        </TouchableOpacity>
-                    )
-                });
-            } else {
-                console.log(' Not sign in?')
+        const params = navigation.state.params || {};
 
-                return {
-                    headerRight: false,
-                };
-            }
+        // if (typeof (navigation.state.params) != 'undefined') {
+        if (params.signin) {
+            return ({
+                headerRight: (
+                    <TouchableOpacity style={{paddingRight: 5}}>
+                        <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
+                              onPress={() => navigation.navigate('MyCards', {
+                                  likedCards: savedCards,
+                              })}/>
+                    </TouchableOpacity>
+                )
+            });
         } else {
+            console.log(' Not sign in?')
+
             return {
                 headerRight: false,
             };
         }
+        // } else {
+        //     return {
+        //         headerRight: false,
+        //     };
+        // }
 
 
     };
@@ -101,7 +103,6 @@ export default class MyCardsDeck extends Component {
                         signin: true,
                         isPaidUser: isPaidUser,
                         headerRight: true,
-
                     });
                 });
             } else {
@@ -119,7 +120,6 @@ export default class MyCardsDeck extends Component {
     handleSavedCards = (likedCards) => {
         console.log('likedCards', likedCards)
         savedCards = likedCards;
-        // this.setState({savedCard: savedCard})
     }
 
     renderSignCard() {

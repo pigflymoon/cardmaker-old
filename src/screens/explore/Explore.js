@@ -70,11 +70,6 @@ export default class Explore extends Component {
 
             }, 500);
         });
-        //
-        // getFreeImages(cardType).then(function (images) {
-        //     self.setState({[cardType]: images});
-        // });
-        //
     }
 
     navigateToShowAll = (cardType) => {
@@ -84,12 +79,10 @@ export default class Explore extends Component {
     }
 
     componentWillMount() {
-
         this.fetchImages(birthdayImages);
         this.fetchImages(holidayImages);
         this.fetchImages(weddingImages);
         this.fetchImages(otherImages);
-
 
         this.setState({
             contentIsLoading: true
@@ -101,12 +94,11 @@ export default class Explore extends Component {
     }
 
     componentDidMount() {
-
-        // this.fetchPaidImages();
-
         this.resetAnimation();
+    }
 
-
+    componentWillUnmount() {
+        console.log('explore unmount')
     }
 
     resetAnimation() {
@@ -159,7 +151,6 @@ export default class Explore extends Component {
     }
 
     render() {
-
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
                 <Loader

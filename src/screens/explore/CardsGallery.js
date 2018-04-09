@@ -15,7 +15,7 @@ import {db} from '../../config/FirebaseConfig';
 
 import layoutStyle from '../../styles/layout';
 
-let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
+let  paidReferenceToOldestKey = '', lastPaidKey = '';
 
 
 export default class CardsGallery extends Component {
@@ -84,7 +84,6 @@ export default class CardsGallery extends Component {
                     // transforming to array
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
                             return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     // updating reference
@@ -116,10 +115,6 @@ export default class CardsGallery extends Component {
                     if (paidPages.length > 0) {
                         var arrToConvert = paidPages;
                         lastPaidKey = paidPages[paidPages.length - 1].id;
-                        console.log('#######last key is ', lastPaidKey)
-
-                        console.log('#######saved last lastPaidKey is ', self.state.lastPaidKey)
-                        console.log('arrToConvert ', arrToConvert)
                         if (lastPaidKey == self.state.lastPaidKey) {
                             console.log(' key same')
                             // return false;
@@ -128,19 +123,15 @@ export default class CardsGallery extends Component {
                             for (var i = 0; i < arrToConvert.length; i++) {
                                 newPaidArr = newPaidArr.concat(paidPages[i]);
                             }
-                            console.log('######### state image  are :', images)
 
                             images = [...images, ...newPaidArr]
                             self.setState({lastPaidKey: lastPaidKey})
-
-                            console.log('######### paid pages are :', images)
                             resolve(images)
                             // return images
                         }
                     } else {
                         self.setState({lodingFinished: true})
                         resolve(images)
-                        // return false;
                     }
 
 
@@ -150,7 +141,6 @@ export default class CardsGallery extends Component {
         return paidPages;
     }
     handleScrollToEnd = (cardType) => {
-        console.log('scroll loading is ', this.state.loading)
         var self = this;
         if (this.state.lodingFinished) {
             return false
@@ -169,15 +159,12 @@ export default class CardsGallery extends Component {
         var self = this;
 
         this.fetchData(cardType).then(function (pages) {
-            console.log('data are ', pages)
-            console.log('******* data return is********* ', pages)
             self.setState({cardsData: pages, loading: false})
         })
 
     }
 
     componentWillUnmount() {
-        console.log('called unmount')
         paidReferenceToOldestKey = '';
 
     }
