@@ -16,6 +16,12 @@ import {db} from '../../config/FirebaseConfig';
 import layoutStyle from '../../styles/layout';
 
 let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
+let cardTypeKey = '',
+    birthdayPaidReferenceToOldestKey = '',
+    holidayPaidReferenceToOldestKey = '',
+    weddingPaidReferenceToOldestKey = '',
+    othersPaidReferenceToOldestKey = '';
+
 
 export default class CardsGallery extends Component {
     constructor(props, context) {
@@ -32,10 +38,10 @@ export default class CardsGallery extends Component {
         }
     }
 
-    getPaidImages = (cardType = 'birthdayImages') => {
+    getPaidImages = (cardType = 'birthdayImages', cardTypeKey = birthdayPaidReferenceToOldestKey) => {
         console.log('cardType is', cardType)
-        // this.setState({loading: true});
-        if (!paidReferenceToOldestKey) {
+
+        if (!cardTypeKey) {
             console.log('key is ~~~~~~~~~~~~~')
             return db.ref(cardType)
                 .orderByKey()
@@ -69,10 +75,10 @@ export default class CardsGallery extends Component {
                 })
 
         } else {
-            console.log('paidReferenceToOldestKey is ', paidReferenceToOldestKey)
+            console.log('paidReferenceToOldestKey is ', cardTypeKey)
             return db.ref(cardType)
                 .orderByKey()
-                .endAt(paidReferenceToOldestKey)
+                .endAt(cardTypeKey)
                 .limitToLast(5)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
@@ -108,13 +114,13 @@ export default class CardsGallery extends Component {
         }
 
     }
-    fetchData = async(cardType) => {
+    fetchData = async(cardType, cardTypeKey) => {
         console.log('fetchData cardType is', cardType)
 
         var self = this;
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
-                self.getPaidImages(cardType).then(function (paidPages) {
+                self.getPaidImages(cardType, cardTypeKey).then(function (paidPages) {
                     console.log('paidPages ', paidPages)
                     var newPaidArr = [];
                     var images = self.state.freeCards;
@@ -181,7 +187,22 @@ export default class CardsGallery extends Component {
         const {cardType} = this.props.navigation.state.params;
         console.log('cardType are ', cardType)
         var self = this;
-        this.fetchData(cardType).then(function (pages) {
+        switch (cardType) {
+            case 'birthdayImages':
+                cardTypeKey = birthdayPaidReferenceToOldestKey;
+            case 'holidayImages':
+                cardTypeKey = holidayPaidReferenceToOldestKey;
+            case 'weddingImages':
+                cardTypeKey = weddingPaidReferenceToOldestKey;
+            case 'otherImages':
+                cardTypeKey = othersPaidReferenceToOldestKey;
+
+                break;
+            default:
+                cardTypeKey = birthdayPaidReferenceToOldestKey;
+
+        }
+        this.fetchData(cardType, cardTypeKey).then(function (pages) {
             console.log('data are ', pages)
             console.log('******* data return is********* ', pages)
             self.setState({cardsData: pages, loading: false})
