@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    ActivityIndicator,
+    FlatList,
+    TouchableOpacity,
+    Image,
+} from 'react-native';
 import {Card,} from 'react-native-elements';
 
 import {db} from '../../config/FirebaseConfig';
@@ -103,7 +112,6 @@ export default class CardsGallery extends Component {
         console.log('fetchData cardType is', cardType)
 
         var self = this;
-        // if(isPaidUser){
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getPaidImages(cardType).then(function (paidPages) {
@@ -145,54 +153,7 @@ export default class CardsGallery extends Component {
             });
         }));
         return paidPages
-        // }
-        /*
-         else{
-         console.log('isPaid User?',isPaidUser)
-         var freePages = await (new Promise(function (resolve, reject) {
-         setTimeout(() => {
-         self.getFreeImages().then(function (freePages) {
-         console.log('freepages ', freePages)
-         var newFreeArr = [];
-         var images = self.state.freeCards;
-         if (freePages.length > 0) {
-         var arrToConvert = freePages;
-         lastFreeKey = freePages[freePages.length - 1].id;
-         console.log('#######last key is ', lastFreeKey)
 
-         console.log('#######saved last lastFreeKey is ', self.state.lastFreeKey)
-         console.log('arrToConvert ', arrToConvert)
-         if (lastFreeKey == self.state.lastFreeKey) {
-         // return false;
-         resolve(images)
-         } else {
-         for (var i = 0; i < arrToConvert.length; i++) {
-         newFreeArr = newFreeArr.concat(freePages[i]);
-         }
-         console.log('######### state image  are :', images)
-
-         images = [...images, ...newFreeArr]
-         self.setState({lastFreeKey: lastFreeKey})
-
-         console.log('######### free pages are :', images)
-         resolve(images)
-         // return images
-         }
-         } else {
-         self.setState({lodingFinished: true})
-         resolve(images)
-         // return false;
-         }
-
-
-         }), 2000
-         });
-         }));
-         var total = freePages
-         console.log('total is :',total)
-         return freePages
-         }
-         */
 
     }
     handleScrollToEnd = (cardType) => {
@@ -250,9 +211,16 @@ export default class CardsGallery extends Component {
                     renderItem={({item}) =>
                         <Card
                             key={`${item.id}`}
-                            title={`${item.name}`}
+
                             image={{uri: item.uri}}
+                            imageStyle={layoutStyle.cardImage}
+                            containerStyle={layoutStyle.cardContainer}
+                            wrapperStyle={layoutStyle.cardInnerwrapper}
+
+
                         >
+
+
                         </Card>
 
                     }
