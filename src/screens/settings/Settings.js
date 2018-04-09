@@ -320,25 +320,25 @@ export default class Settings extends Component {
                 <List>
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'chat', color: colors.grey2}}
+                        leftIcon={{name: 'chat', color: colors.secondary2}}
                         title={`Tell a friend`}
                         onPress={() => this.onShare()}
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'favorite', color: colors.grey2}}
+                        leftIcon={{name: 'favorite', color: colors.red1}}
                         title={`Rate us`}
                         onPress={() => this.onRate()}
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'info', color: colors.grey2}}
+                        leftIcon={{name: 'info', color: colors.purple1}}
                         title={`About`}
                         onPress={() => this.onAbout()}
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'perm-device-information', color: colors.grey2}}
+                        leftIcon={{name: 'perm-device-information', color: colors.primary2}}
                         hideChevron
                         title={`Version`}
                         subtitle={this.state.version}
