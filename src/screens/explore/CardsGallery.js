@@ -16,11 +16,6 @@ import {db} from '../../config/FirebaseConfig';
 import layoutStyle from '../../styles/layout';
 
 let freeReferenceToOldestKey = '', paidReferenceToOldestKey = '', lastPaidKey = '', lastFreeKey = '';
-let cardTypeKey = '',
-    birthdayPaidReferenceToOldestKey = '',
-    holidayPaidReferenceToOldestKey = '',
-    weddingPaidReferenceToOldestKey = '',
-    othersPaidReferenceToOldestKey = '';
 
 
 export default class CardsGallery extends Component {
@@ -38,11 +33,9 @@ export default class CardsGallery extends Component {
         }
     }
 
-    getPaidImages = (cardType = 'birthdayImages', cardTypeKey = birthdayPaidReferenceToOldestKey) => {
-        console.log('cardType is', cardType)
-
-        if (!cardTypeKey) {
-            console.log('key is ~~~~~~~~~~~~~')
+    getPaidImages = (cardType = 'birthdayImages') => {
+        if (!paidReferenceToOldestKey) {
+            console.log(' paidReferenceToOldestKey key is ~~~~~~~~~~~~~', paidReferenceToOldestKey);
             return db.ref(cardType)
                 .orderByKey()
                 .limitToLast(5)
@@ -75,10 +68,10 @@ export default class CardsGallery extends Component {
                 })
 
         } else {
-            console.log('paidReferenceToOldestKey is ', cardTypeKey)
+            console.log('paidReferenceToOldestKey is ', paidReferenceToOldestKey)
             return db.ref(cardType)
                 .orderByKey()
-                .endAt(cardTypeKey)
+                .endAt(paidReferenceToOldestKey)
                 .limitToLast(5)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
@@ -95,10 +88,6 @@ export default class CardsGallery extends Component {
                             return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
                     // updating reference
-                    console.log('paid result is ', results)
-
-                    // self.setState({cardsData:results})
-
 
                     paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                     resolve(results);
@@ -112,15 +101,15 @@ export default class CardsGallery extends Component {
 
 
         }
+        // }
+
 
     }
-    fetchData = async(cardType, cardTypeKey) => {
-        console.log('fetchData cardType is', cardType)
-
+    fetchData = async(cardType) => {
         var self = this;
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
-                self.getPaidImages(cardType, cardTypeKey).then(function (paidPages) {
+                self.getPaidImages(cardType).then(function (paidPages) {
                     console.log('paidPages ', paidPages)
                     var newPaidArr = [];
                     var images = self.state.freeCards;
@@ -158,9 +147,7 @@ export default class CardsGallery extends Component {
                 }), 2000
             });
         }));
-        return paidPages
-
-
+        return paidPages;
     }
     handleScrollToEnd = (cardType) => {
         console.log('scroll loading is ', this.state.loading)
@@ -168,16 +155,10 @@ export default class CardsGallery extends Component {
         if (this.state.lodingFinished) {
             return false
         } else {
-
             this.fetchData(cardType).then(function (pages) {
-                console.log('data are ', pages)
-                console.log('******* data return is********* ', pages)
                 var images = self.state.cardsData;
                 images = [...images, ...pages]
-                console.log('******* total images is********* ', images)
-
                 self.setState({cardsData: images, loading: false})
-
 
             })
         }
@@ -185,30 +166,19 @@ export default class CardsGallery extends Component {
 
     componentDidMount() {
         const {cardType} = this.props.navigation.state.params;
-        console.log('cardType are ', cardType)
         var self = this;
-        switch (cardType) {
-            case 'birthdayImages':
-                cardTypeKey = birthdayPaidReferenceToOldestKey;
-            case 'holidayImages':
-                cardTypeKey = holidayPaidReferenceToOldestKey;
-            case 'weddingImages':
-                cardTypeKey = weddingPaidReferenceToOldestKey;
-            case 'otherImages':
-                cardTypeKey = othersPaidReferenceToOldestKey;
 
-                break;
-            default:
-                cardTypeKey = birthdayPaidReferenceToOldestKey;
-
-        }
-        this.fetchData(cardType, cardTypeKey).then(function (pages) {
+        this.fetchData(cardType).then(function (pages) {
             console.log('data are ', pages)
             console.log('******* data return is********* ', pages)
             self.setState({cardsData: pages, loading: false})
-
-
         })
+
+    }
+
+    componentWillUnmount() {
+        console.log('called unmount')
+        paidReferenceToOldestKey = '';
 
     }
 
@@ -232,17 +202,11 @@ export default class CardsGallery extends Component {
                     renderItem={({item}) =>
                         <Card
                             key={`${item.id}`}
-
                             image={{uri: item.uri}}
                             imageStyle={layoutStyle.cardImage}
                             containerStyle={layoutStyle.cardContainer}
                             wrapperStyle={layoutStyle.cardInnerwrapper}
-
-
-                        >
-
-
-                        </Card>
+                        />
 
                     }
 
