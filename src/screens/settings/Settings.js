@@ -38,7 +38,7 @@ export default class Settings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            version: '1.0.2',
+            version: '2.0.1',
             isPro: 'DISABLED',
             showProData: false,//remove in-purchase
 
