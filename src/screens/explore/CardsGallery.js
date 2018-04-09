@@ -197,7 +197,7 @@ export default class CardsGallery extends Component {
             <View style={layoutStyle.container}>
                 <FlatList
                     data={this.state.cardsData}
-                    keyExtractor={this.keyExtractor}
+                    keyExtractor={(item, index) => `${index}-image`}
                     onEndReached={() => this.handleScrollToEnd(cardType)}
                     onEndReachedThreshold={0}
                     shouldItemUpdate={(props, nextProps) => {
