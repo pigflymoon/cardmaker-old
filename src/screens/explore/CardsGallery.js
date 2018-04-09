@@ -155,6 +155,7 @@ export default class CardsGallery extends Component {
     };
 
     componentDidMount() {
+        console.log('cards gallery called')
         const {cardType} = this.props.navigation.state.params;
         var self = this;
 
@@ -165,6 +166,7 @@ export default class CardsGallery extends Component {
     }
 
     componentWillUnmount() {
+        console.log('***********gallery unmount**************')
         paidReferenceToOldestKey = '';
 
     }

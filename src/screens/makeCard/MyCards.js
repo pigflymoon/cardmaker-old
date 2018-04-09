@@ -38,6 +38,7 @@ export default class MyCards extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         console.log('makeCard is ', makeCard)
+        console.log('cards list navigation option called')
         return ({
             headerRight: (
                 <TouchableOpacity style={{paddingRight: 5}}>
@@ -58,6 +59,7 @@ export default class MyCards extends Component {
     }
 
     componentDidMount() {
+        console.log('my cards list called')
         var self = this;
         if (this.props.navigation.state.params) {
             var chooseCards = this.props.navigation.state.params.likedCards;

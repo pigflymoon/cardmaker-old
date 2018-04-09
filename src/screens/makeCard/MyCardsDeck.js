@@ -34,6 +34,7 @@ export default class MyCardsDeck extends Component {
 
     //right  header
     static navigationOptions = ({navigation}) => {
+        console.log('cards deck navigation option called ')
         const params = navigation.state.params || {};
 
         // if (typeof (navigation.state.params) != 'undefined') {
@@ -49,7 +50,7 @@ export default class MyCardsDeck extends Component {
                 )
             });
         } else {
-            console.log(' Not sign in?')
+
 
             return {
                 headerRight: false,
@@ -117,6 +118,15 @@ export default class MyCardsDeck extends Component {
 
     }
 
+    componentDidMount() {
+        console.log('cards Deck Tab called')
+    }
+
+
+    componentWillUnmount() {
+        console.log('***********cards Deck Tab unmount**************')
+
+    }
     handleSavedCards = (likedCards) => {
         console.log('likedCards', likedCards)
         savedCards = likedCards;

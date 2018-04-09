@@ -65,6 +65,8 @@ export default class MakeCard extends Component {
     }
 
     componentDidMount() {
+        console.log('make cards Tab called')
+
         var self = this;
         auth.onAuthStateChanged(function (user) {
             if (user) {

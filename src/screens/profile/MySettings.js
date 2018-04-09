@@ -184,6 +184,8 @@ export default class MySettings extends Component {
     }
 
     componentDidMount() {
+        console.log('Profile called')
+
         var self = this;
 
         auth.onAuthStateChanged(function (user) {
@@ -206,7 +208,10 @@ export default class MySettings extends Component {
             }
         })
     }
+    componentWillUnmount() {
+        console.log('***********Profile Tab unmount**************')
 
+    }
     render() {
         return (
             <View style={layoutStyle.container}>
