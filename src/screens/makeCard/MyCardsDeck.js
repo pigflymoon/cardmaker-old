@@ -42,7 +42,7 @@ export default class MyCardsDeck extends Component {
             return ({
                 headerRight: (
                     <TouchableOpacity style={{paddingRight: 5}}>
-                        <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
+                        <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                               onPress={() => navigation.navigate('MyCards', {
                                   likedCards: savedCards,
                               })}/>
@@ -139,7 +139,8 @@ export default class MyCardsDeck extends Component {
                     Please sign in then choose picture to make card
                 </Text>
                 <Button
-                    icon={{name: 'perm-identity'}}
+                    icon={{name: 'perm-identity', color: colors.secondary2}}
+                    color={colors.secondary2}
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in /Sign up'
                     onPress={this.navigateToSignin}

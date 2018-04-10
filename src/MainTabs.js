@@ -24,6 +24,8 @@ import AboutScreen from './screens/settings/About';
 import ProversionScreen from './screens/settings/Proversion';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from './styles/colors';
+
 const MySettingsStack = StackNavigator({
         MySettings: {
             screen: MySettingsScreen,
@@ -153,7 +155,8 @@ const StacksInTabs = TabNavigator(
                         size={26}
                         style={{color: tintColor}}
                     />
-                )
+                ),
+
             }
 
         },
@@ -186,10 +189,12 @@ const StacksInTabs = TabNavigator(
         },
 
     },
+
     {
         tabBarPosition: 'bottom',
         animationEnabled: false,
         swipeEnabled: false,
+        tabBarOptions: {activeTintColor: colors.secondary2}
     }
 );
 

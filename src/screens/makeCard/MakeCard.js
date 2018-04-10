@@ -26,11 +26,10 @@ import {ColorWheel} from 'react-native-color-wheel';
 import {auth} from '../../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
 import  Utils from '../../utils/utils';
-import colors from '../../styles/colors';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import buttonStyle from '../../styles/button';
-
+import colors from '../../styles/colors';
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -171,7 +170,8 @@ export default class MakeCard extends Component {
                     Please sign in then choose picture to make card
                 </Text>
                 <Button
-                    icon={{name: 'perm-identity'}}
+                    icon={{name: 'perm-identity', color: colors.secondary2}}
+                    color={colors.secondary2}
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in /Sign up'
                     onPress={this.navigateToSignin}

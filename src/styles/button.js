@@ -3,7 +3,14 @@ import colors from './colors';
 export default {
     submitButton: {
         marginTop: 15,
-        backgroundColor: colors.primary1
+        backgroundColor: 'transparent',
+
+        // backgroundColor: colors.white,
+        borderWidth: 1,
+        borderColor: colors.secondary2,
+    },
+    iconStyle: {
+        color: colors.secondary2,
     },
     closeButton: {
         backgroundColor: colors.error,
@@ -21,7 +28,8 @@ export default {
         alignItems: 'center'
     },
     buttonText: {
-        color: 'white'
+        color: 'white',
+        // color: colors.secondary2,
     },
     button: {
         backgroundColor: 'tomato',

@@ -11,6 +11,7 @@ import {auth} from '../../config/FirebaseConfig';
 import {doCreateUser} from '../../config/db';
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
+import colors from '../../styles/colors';
 
 const byPropKey = (properTyName, value) => ({
     [properTyName]: value,
@@ -59,7 +60,7 @@ export default class Signup extends Component {
                     //
                 }
             })
-             .catch(function (error) {
+                .catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
@@ -151,7 +152,8 @@ export default class Signup extends Component {
                 <View style={formStyle.footerContainer}>
                     <Button
                         onPress={this.handleSignup}
-                        icon={{name: 'done'}}
+                        icon={{name: 'done', color: colors.secondary2}}
+                        color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign up"
                     />

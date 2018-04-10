@@ -17,8 +17,9 @@ import {auth} from '../../config/FirebaseConfig';
 
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
-let interval = null;
+import colors from '../../styles/colors';
 
+let interval = null;
 
 export default class VerifyEmail extends Component {
     constructor(props) {
@@ -131,7 +132,8 @@ export default class VerifyEmail extends Component {
                             <View style={[formStyle.largerFooterContainer]}>
                                 <Button
                                     onPress={this.handleVerifyEmail}
-                                    icon={{name: 'done'}}
+                                    icon={{name: 'done', color: colors.secondary2}}
+                                    color={colors.secondary2}
                                     buttonStyle={buttonStyle.submitButton}
                                     title="Confirm"
                                 />

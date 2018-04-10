@@ -42,7 +42,7 @@ export default class MyCards extends Component {
         return ({
             headerRight: (
                 <TouchableOpacity style={{paddingRight: 5}}>
-                    <Icon name={"edit"} type="font-awesome" size={28} color={colors.primary1}
+                    <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                           onPress={() => {
                               console.log('state is ', navigation.state)
                               {
@@ -160,19 +160,13 @@ export default class MyCards extends Component {
             <View style={cardStyle.header}>
                 <View style={cardStyle.headerCenter}>
                     <View style={cardStyle.titleContainer}>
-                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
                         <Text style={cardStyle.title}>1. choose your card by just click it</Text>
                     </View>
                     <View style={cardStyle.titleContainer}>
-                        <Icon name="card-giftcard" color={colors.primary1} size={20}/>
-                        <Text style={cardStyle.title}>2. Add it to Make Cards</Text>
+                        <Text style={cardStyle.title}>2. Then make your own card</Text>
                     </View>
                 </View>
-                <View style={cardStyle.headerRightIcon}>
-                    <Icon name="card-giftcard" color={colors.primary1} size={35}
-                          onPress={this.gotoMakeCards}
-                    />
-                </View>
+
             </View>
         );
     }
@@ -190,7 +184,8 @@ export default class MyCards extends Component {
                     Please sign in then choose picture to make card
                 </Text>
                 <Button
-                    icon={{name: 'perm-identity'}}
+                    icon={{name: 'perm-identity', color: colors.secondary2}}
+                    color={colors.secondary2}
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in /Sign up'
                     onPress={this.navigateToSignin}

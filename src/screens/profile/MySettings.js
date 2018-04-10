@@ -14,6 +14,7 @@ import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
 import bg1 from '../../assets/images/bg1.jpg';
 import layoutStyle from '../../styles/layout';
+import colors from '../../styles/colors';
 
 export default class MySettings extends Component {
     constructor(props, context) {
@@ -161,7 +162,8 @@ export default class MySettings extends Component {
                 <View style={[formStyle.largerFooterContainer]}>
                     <Button
                         onPress={this.handleSignin}
-                        icon={{name: 'done'}}
+                        icon={{name: 'done', color: colors.secondary2}}
+                        color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign in"
                     />
@@ -208,10 +210,12 @@ export default class MySettings extends Component {
             }
         })
     }
+
     componentWillUnmount() {
         console.log('***********Profile Tab unmount**************')
 
     }
+
     render() {
         return (
             <View style={layoutStyle.container}>
@@ -222,7 +226,8 @@ export default class MySettings extends Component {
                         Please sign in to make your card, have fun!
                     </Text>
                     <Button
-                        icon={{name: 'perm-identity'}}
+                        icon={{name: 'perm-identity', color: colors.secondary2}}
+                        color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title='Sign in /Sign up'
                         onPress={this.navigateToSignin}
@@ -235,7 +240,8 @@ export default class MySettings extends Component {
                         Please pick your picture from libaray to make your card, have fun!
                     </Text>
                     <Button
-                        icon={{name: 'perm-identity'}}
+                        icon={{name: 'perm-identity', color: colors.secondary2}}
+                        color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title='Sign out'
                         onPress={this.handleSignout}

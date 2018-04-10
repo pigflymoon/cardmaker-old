@@ -17,6 +17,7 @@ import {auth} from '../../config/FirebaseConfig';
 
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
+import colors from '../../styles/colors';
 
 
 export default class ResetPassword extends Component {
@@ -62,7 +63,7 @@ export default class ResetPassword extends Component {
                 });
 
             })
-            .catch(function (error) {
+                .catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
@@ -117,7 +118,8 @@ export default class ResetPassword extends Component {
                             <View style={[formStyle.largerFooterContainer]}>
                                 <Button
                                     onPress={this.handleResetPassword}
-                                    icon={{name: 'done'}}
+                                    icon={{name: 'done', color: colors.secondary2}}
+                                    color={colors.secondary2}
                                     buttonStyle={buttonStyle.submitButton}
                                     title="Rest Password"
                                 />
