@@ -18,6 +18,8 @@ import MySettingsScreen from './screens/profile/MySettings';
 import SignupScreen from './screens/profile/Signup';
 import VerifiEmailScreen from './screens/profile/VerifyEmail';
 import ResetPasswordScreen from './screens/profile/ResetPassword';
+import TermsScreen from './screens/profile/TermOfUse';
+import PolicyScreen from './screens/profile/PrivacyPolicy';
 //Settings
 import SettingsScreen from './screens/settings/Settings';
 import AboutScreen from './screens/settings/About';
@@ -31,14 +33,14 @@ const MySettingsStack = StackNavigator({
             screen: MySettingsScreen,
             navigationOptions: ({navigation}) => ({
                 title: 'Sign in',
-                // headerLeft: null,
+                headerLeft: null,
             }),
         },
         Signup: {
             screen: SignupScreen,
             navigationOptions: ({navigation}) => ({
                 title: 'Sign up',
-                // headerLeft: null,
+                headerLeft: null,
             }),
         },
         VerifyEmail: {
@@ -55,12 +57,29 @@ const MySettingsStack = StackNavigator({
                 // headerLeft: null,
             }),
         },
+        Terms: {
+            screen: TermsScreen,
+            navigationOptions: ({navigation}) => ({
+                title: 'Terms of Use',
+                headerTintColor: colors.secondary2,
+                headerTitleStyle: {color:colors.black},
+
+            }),
+        },
+        Policy: {
+            screen: PolicyScreen,
+            navigationOptions: ({navigation}) => ({
+                title: 'Privacy Policy',
+                headerTintColor: colors.secondary2,
+                headerTitleStyle: {color:colors.black},
+            }),
+        },
 
     },
-    {
-        headerMode: 'none',
-        mode: 'modal',
-    }
+    // {
+    //     headerMode: 'none',
+    //     mode: 'modal',
+    // }
 );
 const ExploreTab = StackNavigator({
     Explore: {
@@ -111,8 +130,14 @@ const ProfileTab = StackNavigator({
             // title: 'Profile',
 
         },
+
     },
-})
+
+},  {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+)
 const SettingsTab = StackNavigator({
     Settings: {
         screen: SettingsScreen,

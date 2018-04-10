@@ -41,7 +41,13 @@ export default class Signup extends Component {
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
     }
+    handleTerms = () => {
+        this.props.navigation.navigate('Terms');
+    }
 
+    handlePolicy = () => {
+        this.props.navigation.navigate('Policy');
+    }
     registerUserAndWaitEmailVerification(email, password) {
         var self = this;
         return new Promise(function (resolve, reject) {
@@ -162,7 +168,7 @@ export default class Signup extends Component {
                         <View>
                             <Text style={formStyle.plainText}>By signing up, you agree to our </Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.handleTerms}>
                             <View>
                                 <Text style={formStyle.textLink}>Terms</Text>
                             </View>
@@ -170,7 +176,7 @@ export default class Signup extends Component {
                         <View>
                             <Text style={formStyle.plainText}> & </Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity activeOpacity={.5} onPress={this.handlePolicy}>
                             <View>
                                 <Text style={formStyle.textLink}>Privacy Policy.</Text>
                             </View>

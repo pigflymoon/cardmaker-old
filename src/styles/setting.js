@@ -77,16 +77,16 @@ export default{
         textAlign: 'center',
     },
     versionBtn: {
-        backgroundColor: colors.green2
+        backgroundColor: colors.secondary2,
     },
-    iconTextContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.blue3
-    },
+    // iconTextContainer: {
+    //     flex: 1,
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     marginTop: 10,
+    //     borderBottomWidth: 1,
+    //     borderBottomColor: colors.blue3
+    // },
     infoContainer: {
         flex: 1,
     },
@@ -98,6 +98,11 @@ export default{
     },
     proTitle: {
         color: colors.primary1,
+    },
+    textWrapper: {
+        paddingHorizontal: 10,
+    },
+    textTitle: {
+        fontSize: 16,
     }
-
 }

@@ -12,7 +12,6 @@ export default{
         backgroundColor: 'rgba(87,185,126 , 1)',// 77,134,247
     },
     cardContainer: {
-
         borderRadius: 5,
     },
     cardInnerwrapper: {
@@ -27,6 +26,18 @@ export default{
         height: 330,
         width: 330,
 
+    },
+    textWrapper: {
+        paddingHorizontal: 10,
+    },
+    text: {
+        paddingVertical: 5,
+    },
+    textTitle: {
+        paddingVertical: 5,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: colors.secondary2,
     }
 
 }
