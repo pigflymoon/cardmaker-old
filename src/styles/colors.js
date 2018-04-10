@@ -2,10 +2,9 @@ export default {
     primary: '#9E9E9E',
     primary1: '#4d86f7',
     primary2: '#6296f9',
-    primary3:'#72B07B',
-    primary4:'#DB7E95',
+    primary3:'#DB7E95',
     secondary: '#8F0CE8',
-    secondary2: '#00B233',
+    secondary2: '#60B87B',//backgroundColor: 'rgba(87,185,126 , 1)' #00B233
     secondary3: '#00FF48',
     grey0: '#393e42',
     grey1: '#43484d',

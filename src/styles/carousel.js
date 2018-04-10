@@ -7,10 +7,7 @@ import colors from '../styles/colors';
 //     background1: '#B721FF',
 //     background2: '#21D4FD'
 // };
-
-export default StyleSheet.create({
-
-
+export default{
     carouselContainer: {
         paddingVertical: 10,
 
@@ -38,16 +35,18 @@ export default StyleSheet.create({
         color: colors.grey1,
         fontSize: 20,
         fontWeight: 'bold',
-        // width: '50%',
-        // textAlign: 'left'
     },
+    subtitleContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems:'center',
+    },
+
     subtitle: {
-        // paddingHorizontal: 0,
         backgroundColor: 'transparent',
-        color: colors.primary1,
+        color: colors.secondary2,
         fontSize: 16,
-        // fontWeight: 'bold',
-        // alignSelf: 'flex-end',
     },
     titleDark: {
         color: colors.grey1,
@@ -69,4 +68,4 @@ export default StyleSheet.create({
         borderRadius: 4,
         marginHorizontal: 8
     }
-});
+}

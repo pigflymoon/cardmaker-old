@@ -66,13 +66,16 @@ const ExploreTab = StackNavigator({
     Explore: {
         screen: ExploreScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Explore'
+            title: 'Explore',
         }),
     },
     CardsGallery: {
         screen: CardsGalleryScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards Gallery'
+            title: 'Cards Gallery',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color:colors.black},
+            // headerBackTitleStyle: {color: colors.secondary2},
         }),
     },
 
@@ -88,6 +91,8 @@ const MakeCardTab = StackNavigator({
         screen: MyCardsScreen,
         navigationOptions: {
             title: 'My Cards',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color:colors.black},
         }
 
     },
@@ -118,13 +123,17 @@ const SettingsTab = StackNavigator({
     About: {
         screen: AboutScreen,
         navigationOptions: {
-            title: 'About'
+            title: 'About',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color:colors.black},
         }
     },
     Proversion: {
         screen: ProversionScreen,
         navigationOptions: {
-            title: 'PRO Version'
+            title: 'PRO Version',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color:colors.black},
         },
     },
 });
@@ -149,6 +158,7 @@ const StacksInTabs = TabNavigator(
             screen: MakeCardTab,
             navigationOptions: {
                 tabBarLabel: 'Make Card',
+                headerTintColor: colors.secondary2,
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-star' : 'ios-star-outline'}
