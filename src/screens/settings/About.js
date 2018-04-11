@@ -15,7 +15,7 @@ export default class About extends Component {
                     title='FEATURES AND ACKNOWLEDGEMENTS'
                     image={bg1}>
                     <Text style={{marginBottom: 10}}>
-                        1. Multiple template
+                        1. Multiple card template
                         * Updated variety cards, you will have surprise!
                     </Text>
                     <Text style={{marginBottom: 10}}>
@@ -27,7 +27,7 @@ export default class About extends Component {
                         * All templates have been produced with love by designer
                     </Text>
                     <Text style={{marginBottom: 10}}>
-                        4. Print and email
+                        4. Email and share
                         * Easy to use and make our world more green
 
                     </Text>

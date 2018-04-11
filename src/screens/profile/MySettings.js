@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {
-    Card, List, ListItem, Icon,
+    Card,
     Button,
     FormInput,
     FormLabel,
     FormValidationMessage,
-
 } from 'react-native-elements';
 import {auth,} from '../../config/FirebaseConfig';
 
@@ -37,6 +36,7 @@ export default class MySettings extends Component {
     navigateToSignin = () => {
         this.setState({showSignBox: true, showSignCard: false, welcomeCard: false,})
     }
+
     handleSignout = () => {
         var self = this;
         auth.signOut().then(function () {
@@ -118,11 +118,8 @@ export default class MySettings extends Component {
     renderSignBox = () => {
         return (
             <View style={formStyle.container}>
-
                 <View style={formStyle.inputsContainer}>
-
                     <View style={formStyle.inputContainer}>
-
                         <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Email
                         </FormLabel>
@@ -136,7 +133,6 @@ export default class MySettings extends Component {
                     </View>
 
                     <View style={formStyle.inputContainer}>
-
                         <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Password
                         </FormLabel>
@@ -186,10 +182,7 @@ export default class MySettings extends Component {
     }
 
     componentDidMount() {
-        console.log('Profile called')
-
         var self = this;
-
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
@@ -229,7 +222,7 @@ export default class MySettings extends Component {
                         icon={{name: 'perm-identity', color: colors.secondary2}}
                         color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
-                        title='Sign in /Sign up'
+                        title='Sign in / Sign up'
                         onPress={this.navigateToSignin}
                     />
                 </Card>}
@@ -248,9 +241,7 @@ export default class MySettings extends Component {
                     />
                 </Card>
                 }
-
                 {this.state.showSignBox && this.renderSignBox()}
-
             </View>
         );
     }

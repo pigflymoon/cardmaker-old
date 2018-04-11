@@ -49,7 +49,6 @@ export default class ResetPassword extends Component {
                 showInfo: true
             });
         } else {
-            // var auth = firebaseApp.auth();
             var emailAddress = this.state.email;
             auth.sendPasswordResetEmail(emailAddress).then(function () {
                 // Email sent.
@@ -86,9 +85,7 @@ export default class ResetPassword extends Component {
                     ) : (
                         <View style={formStyle.container}>
                             <View style={formStyle.inputsContainer}>
-
                                 <View style={formStyle.inputContainer}>
-
                                     <FormLabel containerStyle={formStyle.labelContainerStyle}>
                                         Email
                                     </FormLabel>
@@ -100,7 +97,7 @@ export default class ResetPassword extends Component {
                                         onChangeText={(text) => this.setEmail(text)}
                                     />
                                 </View>
-                                {this.state.infoessage ?
+                                {this.state.infoMessage ?
                                     <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                         {this.state.infoMessage}
                                     </FormValidationMessage>

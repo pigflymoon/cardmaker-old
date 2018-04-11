@@ -193,7 +193,6 @@ export default class Settings extends Component {
     };
 
     sendRecipt = (receipt) => {
-
         var transactionKey = ((receipt.in_app)[0].transaction_id) ? ( (receipt.in_app)[0].transaction_id).toString() : null;
         if (transactionKey) {
             onceGetReceipts().then(snapshot => {
@@ -219,8 +218,6 @@ export default class Settings extends Component {
 
 
         }
-
-
     }
 
     titleStyle = () => {

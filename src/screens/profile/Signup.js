@@ -57,7 +57,6 @@ export default class Signup extends Component {
                     doCreateUser(user.uid, self.state.name, email)
                         .then(() => {
                             user.updateProfile({displayName: self.state.name});
-                            console.log('email', email)
                             self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
                         })
                         .catch(error => {
@@ -92,20 +91,14 @@ export default class Signup extends Component {
 
     handleSignup = (e) => {
         e.preventDefault();
-        console.log('emial is ', this.state.email)
         this.registerUserAndWaitEmailVerification(this.state.email, this.state.password);
-
-
     }
 
     render() {
         return (
             <View style={formStyle.container}>
-
                 <View style={formStyle.inputsContainer}>
-
                     <View style={formStyle.inputContainer}>
-
                         <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Email
                         </FormLabel>
@@ -119,7 +112,6 @@ export default class Signup extends Component {
                     </View>
 
                     <View style={formStyle.inputContainer}>
-
                         <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Name
                         </FormLabel>
@@ -132,7 +124,6 @@ export default class Signup extends Component {
                         />
                     </View>
                     <View style={formStyle.inputContainer}>
-
                         <FormLabel containerStyle={formStyle.labelContainerStyle}>
                             Password
                         </FormLabel>

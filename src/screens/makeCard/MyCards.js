@@ -155,7 +155,7 @@ export default class MyCards extends Component {
                     icon={{name: 'perm-identity', color: colors.secondary2}}
                     color={colors.secondary2}
                     buttonStyle={buttonStyle.submitButton}
-                    title='Sign in /Sign up'
+                    title='Sign in / Sign up'
                     onPress={this.navigateToSignin}
                 />
             </Card>

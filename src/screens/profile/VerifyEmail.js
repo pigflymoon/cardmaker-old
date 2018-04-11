@@ -119,8 +119,6 @@ export default class VerifyEmail extends Component {
                                         value={email}
                                     />
                                 </View>
-
-
                                 {this.state.errorMessage ?
                                     <FormValidationMessage containerStyle={formStyle.validateContainer}>
                                         {this.state.errorMessage}

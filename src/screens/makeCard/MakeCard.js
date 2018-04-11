@@ -117,9 +117,7 @@ export default class MakeCard extends Component {
     }
 
     setTextColor = (color) => {
-        console.log('color is ?',color)
         var hexColor = color ? color.hexColor : colors.primary;
-
         this.setState({textColor: hexColor})
     }
     insertEnter = (str, n) => {
@@ -138,7 +136,6 @@ export default class MakeCard extends Component {
     imageMarker = (url) => {
         var title = this.state.title;
         var caption = this.state.caption;
-        console.log('title is ', title)
 
         title = this.insertEnter(title, 26)
         var text = title + '\n' + caption;
@@ -171,7 +168,7 @@ export default class MakeCard extends Component {
                     icon={{name: 'perm-identity', color: colors.secondary2}}
                     color={colors.secondary2}
                     buttonStyle={buttonStyle.submitButton}
-                    title='Sign in /Sign up'
+                    title='Sign in / Sign up'
                     onPress={this.navigateToSignin}
                 />
             </Card>
