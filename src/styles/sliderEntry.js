@@ -19,7 +19,7 @@ export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
 const entryBorderRadius = 8;
 
-export default StyleSheet.create({
+export default{
     slideInnerContainer: {
         width: itemWidth,
         height: slideHeight,
@@ -63,7 +63,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         height: entryBorderRadius,
-        backgroundColor: colors.grey6,
+        backgroundColor: colors.secondary2,
     },
     radiusMaskEven: {
         backgroundColor: colors.black
@@ -73,7 +73,7 @@ export default StyleSheet.create({
         paddingTop: 20 - entryBorderRadius,
         paddingBottom: 20,
         paddingHorizontal: 16,
-        backgroundColor: colors.grey6,
+        backgroundColor: colors.secondary2,
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius
     },
@@ -81,7 +81,7 @@ export default StyleSheet.create({
         backgroundColor: colors.black
     },
     title: {
-        color: colors.black,
+        color: colors.white,
         fontSize: 13,
         fontWeight: 'bold',
         letterSpacing: 0.5
@@ -98,4 +98,4 @@ export default StyleSheet.create({
     subtitleEven: {
         color: colors.grey5,
     }
-});
+}

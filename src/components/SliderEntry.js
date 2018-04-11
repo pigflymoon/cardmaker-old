@@ -39,7 +39,7 @@ export default class SliderEntry extends Component {
 
         const uppercaseTitle = title ? (
                 <Text
-                    style={[styles.title, even ? styles.titleEven : {}]}
+                    style={[styles.title]}
                     numberOfLines={2}
                 >
                     { title.toUpperCase() }
@@ -53,14 +53,14 @@ export default class SliderEntry extends Component {
               onPress={() => { alert(`You've clicked '${title}'`); }}
               >
                 <View style={styles.shadow} />
-                <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
+                <View style={[styles.imageContainer]}>
                     { this.image }
-                    <View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]} />
+                    <View style={[styles.radiusMask]} />
                 </View>
-                <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
+                <View style={[styles.textContainer,]}>
                     { uppercaseTitle }
                     <Text
-                        style={[styles.subtitle, even ? styles.subtitleEven : {}]}
+                        style={[styles.subtitle]}
                         numberOfLines={2}
                     >
                         { subtitle }

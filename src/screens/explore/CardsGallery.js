@@ -15,7 +15,7 @@ import {db} from '../../config/FirebaseConfig';
 
 import layoutStyle from '../../styles/layout';
 
-let  paidReferenceToOldestKey = '', lastPaidKey = '';
+let paidReferenceToOldestKey = '', lastPaidKey = '';
 
 
 export default class CardsGallery extends Component {
@@ -25,7 +25,7 @@ export default class CardsGallery extends Component {
         this.state = {
             data: [],
             page: 0,
-            loading: false,
+            loading: true,
             cardsData: [],
             lodingFinished: false,
             freeCards: [],
@@ -109,15 +109,12 @@ export default class CardsGallery extends Component {
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getPaidImages(cardType).then(function (paidPages) {
-                    console.log('paidPages ', paidPages)
                     var newPaidArr = [];
                     var images = self.state.freeCards;
                     if (paidPages.length > 0) {
                         var arrToConvert = paidPages;
                         lastPaidKey = paidPages[paidPages.length - 1].id;
                         if (lastPaidKey == self.state.lastPaidKey) {
-                            console.log(' key same')
-                            // return false;
                             resolve(images)
                         } else {
                             for (var i = 0; i < arrToConvert.length; i++) {
@@ -126,8 +123,7 @@ export default class CardsGallery extends Component {
 
                             images = [...images, ...newPaidArr]
                             self.setState({lastPaidKey: lastPaidKey})
-                            resolve(images)
-                            // return images
+                            resolve(images);
                         }
                     } else {
                         self.setState({lodingFinished: true})
@@ -154,8 +150,7 @@ export default class CardsGallery extends Component {
         }
     };
 
-    componentDidMount() {
-        console.log('cards gallery called')
+    componentWillMount() {
         const {cardType} = this.props.navigation.state.params;
         var self = this;
 
@@ -166,9 +161,7 @@ export default class CardsGallery extends Component {
     }
 
     componentWillUnmount() {
-        console.log('***********gallery unmount**************')
         paidReferenceToOldestKey = '';
-
     }
 
     render() {

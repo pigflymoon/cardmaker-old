@@ -9,7 +9,7 @@ export default{
         flex: 1,
     },
     loadingBackgroundStyle: {
-        backgroundColor: 'rgba(87,185,126 , 1)',// 77,134,247
+        backgroundColor: colors.secondary4,
     },
     cardContainer: {
         borderRadius: 5,
@@ -38,6 +38,7 @@ export default{
         fontSize: 16,
         fontWeight: 'bold',
         color: colors.secondary2,
-    }
+    },
+
 
 }

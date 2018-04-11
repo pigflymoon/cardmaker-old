@@ -6,6 +6,7 @@ export default {
     secondary: '#8F0CE8',
     secondary2: '#60B87B',//backgroundColor: 'rgba(87,185,126 , 1)' #00B233
     secondary3: '#00FF48',
+    secondary4: '#7DB88D',
     grey0: '#393e42',
     grey1: '#43484d',
     grey2: '#5e6977',
