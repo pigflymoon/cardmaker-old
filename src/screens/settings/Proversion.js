@@ -11,6 +11,7 @@ import {
 
 import SettingStyle from '../../styles/setting';
 import probg from '../../assets/images/bg1.jpg';
+import colors from '../../styles/colors';
 
 export default class Proversion extends Component {
 
@@ -23,6 +24,7 @@ export default class Proversion extends Component {
             <ScrollView style={SettingStyle.container}>
                 <Card
                     title="PRO Version ($2.99)"
+                    titleStyle={{color: colors.secondary2}}
                     image={probg}>
                     <View style={SettingStyle.infoContainer}>
                         <Text style={[SettingStyle.fonts, SettingStyle.proTitle]} h6>Thank you for your support</Text>

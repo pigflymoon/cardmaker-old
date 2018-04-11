@@ -44,7 +44,7 @@ export default{
         fontWeight: 'bold',
     },
     link: {
-        color: colors.primary1,
+        color: colors.secondary2,
     },
 
     image: {
@@ -97,7 +97,7 @@ export default{
         textAlign: 'center',
     },
     proTitle: {
-        color: colors.primary1,
+        color: colors.primary3,
     },
     textWrapper: {
         paddingHorizontal: 10,

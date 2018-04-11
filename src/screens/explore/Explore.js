@@ -104,6 +104,14 @@ export default class Explore extends Component {
 
     componentWillUnmount() {
         console.log('explore unmount')
+        this.setState({
+            birthdayImages: [],
+            holidayImages: [],
+            weddingImages: [],
+            otherImages: [],
+        })
+
+
     }
 
     resetAnimation() {

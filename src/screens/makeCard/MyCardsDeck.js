@@ -37,7 +37,6 @@ export default class MyCardsDeck extends Component {
         console.log('cards deck navigation option called ')
         const params = navigation.state.params || {};
 
-        // if (typeof (navigation.state.params) != 'undefined') {
         if (params.signin) {
             return ({
                 headerRight: (
@@ -50,39 +49,24 @@ export default class MyCardsDeck extends Component {
                 )
             });
         } else {
-
-
             return {
                 headerRight: false,
             };
         }
-        // } else {
-        //     return {
-        //         headerRight: false,
-        //     };
-        // }
-
 
     };
 
 
     updateIndex = (selectedIndex) => {
-        console.log('selectedIndex', selectedIndex)
-
         let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
 
         this.setState({selectedIndex: selectedIndex}, function () {
             for (let type of showTypes) {
-                console.log('type is ', type)
                 let index = showTypes.indexOf(type);
 
                 if (this.state.selectedIndex === index) {
-                    let index = showTypes.indexOf(type);
-                    console.log('index is ', index, 'value is ', type)
                     this.setState({cardType: type});
-
                 }
-
             }
         })
 
@@ -124,8 +108,7 @@ export default class MyCardsDeck extends Component {
 
 
     componentWillUnmount() {
-        console.log('***********cards Deck Tab unmount**************')
-
+        savedCards = [];
     }
     handleSavedCards = (likedCards) => {
         console.log('likedCards', likedCards)

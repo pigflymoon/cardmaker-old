@@ -3,6 +3,7 @@ import {View, ScrollView} from 'react-native';
 import {List, ListItem} from 'react-native-elements';
 import Label from './Label';
 import Utils from '../utils/utils';
+import colors from '../styles/colors';
 
 export default class Copyright extends Component {
 
@@ -63,7 +64,7 @@ export default class Copyright extends Component {
                         <List containerStyle={{borderTopWidth: 0}}>
                             {mitProjects.map((project, index) =>
                                 <ListItem
-                                    rightIcon={{name: 'open-in-new'}}
+                                    rightIcon={{name: 'open-in-new', color: colors.secondary2}}
                                     key={`index-${project.name}`}
                                     title={project.name}
                                     onPress={() => {
@@ -80,7 +81,7 @@ export default class Copyright extends Component {
                         <List containerStyle={{borderTopWidth: 0}}>
                             {bsdProjects.map(project =>
                                 <ListItem
-                                    rightIcon={{name: 'open-in-new'}}
+                                    rightIcon={{name: 'open-in-new', color: colors.secondary2}}
                                     key={`index-${project.name}`}
                                     title={project.name}
                                     onPress={() => {

@@ -180,6 +180,7 @@ export default{
 
     },
     badgeBg: {
-        backgroundColor: colors.primary2
+        backgroundColor: colors.secondary2,
+        marginBottom: 5,
     }
 }

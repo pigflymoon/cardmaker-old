@@ -272,7 +272,7 @@ export default class Settings extends Component {
                     <Card
                         containerStyle={{marginTop: 15, marginBottom: 15}}
                         title="Thank you for your support"
-                        titleStyle={{color: colors.primary1}}
+                        titleStyle={{color: colors.primary3}}
                     >
                         <View style={SettingStyle.proContainer}>
                             <TouchableOpacity activeOpacity={.5} onPress={this.onPay}>

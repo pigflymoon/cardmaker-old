@@ -119,6 +119,8 @@ const MakeCardTab = StackNavigator({
         screen: MakeCardScreen,
         navigationOptions: {
             title: 'Make Card',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color:colors.black},
         }
 
     },

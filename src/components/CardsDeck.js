@@ -143,33 +143,6 @@ export default class CardsDeck extends Component {
         );
     }
 
-    renderHeader() {
-        return (
-            <View style={cardStyle.header}>
-
-                <View style={cardStyle.headerCenter}>
-                    <View style={cardStyle.titleContainer}>
-                        <Icon name="hand-o-right" type="font-awesome" color={colors.primary1} size={20}/>
-                        <Text style={cardStyle.title}>1. Swipe your card</Text>
-                    </View>
-                    <View style={cardStyle.titleContainer}>
-                        <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={20}/>
-                        <Text style={cardStyle.title}>2. Add liked to My Cards</Text>
-                    </View>
-
-                </View>
-                <View style={cardStyle.headerRightIcon}>
-                    <Icon name="cart-plus" type="font-awesome" color={colors.primary1} size={35}
-                          onPress={this.gotoMyCards}
-                    />
-                </View>
-
-
-            </View>
-        );
-
-    }
-
     renderFooter() {
         return (
             <View style={cardStyle.footer}>
@@ -183,7 +156,7 @@ export default class CardsDeck extends Component {
                         }}
                         name="replay"
                         size={30}
-                        color="orange"
+                        color={colors.primary3}
                         onPress={(e) => this.refreshImages(e)}
                     />
                 </View>
@@ -194,14 +167,8 @@ export default class CardsDeck extends Component {
     }
 
     render() {
-
-        // if (this.props.screenProps.currentScreen !== 'CardsDeck') {
-        //     return <View/>
-        // }
-
         return (
             <View style={layoutStyle.container}>
-                {/*{this.renderHeader()}*/}
                 <View style={cardStyle.deck}>
                     <SwipeDeck
                         data={this.state.cardsData}

@@ -28,7 +28,6 @@ export default class CardsGallery extends Component {
             loading: true,
             cardsData: [],
             lodingFinished: false,
-            freeCards: [],
             paidCards: [],
         }
     }
@@ -110,7 +109,7 @@ export default class CardsGallery extends Component {
             setTimeout(() => {
                 self.getPaidImages(cardType).then(function (paidPages) {
                     var newPaidArr = [];
-                    var images = self.state.freeCards;
+                    var images = self.state.paidCards;
                     if (paidPages.length > 0) {
                         var arrToConvert = paidPages;
                         lastPaidKey = paidPages[paidPages.length - 1].id;
@@ -162,6 +161,7 @@ export default class CardsGallery extends Component {
 
     componentWillUnmount() {
         paidReferenceToOldestKey = '';
+        this.setState({cardsData: []});
     }
 
     render() {

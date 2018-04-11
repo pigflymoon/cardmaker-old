@@ -64,8 +64,6 @@ export default class MakeCard extends Component {
     }
 
     componentDidMount() {
-        console.log('make cards Tab called')
-
         var self = this;
         auth.onAuthStateChanged(function (user) {
             if (user) {
@@ -186,7 +184,7 @@ export default class MakeCard extends Component {
                 <View style={[cardStyle.cardsContainer]}>
 
                     <View style={cardStyle.imageListContainer}>
-                        <View style={{width: '40%',}}>
+                        <View style={{width: '45%',}}>
                             <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
                                 <Image style={{flex: 1,}}
                                        resizeMethod="resize"
@@ -304,12 +302,12 @@ export default class MakeCard extends Component {
 
                             </View>
                             <View style={cardStyle.shareRightIcon}>
-                                <Icon name="pencil-square" type="font-awesome" color={colors.primary1} size={24}
+                                <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={24}
                                       onPress={() => this.imageMarker((this.state.makeCard).illustration)}
                                 />
                             </View>
                             <View style={cardStyle.shareRightIcon}>
-                                <Icon name="share-alt" type="font-awesome" color={colors.primary1} size={24}
+                                <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={24}
                                       onPress={this.onShare}
                                 />
                             </View>

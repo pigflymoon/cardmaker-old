@@ -27,24 +27,19 @@ export default class MyCards extends Component {
             makeCards: null,
             chooseCards: [],
             signin: false,
-            backgroundColor: "#5fba7d",
             selectedIndex: 0,
             selectedItem: [{id: '0', value: '0'}],
-
         }
 
     }
 
     //right  header
     static navigationOptions = ({navigation}) => {
-        console.log('makeCard is ', makeCard)
-        console.log('cards list navigation option called')
         return ({
             headerRight: (
                 <TouchableOpacity style={{paddingRight: 5}}>
                     <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                           onPress={() => {
-                              console.log('state is ', navigation.state)
                               {
                                   navigation.navigate('MakeCard', {
                                       chooseCards: makeCard,
@@ -58,6 +53,11 @@ export default class MyCards extends Component {
         });
     }
 
+    initialSelectedItem = (chooseCards) => {
+        var result = chooseCards.map(card => ({id: card.id, value: false}));
+        return result;
+    }
+
     componentDidMount() {
         console.log('my cards list called')
         var self = this;
@@ -65,7 +65,6 @@ export default class MyCards extends Component {
             var chooseCards = this.props.navigation.state.params.likedCards;
             var signin = this.props.navigation.state.params.signin;
 
-            console.log('pass chooseCards cards in props', chooseCards)
             if (chooseCards.length > 0) {
                 this.setState({
                     signin: signin,
@@ -77,7 +76,6 @@ export default class MyCards extends Component {
 
 
         auth.onAuthStateChanged(function (user) {
-            console.log('user?', user)
             if (!user) {
                 self.setState({signin: false, chooseCards: []})
             } else {
@@ -90,28 +88,15 @@ export default class MyCards extends Component {
 
     componentWillReceiveProps(nextProps) {
         var chooseCards = nextProps.navigation.state.params.likedCards;
-        // var signin = nextProps.navigation.state.params.signin;
-
-        console.log('pass chooseCards cards', chooseCards)
-
-
         this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards)});
 
     }
 
     componentWillUnmount() {
-        console.log('my cards unmount**************')
         this.setState({chooseCards: []})
     }
 
-    initialSelectedItem = (chooseCards) => {
-        // let selectedItemTemp = [];
-        var result = chooseCards.map(card => ({id: card.id, value: false}));
-        return result;
-    }
-
     chooseCard = (card) => {
-
         var selectedItem = this.initialSelectedItem(this.state.chooseCards);
 
         var selectedIndex = 0;
@@ -133,26 +118,11 @@ export default class MyCards extends Component {
 
     getItemColor = (item) => {
         var items = this.state.selectedItem;
-        console.log('selectedInex is ,', this.state.selectedIndex, 'item is ', item)
-
         if ((items[this.state.selectedIndex].id == item.id) && (items[this.state.selectedIndex].value == true)) {
-            return '#EF85D0';
+            return colors.primary3;
         } else {
-            return '#5fba7d';
+            return colors.secondary2;
         }
-    }
-
-    gotoMakeCards = () => {
-        if (this.state.makeCards) {
-            this.props.navigation.navigate('MakeCardsTab', {
-                chooseCards: this.state.makeCards,
-                signin: this.state.signin
-            });
-
-        } else {
-            Alert.alert('Please choose a template');
-        }
-
     }
 
     renderHeader() {
@@ -173,9 +143,7 @@ export default class MyCards extends Component {
 
     navigateToSignin = () => {
         this.props.navigation.navigate('MySettings', {});
-
     }
-
 
     renderSignCard() {
         return (
@@ -202,7 +170,7 @@ export default class MyCards extends Component {
                 style={cardStyle.gridView}
                 renderItem={(item) => (
                     <TouchableHighlight onPress={() => this.chooseCard(item)}
-                                        underlayColor='#99d9f4'>
+                                        underlayColor={colors.primary3}>
                         <View
                             style={[cardStyle.itemContainer, {backgroundColor: this.getItemColor(item)}]}>
                             <ImageBackground source={{uri: item.illustration}} style={cardStyle.imageContainer}>
@@ -210,27 +178,21 @@ export default class MyCards extends Component {
                             </ImageBackground>
                         </View>
                     </TouchableHighlight>
-
-
                 )}
             />
         );
     }
 
     render() {
-        console.log('this.state.chooseCards.length', this.state.chooseCards.length, 'signin?', this.state.signin)
         var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
         var renderSign = this.state.signin;
-        console.log('renderCard?', renderCard)
+
         if (renderCard) {
             return (
                 <View style={layoutStyle.container}>
-                    {/*{this.renderHeader()}*/}
                     {this.renderCards()}
-
                 </View>
             )
-
         }
         if (!renderSign) {
             return (
