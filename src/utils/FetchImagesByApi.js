@@ -3,7 +3,7 @@ import {
     Alert,
 } from 'react-native';
 import {auth, db, storage} from '../config/FirebaseConfig';
-
+import Utils from './utils';
 
 
 export function getFreeImages(cardType = 'birthdayImages') {
@@ -14,8 +14,9 @@ export function getFreeImages(cardType = 'birthdayImages') {
             // resolve the promise with some value
 
             db.ref(cardType).limitToFirst(3).on("value", function (snapshot) {
-
                 var downloadImages = snapshot.val();
+                // downloadImages = downloadImages.reverse();
+                downloadImages = Utils.reverseObject(downloadImages)
                 console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
