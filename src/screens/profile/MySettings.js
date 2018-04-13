@@ -162,6 +162,7 @@ export default class MySettings extends Component {
                         color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign in"
+                        underlayColor={colors.grey6}
                     />
                     <View style={formStyle.textInfoContainer}>
                         <TouchableOpacity activeOpacity={.5} onPress={this.navigateToResetPassword}>
@@ -224,6 +225,7 @@ export default class MySettings extends Component {
                         buttonStyle={buttonStyle.submitButton}
                         title='Sign in / Sign up'
                         onPress={this.navigateToSignin}
+                        underlayColor={colors.grey6}
                     />
                 </Card>}
                 {this.state.welcomeCard && <Card
@@ -238,6 +240,7 @@ export default class MySettings extends Component {
                         buttonStyle={buttonStyle.submitButton}
                         title='Sign out'
                         onPress={this.handleSignout}
+                        underlayColor={colors.grey6}
                     />
                 </Card>
                 }

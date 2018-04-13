@@ -157,6 +157,7 @@ export default class MyCards extends Component {
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in / Sign up'
                     onPress={this.navigateToSignin}
+                    underlayColor={colors.grey6}
                 />
             </Card>
         );

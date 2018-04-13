@@ -153,6 +153,7 @@ export default class Signup extends Component {
                         color={colors.secondary2}
                         buttonStyle={buttonStyle.submitButton}
                         title="Sign up"
+                        underlayColor={colors.grey6}
                     />
 
                     <View style={formStyle.textInfoContainer}>

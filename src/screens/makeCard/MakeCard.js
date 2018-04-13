@@ -170,6 +170,7 @@ export default class MakeCard extends Component {
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in / Sign up'
                     onPress={this.navigateToSignin}
+                    underlayColor={colors.grey6}
                 />
             </Card>
         );

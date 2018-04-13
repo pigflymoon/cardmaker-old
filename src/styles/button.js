@@ -2,7 +2,7 @@ import colors from './colors';
 
 export default {
     submitButton: {
-        marginTop: 15,
+        // marginTop: 15,
         backgroundColor: 'transparent',
 
         // backgroundColor: colors.white,

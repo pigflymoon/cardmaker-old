@@ -102,11 +102,6 @@ export default class MyCardsDeck extends Component {
 
     }
 
-    componentDidMount() {
-        console.log('cards Deck Tab called')
-    }
-
-
     componentWillUnmount() {
         savedCards = [];
     }
@@ -127,6 +122,7 @@ export default class MyCardsDeck extends Component {
                     buttonStyle={buttonStyle.submitButton}
                     title='Sign in / Sign up'
                     onPress={this.navigateToSignin}
+                    underlayColor={colors.grey6}
                 />
             </Card>
         );

@@ -62,7 +62,7 @@ export default class VerifyEmail extends Component {
                                     });
                                     clearInterval(interval);
                                     if (user && user.emailVerified) {
-                                        self.props.navigation.navigate('CardsLibraryTab', {name: self.state.name});
+                                        self.props.navigation.navigate('MyCardsDeck', {name: self.state.name});
                                         clearInterval(interval);
                                         interval = null;
                                     } else {
@@ -134,6 +134,7 @@ export default class VerifyEmail extends Component {
                                     color={colors.secondary2}
                                     buttonStyle={buttonStyle.submitButton}
                                     title="Confirm"
+                                    underlayColor={colors.grey6}
                                 />
                                 <View style={formStyle.textInfoContainer}>
                                     <TouchableOpacity>
