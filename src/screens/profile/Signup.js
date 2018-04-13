@@ -39,7 +39,7 @@ export default class Signup extends Component {
     }
 
     navigateToSignin = () => {
-        this.props.navigation.navigate('MySettings', {});
+        this.props.navigation.navigate('Signin', {});
     }
     handleTerms = () => {
         this.props.navigation.navigate('Terms');

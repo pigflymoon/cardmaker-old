@@ -60,7 +60,7 @@ export default class SwipeDeck extends Component {
     componentWillUpdate() {
         UIManager.setLayoutAnimationEnabledExperimental &&
         UIManager.setLayoutAnimationEnabledExperimental(true);
-        LayoutAnimation.spring();
+        // LayoutAnimation.linear();
     }
 
     forceSwipe(direction) {

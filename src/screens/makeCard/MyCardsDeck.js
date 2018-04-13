@@ -72,7 +72,7 @@ export default class MyCardsDeck extends Component {
 
     }
     navigateToSignin = () => {
-        this.props.navigation.navigate('MySettings', {});
+        this.props.navigation.navigate('Signin', {});
     }
 
     componentWillMount() {

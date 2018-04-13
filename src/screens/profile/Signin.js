@@ -15,13 +15,12 @@ import bg1 from '../../assets/images/bg1.jpg';
 import layoutStyle from '../../styles/layout';
 import colors from '../../styles/colors';
 
-export default class MySettings extends Component {
+export default class Signin extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            showSignCard: true,
             welcomeCard: false,
-            showSignBox: false,
+            showSignBox: true,
             mycard: false,
             username: '',
             title: '',
@@ -33,17 +32,13 @@ export default class MySettings extends Component {
         }
     }
 
-    navigateToSignin = () => {
-        this.setState({showSignBox: true, showSignCard: false, welcomeCard: false,})
-    }
-
     handleSignout = () => {
         var self = this;
         auth.signOut().then(function () {
             // Sign-out successful.
             console.log('Sign out successfully')
 
-            self.setState({showSignBox: false, showSignCard: true, welcomeCard: false,})
+            self.setState({showSignBox: true, welcomeCard: false,})
         }).catch(function (error) {
             // An error happened.
             console.log('error', error)
@@ -70,7 +65,6 @@ export default class MySettings extends Component {
                             user: user,
                             signin: true,
                             welcomeCard: true,
-                            showSignCard: false,
                             showSignBox: false,
                             title: `Hi ${displayName}, Welcome to cardmaker!`,
                             //
@@ -192,7 +186,6 @@ export default class MySettings extends Component {
                     user: user,
                     signin: true,
                     welcomeCard: true,
-                    showSignCard: false,
                     showSignBox: false,
                     title: `Hi ${displayName}, Welcome to cardmaker!`,
                     //
@@ -205,29 +198,10 @@ export default class MySettings extends Component {
         })
     }
 
-    componentWillUnmount() {
-        console.log('***********Profile Tab unmount**************')
-
-    }
-
     render() {
         return (
             <View style={layoutStyle.container}>
-                {this.state.showSignCard && <Card
-                    title='Welcome to cardmaker'
-                    image={bg1}>
-                    <Text style={{marginBottom: 10}}>
-                        Please sign in to make your card, have fun!
-                    </Text>
-                    <Button
-                        icon={{name: 'perm-identity', color: colors.secondary2}}
-                        color={colors.secondary2}
-                        buttonStyle={buttonStyle.submitButton}
-                        title='Sign in / Sign up'
-                        onPress={this.navigateToSignin}
-                        underlayColor={colors.grey6}
-                    />
-                </Card>}
+
                 {this.state.welcomeCard && <Card
                     title={this.state.title}
                     image={bg1}>

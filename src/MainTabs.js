@@ -14,7 +14,7 @@ import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
 //Profile
-import MySettingsScreen from './screens/profile/MySettings';
+import SigninScreen from './screens/profile/Signin';
 import SignupScreen from './screens/profile/Signup';
 import VerifiEmailScreen from './screens/profile/VerifyEmail';
 import ResetPasswordScreen from './screens/profile/ResetPassword';
@@ -28,11 +28,58 @@ import ProversionScreen from './screens/settings/Proversion';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from './styles/colors';
 
-const MySettingsStack = StackNavigator({
-        MySettings: {
-            screen: MySettingsScreen,
+
+const ExploreTab = StackNavigator({
+    Explore: {
+        screen: ExploreScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Explore',
+        }),
+    },
+    CardsGallery: {
+        screen: CardsGalleryScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cards Gallery',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+            // headerBackTitleStyle: {color: colors.secondary2},
+        }),
+    },
+
+})
+const MakeCardTab = StackNavigator({
+    MyCardsDeck: {
+        screen: MyCardsDeckScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cards'
+        }),
+    },
+    MyCards: {
+        screen: MyCardsScreen,
+        navigationOptions: {
+            title: 'My Cards',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        }
+
+    },
+    MakeCard: {
+        screen: MakeCardScreen,
+        navigationOptions: {
+            title: 'Make Card',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        }
+
+    },
+
+})
+const ProfileTab = StackNavigator({
+        Signin: {
+            screen: SigninScreen,
             navigationOptions: ({navigation}) => ({
                 title: 'Sign in',
+                // headerBackTitle: 'Back',
                 headerLeft: null,
             }),
         },
@@ -62,7 +109,7 @@ const MySettingsStack = StackNavigator({
             navigationOptions: ({navigation}) => ({
                 title: 'Terms of Use',
                 headerTintColor: colors.secondary2,
-                headerTitleStyle: {color:colors.black},
+                headerTitleStyle: {color: colors.black},
 
             }),
         },
@@ -71,7 +118,7 @@ const MySettingsStack = StackNavigator({
             navigationOptions: ({navigation}) => ({
                 title: 'Privacy Policy',
                 headerTintColor: colors.secondary2,
-                headerTitleStyle: {color:colors.black},
+                headerTitleStyle: {color: colors.black},
             }),
         },
 
@@ -80,65 +127,6 @@ const MySettingsStack = StackNavigator({
     //     headerMode: 'none',
     //     mode: 'modal',
     // }
-);
-const ExploreTab = StackNavigator({
-    Explore: {
-        screen: ExploreScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Explore',
-        }),
-    },
-    CardsGallery: {
-        screen: CardsGalleryScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Cards Gallery',
-            headerTintColor: colors.secondary2,
-            headerTitleStyle: {color:colors.black},
-            // headerBackTitleStyle: {color: colors.secondary2},
-        }),
-    },
-
-})
-const MakeCardTab = StackNavigator({
-    MyCardsDeck: {
-        screen: MyCardsDeckScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Cards'
-        }),
-    },
-    MyCards: {
-        screen: MyCardsScreen,
-        navigationOptions: {
-            title: 'My Cards',
-            headerTintColor: colors.secondary2,
-            headerTitleStyle: {color:colors.black},
-        }
-
-    },
-    MakeCard: {
-        screen: MakeCardScreen,
-        navigationOptions: {
-            title: 'Make Card',
-            headerTintColor: colors.secondary2,
-            headerTitleStyle: {color:colors.black},
-        }
-
-    },
-})
-const ProfileTab = StackNavigator({
-    MySettingsTab: {
-        screen: MySettingsStack,
-        navigationOptions: {
-            // title: 'Profile',
-
-        },
-
-    },
-
-},  {
-        headerMode: 'none',
-        mode: 'modal',
-    }
 )
 const SettingsTab = StackNavigator({
     Settings: {
@@ -152,7 +140,7 @@ const SettingsTab = StackNavigator({
         navigationOptions: {
             title: 'About',
             headerTintColor: colors.secondary2,
-            headerTitleStyle: {color:colors.black},
+            headerTitleStyle: {color: colors.black},
         }
     },
     Proversion: {
@@ -160,7 +148,7 @@ const SettingsTab = StackNavigator({
         navigationOptions: {
             title: 'PRO Version',
             headerTintColor: colors.secondary2,
-            headerTitleStyle: {color:colors.black},
+            headerTitleStyle: {color: colors.black},
         },
     },
 });
@@ -226,12 +214,10 @@ const StacksInTabs = TabNavigator(
         },
 
     },
-
     {
-        tabBarPosition: 'bottom',
-        animationEnabled: false,
-        swipeEnabled: false,
-        tabBarOptions: {activeTintColor: colors.secondary2}
+        tabBarOptions: {
+            showLabel: true,
+        },
     }
 );
 

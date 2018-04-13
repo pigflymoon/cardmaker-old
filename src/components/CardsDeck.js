@@ -71,11 +71,6 @@ export default class CardsDeck extends Component {
         dislikedCards.push(card);
     }
 
-    gotoMyCards = () => {
-        console.log('savedCards in Cards', savedCards)
-    }
-
-
     refreshImages = () => {
         this.setState({cardsData: []});
         const {cardType, isPaidUser} = this.props;
