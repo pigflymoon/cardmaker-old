@@ -54,8 +54,6 @@ export default class CardsGallery extends Component {
                     console.log('Paid result is ', results)
                     // storing reference
 
-                    // self.setState({cardsData: results})
-
                     paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                     resolve(results);
 
@@ -185,6 +183,7 @@ export default class CardsGallery extends Component {
                         <Card
                             key={`${item.id}`}
                             image={{uri: item.uri}}
+                            featuredTitle={item.name}
                             imageStyle={layoutStyle.cardImage}
                             containerStyle={layoutStyle.cardContainer}
                             wrapperStyle={layoutStyle.cardInnerwrapper}
