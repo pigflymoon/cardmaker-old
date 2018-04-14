@@ -75,7 +75,7 @@ export default class MyCardsDeck extends Component {
         this.props.navigation.navigate('Signin', {});
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var self = this;
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
@@ -99,12 +99,12 @@ export default class MyCardsDeck extends Component {
 
             }
         });
-
     }
 
     componentWillUnmount() {
         savedCards = [];
     }
+
     handleSavedCards = (likedCards) => {
         console.log('likedCards', likedCards)
         savedCards = likedCards;
