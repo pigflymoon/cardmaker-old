@@ -36,8 +36,6 @@ export default class Signin extends Component {
         var self = this;
         auth.signOut().then(function () {
             // Sign-out successful.
-            console.log('Sign out successfully')
-
             self.setState({showSignBox: true, welcomeCard: false,})
         }).catch(function (error) {
             // An error happened.
@@ -79,7 +77,6 @@ export default class Signin extends Component {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log('errorCode', errorCode)
                 switch (errorCode) {
                     case 'auth/invalid-email':
                     case 'auth/user-disabled':

@@ -83,7 +83,6 @@ export default class Settings extends Component {
                 })
 
             } else {
-                console.log('no user?')
                 self.setState({signin: false, cardsData: []})
             }
         });
@@ -111,7 +110,6 @@ export default class Settings extends Component {
                                     Alert.alert('itunes Error', 'Receipt not found.');
                                 } else {
                                     //send to validation server
-                                    console.log('receiptData ', receiptData)
                                     axios.post(verifyHost, {
                                         'receipt-data': receiptData,
                                     })
@@ -146,7 +144,6 @@ export default class Settings extends Component {
                                         })
                                         .catch(function (error) {
                                             Alert.alert(error)
-                                            console.log('validate error', error);
                                         })
                                 }
                             });

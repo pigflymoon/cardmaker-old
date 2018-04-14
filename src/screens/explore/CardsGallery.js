@@ -34,7 +34,6 @@ export default class CardsGallery extends Component {
 
     getPaidImages = (cardType = 'birthdayImages') => {
         if (!paidReferenceToOldestKey) {
-            console.log(' paidReferenceToOldestKey key is ~~~~~~~~~~~~~', paidReferenceToOldestKey);
             return db.ref(cardType)
                 .orderByKey()
                 .limitToLast(5)
@@ -45,13 +44,10 @@ export default class CardsGallery extends Component {
                         .sort()
                         .reverse();
                     // transforming to array
-                    console.log('arrayOfKeys ', arrayOfKeys)
                     let results = arrayOfKeys
                         .map((key) => {
-                            console.log(' snapshot.val()[key]', snapshot.val()[key].name)
                             return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                         });
-                    console.log('Paid result is ', results)
                     // storing reference
 
                     paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
@@ -65,7 +61,6 @@ export default class CardsGallery extends Component {
                 })
 
         } else {
-            console.log('paidReferenceToOldestKey is ', paidReferenceToOldestKey)
             return db.ref(cardType)
                 .orderByKey()
                 .endAt(paidReferenceToOldestKey)

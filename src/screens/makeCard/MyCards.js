@@ -59,7 +59,6 @@ export default class MyCards extends Component {
     }
 
     componentDidMount() {
-        console.log('my cards list called')
         var self = this;
         if (this.props.navigation.state.params) {
             var chooseCards = this.props.navigation.state.params.likedCards;

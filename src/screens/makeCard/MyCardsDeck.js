@@ -34,7 +34,6 @@ export default class MyCardsDeck extends Component {
 
     //right  header
     static navigationOptions = ({navigation}) => {
-        console.log('cards deck navigation option called ')
         const params = navigation.state.params || {};
 
         if (params.signin) {
@@ -106,7 +105,6 @@ export default class MyCardsDeck extends Component {
     }
 
     handleSavedCards = (likedCards) => {
-        console.log('likedCards', likedCards)
         savedCards = likedCards;
     }
 

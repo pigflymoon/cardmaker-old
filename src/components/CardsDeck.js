@@ -61,8 +61,6 @@ export default class CardsDeck extends Component {
         var savedCard = new Map(likedCards.map(obj => [obj.illustration, obj]));
         // To get the unique objects
         savedCards = Array.from(savedCard.values());
-        console.log('likedCards :', likedCards, 'savedCards ', savedCards)
-        console.log('onSavedCards props ', this.props)
         this.props.onSavedCards(savedCards);
 
     }
@@ -74,24 +72,17 @@ export default class CardsDeck extends Component {
     refreshImages = () => {
         this.setState({cardsData: []});
         const {cardType, isPaidUser} = this.props;
-        console.log('this.props is', this.props)
-        console.log('card type is ', cardType, 'isPaidUser ', isPaidUser)
-        // var cardType = this.props.cardType;
-
         this.getUserImages(cardType, isPaidUser);
     }
 
     getUserImages = (cardType = 'birthdayImages', isPaidUser) => {
-        console.log('cardType ', cardType, '************isPaidUser ', isPaidUser)
         var self = this;
         if (!isPaidUser) {
             getFreeImages(cardType).then(function (images) {
-                console.log('images are**********', images)
                 self.setState({cardsData: images});
             });
         } else {
             getAllImages(cardType).then(function (images) {
-                console.log('images are**********', images)
                 self.setState({cardsData: images});
             });
 
@@ -110,9 +101,7 @@ export default class CardsDeck extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps is', nextProps)
         if (nextProps.cardType != this.props.cardType) {
-            console.log('card type is different')
             likedCards = [];//cardtype is different ,clean the likedcards
         }
         const {cardType, isPaidUser} = nextProps;

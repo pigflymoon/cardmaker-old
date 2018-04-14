@@ -15,9 +15,7 @@ export function getFreeImages(cardType = 'birthdayImages') {
 
             db.ref(cardType).limitToFirst(3).on("value", function (snapshot) {
                 var downloadImages = snapshot.val();
-                // downloadImages = downloadImages.reverse();
                 downloadImages = Utils.reverseObject(downloadImages)
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -48,7 +46,6 @@ export function getFreeBirthdayImages() {
             db.ref('birthdayImages').limitToFirst(3).on("value", function (snapshot) {
 
                 var downloadImages = snapshot.val();
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -84,7 +81,6 @@ export function getAllImages(cardType = 'birthdayImages') {
             db.ref(cardType).once("value", function (snapshot) {//'birthdayImages'
 
                 var downloadImages = snapshot.val();
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -115,7 +111,6 @@ export function getFreeHolidayImages() {
             db.ref('holidayImages').limitToFirst(8).on("value", function (snapshot) {
 
                 var downloadImages = snapshot.val();
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -147,7 +142,6 @@ export function getFreeWeddingImages() {
             db.ref('weddingImages').limitToFirst(8).on("value", function (snapshot) {
 
                 var downloadImages = snapshot.val();
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -178,7 +172,6 @@ export function getFreeOtherImages() {
             db.ref('otherImages').limitToFirst(8).on("value", function (snapshot) {
 
                 var downloadImages = snapshot.val();
-                console.log('downloadImages ', downloadImages);
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -209,7 +202,6 @@ export function getAllUploadImages() {
             // resolve the promise with some value
 
             db.ref('uploadImages').limitToLast(8).on("value", function (snapshot) {
-                console.log('snapshot ', snapshot);
                 var downloadImages = snapshot.val();
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (

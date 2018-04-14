@@ -73,7 +73,6 @@ export function getPages(peopleRef,accumulator, cursor) {
             if (page.length > pageLength) {
                 extraRecord = page.pop();
                 pages.push(page);
-                console.log(pages, extraRecord.id);
                 return getPages(pages, extraRecord.id);
             } else {
                 pages.push(page);
