@@ -12,7 +12,7 @@ export default class About extends Component {
         return (
             <ScrollView style={layoutStyle.container}>
                 <Card
-                    title='FEATURES AND ACKNOWLEDGEMENTS'
+                    title='FEATURES'
                     image={bg1}>
                     <Text style={{marginBottom: 10}}>
                         1. Multiple card template
@@ -32,6 +32,13 @@ export default class About extends Component {
 
                     </Text>
 
+                </Card>
+                <Card
+                title='ACKNOWLEDGEMENTS'>
+                    <Text style={{marginBottom: 10}}>
+                        1.I want to thank Matt Luedke for his nice music. Free Music For App Store Preview Videos.
+                        http://www.mattluedke.com/free-music-app-store-preview-videos/
+                    </Text>
                 </Card>
                 <Copyright/>
             </ScrollView>

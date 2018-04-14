@@ -42,10 +42,6 @@ export default class Copyright extends Component {
                 link: 'https://github.com/oblador/react-native-vector-icons',
             },
             {
-                name: 'react-native-background-timer',
-                link: 'git@github.com:ocetnik/react-native-background-timer.git',
-            },
-            {
                 name: 'react-native-store-review',
                 link: 'https://github.com/oblador/react-native-store-review',
             },
@@ -53,6 +49,27 @@ export default class Copyright extends Component {
                 name: 'react-native-super-grid',
                 link: 'git@github.com:saleel/react-native-super-grid.git'
             },
+            {
+                name: 'rn-placeholder',
+                link: 'https://github.com/mfrachet/rn-placeholder'
+            },
+            {
+                name: 'react-native-mask-loader',
+                link: 'https://github.com/TheSavior/react-native-mask-loader'
+            },
+            {
+                name: 'react-native-image-marker',
+                link: 'https://github.com/JimmyDaddy/react-native-image-marker'
+            },
+            {
+                name: 'react-native-color-wheel',
+                link: 'https://github.com/netbeast/react-native-color-wheel'
+            },
+            {
+                name: 'react-native-snap-carousel',
+                link: 'https://github.com/archriss/react-native-snap-carousel'
+            }
+
 
         ];
 
