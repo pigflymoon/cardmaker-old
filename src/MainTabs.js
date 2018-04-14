@@ -215,10 +215,12 @@ const StacksInTabs = TabNavigator(
 
     },
     {
-        tabBarOptions: {
-            showLabel: true,
-        },
-    }
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+        tabBarOptions: {activeTintColor: colors.secondary2}
+
+    },
 );
 
 export default StacksInTabs;
