@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {
     Platform,
     ScrollView,
@@ -21,6 +20,7 @@ export default class App extends Component {
         };
 
     }
+
     getCurrentRouteName(navigationState) {
         if (!navigationState) {
             return null;
@@ -34,7 +34,8 @@ export default class App extends Component {
 
 
     render() {
-        return (<MainTabs
+        return (
+            <MainTabs
                 screenProps={{
                     signin: this.state.signin,
                     currentScreen: this.state.currentScreen,
@@ -48,7 +49,6 @@ export default class App extends Component {
                     }
                 }}
             />
-
         )
     }
 }
