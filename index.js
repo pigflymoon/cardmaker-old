@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, SafeAreaView, View} from 'react-native';
-import App from './App';
+// import App from './App';
+import App from "./src/index";
 class Root extends Component {
     render() {
         return (
@@ -16,3 +17,5 @@ const styles = StyleSheet.create({
     }
 })
 AppRegistry.registerComponent('cardmaker', () => Root);
+console.disableYellowBox = true
+console.ignoredYellowBox = ['Remote debugger'];

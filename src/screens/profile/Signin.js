@@ -8,7 +8,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 import {auth,} from '../../config/FirebaseConfig';
-
+import {onSignIn} from "../../auth";
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
 import bg1 from '../../assets/images/bg1.jpg';
@@ -52,47 +52,56 @@ export default class Signin extends Component {
     }
 
     handleSignin = (e) => {
+        ///
         var self = this;
-        e.preventDefault();
-        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(function (signuser) {
-                auth.onAuthStateChanged(function (user) {
-                    if (user) {
-                        var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
-                        self.setState({
-                            user: user,
-                            signin: true,
-                            welcomeCard: true,
-                            showSignBox: false,
-                            title: `Hi ${displayName}, Welcome to cardmaker!`,
-                            //
-                        })
+        onSignIn(this.state.email, this.state.password).then(() => {
+            self.props.navigation.navigate("SignedIn");
 
-                    } else {
-                        console.log('error', user)
-                    }
-                })
-            })
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                switch (errorCode) {
-                    case 'auth/invalid-email':
-                    case 'auth/user-disabled':
-                    case 'auth/operation-not-allowed':
-                    case 'auth/user-not-found':
-                    case 'auth/wrong-password':
-                        self.setState({
-                            errorMessage: errorMessage
-                        });
-                        break;
-                    default:
-                        self.setState({
-                            errorMessage: 'Error'
-                        });
-                }
-            });
+        });
+        //
+        /*
+         var self = this;
+         e.preventDefault();
+         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+         .then(function (signuser) {
+         auth.onAuthStateChanged(function (user) {
+         if (user) {
+         var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+         self.setState({
+         user: user,
+         signin: true,
+         welcomeCard: true,
+         showSignBox: false,
+         title: `Hi ${displayName}, Welcome to cardmaker!`,
+         //
+         })
+
+         } else {
+         console.log('error', user)
+         }
+         })
+         })
+         .catch(function (error) {
+         // Handle Errors here.
+         var errorCode = error.code;
+         var errorMessage = error.message;
+         switch (errorCode) {
+         case 'auth/invalid-email':
+         case 'auth/user-disabled':
+         case 'auth/operation-not-allowed':
+         case 'auth/user-not-found':
+         case 'auth/wrong-password':
+         self.setState({
+         errorMessage: errorMessage
+         });
+         break;
+         default:
+         self.setState({
+         errorMessage: 'Error'
+         });
+         }
+         });
+         */
 
 
     }

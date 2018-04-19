@@ -171,76 +171,76 @@ export default class Explore extends Component {
                         style={carouselStyle.scrollView}
                         scrollEventThrottle={200}
                         directionalLockEnabled={true}>
-                        <SafeAreaView>
-                            <View style={layoutStyle.container}>
 
-                                <View style={carouselStyle.container}>
-                                    <Text style={carouselStyle.title}>{'Birthday'}</Text>
-                                    <TouchableOpacity onPress={() => this.navigateToShowAll(birthdayImages)}>
-                                        <View style={carouselStyle.subtitleContainer}>
-                                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                            <Icon
-                                                name='chevron-right'
-                                                color={colors.secondary2}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All', (!this.state.contentIsLoading))}
+                        <View style={layoutStyle.container}>
+
+                            <View style={carouselStyle.container}>
+                                <Text style={carouselStyle.title}>{'Birthday'}</Text>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(birthdayImages)}>
+                                    <View style={carouselStyle.subtitleContainer}>
+                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Icon
+                                            name='chevron-right'
+                                            color={colors.secondary2}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                            <View style={layoutStyle.container}>
+                            {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All', (!this.state.contentIsLoading))}
+                        </View>
+                        <View style={layoutStyle.container}>
 
-                                <View style={carouselStyle.container}>
-                                    <Text style={carouselStyle.title}>{'Holidays'}</Text>
-                                    <TouchableOpacity onPress={() => this.navigateToShowAll(holidayImages)}>
-                                        <View style={carouselStyle.subtitleContainer}>
-                                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                            <Icon
-                                                name='chevron-right'
-                                                color={colors.secondary2}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All', (!this.state.contentIsLoading))}
+                            <View style={carouselStyle.container}>
+                                <Text style={carouselStyle.title}>{'Holidays'}</Text>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(holidayImages)}>
+                                    <View style={carouselStyle.subtitleContainer}>
+                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Icon
+                                            name='chevron-right'
+                                            color={colors.secondary2}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                            <View style={layoutStyle.container}>
+                            {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All', (!this.state.contentIsLoading))}
+                        </View>
+                        <View style={layoutStyle.container}>
 
-                                <View style={carouselStyle.container}>
-                                    <Text style={carouselStyle.title}>{'Wedding'}</Text>
-                                    <TouchableOpacity onPress={() => this.navigateToShowAll(weddingImages)}>
-                                        <View style={carouselStyle.subtitleContainer}>
-                                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                            <Icon
-                                                name='chevron-right'
-                                                color={colors.secondary2}
-                                            />
-                                        </View>
+                            <View style={carouselStyle.container}>
+                                <Text style={carouselStyle.title}>{'Wedding'}</Text>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(weddingImages)}>
+                                    <View style={carouselStyle.subtitleContainer}>
+                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Icon
+                                            name='chevron-right'
+                                            color={colors.secondary2}
+                                        />
+                                    </View>
 
 
-                                    </TouchableOpacity>
+                                </TouchableOpacity>
 
-                                </View>
-                                {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All', (!this.state.contentIsLoading))}
                             </View>
+                            {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All', (!this.state.contentIsLoading))}
+                        </View>
 
-                            <View style={layoutStyle.container}>
+                        <View style={layoutStyle.container}>
 
-                                <View style={carouselStyle.container}>
-                                    <Text style={carouselStyle.title}>{'Others'}</Text>
-                                    <TouchableOpacity onPress={() => this.navigateToShowAll(otherImages)}>
-                                        <View style={carouselStyle.subtitleContainer}>
-                                            <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                            <Icon
-                                                name='chevron-right'
-                                                color={colors.secondary2}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
+                            <View style={carouselStyle.container}>
+                                <Text style={carouselStyle.title}>{'Others'}</Text>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll(otherImages)}>
+                                    <View style={carouselStyle.subtitleContainer}>
+                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Icon
+                                            name='chevron-right'
+                                            color={colors.secondary2}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                        </SafeAreaView>
+                            {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
+                        </View>
+
                     </ScrollView>
                 </Loader>
             </View>
