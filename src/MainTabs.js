@@ -20,6 +20,8 @@ import VerifiEmailScreen from './screens/profile/VerifyEmail';
 import ResetPasswordScreen from './screens/profile/ResetPassword';
 import TermsScreen from './screens/profile/TermOfUse';
 import PolicyScreen from './screens/profile/PrivacyPolicy';
+import ProfileScreen from './screens/profile/Profile';
+
 //Settings
 import SettingsScreen from './screens/settings/Settings';
 import AboutScreen from './screens/settings/About';
@@ -51,7 +53,8 @@ const MakeCardTab = StackNavigator({
     MyCardsDeck: {
         screen: MyCardsDeckScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards'
+            title: 'Cards',
+            headerLeft: null,
         }),
     },
     MyCards: {
@@ -75,6 +78,14 @@ const MakeCardTab = StackNavigator({
 
 })
 const ProfileTab = StackNavigator({
+        Profile: {
+            screen: ProfileScreen,
+            navigationOptions: ({navigation}) => ({
+                title: 'Profile',
+                // headerBackTitle: 'Back',
+                headerLeft: null,
+            }),
+        },
         Signin: {
             screen: SigninScreen,
             navigationOptions: ({navigation}) => ({

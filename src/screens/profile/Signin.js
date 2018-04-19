@@ -59,7 +59,7 @@ export default class Signin extends Component {
                 .then(userDataJson => {
                     if (userDataJson !== null) {
                        console.log('user is ',userDataJson)
-                        self.props.navigation.navigate("SignedIn");
+                        self.props.navigation.navigate("MyCardsDeck");
                     } else {
                         console.log('not sign in')
                     }

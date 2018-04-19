@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, SafeAreaView, View} from 'react-native';
-// import App from './App';
-import App from "./src/index";
+import App from './App';
+// import App from "./src/index";
 class Root extends Component {
     render() {
         return (

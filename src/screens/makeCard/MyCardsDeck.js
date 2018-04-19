@@ -99,30 +99,6 @@ export default class MyCardsDeck extends Component {
                 }
             })
             .catch(err => reject(err));
-        /*
-        auth.onAuthStateChanged(function (authUser) {
-            if (authUser) {
-                var userId = auth.currentUser.uid;
-                db.ref('/users/' + userId).once('value').then(function (snapshot) {
-                    var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
-                    var isPaidUser = userrole.paid_user;
-                    self.setState({signin: true, authUser, isPaidUser: isPaidUser});
-                    self.props.navigation.setParams({
-                        signin: true,
-                        isPaidUser: isPaidUser,
-                        headerRight: true,
-                    });
-                });
-            } else {
-                self.setState({signin: false});
-                self.props.navigation.setParams({
-                    signin: false,
-                    headerRight: false,
-                });
-
-            }
-        });
-        */
     }
 
     componentWillUnmount() {
@@ -172,13 +148,13 @@ export default class MyCardsDeck extends Component {
             );
 
         }
-        // else {
-        //     return (
-        //         <View style={cardStyle.container}>
-        //             {this.renderSignCard()}
-        //         </View>
-        //     )
-        // }
+        else {
+            return (
+                <View style={cardStyle.container}>
+                    {this.renderSignCard()}
+                </View>
+            )
+        }
 
     }
 }
