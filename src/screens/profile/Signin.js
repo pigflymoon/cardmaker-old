@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity,AsyncStorage} from 'react-native';
 import {
     Card,
     Button,
@@ -8,7 +8,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 import {auth,} from '../../config/FirebaseConfig';
-import {onSignIn} from "../../auth";
+import {onSignIn,USER_KEY} from "../../auth";
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
 import bg1 from '../../assets/images/bg1.jpg';
@@ -55,7 +55,17 @@ export default class Signin extends Component {
         ///
         var self = this;
         onSignIn(this.state.email, this.state.password).then(() => {
-            self.props.navigation.navigate("SignedIn");
+            AsyncStorage.getItem(USER_KEY)
+                .then(userDataJson => {
+                    if (userDataJson !== null) {
+                       console.log('user is ',userDataJson)
+                        self.props.navigation.navigate("SignedIn");
+                    } else {
+                        console.log('not sign in')
+                    }
+                })
+                .catch(err => reject(err));
+
 
         });
         //
@@ -207,24 +217,7 @@ export default class Signin extends Component {
     render() {
         return (
             <View style={layoutStyle.container}>
-
-                {this.state.welcomeCard && <Card
-                    title={this.state.title}
-                    image={bg1}>
-                    <Text style={{marginBottom: 10}}>
-                        Please pick your picture from libaray to make your card, have fun!
-                    </Text>
-                    <Button
-                        icon={{name: 'perm-identity', color: colors.secondary2}}
-                        color={colors.secondary2}
-                        buttonStyle={buttonStyle.submitButton}
-                        title='Sign out'
-                        onPress={this.handleSignout}
-                        underlayColor={colors.grey6}
-                    />
-                </Card>
-                }
-                {this.state.showSignBox && this.renderSignBox()}
+                {this.renderSignBox()}
             </View>
         );
     }

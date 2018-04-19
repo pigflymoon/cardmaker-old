@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
 
 import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
-import {auth, db} from '../../config/FirebaseConfig';
+// import {auth, db} from '../../config/FirebaseConfig';
+import {USER_KEY} from "../../auth";
 
 import layoutStyle from '../../styles/layout';
 import cardStyle from '../../styles/card';
@@ -76,6 +77,29 @@ export default class MyCardsDeck extends Component {
 
     componentDidMount() {
         var self = this;
+        AsyncStorage.getItem(USER_KEY)
+            .then(userDataJson => {
+                if (userDataJson !== null) {
+                    console.log('user is ',userDataJson)
+                    let userData = JSON.parse(userDataJson);
+                    self.setState({signin: true,  isPaidUser: userData.isPaidUser});
+                    self.props.navigation.setParams({
+                        signin: true,
+                        isPaidUser: userData.isPaidUser,
+                        headerRight: true,
+                    });
+                    // self.props.navigation.navigate("SignedIn");
+                } else {
+                    console.log('not sign in')
+                    self.setState({signin: false});
+                    self.props.navigation.setParams({
+                        signin: false,
+                        headerRight: false,
+                    });
+                }
+            })
+            .catch(err => reject(err));
+        /*
         auth.onAuthStateChanged(function (authUser) {
             if (authUser) {
                 var userId = auth.currentUser.uid;
@@ -98,6 +122,7 @@ export default class MyCardsDeck extends Component {
 
             }
         });
+        */
     }
 
     componentWillUnmount() {
@@ -146,13 +171,14 @@ export default class MyCardsDeck extends Component {
                 </View>
             );
 
-        } else {
-            return (
-                <View style={cardStyle.container}>
-                    {this.renderSignCard()}
-                </View>
-            )
         }
+        // else {
+        //     return (
+        //         <View style={cardStyle.container}>
+        //             {this.renderSignCard()}
+        //         </View>
+        //     )
+        // }
 
     }
 }

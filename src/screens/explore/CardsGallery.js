@@ -8,6 +8,7 @@ import {
     FlatList,
     TouchableOpacity,
     Image,
+    SafeAreaView,
 } from 'react-native';
 import {Card,} from 'react-native-elements';
 
@@ -27,6 +28,7 @@ export default class CardsGallery extends Component {
             page: 0,
             loading: true,
             cardsData: [],
+            isListScrolled: false,
             lodingFinished: false,
             paidCards: [],
         }
@@ -96,11 +98,12 @@ export default class CardsGallery extends Component {
 
 
     }
-    fetchData = async(cardType) => {
+    fetchData = (cardType) => {
         var self = this;
-        var paidPages = await (new Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getPaidImages(cardType).then(function (paidPages) {
+                    console.log('paidPages ', paidPages)
                     var newPaidArr = [];
                     var images = self.state.paidCards;
                     if (paidPages.length > 0) {
@@ -115,6 +118,7 @@ export default class CardsGallery extends Component {
 
                             images = [...images, ...newPaidArr]
                             self.setState({lastPaidKey: lastPaidKey})
+                            console.log('images ', images)
                             resolve(images);
                         }
                     } else {
@@ -125,15 +129,17 @@ export default class CardsGallery extends Component {
 
                 }), 2000
             });
-        }));
-        return paidPages;
+        });
     }
-    handleScrollToEnd = (cardType) => {
+    handleReachToEnd = () => {
+        const {cardType} = this.props.navigation.state.params;
+        console.log('scroll called')
         var self = this;
         if (this.state.lodingFinished) {
             return false
         } else {
             this.fetchData(cardType).then(function (pages) {
+                console.log('scroll pages ', pages)
                 var images = self.state.cardsData;
                 images = [...images, ...pages]
                 self.setState({cardsData: images, loading: false})
@@ -141,16 +147,6 @@ export default class CardsGallery extends Component {
             })
         }
     };
-
-    componentWillMount() {
-        const {cardType} = this.props.navigation.state.params;
-        var self = this;
-
-        this.fetchData(cardType).then(function (pages) {
-            self.setState({cardsData: pages, loading: false})
-        })
-
-    }
 
     componentWillUnmount() {
         paidReferenceToOldestKey = '';
@@ -164,7 +160,7 @@ export default class CardsGallery extends Component {
                 <FlatList
                     data={this.state.cardsData}
                     keyExtractor={(item, index) => `${index}-image`}
-                    onEndReached={() => this.handleScrollToEnd(cardType)}
+                    onEndReached={() => this.handleReachToEnd(cardType)}
                     onEndReachedThreshold={0}
                     shouldItemUpdate={(props, nextProps) => {
                         return props.item !== nextProps.item
