@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacit
 
 import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
 // import {auth, db} from '../../config/FirebaseConfig';
-import {USER_KEY} from "../../auth";
+import {USER_KEY, onAuthUser} from "../../auth";
 
 import layoutStyle from '../../styles/layout';
 import cardStyle from '../../styles/card';
@@ -74,15 +74,14 @@ export default class MyCardsDeck extends Component {
     navigateToSignin = () => {
         this.props.navigation.navigate('Signin', {});
     }
-
-    componentDidMount() {
+    onAuthUser = () => {
         var self = this;
         AsyncStorage.getItem(USER_KEY)
             .then(userDataJson => {
                 if (userDataJson !== null) {
-                    console.log('user is ',userDataJson)
+                    console.log('user is ', userDataJson)
                     let userData = JSON.parse(userDataJson);
-                    self.setState({signin: true,  isPaidUser: userData.isPaidUser});
+                    self.setState({signin: true, isPaidUser: userData.isPaidUser});
                     self.props.navigation.setParams({
                         signin: true,
                         isPaidUser: userData.isPaidUser,
@@ -99,6 +98,11 @@ export default class MyCardsDeck extends Component {
                 }
             })
             .catch(err => reject(err));
+    }
+
+    componentDidMount() {
+        var self = this;
+        this.onAuthUser();
     }
 
     componentWillUnmount() {

@@ -32,16 +32,6 @@ export default class Signin extends Component {
         }
     }
 
-    handleSignout = () => {
-        var self = this;
-        auth.signOut().then(function () {
-            // Sign-out successful.
-            self.setState({showSignBox: true, welcomeCard: false,})
-        }).catch(function (error) {
-            // An error happened.
-            console.log('error', error)
-        });
-    }
 //sign in box
     setEmail = (text) => {
         this.setState({errorMessage: '', email: text});
@@ -69,50 +59,6 @@ export default class Signin extends Component {
 
         });
         //
-        /*
-         var self = this;
-         e.preventDefault();
-         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-         .then(function (signuser) {
-         auth.onAuthStateChanged(function (user) {
-         if (user) {
-         var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
-         self.setState({
-         user: user,
-         signin: true,
-         welcomeCard: true,
-         showSignBox: false,
-         title: `Hi ${displayName}, Welcome to cardmaker!`,
-         //
-         })
-
-         } else {
-         console.log('error', user)
-         }
-         })
-         })
-         .catch(function (error) {
-         // Handle Errors here.
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         switch (errorCode) {
-         case 'auth/invalid-email':
-         case 'auth/user-disabled':
-         case 'auth/operation-not-allowed':
-         case 'auth/user-not-found':
-         case 'auth/wrong-password':
-         self.setState({
-         errorMessage: errorMessage
-         });
-         break;
-         default:
-         self.setState({
-         errorMessage: 'Error'
-         });
-         }
-         });
-         */
-
 
     }
 

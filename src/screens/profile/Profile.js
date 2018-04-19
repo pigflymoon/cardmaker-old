@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
-import {Card, Button, Text} from "react-native-elements";
+import {View, AsyncStorage} from "react-native";
+import {Card, Button, Text,} from "react-native-elements";
 import buttonStyle from '../../styles/button';
 import bg1 from '../../assets/images/bg1.jpg';
 import colors from '../../styles/colors';
-import {onSignOut} from "../../auth";
+import {onSignOut, USER_KEY} from "../../auth";
+
 export default class Profile extends Component {
     constructor(props, context) {
         super(props, context);
@@ -24,11 +25,40 @@ export default class Profile extends Component {
 
 
     }
+    onAuthUser = () => {
+        var self = this;
+        AsyncStorage.getItem(USER_KEY)
+            .then(userDataJson => {
+                if (userDataJson !== null) {
+                    console.log('user is ', userDataJson)
+                    let userData = JSON.parse(userDataJson);
+                    let displayName = userData.displayName;
+                    let title = `Hi ${displayName}, Welcome to cardmaker!`;
+                    self.setState({
+                        signin: true,
+                        isPaidUser: userData.isPaidUser,
+                        displayName: displayName,
+                        title: title,
+                    });
+
+                    // self.props.navigation.navigate("SignedIn");
+                } else {
+                    console.log('not sign in')
+                    self.setState({signin: false});
+
+                }
+            })
+            .catch(err => reject(err));
+    }
+
+    componentDidMount() {
+        this.onAuthUser()
+    }
 
     render() {
         return (
             <View style={{paddingVertical: 20}}>
-                <Card title="John Doe"
+                <Card title={this.state.title}
                       image={bg1}>>
                     <View
                         style={{
@@ -42,7 +72,7 @@ export default class Profile extends Component {
                             marginBottom: 20
                         }}
                     >
-                        <Text style={{color: "white", fontSize: 28}}>JD</Text>
+                        <Text style={{color: "white", fontSize: 28}}>{this.state.displayName}</Text>
                     </View>
                     <Button
                         icon={{name: 'perm-identity', color: colors.secondary2}}
