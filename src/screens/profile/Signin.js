@@ -8,6 +8,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 import {auth,} from '../../config/FirebaseConfig';
+import  Utils from '../../utils/utils';
 
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
@@ -196,6 +197,11 @@ export default class Signin extends Component {
     }
 
     render() {
+        var isConnected = this.props.screenProps.isConnected;
+
+        if (!isConnected) {
+            return Utils.renderOffline();
+        }
         return (
             <View style={layoutStyle.container}>
 

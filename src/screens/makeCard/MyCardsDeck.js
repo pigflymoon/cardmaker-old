@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacit
 
 import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
 import {auth, db} from '../../config/FirebaseConfig';
+import  Utils from '../../utils/utils';
 
 import layoutStyle from '../../styles/layout';
 import cardStyle from '../../styles/card';
@@ -127,6 +128,11 @@ export default class MyCardsDeck extends Component {
     }
 
     render() {
+        var isConnected = this.props.screenProps.isConnected;
+
+        if (!isConnected) {
+            return Utils.renderOffline();
+        }
         const buttons = [{element: component1}, {element: component2}, {element: component3}, {element: component4}]
         const {selectedIndex} = this.state
         if (this.state.signin) {

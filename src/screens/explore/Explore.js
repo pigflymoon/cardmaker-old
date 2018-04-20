@@ -29,6 +29,8 @@ import {
     getFreeImages,
     getAllImages,
 } from '../../utils/FetchImagesByApi';
+import  Utils from '../../utils/utils';
+
 const birthdayImages = 'birthdayImages';
 const holidayImages = 'holidayImages';
 const weddingImages = 'weddingImages';
@@ -55,6 +57,7 @@ export default class Explore extends Component {
 
             appReady: false,
             rootKey: Math.random(),
+            connectionInfo: this.props.screenProps.connectionInfo
         };
         this.maskImage = logo;
     }
@@ -158,8 +161,19 @@ export default class Explore extends Component {
             </View>
         );
     }
+    componentWillReceiveProps(nextProps) {
+        var isConnected = nextProps.screenProps.isConnected;//update netinfo
+        console.log('nextprops',isConnected)
+        this.setState({isConnected: isConnected});
+    }
 
     render() {
+        var isConnected = this.props.screenProps.isConnected;
+
+        if (!isConnected) {
+            return Utils.renderOffline();
+        }
+
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
                 <Loader

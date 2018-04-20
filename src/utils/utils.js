@@ -8,7 +8,7 @@ import {
     Share as NativeShare,
 } from 'react-native';
 import Share  from 'react-native-share';
-
+import showInfo from '../styles/showInfo';
 export default class Utils {
     static goToURL = (url) => {
         Linking.canOpenURL(url).then(supported => {
@@ -83,4 +83,21 @@ export default class Utils {
         return newObject;
     }
 
+    static netWorkError = () => {
+        Alert.alert(
+            'Network unavailable',
+            `The Internet connection appears to be offline!!!`,
+            [
+                {text: 'OK'},
+            ],
+            {cancelable: false}
+        )
+    }
+
+    static renderOffline = () => {
+        return (
+            <View style={showInfo.container}><Text style={showInfo.text}>Offline: Cannot Connect to App.</Text></View>
+
+        )
+    }
 }
