@@ -199,7 +199,9 @@ export default class Signin extends Component {
         return (
             <View style={layoutStyle.container}>
 
-                {this.state.welcomeCard && <Card
+                {this.state.welcomeCard &&
+
+                <Card
                     title={this.state.title}
                     image={bg1}>
                     <Text style={{marginBottom: 10}}>
@@ -214,6 +216,7 @@ export default class Signin extends Component {
                         underlayColor={colors.grey6}
                     />
                 </Card>
+
                 }
                 {this.state.showSignBox && this.renderSignBox()}
             </View>
