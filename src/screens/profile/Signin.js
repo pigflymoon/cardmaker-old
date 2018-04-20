@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity,AsyncStorage} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import {
     Card,
     Button,
@@ -7,8 +7,8 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import {auth,} from '../../config/FirebaseConfig';
-import {onSignIn,USER_KEY} from "../../auth";
+// import {auth,} from '../../config/FirebaseConfig';
+import {onSignIn, onSignOut, USER_KEY, isSignedIn} from "../../auth";
 import formStyle from '../../styles/form';
 import buttonStyle from '../../styles/button';
 import bg1 from '../../assets/images/bg1.jpg';
@@ -27,7 +27,8 @@ export default class Signin extends Component {
             email: '',
             password: '',
             name: '',
-            errorMessage: ''
+            errorMessage: '',
+            signedIn: false,
 
         }
     }
@@ -48,10 +49,27 @@ export default class Signin extends Component {
             AsyncStorage.getItem(USER_KEY)
                 .then(userDataJson => {
                     if (userDataJson !== null) {
-                       console.log('user is ',userDataJson)
-                        self.props.navigation.navigate("MyCardsDeck");
+                        console.log('user is ', userDataJson)
+                        console.log('user is ', userDataJson)
+                        let userData = JSON.parse(userDataJson);
+                        let displayName = userData.displayName;
+                        let title = `Hi ${displayName}, Welcome to cardmaker!`;
+                        self.setState({
+                            signedIn: true,
+                            isPaidUser: userData.isPaidUser,
+                            displayName: displayName,
+                            title: title,
+                        });
+                        // self.props.navigation.navigate("Profile");
                     } else {
                         console.log('not sign in')
+                        userData = JSON.parse(userDataJson);
+                        let displayName = userData.displayName;
+                        let title = `Hi ${displayName}, Welcome to cardmaker!`;
+                        self.setState({
+                            signedIn: false,
+
+                        });
                     }
                 })
                 .catch(err => reject(err));
@@ -61,7 +79,17 @@ export default class Signin extends Component {
         //
 
     }
+    handleSignOut = () => {
+        ///
+        var self = this;
 
+        onSignOut().then(() => {
+            console.log('sign out return')
+            self.props.navigation.navigate("Signin");
+        });
+
+
+    }
     navigateToSignup = () => {
         this.props.navigation.navigate('Signup', {});
     }
@@ -137,34 +165,98 @@ export default class Signin extends Component {
             </View>
         );
     }
-
-    componentDidMount() {
+    onAuthUser = () => {
         var self = this;
-        auth.onAuthStateChanged(function (user) {
-            if (user) {
-                var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+        AsyncStorage.getItem(USER_KEY)
+            .then(userDataJson => {
+                if (userDataJson !== null) {
+                    console.log('user is ', userDataJson)
+                    let userData = JSON.parse(userDataJson);
+                    let displayName = userData.displayName;
+                    let title = `Hi ${displayName}, Welcome to cardmaker!`;
+                    self.setState({
+                        signedIn: true,
+                        isPaidUser: userData.isPaidUser,
+                        displayName: displayName,
+                        title: title,
+                    });
 
-                self.setState({
-                    user: user,
-                    signin: true,
-                    welcomeCard: true,
-                    showSignBox: false,
-                    title: `Hi ${displayName}, Welcome to cardmaker!`,
-                    //
-                })
+                    // self.props.navigation.navigate("SignedIn");
+                } else {
+                    console.log('not sign in')
+                    self.setState({signedIn: false});
+                    // self.props.navigation.navigate("Signin");
 
-            } else {
-                // this.setState({errorMessage: user})
-                console.log('error', user)
-            }
-        })
+
+                }
+            })
+            .catch(err => reject(err));
+    }
+    componentDidMount() {
+        console.log('called sign in ')
+        // this.onAuthUser();
+        // var self = this;
+        // auth.onAuthStateChanged(function (user) {
+        //     if (user) {
+        //         var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+        //
+        //         self.setState({
+        //             user: user,
+        //             signin: true,
+        //             welcomeCard: true,
+        //             showSignBox: false,
+        //             title: `Hi ${displayName}, Welcome to cardmaker!`,
+        //             //
+        //         })
+        //
+        //     } else {
+        //         // this.setState({errorMessage: user})
+        //         console.log('error', user)
+        //     }
+        // })
+        // isSignedIn()
+        //     .then(res => this.setState({signedIn: res, checkedSignIn: true}))
+        //     .catch(err => alert("An error occurred"));
+
     }
 
     render() {
-        return (
-            <View style={layoutStyle.container}>
-                {this.renderSignBox()}
-            </View>
-        );
+        const {checkedSignIn, signedIn} = this.state;
+        if (!signedIn) {
+            return (
+                <View style={layoutStyle.container}>
+                    {this.renderSignBox()}
+                </View>
+            );
+        } else {
+            return (
+                <Card title={this.state.title}
+                      image={bg1}>>
+                    <View
+                        style={{
+                            backgroundColor: "#bcbec1",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: 80,
+                            height: 80,
+                            borderRadius: 40,
+                            alignSelf: "center",
+                            marginBottom: 20
+                        }}
+                    >
+                        <Text style={{color: "white", fontSize: 28}}>{this.state.displayName}</Text>
+                    </View>
+                    <Button
+                        icon={{name: 'perm-identity', color: colors.secondary2}}
+                        color={colors.secondary2}
+                        buttonStyle={buttonStyle.submitButton}
+                        title='Sign out'
+                        onPress={this.handleSignOut}
+                        underlayColor={colors.grey6}
+                    />
+                </Card>
+            )
+        }
+
     }
 }

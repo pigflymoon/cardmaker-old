@@ -28,7 +28,6 @@ export default class CardsGallery extends Component {
             page: 0,
             loading: true,
             cardsData: [],
-            isListScrolled: false,
             lodingFinished: false,
             paidCards: [],
         }
@@ -98,12 +97,11 @@ export default class CardsGallery extends Component {
 
 
     }
-    fetchData = (cardType) => {
+    fetchData = async(cardType) => {
         var self = this;
-        return new Promise(function (resolve, reject) {
+        var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getPaidImages(cardType).then(function (paidPages) {
-                    console.log('paidPages ', paidPages)
                     var newPaidArr = [];
                     var images = self.state.paidCards;
                     if (paidPages.length > 0) {
@@ -118,7 +116,6 @@ export default class CardsGallery extends Component {
 
                             images = [...images, ...newPaidArr]
                             self.setState({lastPaidKey: lastPaidKey})
-                            console.log('images ', images)
                             resolve(images);
                         }
                     } else {
@@ -129,7 +126,8 @@ export default class CardsGallery extends Component {
 
                 }), 2000
             });
-        });
+        }));
+        return paidPages;
     }
     handleReachToEnd = () => {
         const {cardType} = this.props.navigation.state.params;
@@ -147,6 +145,16 @@ export default class CardsGallery extends Component {
             })
         }
     };
+
+    componentWillMount() {
+        const {cardType} = this.props.navigation.state.params;
+        var self = this;
+
+        this.fetchData(cardType).then(function (pages) {
+            self.setState({cardsData: pages, loading: false})
+        })
+
+    }
 
     componentWillUnmount() {
         paidReferenceToOldestKey = '';

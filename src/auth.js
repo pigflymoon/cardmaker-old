@@ -45,14 +45,10 @@ export const onSignIn = (email, password) => {
                     case 'auth/operation-not-allowed':
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
-                        self.setState({
-                            errorMessage: errorMessage
-                        });
+                        reject(errorMessage)
                         break;
                     default:
-                        self.setState({
-                            errorMessage: 'Error'
-                        });
+                        reject(errorMessage)
                 }
                 reject(errorMessage)
             });

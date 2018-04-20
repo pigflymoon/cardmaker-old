@@ -78,14 +78,14 @@ const MakeCardTab = StackNavigator({
 
 })
 const ProfileTab = StackNavigator({
-        Profile: {
-            screen: ProfileScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Profile',
-                // headerBackTitle: 'Back',
-                headerLeft: null,
-            }),
-        },
+        // Profile: {
+        //     screen: ProfileScreen,
+        //     navigationOptions: ({navigation}) => ({
+        //         title: 'Profile',
+        //         // headerBackTitle: 'Back',
+        //         headerLeft: null,
+        //     }),
+        // },
         Signin: {
             screen: SigninScreen,
             navigationOptions: ({navigation}) => ({

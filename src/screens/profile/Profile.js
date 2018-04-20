@@ -44,6 +44,7 @@ export default class Profile extends Component {
                     // self.props.navigation.navigate("SignedIn");
                 } else {
                     console.log('not sign in')
+                    self.props.navigation.navigate("Signin");
                     self.setState({signin: false});
 
                 }
@@ -52,7 +53,7 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-        this.onAuthUser()
+        this.onAuthUser();
     }
 
     render() {
