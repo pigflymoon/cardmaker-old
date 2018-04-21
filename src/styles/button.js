@@ -39,7 +39,15 @@ export default {
         overflow: 'hidden',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    authButtonText:{
+        textAlign: 'center',
+        color: colors.white,
+        fontSize: 24,
+        backgroundColor: 'transparent',
+        opacity: 1,
     }
+
 };
 
 

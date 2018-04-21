@@ -14,6 +14,8 @@ import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
 //Profile
+import AuthScreen from './screens/profile/Auth';
+
 import SigninScreen from './screens/profile/Signin';
 import SignupScreen from './screens/profile/Signup';
 import VerifiEmailScreen from './screens/profile/VerifyEmail';
@@ -75,6 +77,14 @@ const MakeCardTab = StackNavigator({
 
 })
 const ProfileTab = StackNavigator({
+        Auth: {
+            screen: AuthScreen,
+            navigationOptions: ({navigation}) => ({
+                title: 'Sign in',
+                // headerBackTitle: 'Back',
+                headerLeft: null,
+            }),
+        },
         Signin: {
             screen: SigninScreen,
             navigationOptions: ({navigation}) => ({
