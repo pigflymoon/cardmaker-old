@@ -6,9 +6,12 @@ import {
     Alert,
     Linking,
     Share as NativeShare,
+    ImageBackground
 } from 'react-native';
 import Share  from 'react-native-share';
 import showInfo from '../styles/showInfo';
+import bg from '../assets/images/noWifiBg.png';
+
 export default class Utils {
     static goToURL = (url) => {
         Linking.canOpenURL(url).then(supported => {
@@ -96,7 +99,17 @@ export default class Utils {
 
     static renderOffline = () => {
         return (
-            <View style={showInfo.container}><Text style={showInfo.text}>Offline: Cannot Connect to App.</Text></View>
+            <ImageBackground
+                source={bg}
+                style={{
+                    flex: 1,
+                    width : null,
+                    height: 400,
+                }}
+            >
+                <View style={showInfo.container}><Text style={showInfo.text}>Offline: Cannot Connect to
+                    App.</Text></View>
+            </ImageBackground >
 
         )
     }
