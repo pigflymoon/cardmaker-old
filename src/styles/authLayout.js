@@ -89,7 +89,7 @@ export default{
         // fontFamily: 'georgia',
     },
     helpContainer: {
-        height: 64,
+        // height: 64,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -123,10 +123,10 @@ export default class Signup extends Component {
                             Name
                         </FormLabel>
                         <FormInput
-                            ref="email"
-                            containerRef="emailcontainerRef"
-                            textInputRef="emailInputRef"
-                            placeholder="Please enter your email..."
+                            ref="name"
+                            containerRef="namecontainerRef"
+                            textInputRef="nameInputRef"
+                            placeholder="Please enter your name..."
                             onChangeText={(text) => this.setName(text)}
                         />
                     </View>

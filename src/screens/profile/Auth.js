@@ -154,7 +154,7 @@ export default class Auth extends Component {
                     doCreateUser(user.uid, self.state.name, email)
                         .then(() => {
                             user.updateProfile({displayName: self.state.name});
-                            self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
+                            self.props.navigation.navigate('ConfirmEmail', {user: user, email: email});
                         })
                         .catch(error => {
                             this.setState(byPropKey('error', error));
@@ -201,6 +201,7 @@ export default class Auth extends Component {
         // Simulate an API call
         setTimeout(() => {
             LayoutAnimation.easeInEaseOut();
+            /*
             if (!this.validateEmail(email)) {
                 errorEmail = 'Please enter a valid email address';
                 this.setState({
@@ -226,6 +227,7 @@ export default class Auth extends Component {
                     errorPassword: errorPassword,
                 });
             }
+            */
 
             this.setState({
                 isLoading: false,
@@ -271,9 +273,12 @@ export default class Auth extends Component {
         this.setState({errorMessage: '', password: text});
     }
 
-    confirmPassword = (text) => {
-        this.setState({errorMessage: '', confirmPassword: text});
+    setName = (text) => {
+        this.setState({name: text});
     }
+    // confirmPassword = (text) => {
+    //     this.setState({errorMessage: '', confirmPassword: text});
+    // }
     renderSignBox = () => {
         const {
             selectedCategory,
@@ -352,29 +357,17 @@ export default class Auth extends Component {
                         />
                         {isSignUpPage &&
                         <FormInput
-                            ref="password"
-                            secureTextEntry
-                            containerRef="passwordcontainerRef"
-                            textInputRef="passwordInputRef"
-                            placeholder="Please enter your password..."
-                            onChangeText={(text) => this.confirmPassword(text)}
+                            ref="name"
+                            containerRef="namecontainerRef"
+                            textInputRef="nameInputRef"
+                            placeholder="Please enter your name..."
+                            onChangeText={(text) => this.setName(text)}
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
-                        />}
-                        {this.state.errorEmail ?
-                            <FormValidationMessage containerStyle={authStyle.validateContainer}
-                                                   labelStyle={authStyle.validateLabel}>
-                                {this.state.errorEmail}
-                            </FormValidationMessage>
-                            : null
+                        />
+
                         }
-                        {this.state.errorPassword ?
-                            <FormValidationMessage containerStyle={authStyle.validateContainer}
-                                                   labelStyle={authStyle.validateLabel}>
-                                {this.state.errorPassword}
-                            </FormValidationMessage>
-                            : null
-                        }
+
                         <Button
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}

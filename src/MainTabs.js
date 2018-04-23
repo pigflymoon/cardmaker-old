@@ -18,7 +18,8 @@ import AuthScreen from './screens/profile/Auth';
 
 import SigninScreen from './screens/profile/Signin';
 import SignupScreen from './screens/profile/Signup';
-import VerifiEmailScreen from './screens/profile/VerifyEmail';
+import ConfirmEmailScreen from './screens/profile/ConfirmEmail';
+// import VerifiEmailScreen from './screens/profile/VerifyEmail';
 import ResetPasswordScreen from './screens/profile/ResetPassword';
 import TermsScreen from './screens/profile/TermOfUse';
 import PolicyScreen from './screens/profile/PrivacyPolicy';
@@ -100,10 +101,10 @@ const ProfileTab = StackNavigator({
                 headerLeft: null,
             }),
         },
-        VerifyEmail: {
-            screen: VerifiEmailScreen,
+        ConfirmEmail: {
+            screen: ConfirmEmailScreen,
             navigationOptions: ({navigation}) => ({
-                title: 'Verify email',
+                title: 'Confirm email',
                 // headerLeft: null,
             }),
         },
