@@ -53,12 +53,16 @@ export default class Auth extends Component {
 
     constructor(props) {
         super(props);
-
+        const params = this.props.navigation.state.params || {};
+        let selectedCategory = 0;
+        if (params.selectedCategory) {
+            selectedCategory = params.selectedCategory
+        }
         this.state = {
             email: '',
             password: '',
             fontLoaded: false,
-            selectedCategory: 0,
+            selectedCategory: selectedCategory,
             isLoading: false,
             isEmailValid: true,
             isPasswordValid: true,
@@ -85,6 +89,9 @@ export default class Auth extends Component {
     }
 
 
+    navigateToResetPassword = () => {
+        this.props.navigation.navigate('ResetPassword', {});
+    }
     handleSignin = (e) => {
         var self = this;
         e.preventDefault();
@@ -202,32 +209,32 @@ export default class Auth extends Component {
         setTimeout(() => {
             LayoutAnimation.easeInEaseOut();
             /*
-            if (!this.validateEmail(email)) {
-                errorEmail = 'Please enter a valid email address';
-                this.setState({
+             if (!this.validateEmail(email)) {
+             errorEmail = 'Please enter a valid email address';
+             this.setState({
 
-                    errorEmail: errorEmail,
-                    errorPassword: errorPassword,
-                });
+             errorEmail: errorEmail,
+             errorPassword: errorPassword,
+             });
 
-            }
-            if (!password.length >= 8) {
-                errorPassword = 'Please enter at least 8 characters';
-                this.setState({
+             }
+             if (!password.length >= 8) {
+             errorPassword = 'Please enter at least 8 characters';
+             this.setState({
 
-                    errorEmail: errorEmail,
-                    errorPassword: errorPassword,
-                });
-            }
-            if (!password == confirmPassword) {
-                errorPassword = 'Please enter same password';
-                this.setState({
+             errorEmail: errorEmail,
+             errorPassword: errorPassword,
+             });
+             }
+             if (!password == confirmPassword) {
+             errorPassword = 'Please enter same password';
+             this.setState({
 
-                    errorEmail: errorEmail,
-                    errorPassword: errorPassword,
-                });
-            }
-            */
+             errorEmail: errorEmail,
+             errorPassword: errorPassword,
+             });
+             }
+             */
 
             this.setState({
                 isLoading: false,
@@ -276,19 +283,11 @@ export default class Auth extends Component {
     setName = (text) => {
         this.setState({name: text});
     }
-    // confirmPassword = (text) => {
-    //     this.setState({errorMessage: '', confirmPassword: text});
-    // }
+
     renderSignBox = () => {
         const {
             selectedCategory,
             isLoading,
-            isEmailValid,
-            isPasswordValid,
-            isConfirmationValid,
-            email,
-            password,
-            passwordConfirmation,
         } = this.state;
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
@@ -382,11 +381,12 @@ export default class Auth extends Component {
                 </KeyboardAvoidingView>
                 <View style={authStyle.helpContainer}>
                     <Button
-                        title={'Need help ?'}
+                        title={'Forgot password?'}
                         titleStyle={{color: 'white'}}
                         buttonStyle={{backgroundColor: 'transparent'}}
                         underlayColor='transparent'
-                        onPress={() => console.log('Account created')}
+                        onPress={this.navigateToResetPassword}
+
                     />
                 </View>
             </View>
@@ -395,7 +395,6 @@ export default class Auth extends Component {
     renderWelcomeBox = () => {
         const {
             isLoading,
-
         } = this.state;
         return (
             <Card

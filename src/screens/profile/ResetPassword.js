@@ -1,39 +1,35 @@
 import React, {Component} from 'react';
 import {
+    ActivityIndicator,
     StyleSheet,
     View,
-    Platform,
-    TouchableOpacity,
-    ActivityIndicator,
+    ImageBackground,
+    Dimensions,
+    LayoutAnimation,
+    UIManager,
+    KeyboardAvoidingView,
 } from 'react-native';
 import {
     Button,
     Text,
     FormInput,
-    FormLabel,
-    FormValidationMessage,
 } from 'react-native-elements';
 import {auth} from '../../config/FirebaseConfig';
 
-import formStyle from '../../styles/form';
-import buttonStyle from '../../styles/button';
-import colors from '../../styles/colors';
-
+import BG_IMAGE from '../../assets/images/gradient-bg.png';
+import authStyle from '../../styles/authLayout';
 
 export default class ResetPassword extends Component {
     constructor(props) {
         super(props);
 
-        const {user} = this.props.navigation.state.params;
         this.state = {
-            signin: false,
             isLoading: false,
-            user: user,
         };
     }
 
     navigateToSignup = () => {
-        this.props.navigation.navigate('Signup', {});
+        this.props.navigation.navigate('Auth', {selectedCategory: 1,});
     }
 
     setEmail = (text) => {
@@ -43,6 +39,7 @@ export default class ResetPassword extends Component {
 
     handleResetPassword = () => {
         var self = this;
+        this.setState({isLoading: true});
 
         if (!this.state.email) {
             this.setState({
@@ -53,6 +50,7 @@ export default class ResetPassword extends Component {
             auth.sendPasswordResetEmail(emailAddress).then(function () {
                 // Email sent.
                 self.setState({
+                    isLoading: false,
                     infoMessage: `Reset password sent to the emailAddress,please check your email ${emailAddress}`
                 });
                 self.props.navigation.navigate('Signin');
@@ -74,65 +72,71 @@ export default class ResetPassword extends Component {
         }
     }
 
+    renderResetPasswordBox = () => {
+        const {
+            isLoading,
+        } = this.state;
+
+        return (
+            <View style={{flex: 1}}>
+                <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
+                    <View style={authStyle.titleContainer}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={authStyle.titleText}>Cardmaker App</Text>
+                        </View>
+
+                    </View>
+
+
+                    <View style={authStyle.formContainer}>
+
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            onChangeText={(text) => this.setEmail(text)}
+                            inputStyle={{marginLeft: 20}}
+                            containerStyle={authStyle.inputContainer}
+                        />
+
+                        <Button
+                            buttonStyle={authStyle.loginButton}
+                            containerViewStyle={{marginTop: 32, flex: 0}}
+                            activeOpacity={0.8}
+                            title={'RESET PASSWORD'}
+                            onPress={ this.handleResetPassword}
+                            titleStyle={authStyle.loginTextButton}
+                            loading={isLoading}
+                            disabled={isLoading}
+                        />
+                    </View>
+                </KeyboardAvoidingView>
+                <View style={authStyle.helpContainer}>
+                    <Button
+                        title={'Do not have an account?'}
+                        titleStyle={{color: 'white'}}
+                        buttonStyle={{backgroundColor: 'transparent', marginBottom: 10,}}
+                        underlayColor='transparent'
+                        onPress={this.navigateToSignup}
+                    />
+
+                </View>
+            </View>
+        )
+    }
+
     render() {
 
         return (
-            <View style={formStyle.container}>
-                {this.state.isLoading ? (
-                        <View style={formStyle.loading}>
-                            <ActivityIndicator size='large'/>
-                        </View>
-                    ) : (
-                        <View style={formStyle.container}>
-                            <View style={formStyle.inputsContainer}>
-                                <View style={formStyle.inputContainer}>
-                                    <FormLabel containerStyle={formStyle.labelContainerStyle}>
-                                        Email
-                                    </FormLabel>
-                                    <FormInput
-                                        ref="email"
-                                        containerRef="emailcontainerRef"
-                                        textInputRef="emailInputRef"
-                                        placeholder="Please enter your email..."
-                                        onChangeText={(text) => this.setEmail(text)}
-                                    />
-                                </View>
-                                {this.state.infoMessage ?
-                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                        {this.state.infoMessage}
-                                    </FormValidationMessage>
-                                    : null
-                                }
+            <View style={authStyle.container}>
+                <ImageBackground
+                    source={BG_IMAGE}
+                    style={authStyle.bgImage}
+                >
+                    {this.renderResetPasswordBox()}
 
-                                {this.state.errorMessage ?
-                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                        {this.state.errorMessage}
-                                    </FormValidationMessage>
-                                    : null
-                                }
-                            </View>
-
-                            <View style={[formStyle.largerFooterContainer]}>
-                                <Button
-                                    onPress={this.handleResetPassword}
-                                    icon={{name: 'done', color: colors.secondary2}}
-                                    color={colors.secondary2}
-                                    buttonStyle={buttonStyle.submitButton}
-                                    title="Rest Password"
-                                    underlayColor={colors.grey6}
-                                />
-                                <View style={formStyle.textInfoContainer}>
-                                    <View>
-                                        <Text style={formStyle.plainText}>Don't have an account? </Text>
-                                    </View>
-                                    <TouchableOpacity activeOpacity={.5} onPress={this.navigateToSignup}>
-                                        <View><Text style={formStyle.textLink}>Sign up.</Text></View>
-                                    </TouchableOpacity>
-                                </View>
-
-                            </View>
-                        </View>
-                    )}
+                </ImageBackground>
             </View>
 
 

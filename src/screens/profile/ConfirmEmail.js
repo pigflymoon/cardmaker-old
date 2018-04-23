@@ -36,7 +36,6 @@ export default class ConfirmEmail extends Component {
         const {user} = this.props.navigation.state.params;
         this.state = {
             email: '',
-            showConfirmBox: true,
             user: user,
         };
 
@@ -47,20 +46,21 @@ export default class ConfirmEmail extends Component {
     }
 
     navigateToSignup = () => {
-        this.props.navigation.navigate('Signup', {});
+        this.props.navigation.navigate('Auth', {selectedCategory: 1,});
     }
 
     handleConfirmEmail = (e) => {
         var self = this;
         var user = this.state.user;
+        this.setState({isLoading: true});
 
         e.preventDefault();
 
         user.sendEmailVerification().then(
             function () {
-                self.setState({
-                    isLoading: true
-                });
+                // self.setState({
+                //     isLoading: true
+                // });
 
                 interval = setInterval(() => {
                     user.reload().then(
@@ -175,7 +175,7 @@ export default class ConfirmEmail extends Component {
                     source={BG_IMAGE}
                     style={authStyle.bgImage}
                 >
-                    {this.state.showConfirmBox && this.renderConfirmBox()}
+                    { this.renderConfirmBox()}
 
                 </ImageBackground>
             </View>
