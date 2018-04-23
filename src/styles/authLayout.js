@@ -34,9 +34,9 @@ export default{
         justifyContent: 'center',
     },
     loginTextButton: {
-        fontSize: 14,
+        fontSize: 16,
         color: colors.white,
-        // fontWeight: 'bold',
+        fontWeight: 'bold',
     },
     loginButton: {
         backgroundColor: colors.secondary2,
@@ -45,7 +45,7 @@ export default{
         width: 200,
     },
     titleContainer: {
-        height: 150,
+        height: 100,
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },
@@ -75,13 +75,13 @@ export default{
         textAlign: 'center',
         color: 'white',
         fontSize: 24,
-        fontFamily: 'light',
+        // fontFamily: 'light',
         backgroundColor: 'transparent',
         opacity: 0.54,
     },
     selectedCategoryText: {
         opacity: 1,
-        fontSize: 30,
+        fontSize: 28,
     },
     titleText: {
         color: colors.white,
@@ -107,12 +107,19 @@ export default{
 
     },
     validateContainer: {
-        backgroundColor: colors.orange,
+        marginTop: 5,
+        // backgroundColor: colors.orange,
     },
     validateLabel: {
-        color: colors.white,
+        color: colors.secondary2,
     },
-    authButtonContainer:{
+    validateErrorLabel: {
+        color: colors.orange,
+    },
+    authButtonContainer: {
         alignSelf: 'center',
+    },
+    noButtonText: {
+        fontSize: 16,
     }
 }

@@ -9,7 +9,8 @@ import {
     LayoutAnimation,
     UIManager,
     KeyboardAvoidingView,
-    TextInput
+    // TextInput,
+    ScrollView
 } from 'react-native';
 import {
     Card,
@@ -69,6 +70,9 @@ export default class Auth extends Component {
             isConfirmationValid: true,
             welcomeCard: false,
             showSignBox: true,
+            errorMessage: false,
+            validateEmailMessage: 'Please enter a valid email addres',
+            validatePasswordMessage: 'Please enter at least 8 characters',
         };
 
     }
@@ -76,10 +80,15 @@ export default class Auth extends Component {
 
     selectCategory = (selectedCategory) => {
         LayoutAnimation.easeInEaseOut();
+
         this.setState({
             selectedCategory,
             isLoading: false,
+            errorMessage: '',
+            email: '',
         });
+
+
     }
 
     validateEmail(email) {
@@ -199,46 +208,43 @@ export default class Auth extends Component {
         const {
             email,
             password,
+            name,
             confirmPassword,
         } = this.state;
         // Simulate an API call
         var errorEmail = '', errorPassword = '';
+        if (!this.validateEmail(email)) {
+            let errorMessage = 'Please enter a valid email address';
+            this.setState({
+                errorMessage: errorMessage,
+            });
+            return false;
+
+        }
+        console.log('password length', password.length)
+        if (!(password.length >= 6)) {
+            let errorMessage = 'Please enter at least 6 characters';
+            this.setState({
+                errorMessage: errorMessage,
+            });
+            return false;
+        }
+        if (name == null || name !== '') {
+            let errorMessage = 'Please enter a valid name';
+            this.setState({
+                errorMessage: errorMessage,
+            });
+            return false;
+        }
+
         this.setState({isLoading: true});
+
         var self = this;
         // Simulate an API call
         setTimeout(() => {
             LayoutAnimation.easeInEaseOut();
-            /*
-             if (!this.validateEmail(email)) {
-             errorEmail = 'Please enter a valid email address';
-             this.setState({
-
-             errorEmail: errorEmail,
-             errorPassword: errorPassword,
-             });
-
-             }
-             if (!password.length >= 8) {
-             errorPassword = 'Please enter at least 8 characters';
-             this.setState({
-
-             errorEmail: errorEmail,
-             errorPassword: errorPassword,
-             });
-             }
-             if (!password == confirmPassword) {
-             errorPassword = 'Please enter same password';
-             this.setState({
-
-             errorEmail: errorEmail,
-             errorPassword: errorPassword,
-             });
-             }
-             */
-
             this.setState({
                 isLoading: false,
-
             }, function () {
                 self.registerUserAndWaitEmailVerification(email, password);
             });
@@ -292,7 +298,7 @@ export default class Auth extends Component {
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
         return (
-            <View style={{flex: 1}}>
+            <ScrollView style={{flex: 1}}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                     <View style={authStyle.titleContainer}>
                         <View style={{flexDirection: 'row'}}>
@@ -300,25 +306,22 @@ export default class Auth extends Component {
                         </View>
 
                     </View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
 
                         <Button
                             onPress={() => this.selectCategory(0)}
                             buttonStyle={authStyle.tabButton}
-                            containerStyle={{flex: 1,}}
                             title="Login"
-                            titleStyle={[authStyle.categoryText, isLoginPage && authStyle.selectedCategoryText]}
+                            textStyle={[authStyle.categoryText, isLoginPage && authStyle.selectedCategoryText]}
 
                         />
                         <Button
                             onPress={() => this.selectCategory(1)}
                             buttonStyle={authStyle.tabButton}
-                            containerStyle={{flex: 1,}}
                             title="Sign up"
-                            titleStyle={[authStyle.categoryText, isSignUpPage && authStyle.selectedCategoryText]}
+                            textStyle={[authStyle.categoryText, isSignUpPage && authStyle.selectedCategoryText]}
 
                         />
-
                     </View>
                     <View style={authStyle.rowSelector}>
                         <TabSelector selected={isLoginPage}/>
@@ -327,7 +330,9 @@ export default class Auth extends Component {
                     <View style={authStyle.formContainer}>
 
                         <FormInput
-                            ref="email"
+                            ref={input => {
+                                this.forminput = input
+                            }}
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
@@ -336,12 +341,12 @@ export default class Auth extends Component {
                             containerStyle={authStyle.inputContainer}
                         />
 
-                        {this.state.errorMessage ?
-                            <FormValidationMessage containerStyle={authStyle.validateContainer}
-                                                   labelStyle={authStyle.validateLabel}>
-                                {this.state.errorMessage}
-                            </FormValidationMessage>
-                            : null
+
+                        <FormValidationMessage containerStyle={authStyle.validateContainer}
+                                               labelStyle={authStyle.validateLabel}>
+                            {this.state.validateEmailMessage}
+                        </FormValidationMessage>
+
                         }
 
                         <FormInput
@@ -354,6 +359,13 @@ export default class Auth extends Component {
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
                         />
+
+                        <FormValidationMessage containerStyle={authStyle.validateContainer}
+                                               labelStyle={authStyle.validateLabel}>
+                            {this.state.validatePasswordMessage}
+                        </FormValidationMessage>
+
+
                         {isSignUpPage &&
                         <FormInput
                             ref="name"
@@ -366,14 +378,20 @@ export default class Auth extends Component {
                         />
 
                         }
-
+                        {this.state.errorMessage ?
+                            <FormValidationMessage containerStyle={authStyle.validateContainer}
+                                                   labelStyle={authStyle.validateErrorLabel}>
+                                {this.state.errorMessage}
+                            </FormValidationMessage>
+                            : null
+                        }
                         <Button
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}
                             activeOpacity={0.8}
                             title={isLoginPage ? 'SIGN IN' : 'SIGN UP'}
                             onPress={isLoginPage ? this.handleSignin : this.handleSignup}
-                            titleStyle={authStyle.loginTextButton}
+                            textStyle={authStyle.loginTextButton}
                             loading={isLoading}
                             disabled={isLoading}
                         />
@@ -382,14 +400,14 @@ export default class Auth extends Component {
                 <View style={authStyle.helpContainer}>
                     <Button
                         title={'Forgot password?'}
-                        titleStyle={{color: 'white'}}
+                        textStyle={authStyle.noButtonText}
                         buttonStyle={{backgroundColor: 'transparent'}}
                         underlayColor='transparent'
                         onPress={this.navigateToResetPassword}
 
                     />
                 </View>
-            </View>
+            </ScrollView>
         )
     }
     renderWelcomeBox = () => {
@@ -410,7 +428,7 @@ export default class Auth extends Component {
                     activeOpacity={0.8}
                     title={'SIGN OUT'}
                     onPress={ this.handleSignout}
-                    titleStyle={authStyle.loginTextButton}
+                    textStyle={authStyle.loginTextButton}
                     loading={isLoading}
                     disabled={isLoading}
                 />

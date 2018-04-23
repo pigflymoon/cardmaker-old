@@ -106,7 +106,7 @@ export default class ResetPassword extends Component {
                             activeOpacity={0.8}
                             title={'RESET PASSWORD'}
                             onPress={ this.handleResetPassword}
-                            titleStyle={authStyle.loginTextButton}
+                            textStyle={authStyle.loginTextButton}
                             loading={isLoading}
                             disabled={isLoading}
                         />
@@ -115,7 +115,7 @@ export default class ResetPassword extends Component {
                 <View style={authStyle.helpContainer}>
                     <Button
                         title={'Do not have an account?'}
-                        titleStyle={{color: 'white'}}
+                        textStyle={authStyle.noButtonText}
                         buttonStyle={{backgroundColor: 'transparent', marginBottom: 10,}}
                         underlayColor='transparent'
                         onPress={this.navigateToSignup}

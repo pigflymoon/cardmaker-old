@@ -140,7 +140,7 @@ export default class ConfirmEmail extends Component {
                             activeOpacity={0.8}
                             title={'CONFIRM'}
                             onPress={ this.handleConfirmEmail}
-                            titleStyle={authStyle.loginTextButton}
+                            textStyle={authStyle.loginTextButton}
                             loading={isLoading}
                             disabled={isLoading}
                         />
@@ -149,14 +149,14 @@ export default class ConfirmEmail extends Component {
                 <View style={authStyle.helpContainer}>
                     <Button
                         title={'Forgot password?'}
-                        titleStyle={{color: 'white'}}
+                        textStyle={authStyle.noButtonText}
                         buttonStyle={{backgroundColor: 'transparent', marginBottom: 10,}}
                         underlayColor='transparent'
                         onPress={this.navigateToResetPassword}
                     />
                     <Button
                         title={'Sign up'}
-                        titleStyle={{color: 'white'}}
+                        textStyle={authStyle.noButtonText}
                         buttonStyle={{backgroundColor: 'transparent'}}
                         underlayColor='transparent'
                         onPress={this.navigateToSignup}
