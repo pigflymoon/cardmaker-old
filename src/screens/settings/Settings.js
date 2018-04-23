@@ -21,9 +21,11 @@ import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {auth, db} from '../../config/FirebaseConfig';
-// var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
-var verifyproductionHost = Config.receiptVerify.Host.productionHost;
-var verifyHost = verifyproductionHost;
+var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
+var verifyHost = verifysandboxHost;
+
+// var verifyproductionHost = Config.receiptVerify.Host.productionHost;
+// var verifyHost = verifyproductionHost;
 
 import {onceGetReceipts, doCreateReceipt} from '../../config/db';
 
@@ -246,7 +248,7 @@ export default class Settings extends Component {
                     }
 
                 });
-            }else{
+            } else {
                 self.setState({
                     showProData: false,
                     isPro: 'DISABLED'

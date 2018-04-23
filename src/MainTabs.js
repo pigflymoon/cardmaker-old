@@ -80,7 +80,7 @@ const ProfileTab = StackNavigator({
         Auth: {
             screen: AuthScreen,
             navigationOptions: ({navigation}) => ({
-                title: 'Sign in',
+                title: 'Welcome',
                 // headerBackTitle: 'Back',
                 headerLeft: null,
             }),

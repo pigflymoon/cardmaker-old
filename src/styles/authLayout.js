@@ -105,5 +105,14 @@ export default{
         marginTop: 16,
         borderBottomColor: 'rgba(0, 0, 0, 0.38)',
 
+    },
+    validateContainer: {
+        backgroundColor: colors.orange,
+    },
+    validateLabel: {
+        color: colors.white,
+    },
+    authButtonContainer:{
+        alignSelf: 'center',
     }
 }
