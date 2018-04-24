@@ -19,15 +19,14 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+
 import {auth,} from '../../config/FirebaseConfig';
 import {doCreateUser} from '../../config/db';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
-import colors from '../../styles/colors';
 import bg1 from '../../assets/images/bg1.jpg';
+import  Utils from '../../utils/utils';
 
 
 // Enable LayoutAnimation on Android
@@ -62,17 +61,15 @@ export default class Auth extends Component {
         this.state = {
             email: '',
             password: '',
-            fontLoaded: false,
             selectedCategory: selectedCategory,
             isLoading: false,
-            isEmailValid: true,
-            isPasswordValid: true,
-            isConfirmationValid: true,
             welcomeCard: false,
             showSignBox: true,
             errorMessage: false,
             validateEmailMessage: 'Please enter a valid email address',
-            validatePasswordMessage: 'Please enter at least 8 characters',
+            validatePasswordMessage: 'Please enter at least 6 characters',
+            validateNameMessage: 'Please enter a valid name',
+
         };
 
     }
@@ -91,13 +88,6 @@ export default class Auth extends Component {
 
     }
 
-    validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        return re.test(email);
-    }
-
-
     navigateToResetPassword = () => {
         this.props.navigation.navigate('ResetPassword', {});
     }
@@ -108,6 +98,13 @@ export default class Auth extends Component {
             email,
             password,
         } = this.state;
+        if (!Utils.validateEmail(email)) {
+            this.setState({
+                errorMessage: this.state.validateEmailMessage,
+            });
+            return false;
+
+        }
         this.setState({isLoading: true});
 
         setTimeout(() => {
@@ -209,30 +206,24 @@ export default class Auth extends Component {
             email,
             password,
             name,
-            confirmPassword,
         } = this.state;
-        // Simulate an API call
-        var errorEmail = '', errorPassword = '';
-        if (!this.validateEmail(email)) {
-            let errorMessage = 'Please enter a valid email address';
+
+        if (!Utils.validateEmail(email)) {
             this.setState({
-                errorMessage: errorMessage,
+                errorMessage: this.state.validateEmailMessage,
             });
             return false;
 
         }
-        console.log('password length', password.length)
         if (!(password.length >= 6)) {
-            let errorMessage = 'Please enter at least 6 characters';
             this.setState({
-                errorMessage: errorMessage,
+                errorMessage: this.state.validatePasswordMessage,
             });
             return false;
         }
         if (name == null || name !== '') {
-            let errorMessage = 'Please enter a valid name';
             this.setState({
-                errorMessage: errorMessage,
+                errorMessage: this.state.validateNameMessage,
             });
             return false;
         }
@@ -240,7 +231,7 @@ export default class Auth extends Component {
         this.setState({isLoading: true});
 
         var self = this;
-        // Simulate an API call
+
         setTimeout(() => {
             LayoutAnimation.easeInEaseOut();
             this.setState({
@@ -267,11 +258,13 @@ export default class Auth extends Component {
                     isLoading: false,
                     showSignBox: true,
                     welcomeCard: false,
-
                 })
             }).catch(function (error) {
                 // An error happened.
-                console.log('error', error)
+                var errorMessage = error.message;
+                self.setState({
+                    errorMessage: errorMessage,
+                });
             });
 
         }, 1500);
@@ -290,6 +283,28 @@ export default class Auth extends Component {
         this.setState({name: text});
     }
 
+    componentDidMount() {
+        var self = this;
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+
+                self.setState({
+                    user: user,
+                    signin: true,
+                    welcomeCard: true,
+                    showSignBox: false,
+                    title: `Hi ${displayName}, Welcome to cardmaker!`,
+                    //
+                })
+
+            } else {
+                // this.setState({errorMessage: user})
+                console.log('error', user)
+            }
+        })
+    }
+
     renderSignBox = () => {
         const {
             selectedCategory,
@@ -304,23 +319,19 @@ export default class Auth extends Component {
                         <View style={{flexDirection: 'row'}}>
                             <Text style={authStyle.titleText}>Cardmaker App</Text>
                         </View>
-
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
-
+                    <View style={authStyle.tabButtonGroup}>
                         <Button
                             onPress={() => this.selectCategory(0)}
                             buttonStyle={authStyle.tabButton}
                             title="Login"
                             textStyle={[authStyle.categoryText, isLoginPage && authStyle.selectedCategoryText]}
-
                         />
                         <Button
                             onPress={() => this.selectCategory(1)}
                             buttonStyle={authStyle.tabButton}
                             title="Sign up"
                             textStyle={[authStyle.categoryText, isSignUpPage && authStyle.selectedCategoryText]}
-
                         />
                     </View>
                     <View style={authStyle.rowSelector}>
@@ -328,11 +339,8 @@ export default class Auth extends Component {
                         <TabSelector selected={isSignUpPage}/>
                     </View>
                     <View style={authStyle.formContainer}>
-
                         <FormInput
-                            ref={input => {
-                                this.forminput = input
-                            }}
+                            ref="email"
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
@@ -340,14 +348,10 @@ export default class Auth extends Component {
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
                         />
-
-
                         <FormValidationMessage containerStyle={authStyle.validateContainer}
                                                labelStyle={authStyle.validateLabel}>
                             {this.state.validateEmailMessage}
                         </FormValidationMessage>
-
-                        }
 
                         <FormInput
                             ref="password"
@@ -364,8 +368,6 @@ export default class Auth extends Component {
                                                labelStyle={authStyle.validateLabel}>
                             {this.state.validatePasswordMessage}
                         </FormValidationMessage>
-
-
                         {isSignUpPage &&
                         <FormInput
                             ref="name"
@@ -376,7 +378,6 @@ export default class Auth extends Component {
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
                         />
-
                         }
                         {this.state.errorMessage ?
                             <FormValidationMessage containerStyle={authStyle.validateContainer}
@@ -401,7 +402,7 @@ export default class Auth extends Component {
                     <Button
                         title={'Forgot password?'}
                         textStyle={authStyle.noButtonText}
-                        buttonStyle={{backgroundColor: 'transparent'}}
+                        buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'
                         onPress={this.navigateToResetPassword}
 
@@ -438,7 +439,6 @@ export default class Auth extends Component {
     }
 
     render() {
-
         return (
             <View style={authStyle.container}>
                 <ImageBackground

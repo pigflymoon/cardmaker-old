@@ -87,12 +87,8 @@ export default class ResetPassword extends Component {
                         <View style={{flexDirection: 'row'}}>
                             <Text style={authStyle.titleText}>Cardmaker App</Text>
                         </View>
-
                     </View>
-
-
                     <View style={authStyle.formContainer}>
-
                         <FormInput
                             ref="email"
                             containerRef="emailcontainerRef"
@@ -125,11 +121,10 @@ export default class ResetPassword extends Component {
                     <Button
                         title={'Do not have an account?'}
                         textStyle={authStyle.noButtonText}
-                        buttonStyle={{backgroundColor: 'transparent', marginBottom: 10,}}
+                        buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'
                         onPress={this.navigateToSignup}
                     />
-
                 </View>
             </ScrollView>
         )
@@ -144,7 +139,6 @@ export default class ResetPassword extends Component {
                     style={authStyle.bgImage}
                 >
                     {this.renderResetPasswordBox()}
-
                 </ImageBackground>
             </View>
 

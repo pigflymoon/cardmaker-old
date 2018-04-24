@@ -97,13 +97,18 @@ export default class Utils {
         )
     }
 
+    static validateEmail = (email) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        return re.test(email);
+    }
     static renderOffline = () => {
         return (
             <ImageBackground
                 source={bg}
                 style={{
                     flex: 1,
-                    width : null,
+                    width: null,
                     height: 400,
                 }}
             >

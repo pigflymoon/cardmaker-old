@@ -8,6 +8,9 @@ export default{
     container: {
         flex: 1,
     },
+    tabButtonGroup: {
+        flexDirection: 'row',
+    },
     rowSelector: {
         height: 20,
         flexDirection: 'row',
@@ -118,6 +121,10 @@ export default{
     },
     authButtonContainer: {
         alignSelf: 'center',
+    },
+    noButtonContainer: {
+        backgroundColor: 'transparent',
+        marginBottom: 10,
     },
     noButtonText: {
         fontSize: 16,

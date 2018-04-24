@@ -123,7 +123,6 @@ export default class ConfirmEmail extends Component {
 
                     </View>
 
-
                     <View style={authStyle.formContainer}>
 
                         <FormInput
@@ -158,14 +157,14 @@ export default class ConfirmEmail extends Component {
                     <Button
                         title={'Forgot password?'}
                         textStyle={authStyle.noButtonText}
-                        buttonStyle={{backgroundColor: 'transparent', marginBottom: 10,}}
+                        buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'
                         onPress={this.navigateToResetPassword}
                     />
                     <Button
                         title={'Sign up'}
                         textStyle={authStyle.noButtonText}
-                        buttonStyle={{backgroundColor: 'transparent'}}
+                        buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'
                         onPress={this.navigateToSignup}
                     />
