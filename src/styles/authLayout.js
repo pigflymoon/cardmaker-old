@@ -88,7 +88,7 @@ export default{
     },
     titleText: {
         color: colors.white,
-        fontSize: 30,
+        fontSize: 22,
         // fontFamily: 'georgia',
     },
     helpContainer: {
@@ -109,6 +109,10 @@ export default{
         borderBottomColor: 'rgba(0, 0, 0, 0.38)',
 
     },
+    inputText:{
+        marginLeft: 20,
+        color:colors.grey1,
+    },
     validateContainer: {
         marginTop: 5,
         // backgroundColor: colors.orange,
@@ -128,5 +132,10 @@ export default{
     },
     noButtonText: {
         fontSize: 16,
+    },
+    infoText:{
+        marginBottom: 10,
+        color:colors.grey1,
+
     }
 }

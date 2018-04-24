@@ -9,8 +9,7 @@ import {
     LayoutAnimation,
     UIManager,
     KeyboardAvoidingView,
-    // TextInput,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 import {
     Card,
@@ -221,7 +220,7 @@ export default class Auth extends Component {
             });
             return false;
         }
-        if (name == null || name !== '') {
+        if (name == null || name == '') {
             this.setState({
                 errorMessage: this.state.validateNameMessage,
             });
@@ -234,11 +233,7 @@ export default class Auth extends Component {
 
         setTimeout(() => {
             LayoutAnimation.easeInEaseOut();
-            this.setState({
-                isLoading: false,
-            }, function () {
-                self.registerUserAndWaitEmailVerification(email, password);
-            });
+            self.registerUserAndWaitEmailVerification(email, password);
 
         }, 1500);
         //
@@ -285,7 +280,11 @@ export default class Auth extends Component {
 
     componentDidMount() {
         var self = this;
+        var user = auth.currentUser;
+        console.log('current user is ',user)
+
         auth.onAuthStateChanged(function (user) {
+            console.log('called auth sign in')
             if (user) {
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
 
@@ -298,9 +297,6 @@ export default class Auth extends Component {
                     //
                 })
 
-            } else {
-                // this.setState({errorMessage: user})
-                console.log('error', user)
             }
         })
     }
@@ -345,7 +341,7 @@ export default class Auth extends Component {
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
                             onChangeText={(text) => this.setEmail(text)}
-                            inputStyle={{marginLeft: 20}}
+                            inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
                         <FormValidationMessage containerStyle={authStyle.validateContainer}
@@ -360,7 +356,7 @@ export default class Auth extends Component {
                             textInputRef="passwordInputRef"
                             placeholder="Please enter your password..."
                             onChangeText={(text) => this.setPassword(text)}
-                            inputStyle={{marginLeft: 20}}
+                            inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
 
@@ -375,7 +371,7 @@ export default class Auth extends Component {
                             textInputRef="nameInputRef"
                             placeholder="Please enter your name..."
                             onChangeText={(text) => this.setName(text)}
-                            inputStyle={{marginLeft: 20}}
+                            inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
                         }

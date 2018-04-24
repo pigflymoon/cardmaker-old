@@ -59,10 +59,6 @@ export default class ConfirmEmail extends Component {
 
         user.sendEmailVerification().then(
             function () {
-                // self.setState({
-                //     isLoading: true
-                // });
-
                 interval = setInterval(() => {
                     user.reload().then(
                         function () {
@@ -76,7 +72,7 @@ export default class ConfirmEmail extends Component {
                                     });
                                     clearInterval(interval);
                                     if (user && user.emailVerified) {
-                                        self.props.navigation.navigate('MyCardsDeck', {name: self.state.name});
+                                        self.props.navigation.navigate('Auth', {name: self.state.name});
                                         clearInterval(interval);
                                         interval = null;
                                     } else {
@@ -130,7 +126,7 @@ export default class ConfirmEmail extends Component {
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             value={email}
-                            inputStyle={{marginLeft: 20}}
+                            inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
                         {this.state.errorMessage ?

@@ -1,5 +1,18 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    Alert,
+    AsyncStorage,
+    TouchableOpacity,
+    ImageBackground,
+    LayoutAnimation,
+    UIManager,
+    KeyboardAvoidingView,
+    ScrollView,
+} from 'react-native';
 
 import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
 import {auth, db} from '../../config/FirebaseConfig';
@@ -9,8 +22,11 @@ import layoutStyle from '../../styles/layout';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import buttonStyle from '../../styles/button';
+import authStyle from '../../styles/authLayout';
 
 import CardsDeck from '../../components/CardsDeck';
+import BG_IMAGE from '../../assets/images/gradient-bg.png';
+
 var savedCards = [];
 const component1 = () => <Text>Birthday</Text>
 const component2 = () => <Text>Holiday</Text>
@@ -71,8 +87,8 @@ export default class MyCardsDeck extends Component {
         })
 
     }
-    navigateToSignin = () => {
-        this.props.navigation.navigate('Signin', {});
+    navigateToAuth = () => {
+        this.props.navigation.navigate('Auth', {});
     }
 
     componentDidMount() {
@@ -108,23 +124,39 @@ export default class MyCardsDeck extends Component {
     handleSavedCards = (likedCards) => {
         savedCards = likedCards;
     }
+    renderAuthBox = () => {
+        const {
+            isLoading,
+        } = this.state;
 
-    renderSignCard() {
         return (
-            <Card title='Welcome to cardmaker'>
-                <Text style={{marginBottom: 10}}>
-                    Please sign in then choose picture to make card
-                </Text>
-                <Button
-                    icon={{name: 'perm-identity', color: colors.secondary2}}
-                    color={colors.secondary2}
-                    buttonStyle={buttonStyle.submitButton}
-                    title='Sign in / Sign up'
-                    onPress={this.navigateToSignin}
-                    underlayColor={colors.grey6}
-                />
-            </Card>
-        );
+            <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
+                <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
+                    <View style={authStyle.titleContainer}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={authStyle.titleText}>Welcome to Cardmaker App</Text>
+                        </View>
+                    </View>
+                    <View style={authStyle.formContainer}>
+                        <Text style={authStyle.infoText}>
+                            Please sign in then choose picture to make card
+                        </Text>
+
+                        <Button
+                            buttonStyle={authStyle.loginButton}
+                            containerViewStyle={{marginTop: 32, flex: 0}}
+                            activeOpacity={0.8}
+                            title={'SIGN IN / SIGN UP'}
+                            onPress={ this.navigateToAuth}
+                            textStyle={authStyle.loginTextButton}
+                            loading={isLoading}
+                            disabled={isLoading}
+                        />
+                    </View>
+                </KeyboardAvoidingView>
+
+            </ScrollView>
+        )
     }
 
     render() {
@@ -154,9 +186,16 @@ export default class MyCardsDeck extends Component {
 
         } else {
             return (
-                <View style={cardStyle.container}>
-                    {this.renderSignCard()}
+                <View style={authStyle.container}>
+                    <ImageBackground
+                        source={BG_IMAGE}
+                        style={authStyle.bgImage}
+                    >
+                        {this.renderAuthBox()}
+
+                    </ImageBackground>
                 </View>
+
             )
         }
 

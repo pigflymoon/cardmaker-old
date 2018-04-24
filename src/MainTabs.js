@@ -54,7 +54,8 @@ const MakeCardTab = StackNavigator({
     MyCardsDeck: {
         screen: MyCardsDeckScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards'
+            title: 'Cards',
+            headerLeft: null,
         }),
     },
     MyCards: {
@@ -105,6 +106,7 @@ const ProfileTab = StackNavigator({
             screen: ConfirmEmailScreen,
             navigationOptions: ({navigation}) => ({
                 title: 'Confirm email',
+                headerLeft: null,
                 // headerLeft: null,
             }),
         },
