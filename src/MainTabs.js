@@ -15,9 +15,6 @@ import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
 //Profile
 import AuthScreen from './screens/profile/Auth';
-
-import SigninScreen from './screens/profile/Signin';
-import SignupScreen from './screens/profile/Signup';
 import ConfirmEmailScreen from './screens/profile/ConfirmEmail';
 // import VerifiEmailScreen from './screens/profile/VerifyEmail';
 import ResetPasswordScreen from './screens/profile/ResetPassword';
@@ -84,21 +81,6 @@ const ProfileTab = StackNavigator({
             navigationOptions: ({navigation}) => ({
                 title: 'Welcome',
                 // headerBackTitle: 'Back',
-                headerLeft: null,
-            }),
-        },
-        Signin: {
-            screen: SigninScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Sign in',
-                // headerBackTitle: 'Back',
-                headerLeft: null,
-            }),
-        },
-        Signup: {
-            screen: SignupScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Sign up',
                 headerLeft: null,
             }),
         },

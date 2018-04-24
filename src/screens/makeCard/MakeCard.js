@@ -28,8 +28,11 @@ import Marker from 'react-native-image-marker'
 import  Utils from '../../utils/utils';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
-import buttonStyle from '../../styles/button';
 import colors from '../../styles/colors';
+
+import {
+    renderAuthBox,
+} from '../../utils/authApi';
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -154,29 +157,10 @@ export default class MakeCard extends Component {
         })
     }
 
-    navigateToSignin = () => {
-        this.props.navigation.navigate('Signin', {});
-    }
-
-    renderSignCard() {
-        return (
-            <Card title='Welcome to cardmaker'>
-                <Text style={{marginBottom: 10}}>
-                    Please sign in then choose picture to make card
-                </Text>
-                <Button
-                    icon={{name: 'perm-identity', color: colors.secondary2}}
-                    color={colors.secondary2}
-                    buttonStyle={buttonStyle.submitButton}
-                    title='Sign in / Sign up'
-                    onPress={this.navigateToSignin}
-                    underlayColor={colors.grey6}
-                />
-            </Card>
-        );
-    }
 
     render() {
+        var navigation = this.props.navigation;
+
         if ((this.state.makeCard) && (this.state.signin)) {
             return (
                 <View style={[cardStyle.cardsContainer]}>
@@ -294,7 +278,7 @@ export default class MakeCard extends Component {
                                 <ColorWheel
                                     initialColor="#ee0000"
                                     onColorChange={(color) => this.setTextColor(color)}
-                                    style={{width: 60,marginLeft:20,}}
+                                    style={{width: 60, marginLeft: 20,}}
                                     thumbSize={20}
                                     thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
 
@@ -341,11 +325,10 @@ export default class MakeCard extends Component {
                 </View>
             )
         } else {
-            return (
-                <View style={cardStyle.container}>
-                    {this.renderSignCard()}
-                </View>
-            )
+            {
+                return renderAuthBox(this.state.isLoading, navigation)
+            }
+
         }
     }
 }

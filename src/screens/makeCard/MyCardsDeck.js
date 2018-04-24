@@ -19,13 +19,12 @@ import {auth, db} from '../../config/FirebaseConfig';
 import  Utils from '../../utils/utils';
 
 import layoutStyle from '../../styles/layout';
-import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
-import buttonStyle from '../../styles/button';
-import authStyle from '../../styles/authLayout';
 
+import {
+    renderAuthBox,
+} from '../../utils/authApi';
 import CardsDeck from '../../components/CardsDeck';
-import BG_IMAGE from '../../assets/images/gradient-bg.png';
 
 var savedCards = [];
 const component1 = () => <Text>Birthday</Text>
@@ -124,43 +123,10 @@ export default class MyCardsDeck extends Component {
     handleSavedCards = (likedCards) => {
         savedCards = likedCards;
     }
-    renderAuthBox = () => {
-        const {
-            isLoading,
-        } = this.state;
-
-        return (
-            <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
-                <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
-                    <View style={authStyle.titleContainer}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={authStyle.titleText}>Welcome to Cardmaker App</Text>
-                        </View>
-                    </View>
-                    <View style={authStyle.formContainer}>
-                        <Text style={authStyle.infoText}>
-                            Please sign in then choose picture to make card
-                        </Text>
-
-                        <Button
-                            buttonStyle={authStyle.loginButton}
-                            containerViewStyle={{marginTop: 32, flex: 0}}
-                            activeOpacity={0.8}
-                            title={'SIGN IN / SIGN UP'}
-                            onPress={ this.navigateToAuth}
-                            textStyle={authStyle.loginTextButton}
-                            loading={isLoading}
-                            disabled={isLoading}
-                        />
-                    </View>
-                </KeyboardAvoidingView>
-
-            </ScrollView>
-        )
-    }
 
     render() {
         var isConnected = this.props.screenProps.isConnected;
+        var navigation = this.props.navigation;
 
         if (!isConnected) {
             return Utils.renderOffline();
@@ -185,18 +151,9 @@ export default class MyCardsDeck extends Component {
             );
 
         } else {
-            return (
-                <View style={authStyle.container}>
-                    <ImageBackground
-                        source={BG_IMAGE}
-                        style={authStyle.bgImage}
-                    >
-                        {this.renderAuthBox()}
-
-                    </ImageBackground>
-                </View>
-
-            )
+            {
+                return renderAuthBox(this.state.isLoading, navigation)
+            }
         }
 
     }

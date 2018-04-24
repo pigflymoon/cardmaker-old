@@ -15,9 +15,11 @@ import {Icon, Card, Button} from 'react-native-elements';
 
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
-
 import cardStyle from '../../styles/card';
-import buttonStyle from '../../styles/button';
+
+import {
+    renderAuthBox,
+} from '../../utils/authApi';
 var makeCard = [];
 export default class MyCards extends Component {
     constructor(props, context) {
@@ -140,28 +142,6 @@ export default class MyCards extends Component {
         );
     }
 
-    navigateToSignin = () => {
-        this.props.navigation.navigate('Signin', {});
-    }
-
-    renderSignCard() {
-        return (
-            <Card title='Welcome to cardmaker'>
-                <Text style={{marginBottom: 10}}>
-                    Please sign in then choose picture to make card
-                </Text>
-                <Button
-                    icon={{name: 'perm-identity', color: colors.secondary2}}
-                    color={colors.secondary2}
-                    buttonStyle={buttonStyle.submitButton}
-                    title='Sign in / Sign up'
-                    onPress={this.navigateToSignin}
-                    underlayColor={colors.grey6}
-                />
-            </Card>
-        );
-    }
-
     renderCards() {
         return (
             <GridView
@@ -186,6 +166,9 @@ export default class MyCards extends Component {
     render() {
         var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
         var renderSign = this.state.signin;
+        var navigation = this.props.navigation;
+    console.log('renderCard',renderCard)
+        console.log('renderSign',renderSign)
 
         if (renderCard) {
             return (
@@ -195,11 +178,7 @@ export default class MyCards extends Component {
             )
         }
         if (!renderSign) {
-            return (
-                <View style={layoutStyle.container}>
-                    {this.renderSignCard()}
-                </View>
-            )
+            {return renderAuthBox(this.state.isLoading,navigation)}
         } else {
             return (
                 <View style={layoutStyle.container}>
