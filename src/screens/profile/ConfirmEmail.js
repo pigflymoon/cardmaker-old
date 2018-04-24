@@ -8,12 +8,13 @@ import {
     LayoutAnimation,
     UIManager,
     KeyboardAvoidingView,
-    TextInput
+    TextInput,
+    ScrollView
 } from 'react-native';
 import {
-    Card,
     Button,
     FormInput,
+    FormValidationMessage,
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -113,7 +114,7 @@ export default class ConfirmEmail extends Component {
         const {email} = this.props.navigation.state.params;
 
         return (
-            <View style={{flex: 1}}>
+            <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                     <View style={authStyle.titleContainer}>
                         <View style={{flexDirection: 'row'}}>
@@ -133,6 +134,13 @@ export default class ConfirmEmail extends Component {
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
                         />
+                        {this.state.errorMessage ?
+                            <FormValidationMessage containerStyle={authStyle.validateContainer}
+                                                   labelStyle={authStyle.validateErrorLabel}>
+                                {this.state.errorMessage}
+                            </FormValidationMessage>
+                            : null
+                        }
 
                         <Button
                             buttonStyle={authStyle.loginButton}
@@ -162,7 +170,7 @@ export default class ConfirmEmail extends Component {
                         onPress={this.navigateToSignup}
                     />
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 

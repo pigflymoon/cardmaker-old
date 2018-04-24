@@ -8,11 +8,13 @@ import {
     LayoutAnimation,
     UIManager,
     KeyboardAvoidingView,
+    ScrollView
 } from 'react-native';
 import {
     Button,
     Text,
     FormInput,
+    FormValidationMessage,
 } from 'react-native-elements';
 import {auth} from '../../config/FirebaseConfig';
 
@@ -39,14 +41,15 @@ export default class ResetPassword extends Component {
 
     handleResetPassword = () => {
         var self = this;
-        this.setState({isLoading: true});
 
+        console.log('this.state.email', this.state.email)
         if (!this.state.email) {
             this.setState({
-                showInfo: true
+                errorMessage: 'Please enter a valid email address'
             });
         } else {
             var emailAddress = this.state.email;
+            this.setState({isLoading: true});
             auth.sendPasswordResetEmail(emailAddress).then(function () {
                 // Email sent.
                 self.setState({
@@ -56,7 +59,7 @@ export default class ResetPassword extends Component {
                 self.props.navigation.navigate('Signin');
             }, function (error) {
                 self.setState({
-                    errorMessage: 'Error' + error
+                    errorMessage: 'Error: ' + error
                 });
 
             })
@@ -78,7 +81,7 @@ export default class ResetPassword extends Component {
         } = this.state;
 
         return (
-            <View style={{flex: 1}}>
+            <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                     <View style={authStyle.titleContainer}>
                         <View style={{flexDirection: 'row'}}>
@@ -99,7 +102,13 @@ export default class ResetPassword extends Component {
                             inputStyle={{marginLeft: 20}}
                             containerStyle={authStyle.inputContainer}
                         />
-
+                        {this.state.errorMessage ?
+                            <FormValidationMessage containerStyle={authStyle.validateContainer}
+                                                   labelStyle={authStyle.validateErrorLabel}>
+                                {this.state.errorMessage}
+                            </FormValidationMessage>
+                            : null
+                        }
                         <Button
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}
@@ -122,7 +131,7 @@ export default class ResetPassword extends Component {
                     />
 
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 

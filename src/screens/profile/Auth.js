@@ -71,7 +71,7 @@ export default class Auth extends Component {
             welcomeCard: false,
             showSignBox: true,
             errorMessage: false,
-            validateEmailMessage: 'Please enter a valid email addres',
+            validateEmailMessage: 'Please enter a valid email address',
             validatePasswordMessage: 'Please enter at least 8 characters',
         };
 
@@ -298,7 +298,7 @@ export default class Auth extends Component {
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
         return (
-            <ScrollView style={{flex: 1}}>
+            <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                     <View style={authStyle.titleContainer}>
                         <View style={{flexDirection: 'row'}}>
