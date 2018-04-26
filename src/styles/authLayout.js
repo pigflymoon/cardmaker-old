@@ -65,15 +65,7 @@ export default{
         fontWeight: 'bold',
         color: colors.white,
     },
-    bgImage: {
-        flex: 1,
-        top: 0,
-        left: 0,
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+
     categoryText: {
         textAlign: 'center',
         color: 'white',

@@ -13,8 +13,10 @@ import {
 import {
     Button,
 } from 'react-native-elements';
-import authStyle from '../styles/authLayout';
+import layoutStyle from '../styles/layout';
 import BG_IMAGE from '../assets/images/gradient-bg.png';
+import authStyle from '../styles/authLayout';
+
 
 export function navigateToAuth(navigation) {
     navigation.navigate('Auth', {});
@@ -25,7 +27,7 @@ console.log('auth box is called')
         <View style={authStyle.container}>
             <ImageBackground
                 source={BG_IMAGE}
-                style={authStyle.bgImage}
+                style={layoutStyle.bgImage}
             >
                 <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>

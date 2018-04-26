@@ -12,6 +12,7 @@ import {
     Picker,
     Item,
     ScrollView,
+    ImageBackground
 } from 'react-native';
 import {
     Icon,
@@ -29,6 +30,8 @@ import  Utils from '../../utils/utils';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
+import layoutStyle from '../../styles/layout';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -42,7 +45,8 @@ class CustomButton extends Component {
         super();
 
         this.state = {
-            selected: false
+            selected: false,
+            show: false,
         };
     }
 
@@ -61,21 +65,17 @@ class CustomButton extends Component {
         return (
             <Button
                 title={title}
-                titleStyle={{color: 'white',}}
+                titleStyle={{color: colors.white,}}
                 fontSize={14}
                 buttonStyle={selected ? {
                         backgroundColor: 'rgba(213, 100, 140, 1)',
                         borderRadius: 30,
-
                         marginBottom: 10,
                         paddingHorizontal: 5,
                     } : {
-                        borderWidth: 1,
-                        borderColor: 'white',
                         borderRadius: 30,
-
                         paddingHorizontal: 5,
-                        backgroundColor: 'transparent',
+                        backgroundColor: colors.grey4,
                         marginBottom: 10,
                     }}
                 onPress={() => this.setState({selected: !selected})}
@@ -95,7 +95,7 @@ export default class MakeCard extends Component {
             checked: false,
             signin: false,
             position: 'bottomCenter',
-            textColor: colors.primary,
+            textColor: colors.grey1,
             selectedItem: [{name: "topLeft", value: false},
                 {name: "topCenter", value: false},
                 {name: "topRight", value: false},
@@ -210,40 +210,57 @@ export default class MakeCard extends Component {
     }
 
     renderEdit = () => {
+        console.log('this.state.sho w', this.state.show)
+        console.log('this.state.imageUrl', this.state.imageUrl)
         return (
-            <View style={{flex: 1, backgroundColor: 'rgba(47,44,60,1)'}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
 
                 <View style={{flex: 1}}>
 
-                        <View style={cardStyle.statusBar}/>
+                    <View style={cardStyle.statusBar}/>
 
-                        <View style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: IMAGE_SIZE,
-                            marginTop: 10,
-                        }}>
-                            <Image
-                                source={{uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg'}}
-                                style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
-                            />
-                        </View>
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: IMAGE_SIZE,
+                    }}>
+                        {
+                            this.state.show
+                                ? <Image
+                                    source={{uri: this.state.imageUrl}}
+                                    style={{flex: 1, width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                                /> : <Image
+                                    source={{uri: (this.state.makeCard).illustration}}
+                                    style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                                />
+                        }
+
+                    </View>
 
 
                 </View>
-                <View style={{flex: 1, marginLeft: 40,}}>
-
-                    <ColorWheel
-                        initialColor="#ee0000"
-                        onColorChange={(color) => this.setTextColor(color)}
-                        style={{
-                            width: Dimensions.get('window').width / 3,
-                            height: Dimensions.get('window').width / 3
-                        }}
-                        thumbSize={20}
-                        thumbStyle={{height: 30, width: 30, borderRadius: 30}}/>
 
 
+                <View style={cardStyle.iconsContainer}>
+                    <View style={cardStyle.shareRightIcon}>
+                        <ColorWheel
+                            initialColor="#ee0000"
+                            onColorChange={(color) => this.setTextColor(color)}
+                            style={{width: 60, marginLeft: 20,}}
+                            thumbSize={20}
+                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
+
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                        />
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={this.onShare}
+                        />
+                    </View>
                 </View>
                 <ScrollView style={{flex: 1,}}>
 

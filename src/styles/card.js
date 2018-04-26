@@ -81,7 +81,7 @@ export default{
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        // alignItems: 'flex-start',
         alignSelf: 'center',
         // alignItems: 'center',
 
@@ -118,9 +118,9 @@ export default{
     },
     previewContainer: {
         flex: 1,
-        flexDirection: 'row',
+        // flexDirection: 'row',
         height: width,
-        flexGrow: 2,
+        // flexGrow: 2,
         // width: width * 0.92,
     },
 
@@ -160,7 +160,8 @@ export default{
         fontWeight: '600',
     },
     preview: {
-        height: 300,
+        width: width,
+        height: width,
         flex: 1
     },
     markerTextContainer: {
@@ -176,8 +177,8 @@ export default{
     iconsContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginBottom: 15,
+        justifyContent: 'space-between',
+        height: 100,
 
     },
     badgeBg: {
@@ -216,7 +217,7 @@ export default{
         fontSize: 12,
         paddingTop: 0,
         marginBottom: 2,
-        color:colors.secondary2,
+        color: colors.secondary2,
 
     },
 
