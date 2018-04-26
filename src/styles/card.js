@@ -2,29 +2,17 @@ import {
     Dimensions,
 } from 'react-native';
 import colors from '../styles/colors';
-const {width, height} = Dimensions.get('window');
-
-const equalWidth = (width / 2 )
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const IMAGE_SIZE = SCREEN_WIDTH - 80;
 export default{
     //cards
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: 'rgba(211, 211, 211, 0.4)',
-    // },
+    container: {
+        flex: 1,
+    },
     cardsContainer: {
         flex: 1,
     },
-    // inputContainer: {
-    //     height: 62,
-    // },
-    // inputStyle: {
-    //     width: equalWidth - 20,
-    //     fontSize: 12,
-    //     paddingTop: 0,
-    //     marginBottom: 2,
-    //     color:colors.grey3,
-    //
-    // },
+    imageSize: IMAGE_SIZE,
     labelStyle: {
         marginTop: 5,
     },
@@ -119,7 +107,7 @@ export default{
     previewContainer: {
         flex: 1,
         // flexDirection: 'row',
-        height: width,
+        height: SCREEN_WIDTH,
         // flexGrow: 2,
         // width: width * 0.92,
     },
@@ -160,8 +148,8 @@ export default{
         fontWeight: '600',
     },
     preview: {
-        width: width,
-        height: width,
+        width: SCREEN_WIDTH,
+        height: SCREEN_WIDTH,
         flex: 1
     },
     markerTextContainer: {
@@ -190,7 +178,7 @@ export default{
     },
     navBar: {
         height: 60,
-        width: width,
+        width: SCREEN_WIDTH,
         justifyContent: 'center',
         alignContent: 'center'
     },
@@ -220,5 +208,34 @@ export default{
         color: colors.secondary2,
 
     },
+    editImageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: IMAGE_SIZE,
+    },
+    editImage: {
+        flex: 1,
+        width: IMAGE_SIZE,
+        height: IMAGE_SIZE,
+        borderRadius: 10,
+    },
+    editTextContainer: {
+        flex: 1,
+        marginTop: 10,
+        width: SCREEN_WIDTH - 80,
+        marginLeft: 40,
+        marginBottom: 30,
+    },
+    editCardTip: {
+        flex: 1,
+        fontSize: 15,
+        color: 'rgba(216, 121, 112, 1)',
+        marginLeft: 40,
+    },
+    editCardPositionContainer: {
+        flex: 1,
+        width: SCREEN_WIDTH,
+        marginTop: 20
+    }
 
 }

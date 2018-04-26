@@ -34,9 +34,6 @@ import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const IMAGE_SIZE = SCREEN_WIDTH - 80;
 import {
     renderAuthBox,
 } from '../../utils/authApi';
@@ -52,16 +49,9 @@ export default class MakeCard extends Component {
             checked: false,
             signin: false,
             position: 'bottomCenter',
-            textColor: colors.grey1,
-            selectedItem: [{name: "topLeft", value: false},
-                {name: "topCenter", value: false},
-                {name: "topRight", value: false},
-                {name: "bottomLeft", value: false},
-                {name: "bottomCenter", value: false},
-                {name: "bottomRight", value: false},
-                {name: "center", value: false}],
-            selectedIndex: 0,
+            textColor: colors.primary1,
         }
+        console.log('color is ', colors.primary1)
     }
 
     componentWillMount() {
@@ -107,31 +97,12 @@ export default class MakeCard extends Component {
     }
 
 
-    updateChoice(type) {
-        var self = this;
-        let showPosition = ['topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight', 'center'];
-        var selectedItem = showPosition.map(position => ({name: position, value: false}));
-        var selectedIndex = 0;
-        selectedItem.forEach(function (item, i) {
-            if (item.name == type) {
-                item.value = !item.value;
-                selectedIndex = i;
-                self.setState({
-                    selectedItem,
-                    selectedIndex: selectedIndex,
-                    position: item.name
-                });
-            }
-
-        })
-
-    }
-
     setTextColor = (color) => {
-        console.log('width is ', Dimensions.get('window').width)
-        var hexColor = color ? color.hexColor : colors.primary;
+        console.log('color is ', color)
+        var hexColor = color ? color.hexColor : colors.primary1;
         this.setState({textColor: hexColor})
     }
+
     insertEnter = (str, n) => {
         var len = str.length;//获取字符的长度
         var strTemp = '';
@@ -151,9 +122,10 @@ export default class MakeCard extends Component {
 
         title = this.insertEnter(title, 26)
         var text = title + '\n' + caption;
-        var textColor = this.state.textColor;
+        var textColor = this.state.textColor || colors.primary1;
         var position = this.state.position;
         var textSize = 48;
+        console.log('textColor', textColor)
         //
         Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', textSize)
             .then((path) => {
@@ -175,28 +147,21 @@ export default class MakeCard extends Component {
     }
 
     renderEdit = () => {
-        console.log('this.state.sho w', this.state.show)
-        console.log('this.state.imageUrl', this.state.imageUrl)
         return (
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-
+            <View style={layoutStyle.container}>
                 <View style={{flex: 1}}>
 
                     <View style={cardStyle.statusBar}/>
 
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: IMAGE_SIZE,
-                    }}>
+                    <View style={cardStyle.editImageContainer}>
                         {
                             this.state.show
                                 ? <Image
                                     source={{uri: this.state.imageUrl}}
-                                    style={{flex: 1, width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                                    style={cardStyle.editImage}
                                 /> : <Image
                                     source={{uri: (this.state.makeCard).illustration}}
-                                    style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                                    style={cardStyle.editImage}
                                 />
                         }
 
@@ -227,10 +192,8 @@ export default class MakeCard extends Component {
                         />
                     </View>
                 </View>
-                <ScrollView style={{flex: 1,}}>
-
-
-                    <View style={{flex: 1, marginTop: 10, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
+                <ScrollView style={cardStyle.container}>
+                    <View style={cardStyle.editTextContainer}>
                         <View style={formStyle.inputsContainer}>
                             <View style={cardStyle.inputContainer}>
                                 <FormLabel containerStyle={cardStyle.labelContainerStyle}
@@ -275,55 +238,54 @@ export default class MakeCard extends Component {
                     </View>
 
 
-                    <View style={{flex: 1, marginTop: 30}}>
-                        <Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', marginLeft: 40}}>
+                    <View style={cardStyle.container}>
+                        <Text style={cardStyle.editCardTip}>
                             Text Position
                         </Text>
-                        <View style={{flex: 1, width: SCREEN_WIDTH, marginTop: 20}}>
+                        <View style={cardStyle.editCardPositionContainer}>
                             <ScrollView
-                                style={{flex: 1}}
+                                style={cardStyle.container}
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                             >
                                 <View style={{flex: 1, flexDirection: 'row'}}>
                                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                                        <View style={{flex: 1}}>
-
+                                        <View style={cardStyle.container}>
                                             <TextPositionButton positionType="topLeft"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
                                             <TextPositionButton positionType="bottomLeft"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
                                             <TextPositionButton positionType="center"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
 
 
                                         </View>
-                                        <View style={{flex: 1}}>
+                                        <View style={cardStyle.container}>
                                             <TextPositionButton positionType="topCenter"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
                                             <TextPositionButton positionType="bottomCenter"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
 
                                         </View>
-                                        <View style={{flex: 1}}>
+                                        <View style={cardStyle.container}>
                                             <TextPositionButton positionType="topRight"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
                                             <TextPositionButton positionType="bottomRight"
-                                                            selectedName={this.state.selectedName}
-                                                            selectedValue={this.state.selectedValue}
-                                                            handleSelect={this.onHandleSelect}/>
+                                                                selectedName={this.state.selectedName}
+                                                                selectedValue={this.state.selectedValue}
+                                                                handleSelect={this.onHandleSelect}/>
 
 
                                         </View>
@@ -335,158 +297,6 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
-
-
-            </View>
-        )
-    }
-
-    renderMakeCard = () => {
-        return (
-            <View style={[cardStyle.cardsContainer]}>
-
-                <View style={cardStyle.imageListContainer}>
-                    <View style={{width: '45%',}}>
-                        <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
-                            <Image style={{flex: 1,}}
-                                   resizeMethod="resize"
-                                   source={{uri: (this.state.makeCard).illustration}}
-                            />
-                        </View>
-
-                    </View>
-                    <View style={{width: '55%',}}>
-                        <View style={formStyle.inputsContainer}>
-                            <View style={cardStyle.inputContainer}>
-                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                           labelStyle={cardStyle.labelStyle}>
-                                    Wish words
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="wishwords"
-                                           multiline
-                                           numberOfLines={4}
-                                           maxLength={52}
-                                           containerRef="wishwordscontainerRef"
-                                           textInputRef="wishwordsInputRef"
-                                           placeholder="Please enter wish words(length less than 52)"
-                                           onChangeText={(text) => this.setWishwords(text)}
-                                />
-                            </View>
-
-                            <View style={cardStyle.inputContainer}>
-                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                           labelStyle={cardStyle.labelStyle}>
-                                    Name
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="Name"
-                                           maxLength={26}
-                                           containerRef="namecontainerRef"
-                                           textInputRef="nameInputRef"
-                                           placeholder="Please Sign your name"
-                                           onChangeText={(text) => this.setName(text)}
-                                />
-                            </View>
-                            {this.state.errorMessage ?
-                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                    {this.state.errorMessage}
-                                </FormValidationMessage>
-                                : null
-                            }
-                        </View>
-
-                    </View>
-
-
-                </View>
-                <View style={cardStyle.editContainer}>
-                    <View style={cardStyle.markerTextContainer}>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-                               value='topLeft'
-                               onPress={() => {
-                                   this.updateChoice('topLeft')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='topCenter'
-                               onPress={() => {
-                                   this.updateChoice('topCenter')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='topRight'
-                               onPress={() => {
-                                   this.updateChoice('topRight')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='bottomLeft'
-                               onPress={() => {
-                                   this.updateChoice('bottomLeft')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='bottomCenter'
-                               onPress={() => {
-                                   this.updateChoice('bottomCenter')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='bottomRight'
-                               onPress={() => {
-                                   this.updateChoice('bottomRight')
-                               }}/>
-                        <Badge containerStyle={cardStyle.badgeBg}
-                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                               value='center'
-                               onPress={() => {
-                                   this.updateChoice('center')
-                               }}/>
-
-
-                    </View>
-                    <View style={cardStyle.iconsContainer}>
-                        <View style={cardStyle.shareRightIcon}>
-                            <ColorWheel
-                                initialColor="#ee0000"
-                                onColorChange={(color) => this.setTextColor(color)}
-                                style={{width: 60, marginLeft: 20,}}
-                                thumbSize={20}
-                                thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
-
-                        </View>
-                        <View style={cardStyle.shareRightIcon}>
-                            <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={24}
-                                  onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                            />
-                        </View>
-                        <View style={cardStyle.shareRightIcon}>
-                            <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={24}
-                                  onPress={this.onShare}
-                            />
-                        </View>
-                    </View>
-                </View>
-
-
-                <View style={cardStyle.previewContainer}>
-                    <View style={{flex: 1}}>
-                        {
-                            this.state.show
-                                ? <Image source={{uri: this.state.imageUrl}} resizeMode='contain'
-                                         style={cardStyle.preview}/>
-                                : null
-                        }
-                    </View>
-                </View>
 
 
             </View>
