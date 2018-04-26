@@ -29,10 +29,61 @@ import  Utils from '../../utils/utils';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
+const IMAGE_SIZE = SCREEN_WIDTH - 80;
 import {
     renderAuthBox,
 } from '../../utils/authApi';
+
+class CustomButton extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            selected: false
+        };
+    }
+
+    componentDidMount() {
+        const {selected} = this.props;
+
+        this.setState({
+            selected
+        });
+    }
+
+    render() {
+        const {title} = this.props;
+        const {selected} = this.state;
+
+        return (
+            <Button
+                title={title}
+                titleStyle={{color: 'white',}}
+                fontSize={14}
+                buttonStyle={selected ? {
+                        backgroundColor: 'rgba(213, 100, 140, 1)',
+                        borderRadius: 30,
+
+                        marginBottom: 10,
+                        paddingHorizontal: 5,
+                    } : {
+                        borderWidth: 1,
+                        borderColor: 'white',
+                        borderRadius: 30,
+
+                        paddingHorizontal: 5,
+                        backgroundColor: 'transparent',
+                        marginBottom: 10,
+                    }}
+                onPress={() => this.setState({selected: !selected})}
+            />
+        );
+    }
+}
+
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -120,6 +171,7 @@ export default class MakeCard extends Component {
     }
 
     setTextColor = (color) => {
+        console.log('width is ', Dimensions.get('window').width)
         var hexColor = color ? color.hexColor : colors.primary;
         this.setState({textColor: hexColor})
     }
@@ -157,160 +209,281 @@ export default class MakeCard extends Component {
         })
     }
 
-
-    render() {
-        var navigation = this.props.navigation;
-
-        if ((this.state.makeCard) && (this.state.signin)) {
-            return (
-                <View style={[cardStyle.cardsContainer]}>
-
-                    <View style={cardStyle.imageListContainer}>
-                        <View style={{width: '45%',}}>
-                            <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
-                                <Image style={{flex: 1,}}
-                                       resizeMethod="resize"
-                                       source={{uri: (this.state.makeCard).illustration}}
-                                />
-                            </View>
-
-                        </View>
-                        <View style={{width: '55%',}}>
-                            <View style={formStyle.inputsContainer}>
-                                <View style={cardStyle.inputContainer}>
-                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                               labelStyle={cardStyle.labelStyle}>
-                                        Wish words
-                                    </FormLabel>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="wishwords"
-                                               multiline
-                                               numberOfLines={4}
-                                               maxLength={52}
-                                               containerRef="wishwordscontainerRef"
-                                               textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words(length less than 52)"
-                                               onChangeText={(text) => this.setWishwords(text)}
-                                    />
-                                </View>
-
-                                <View style={cardStyle.inputContainer}>
-                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                               labelStyle={cardStyle.labelStyle}>
-                                        Name
-                                    </FormLabel>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="Name"
-                                               maxLength={26}
-                                               containerRef="namecontainerRef"
-                                               textInputRef="nameInputRef"
-                                               placeholder="Please Sign your name"
-                                               onChangeText={(text) => this.setName(text)}
-                                    />
-                                </View>
-                                {this.state.errorMessage ?
-                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                        {this.state.errorMessage}
-                                    </FormValidationMessage>
-                                    : null
-                                }
-                            </View>
-
-                        </View>
-
+    renderEdit = () => {
+        return (
+            <View style={{flex: 1, backgroundColor: 'rgba(47,44,60,1)'}}>
+                <View style={cardStyle.statusBar}/>
+                <View style={cardStyle.navBar}>
+                    <Text style={cardStyle.nameHeader}>
+                        Theresa, 26
+                    </Text>
+                </View>
+                <View style={{flex: 1, marginTop: 30,}}>
+                    <Text style={{
+                        flex: 1,
+                        fontSize: 15,
+                        color: 'rgba(216, 121, 112, 1)',
+                        marginLeft: 40
+                    }}>
+                        INFO
+                    </Text>
+                    <View style={{flex: 1, marginTop: 20, marginHorizontal: 30,}}>
+                        <ColorWheel
+                            initialColor="#ee0000"
+                            onColorChange={(color) => this.setTextColor(color)}
+                            style={{width: Dimensions.get('window').width}}
+                            thumbSize={20}
+                            thumbStyle={{ height: 30, width: 30, borderRadius: 30}} />
 
                     </View>
-                    <View style={cardStyle.editContainer}>
-                        <View style={cardStyle.markerTextContainer}>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-                                   value='topLeft'
-                                   onPress={() => {
-                                       this.updateChoice('topLeft')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='topCenter'
-                                   onPress={() => {
-                                       this.updateChoice('topCenter')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='topRight'
-                                   onPress={() => {
-                                       this.updateChoice('topRight')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='bottomLeft'
-                                   onPress={() => {
-                                       this.updateChoice('bottomLeft')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='bottomCenter'
-                                   onPress={() => {
-                                       this.updateChoice('bottomCenter')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='bottomRight'
-                                   onPress={() => {
-                                       this.updateChoice('bottomRight')
-                                   }}/>
-                            <Badge containerStyle={cardStyle.badgeBg}
-                                   textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
-
-                                   value='center'
-                                   onPress={() => {
-                                       this.updateChoice('center')
-                                   }}/>
-
-
-                        </View>
-                        <View style={cardStyle.iconsContainer}>
-                            <View style={cardStyle.shareRightIcon}>
-                                <ColorWheel
-                                    initialColor="#ee0000"
-                                    onColorChange={(color) => this.setTextColor(color)}
-                                    style={{width: 60, marginLeft: 20,}}
-                                    thumbSize={20}
-                                    thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
-
-                            </View>
-                            <View style={cardStyle.shareRightIcon}>
-                                <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={24}
-                                      onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                                />
-                            </View>
-                            <View style={cardStyle.shareRightIcon}>
-                                <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={24}
-                                      onPress={this.onShare}
-                                />
-                            </View>
-                        </View>
+                </View>
+                <ScrollView style={{flex: 1}}>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Image
+                            source={{uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg'}}
+                            style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                        />
                     </View>
 
+                    <View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
+                        <View style={formStyle.inputsContainer}>
+                            <View style={cardStyle.inputContainer}>
+                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                           labelStyle={cardStyle.labelStyle}>
+                                    Wish words
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="wishwords"
+                                           multiline
+                                           numberOfLines={4}
+                                           maxLength={80}
+                                           containerRef="wishwordscontainerRef"
+                                           textInputRef="wishwordsInputRef"
+                                           placeholder="Please enter wish words(length less than 80)"
+                                           placeholderTextColor={colors.secondary2}
+                                           onChangeText={(text) => this.setWishwords(text)}
+                                />
+                            </View>
 
-                    <View style={cardStyle.previewContainer}>
-                        <View style={{flex: 1}}>
-                            {
-                                this.state.show
-                                    ? <Image source={{uri: this.state.imageUrl}} resizeMode='contain'
-                                             style={cardStyle.preview}/>
-                                    : null
+                            <View style={cardStyle.inputContainer}>
+                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                           labelStyle={cardStyle.labelStyle}>
+                                    Name
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="Name"
+                                           maxLength={80}
+                                           containerRef="namecontainerRef"
+                                           textInputRef="nameInputRef"
+                                           placeholder="Please Sign your name(length less than 80)"
+                                           placeholderTextColor={colors.grey3}
+                                           onChangeText={(text) => this.setName(text)}
+                                />
+                            </View>
+                            {this.state.errorMessage ?
+                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                    {this.state.errorMessage}
+                                </FormValidationMessage>
+                                : null
                             }
                         </View>
                     </View>
 
 
+                    <View style={{flex: 1, marginTop: 30}}>
+                        <Text style={{flex: 1, fontSize: 15, color: 'rgba(216, 121, 112, 1)', marginLeft: 40}}>
+                            Text Position
+                        </Text>
+                        <View style={{flex: 1, width: SCREEN_WIDTH, marginTop: 20}}>
+                            <ScrollView
+                                style={{flex: 1}}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                                        <View style={{flex: 1}}>
+                                            <CustomButton title="topLeft" selected={true}/>
+                                            <CustomButton title="bottomLeft"/>
+                                            <CustomButton title="center"/>
+                                        </View>
+                                        <View style={{flex: 1}}>
+                                            <CustomButton title="topCenter"/>
+                                            <CustomButton title="bottomCenter" selected={true}/>
+                                        </View>
+                                        <View style={{flex: 1}}>
+                                            <CustomButton title="topRight" selected={true}/>
+                                            <CustomButton title="bottomRight" selected={true}/>
+                                        </View>
+                                    </View>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </View>
+
+
+                </ScrollView>
+            </View>
+        )
+    }
+
+    renderMakeCard = () => {
+        return (
+            <View style={[cardStyle.cardsContainer]}>
+
+                <View style={cardStyle.imageListContainer}>
+                    <View style={{width: '45%',}}>
+                        <View style={[formStyle.container, cardStyle.imageContainer, cardStyle.thumbnail]}>
+                            <Image style={{flex: 1,}}
+                                   resizeMethod="resize"
+                                   source={{uri: (this.state.makeCard).illustration}}
+                            />
+                        </View>
+
+                    </View>
+                    <View style={{width: '55%',}}>
+                        <View style={formStyle.inputsContainer}>
+                            <View style={cardStyle.inputContainer}>
+                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                           labelStyle={cardStyle.labelStyle}>
+                                    Wish words
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="wishwords"
+                                           multiline
+                                           numberOfLines={4}
+                                           maxLength={52}
+                                           containerRef="wishwordscontainerRef"
+                                           textInputRef="wishwordsInputRef"
+                                           placeholder="Please enter wish words(length less than 52)"
+                                           onChangeText={(text) => this.setWishwords(text)}
+                                />
+                            </View>
+
+                            <View style={cardStyle.inputContainer}>
+                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                           labelStyle={cardStyle.labelStyle}>
+                                    Name
+                                </FormLabel>
+                                <FormInput inputStyle={cardStyle.inputStyle}
+                                           ref="Name"
+                                           maxLength={26}
+                                           containerRef="namecontainerRef"
+                                           textInputRef="nameInputRef"
+                                           placeholder="Please Sign your name"
+                                           onChangeText={(text) => this.setName(text)}
+                                />
+                            </View>
+                            {this.state.errorMessage ?
+                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                    {this.state.errorMessage}
+                                </FormValidationMessage>
+                                : null
+                            }
+                        </View>
+
+                    </View>
+
+
                 </View>
-            );
+                <View style={cardStyle.editContainer}>
+                    <View style={cardStyle.markerTextContainer}>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+                               value='topLeft'
+                               onPress={() => {
+                                   this.updateChoice('topLeft')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='topCenter'
+                               onPress={() => {
+                                   this.updateChoice('topCenter')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='topRight'
+                               onPress={() => {
+                                   this.updateChoice('topRight')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='bottomLeft'
+                               onPress={() => {
+                                   this.updateChoice('bottomLeft')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='bottomCenter'
+                               onPress={() => {
+                                   this.updateChoice('bottomCenter')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='bottomRight'
+                               onPress={() => {
+                                   this.updateChoice('bottomRight')
+                               }}/>
+                        <Badge containerStyle={cardStyle.badgeBg}
+                               textStyle={{color: (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') && ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? colors.white : colors.grey0}}
+
+                               value='center'
+                               onPress={() => {
+                                   this.updateChoice('center')
+                               }}/>
+
+
+                    </View>
+                    <View style={cardStyle.iconsContainer}>
+                        <View style={cardStyle.shareRightIcon}>
+                            <ColorWheel
+                                initialColor="#ee0000"
+                                onColorChange={(color) => this.setTextColor(color)}
+                                style={{width: 60, marginLeft: 20,}}
+                                thumbSize={20}
+                                thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
+
+                        </View>
+                        <View style={cardStyle.shareRightIcon}>
+                            <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={24}
+                                  onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                            />
+                        </View>
+                        <View style={cardStyle.shareRightIcon}>
+                            <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={24}
+                                  onPress={this.onShare}
+                            />
+                        </View>
+                    </View>
+                </View>
+
+
+                <View style={cardStyle.previewContainer}>
+                    <View style={{flex: 1}}>
+                        {
+                            this.state.show
+                                ? <Image source={{uri: this.state.imageUrl}} resizeMode='contain'
+                                         style={cardStyle.preview}/>
+                                : null
+                        }
+                    </View>
+                </View>
+
+
+            </View>
+        )
+    }
+
+    render() {
+        var navigation = this.props.navigation;
+
+        if ((this.state.makeCard) && (this.state.signin)) {
+            return this.renderEdit();
 
         }
         else if (this.state.signin) {

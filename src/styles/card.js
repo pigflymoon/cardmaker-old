@@ -14,16 +14,17 @@ export default{
     cardsContainer: {
         flex: 1,
     },
-    inputContainer: {
-        height: 62,
-    },
-    inputStyle: {
-        width: equalWidth - 20,
-        fontSize: 12,
-        paddingTop: 0,
-        marginBottom: 2,
-
-    },
+    // inputContainer: {
+    //     height: 62,
+    // },
+    // inputStyle: {
+    //     width: equalWidth - 20,
+    //     fontSize: 12,
+    //     paddingTop: 0,
+    //     marginBottom: 2,
+    //     color:colors.grey3,
+    //
+    // },
     labelStyle: {
         marginTop: 5,
     },
@@ -182,5 +183,41 @@ export default{
     badgeBg: {
         backgroundColor: colors.secondary2,
         marginBottom: 5,
-    }
+    },
+    statusBar: {
+        height: 10,
+    },
+    navBar: {
+        height: 60,
+        width: width,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    nameHeader: {
+        color: 'white',
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    infoTypeLabel: {
+        fontSize: 15,
+        textAlign: 'right',
+        color: 'rgba(126,123,138,1)',
+        // fontFamily: 'regular',
+        paddingBottom: 10,
+    },
+    infoAnswerLabel: {
+        fontSize: 15,
+        color: 'white',
+        // fontFamily: 'regular',
+        paddingBottom: 10,
+    },
+    inputStyle: {
+        width: '100%',
+        fontSize: 12,
+        paddingTop: 0,
+        marginBottom: 2,
+        color:colors.secondary2,
+
+    },
+
 }
