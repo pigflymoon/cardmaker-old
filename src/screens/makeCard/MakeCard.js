@@ -59,7 +59,7 @@ class CustomButton extends Component {
     }
 
     render() {
-        const {title} = this.props;
+        const {title, name, value} = this.props;
         const {selected} = this.state;
 
         return (
@@ -323,17 +323,148 @@ export default class MakeCard extends Component {
                                 <View style={{flex: 1, flexDirection: 'row'}}>
                                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                                         <View style={{flex: 1}}>
-                                            <CustomButton title="topLeft" selected={true}/>
-                                            <CustomButton title="bottomLeft"/>
-                                            <CustomButton title="center"/>
+
+
+                                            <Button
+                                                title="topLeft"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'topLeft') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('topLeft')
+                                                }}/>
+                                            <Button
+                                                title="bottomLeft"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomLeft') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('bottomLeft')
+                                                }}/>
+                                            <Button
+                                                title="center"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'center') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('center')
+                                                }}/>
+
                                         </View>
                                         <View style={{flex: 1}}>
-                                            <CustomButton title="topCenter"/>
-                                            <CustomButton title="bottomCenter" selected={true}/>
+                                            <Button
+                                                title="topCenter"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'topCenter') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('topCenter')
+                                                }}/>
+                                            <Button
+                                                title="bottomCenter"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomCenter') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('bottomCenter')
+                                                }}/>
+
                                         </View>
                                         <View style={{flex: 1}}>
-                                            <CustomButton title="topRight" selected={true}/>
-                                            <CustomButton title="bottomRight" selected={true}/>
+                                            <Button
+                                                title="topRight"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'topRight') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('topRight')
+                                                }}/>
+                                            <Button
+                                                title="bottomRight"
+                                                titleStyle={{color: colors.white,}}
+                                                fontSize={14}
+                                                buttonStyle={ (((this.state.selectedItem)[this.state.selectedIndex].name == 'bottomRight') &&
+                                                ((this.state.selectedItem)[this.state.selectedIndex].value == true)) ? {
+                                                        backgroundColor: colors.secondary2,
+                                                        borderRadius: 30,
+                                                        marginBottom: 10,
+                                                        paddingHorizontal: 5,
+                                                    } : {
+                                                        borderRadius: 30,
+                                                        paddingHorizontal: 5,
+                                                        backgroundColor: colors.grey4,
+                                                        marginBottom: 10,
+                                                    }}
+                                                onPress={() => {
+                                                    this.updateChoice('bottomRight')
+                                                }}/>
+
                                         </View>
                                     </View>
                                 </View>
