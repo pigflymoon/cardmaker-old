@@ -212,40 +212,43 @@ export default class MakeCard extends Component {
     renderEdit = () => {
         return (
             <View style={{flex: 1, backgroundColor: 'rgba(47,44,60,1)'}}>
-                <View style={cardStyle.statusBar}/>
-                <View style={cardStyle.navBar}>
-                    <Text style={cardStyle.nameHeader}>
-                        Theresa, 26
-                    </Text>
-                </View>
-                <View style={{flex: 1, marginTop: 30,}}>
-                    <Text style={{
-                        flex: 1,
-                        fontSize: 15,
-                        color: 'rgba(216, 121, 112, 1)',
-                        marginLeft: 40
-                    }}>
-                        INFO
-                    </Text>
-                    <View style={{flex: 1, marginTop: 20, marginHorizontal: 30,}}>
-                        <ColorWheel
-                            initialColor="#ee0000"
-                            onColorChange={(color) => this.setTextColor(color)}
-                            style={{width: Dimensions.get('window').width}}
-                            thumbSize={20}
-                            thumbStyle={{ height: 30, width: 30, borderRadius: 30}} />
 
-                    </View>
-                </View>
-                <ScrollView style={{flex: 1}}>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Image
-                            source={{uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg'}}
-                            style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
-                        />
-                    </View>
+                <View style={{flex: 1}}>
 
-                    <View style={{flex: 1, marginTop: 20, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
+                        <View style={cardStyle.statusBar}/>
+
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: IMAGE_SIZE,
+                            marginTop: 10,
+                        }}>
+                            <Image
+                                source={{uri: 'https://static.pexels.com/photos/428336/pexels-photo-428336.jpeg'}}
+                                style={{width: IMAGE_SIZE, height: IMAGE_SIZE, borderRadius: 10}}
+                            />
+                        </View>
+
+
+                </View>
+                <View style={{flex: 1, marginLeft: 40,}}>
+
+                    <ColorWheel
+                        initialColor="#ee0000"
+                        onColorChange={(color) => this.setTextColor(color)}
+                        style={{
+                            width: Dimensions.get('window').width / 3,
+                            height: Dimensions.get('window').width / 3
+                        }}
+                        thumbSize={20}
+                        thumbStyle={{height: 30, width: 30, borderRadius: 30}}/>
+
+
+                </View>
+                <ScrollView style={{flex: 1,}}>
+
+
+                    <View style={{flex: 1, marginTop: 10, width: SCREEN_WIDTH - 80, marginLeft: 40}}>
                         <View style={formStyle.inputsContainer}>
                             <View style={cardStyle.inputContainer}>
                                 <FormLabel containerStyle={cardStyle.labelContainerStyle}
@@ -323,6 +326,8 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
+
+
             </View>
         )
     }

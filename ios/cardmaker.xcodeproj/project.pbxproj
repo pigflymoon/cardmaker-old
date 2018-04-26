@@ -1270,6 +1270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBDA23D7841431D9A833345 /* Octicons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3EDF249B92174F8E9E05E66B /* Entypo.ttf in Resources */,
@@ -1280,7 +1281,6 @@
 				062845B81F174AF585DB456D /* Ionicons.ttf in Resources */,
 				676A30D559934C2095069DF9 /* MaterialCommunityIcons.ttf in Resources */,
 				F1909AB8181C4BD495138CBB /* MaterialIcons.ttf in Resources */,
-				EEBDA23D7841431D9A833345 /* Octicons.ttf in Resources */,
 				2DF1EDAB1D3041FCB55BE203 /* SimpleLineIcons.ttf in Resources */,
 				902DFC8D9B284AB2B24257B9 /* Zocial.ttf in Resources */,
 			);
