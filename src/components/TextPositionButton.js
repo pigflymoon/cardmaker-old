@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
-    Text,
-    View,
-    Dimensions,
-} from 'react-native';
-
-import {
     Button,
 } from 'react-native-elements';
 
@@ -44,14 +37,11 @@ export default class TextPositionButton extends Component {
                     item.name
                 )
             }
-
         })
-
     }
 
     render() {
         const {positionType, selectedName, selectedValue} = this.props;
-
         return (
             <Button
                 title={positionType}
