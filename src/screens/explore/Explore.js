@@ -163,8 +163,12 @@ export default class Explore extends Component {
     }
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
-        console.log('nextprops',isConnected)
-        this.setState({isConnected: isConnected});
+        if(isConnected == true){
+            this.setState({
+                appReady: true,
+            });
+        }
+
     }
 
     render() {

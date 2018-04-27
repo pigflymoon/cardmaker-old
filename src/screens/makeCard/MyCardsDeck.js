@@ -86,9 +86,6 @@ export default class MyCardsDeck extends Component {
         })
 
     }
-    navigateToAuth = () => {
-        this.props.navigation.navigate('Auth', {});
-    }
 
     componentDidMount() {
         var self = this;

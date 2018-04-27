@@ -114,7 +114,6 @@ export default class Auth extends Component {
                     auth.onAuthStateChanged(function (user) {
                         if (user) {
                             var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
-                            console.log('login true')
                             self.setState({
                                 isLoading: false,
                                 user: user,
@@ -126,7 +125,6 @@ export default class Auth extends Component {
                             })
 
                         } else {
-                            console.log('error', user)
                             self.setState({isLoading: false});
                         }
                     })
@@ -288,10 +286,8 @@ export default class Auth extends Component {
     componentDidMount() {
         var self = this;
         var user = auth.currentUser;
-        console.log('current user is ',user)
 
         auth.onAuthStateChanged(function (user) {
-            console.log('called auth sign in')
             if (user) {
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
 

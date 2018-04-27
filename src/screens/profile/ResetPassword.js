@@ -42,8 +42,6 @@ export default class ResetPassword extends Component {
 
     handleResetPassword = () => {
         var self = this;
-
-        console.log('this.state.email', this.state.email)
         if (!this.state.email) {
             this.setState({
                 errorMessage: 'Please enter a valid email address'

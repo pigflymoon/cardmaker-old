@@ -21,8 +21,6 @@ import {
     FormLabel,
     FormValidationMessage,
     Card,
-    Button,
-    Badge,
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
 import {auth} from '../../config/FirebaseConfig';
@@ -52,7 +50,6 @@ export default class MakeCard extends Component {
             position: 'bottomCenter',
             textColor: colors.primary1,
         }
-        console.log('color is ', colors.primary1)
     }
 
     componentWillMount() {
@@ -99,7 +96,6 @@ export default class MakeCard extends Component {
 
 
     setTextColor = (color) => {
-        console.log('color is ', color)
         var hexColor = color ? color.hexColor : colors.primary1;
         this.setState({textColor: hexColor})
     }
@@ -126,7 +122,6 @@ export default class MakeCard extends Component {
         var textColor = this.state.textColor || colors.primary1;
         var position = this.state.position;
         var textSize = 48;
-        console.log('textColor', textColor)
         //
         Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', textSize)
             .then((path) => {
