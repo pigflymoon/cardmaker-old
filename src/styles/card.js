@@ -122,7 +122,7 @@ export default{
         flex: 1,
     },
     imageContainer: {
-        height: 130,
+        height: 140,
     },
     thumbnail: {
         height: 220,
@@ -130,9 +130,9 @@ export default{
     itemContainer: {
         justifyContent: 'flex-end',
         borderRadius: 5,
-        padding: 10,
+        padding: 5,
         height: 150,
-        backgroundColor: "#234234"
+        // backgroundColor: colors.grey2,
     },
     itemName: {
         fontSize: 16,
@@ -225,7 +225,6 @@ export default{
         color: 'rgba(216, 121, 112, 1)',
         marginLeft: 40,
         marginTop: 20,
-
     },
     editCardPositionContainer: {
         flex: 1,

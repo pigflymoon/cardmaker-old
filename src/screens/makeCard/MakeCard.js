@@ -202,7 +202,7 @@ export default class MakeCard extends Component {
                                            containerRef="wishwordscontainerRef"
                                            textInputRef="wishwordsInputRef"
                                            placeholder="Please enter wish words(length less than 80)"
-                                           placeholderTextColor={colors.secondary2}
+                                           placeholderTextColor={colors.grey3}
                                            onChangeText={(text) => this.setWishwords(text)}
                                 />
                             </View>

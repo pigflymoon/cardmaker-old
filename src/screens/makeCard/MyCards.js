@@ -120,9 +120,9 @@ export default class MyCards extends Component {
     getItemColor = (item) => {
         var items = this.state.selectedItem;
         if ((items[this.state.selectedIndex].id == item.id) && (items[this.state.selectedIndex].value == true)) {
-            return colors.primary3;
-        } else {
             return colors.secondary2;
+        } else {
+            return colors.grey4;
         }
     }
 
@@ -150,7 +150,7 @@ export default class MyCards extends Component {
                 style={cardStyle.gridView}
                 renderItem={(item) => (
                     <TouchableHighlight onPress={() => this.chooseCard(item)}
-                                        underlayColor={colors.primary3}>
+                                        underlayColor={colors.secondary2}>
                         <View
                             style={[cardStyle.itemContainer, {backgroundColor: this.getItemColor(item)}]}>
                             <ImageBackground source={{uri: item.illustration}} style={cardStyle.imageContainer}>
@@ -167,8 +167,6 @@ export default class MyCards extends Component {
         var renderCard = ((this.state.chooseCards.length > 0) && this.state.signin);
         var renderSign = this.state.signin;
         var navigation = this.props.navigation;
-    console.log('renderCard',renderCard)
-        console.log('renderSign',renderSign)
 
         if (renderCard) {
             return (
