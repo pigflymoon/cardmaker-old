@@ -161,12 +161,11 @@ export default class Explore extends Component {
             </View>
         );
     }
+
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
-        if(isConnected == true){
-            this.setState({
-                appReady: true,
-            });
+        if (this.props.screenProps.isConnected == false && isConnected == true) {
+            this.resetAnimation();
         }
 
     }
