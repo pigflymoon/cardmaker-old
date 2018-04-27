@@ -24,6 +24,9 @@ import {doCreateUser} from '../../config/db';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
+import layoutStyle from '../../styles/layout';
+
+
 import bg1 from '../../assets/images/bg1.jpg';
 import  Utils from '../../utils/utils';
 
@@ -44,9 +47,6 @@ const TabSelector = ({selected}) => {
 TabSelector.propTypes = {
     selected: PropTypes.bool.isRequired,
 };
-const byPropKey = (properTyName, value) => ({
-    [properTyName]: value,
-});
 
 export default class Auth extends Component {
 
@@ -127,6 +127,7 @@ export default class Auth extends Component {
 
                         } else {
                             console.log('error', user)
+                            self.setState({isLoading: false});
                         }
                     })
                 })
@@ -141,12 +142,14 @@ export default class Auth extends Component {
                         case 'auth/user-not-found':
                         case 'auth/wrong-password':
                             self.setState({
-                                errorMessage: errorMessage
+                                errorMessage: errorMessage,
+                                isLoading: false
                             });
                             break;
                         default:
                             self.setState({
-                                errorMessage: 'Error'
+                                errorMessage: 'Error',
+                                isLoading: false,
                             });
                     }
                 });
@@ -169,7 +172,10 @@ export default class Auth extends Component {
                             self.props.navigation.navigate('ConfirmEmail', {user: user, email: email});
                         })
                         .catch(error => {
-                            this.setState(byPropKey('error', error));
+                            this.setState({
+                                errorMessage: 'Error',
+                                isLoading: false,
+                            });
                         });
                     //
                 }
@@ -178,19 +184,20 @@ export default class Auth extends Component {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    console.log('errorCode', errorCode)
                     switch (errorCode) {
                         case 'auth/email-already-in-use':
                         case 'auth/invalid-email':
                         case 'auth/operation-not-allowed':
                         case 'auth/weak-password':
                             self.setState({
-                                errorMessage: errorMessage
+                                errorMessage: errorMessage,
+                                isLoading: false,
                             });
                             break;
                         default:
                             self.setState({
-                                errorMessage: 'Error'
+                                errorMessage: 'Error',
+                                isLoading: false,
                             });
                     }
                 });
@@ -439,7 +446,7 @@ export default class Auth extends Component {
             <View style={authStyle.container}>
                 <ImageBackground
                     source={BG_IMAGE}
-                    style={authStyle.bgImage}
+                    style={layoutStyle.bgImage}
                 >
                     {this.state.showSignBox && this.renderSignBox()}
                     {this.state.welcomeCard && this.renderWelcomeBox()}

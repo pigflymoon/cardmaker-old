@@ -98,10 +98,7 @@ export default{
     },
     previewContainer: {
         flex: 1,
-        // flexDirection: 'row',
         height: SCREEN_WIDTH,
-        // flexGrow: 2,
-        // width: width * 0.92,
     },
 
     footer: {
@@ -132,7 +129,6 @@ export default{
         borderRadius: 5,
         padding: 5,
         height: 150,
-        // backgroundColor: colors.grey2,
     },
     itemName: {
         fontSize: 16,
@@ -148,11 +144,8 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        // marginHorizontal: 2,
         flexWrap: 'wrap',
         marginTop: 5,
-
-        // flexGrow: 2.5,
     },
     iconsContainer: {
         flex: 1,

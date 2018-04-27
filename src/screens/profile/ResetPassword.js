@@ -20,6 +20,7 @@ import {auth} from '../../config/FirebaseConfig';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
+import layoutStyle from '../../styles/layout';
 
 export default class ResetPassword extends Component {
     constructor(props) {
@@ -59,7 +60,8 @@ export default class ResetPassword extends Component {
                 self.props.navigation.navigate('Auth');
             }, function (error) {
                 self.setState({
-                    errorMessage: 'Error: ' + error
+                    errorMessage: 'Error: ' + error,
+                    isLoading: false,
                 });
 
             })
@@ -68,7 +70,8 @@ export default class ResetPassword extends Component {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     self.setState({
-                        errorMessage: errorMessage
+                        errorMessage: errorMessage,
+                        isLoading: false,
                     });
                 });
             ;
@@ -136,7 +139,7 @@ export default class ResetPassword extends Component {
             <View style={authStyle.container}>
                 <ImageBackground
                     source={BG_IMAGE}
-                    style={authStyle.bgImage}
+                    style={layoutStyle.bgImage}
                 >
                     {this.renderResetPasswordBox()}
                 </ImageBackground>

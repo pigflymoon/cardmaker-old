@@ -16,14 +16,12 @@ import {
     FormInput,
     FormValidationMessage,
 } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+
 import {auth,} from '../../config/FirebaseConfig';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
-import colors from '../../styles/colors';
-
+import layoutStyle from '../../styles/layout';
 
 // Enable LayoutAnimation on Android
 UIManager.setLayoutAnimationEnabledExperimental
@@ -84,10 +82,15 @@ export default class ConfirmEmail extends Component {
 
                             } else {
                                 self.setState({
-                                    isLoading: false
+                                    isLoading: false,
+                                    errorMessage: 'Error',
                                 });
                             }
                         }).catch(function (error) {
+                        self.setState({
+                            isLoading: false,
+                            errorMessage: 'Error',
+                        });
                         // var errorMessage = error.message + ' (' + error.code + ')';
                         // self.setState({showErrorInfo: true, errorInfo: errorMessage});
                     });
@@ -97,7 +100,8 @@ export default class ConfirmEmail extends Component {
             var errorCode = error.code;
             var errorMessage = error.message;
             self.setState({
-                errorMessage: errorMessage
+                errorMessage: errorMessage,
+                isLoading: false,
             });
         });
 
@@ -176,7 +180,7 @@ export default class ConfirmEmail extends Component {
             <View style={authStyle.container}>
                 <ImageBackground
                     source={BG_IMAGE}
-                    style={authStyle.bgImage}
+                    style={layoutStyle.bgImage}
                 >
                     { this.renderConfirmBox()}
 
