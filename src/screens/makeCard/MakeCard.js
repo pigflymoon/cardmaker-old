@@ -12,7 +12,8 @@ import {
     Picker,
     Item,
     ScrollView,
-    ImageBackground
+    ImageBackground,
+    KeyboardAvoidingView,
 } from 'react-native';
 import {
     Icon,
@@ -149,88 +150,56 @@ export default class MakeCard extends Component {
     renderEdit = () => {
         return (
             <View style={layoutStyle.container}>
-                <View style={{flex: 1, marginBottom: 80,}}>
-                    <View style={cardStyle.statusBar}/>
-                    <View style={cardStyle.editImageContainer}>
-                        {
-                            this.state.show
-                                ? <Image
-                                    source={{uri: this.state.imageUrl}}
-                                    style={cardStyle.editImage}
-                                /> : <Image
-                                    source={{uri: (this.state.makeCard).illustration}}
-                                    style={cardStyle.editImage}
-                                />
-                        }
-                    </View>
-                </View>
-
-                <View style={cardStyle.iconsContainer}>
-                    <View style={cardStyle.shareRightIcon}>
-                        <ColorWheel
-                            initialColor="#ee0000"
-                            onColorChange={(color) => this.setTextColor(color)}
-                            style={{width: 60, marginLeft: 20,}}
-                            thumbSize={20}
-                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
-
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                        />
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={this.onShare}
-                        />
-                    </View>
-                </View>
                 <ScrollView style={cardStyle.container}>
-                    <View style={cardStyle.editTextContainer}>
-                        <View style={formStyle.inputsContainer}>
-                            <View style={cardStyle.inputContainer}>
-                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                           labelStyle={cardStyle.labelStyle}>
-                                    Wish words
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="wishwords"
-                                           multiline
-                                           numberOfLines={4}
-                                           maxLength={80}
-                                           containerRef="wishwordscontainerRef"
-                                           textInputRef="wishwordsInputRef"
-                                           placeholder="Please enter wish words(length less than 80)"
-                                           placeholderTextColor={colors.grey3}
-                                           onChangeText={(text) => this.setWishwords(text)}
-                                />
-                            </View>
+                    <KeyboardAvoidingView behavior='position' contentContainerStyle={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
 
-                            <View style={cardStyle.inputContainer}>
-                                <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                           labelStyle={cardStyle.labelStyle}>
-                                    Name
-                                </FormLabel>
-                                <FormInput inputStyle={cardStyle.inputStyle}
-                                           ref="Name"
-                                           maxLength={80}
-                                           containerRef="namecontainerRef"
-                                           textInputRef="nameInputRef"
-                                           placeholder="Please Sign your name(length less than 80)"
-                                           placeholderTextColor={colors.grey3}
-                                           onChangeText={(text) => this.setName(text)}
-                                />
+                    }}>
+                        <View style={cardStyle.editTextContainer}>
+                            <View style={formStyle.inputsContainer}>
+                                <View style={cardStyle.inputContainer}>
+                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                               labelStyle={cardStyle.labelStyle}>
+                                        Wish words
+                                    </FormLabel>
+                                    <FormInput inputStyle={cardStyle.inputStyle}
+                                               ref="wishwords"
+                                               multiline
+                                               numberOfLines={4}
+                                               maxLength={80}
+                                               containerRef="wishwordscontainerRef"
+                                               textInputRef="wishwordsInputRef"
+                                               placeholder="Please enter wish words(length less than 80)"
+                                               placeholderTextColor={colors.grey3}
+                                               onChangeText={(text) => this.setWishwords(text)}
+                                    />
+                                </View>
+
+                                <View style={cardStyle.inputContainer}>
+                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
+                                               labelStyle={cardStyle.labelStyle}>
+                                        Name
+                                    </FormLabel>
+                                    <FormInput inputStyle={cardStyle.inputStyle}
+                                               ref="Name"
+                                               maxLength={80}
+                                               containerRef="namecontainerRef"
+                                               textInputRef="nameInputRef"
+                                               placeholder="Please Sign your name(length less than 80)"
+                                               placeholderTextColor={colors.grey3}
+                                               onChangeText={(text) => this.setName(text)}
+                                    />
+                                </View>
+                                {this.state.errorMessage ?
+                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
+                                        {this.state.errorMessage}
+                                    </FormValidationMessage>
+                                    : null
+                                }
                             </View>
-                            {this.state.errorMessage ?
-                                <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                    {this.state.errorMessage}
-                                </FormValidationMessage>
-                                : null
-                            }
                         </View>
-                    </View>
-
+                    </KeyboardAvoidingView>
 
                     <View style={cardStyle.container}>
                         <Text style={cardStyle.editCardTip}>
@@ -291,6 +260,44 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
+                <View style={{flex: 1, marginBottom: 80,}}>
+                    <View style={cardStyle.statusBar}/>
+                    <View style={cardStyle.editImageContainer}>
+                        {
+                            this.state.show
+                                ? <Image
+                                    source={{uri: this.state.imageUrl}}
+                                    style={cardStyle.editImage}
+                                /> : <Image
+                                    source={{uri: (this.state.makeCard).illustration}}
+                                    style={cardStyle.editImage}
+                                />
+                        }
+                    </View>
+                </View>
+
+                <View style={cardStyle.iconsContainer}>
+                    <View style={cardStyle.shareRightIcon}>
+                        <ColorWheel
+                            initialColor="#ee0000"
+                            onColorChange={(color) => this.setTextColor(color)}
+                            style={{width: 100, marginLeft: 20,}}
+                            thumbSize={20}
+                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
+
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                        />
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={this.onShare}
+                        />
+                    </View>
+                </View>
+
 
 
             </View>

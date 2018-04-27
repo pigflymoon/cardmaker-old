@@ -54,17 +54,12 @@ export default{
     },
     editContainer: {
         flex: 1,
-        // height: 100,
         backgroundColor: colors.white,
-        // marginTop: 10,
     },
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
-        // alignItems: 'flex-start',
         alignSelf: 'center',
-        // alignItems: 'center',
-
     },
     deck: {
         flex: 1,
@@ -217,7 +212,7 @@ export default{
         fontSize: 15,
         color: 'rgba(216, 121, 112, 1)',
         marginLeft: 40,
-        marginTop: 20,
+        marginTop: 15,
     },
     editCardPositionContainer: {
         flex: 1,
