@@ -149,10 +149,8 @@ export default class MakeCard extends Component {
     renderEdit = () => {
         return (
             <View style={layoutStyle.container}>
-                <View style={{flex: 1}}>
-
+                <View style={{flex: 1, marginBottom: 80,}}>
                     <View style={cardStyle.statusBar}/>
-
                     <View style={cardStyle.editImageContainer}>
                         {
                             this.state.show
@@ -164,12 +162,8 @@ export default class MakeCard extends Component {
                                     style={cardStyle.editImage}
                                 />
                         }
-
                     </View>
-
-
                 </View>
-
 
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>

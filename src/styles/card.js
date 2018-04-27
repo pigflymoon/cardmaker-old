@@ -58,14 +58,6 @@ export default{
         backgroundColor: colors.white,
         // marginTop: 10,
     },
-    // iconContainer: {
-    //     flex: 1,
-    //     flexDirection: 'row',
-    //     justifyContent: 'flex-start',
-    //     marginTop: 10,
-    //     // paddingVertical: 5,
-    //     // flexWrap: 'wrap'
-    // },
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
@@ -166,9 +158,9 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: 100,
-
+        // height: 50,
     },
+
     badgeBg: {
         backgroundColor: colors.secondary2,
         marginBottom: 5,
@@ -212,6 +204,7 @@ export default{
         justifyContent: 'center',
         alignItems: 'center',
         height: IMAGE_SIZE,
+
     },
     editImage: {
         flex: 1,
@@ -224,18 +217,20 @@ export default{
         marginTop: 10,
         width: SCREEN_WIDTH - 80,
         marginLeft: 40,
-        marginBottom: 30,
+
     },
     editCardTip: {
         flex: 1,
         fontSize: 15,
         color: 'rgba(216, 121, 112, 1)',
         marginLeft: 40,
+        marginTop: 20,
+
     },
     editCardPositionContainer: {
         flex: 1,
         width: SCREEN_WIDTH,
-        marginTop: 20
+        marginTop: 20,
     }
 
 }
