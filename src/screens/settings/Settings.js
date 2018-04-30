@@ -15,6 +15,8 @@ import {
     TouchableHighlight,
     Image,
 } from 'react-native';
+import VersionCheck from 'react-native-version-check';
+
 import {List, ListItem, Card,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
@@ -255,6 +257,17 @@ export default class Settings extends Component {
                 });
             }
         });
+    }
+
+    componentWillMount() {
+
+        VersionCheck.getLatestVersion({
+            provider: 'appStore'  // for iOS
+        })
+            .then(latestVersion => {
+                console.log(latestVersion);    // 0.1.2
+                this.setState({version: latestVersion})
+            });
     }
 
     componentDidMount() {

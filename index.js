@@ -1,7 +1,19 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, SafeAreaView, View} from 'react-native';
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    SafeAreaView,
+    View,
+    Platform,
+    Linking,
+    Alert,
+} from 'react-native';
 import App from './App';
+
+
 class Root extends Component {
+
     render() {
         return (
             <SafeAreaView style={styles.safeArea} forceInset={{top: 'always', bottom: 'never'}}>

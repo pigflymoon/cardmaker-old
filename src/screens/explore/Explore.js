@@ -8,11 +8,15 @@ import {
     TouchableHighlight,
     ImageBackground,
     ScrollView,
-    Dimensions
+    Dimensions,
+    Linking,
+    Alert,
 } from 'react-native';
 import {
     Icon,
 } from 'react-native-elements';
+import VersionCheck from 'react-native-version-check';
+
 import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
 import Placeholder from 'rn-placeholder';
@@ -35,7 +39,7 @@ const birthdayImages = 'birthdayImages';
 const holidayImages = 'holidayImages';
 const weddingImages = 'weddingImages';
 const otherImages = 'otherImages';
-
+const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
 const words = [
 
     {
@@ -86,7 +90,28 @@ export default class Explore extends Component {
         });
     }
 
+    // 点击立即下载只是跳转到商店,本地不做处理,如果没有更新,下次进入依然提醒
+    // 点击稍后下载,本地记录时间,10天后再次提醒
+    showAlert = () => {
+        Alert.alert(
+            'Update to the latest version',
+            'Cardmaker App?',
+            [
+            {text: 'OK', onPress: () => Linking.openURL(downloadUrl)}, // open store if update is needed.
+            {text: 'Download next time', onPress: () => console.log('update later')}
+        ])
+    }
+
     componentWillMount() {
+
+
+        VersionCheck.needUpdate()
+            .then(async res => {
+                console.log(res.isNeeded);    // true
+                if (res.isNeeded) {
+                    this.showAlert();
+                }
+            });
         this.fetchImages(birthdayImages);
         this.fetchImages(holidayImages);
         this.fetchImages(weddingImages);
