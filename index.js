@@ -2,11 +2,7 @@ import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    Text,
     SafeAreaView,
-    View,
-    Platform,
-    Linking,
     Alert,
 } from 'react-native';
 import App from './App';
