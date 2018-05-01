@@ -56,11 +56,7 @@ export default{
         flex: 1,
         backgroundColor: colors.white,
     },
-    shareRightIcon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignSelf: 'center',
-    },
+
     deck: {
         flex: 1,
     },
@@ -142,18 +138,14 @@ export default{
         flexWrap: 'wrap',
         marginTop: 5,
     },
-    iconsContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        // height: 50,
-    },
+
 
     badgeBg: {
         backgroundColor: colors.secondary2,
         marginBottom: 5,
     },
     statusBar: {
+        flex: 1,
         height: 10,
     },
     navBar: {
@@ -188,9 +180,27 @@ export default{
         color: colors.secondary2,
 
     },
+//make card
+    iconsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 100,
+
+    },
+    shareRightIcon: {
+        flex: 1,
+        justifyContent: 'center',
+        alignSelf: 'center',
+
+
+    },
     editImageContainer: {
+        flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        // height: 220,
         height: IMAGE_SIZE,
 
     },
@@ -198,6 +208,7 @@ export default{
         flex: 1,
         width: IMAGE_SIZE,
         height: IMAGE_SIZE,
+        // height: 220,
         borderRadius: 10,
     },
     editTextContainer: {
@@ -218,6 +229,11 @@ export default{
         flex: 1,
         width: SCREEN_WIDTH,
         marginTop: 20,
-    }
+    },
+    textStyle: {
+        fontSize: 18,
+        textAlign: 'center',
+        padding: 10,
+    },
 
 }

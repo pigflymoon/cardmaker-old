@@ -6,7 +6,6 @@ import {
     StyleSheet,
     Linking,
     AppState,
-    Picker,
     Platform,
     AsyncStorage,
     Item,

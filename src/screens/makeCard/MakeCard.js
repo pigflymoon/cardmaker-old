@@ -14,6 +14,7 @@ import {
     ScrollView,
     ImageBackground,
     KeyboardAvoidingView,
+    AsyncStorage
 } from 'react-native';
 import {
     Icon,
@@ -21,12 +22,13 @@ import {
     FormLabel,
     FormValidationMessage,
     Card,
+    CheckBox
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
 import {auth} from '../../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
 import TextPositionButton from '../../components/TextPositionButton';
-
+// import CustomTagGroups from '../../components/CustomTagGroups';
 import  Utils from '../../utils/utils';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
@@ -36,6 +38,8 @@ import layoutStyle from '../../styles/layout';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
+const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand', 'Party LET', 'Snell Roundhand', 'Zapfino']
+const fonts = iOS_fonts;
 
 export default class MakeCard extends Component {
 
@@ -49,6 +53,9 @@ export default class MakeCard extends Component {
             signin: false,
             position: 'bottomCenter',
             textColor: colors.primary1,
+            check: [],
+            font: 'SnellRoundhand-Bold',
+            fontSize: 14,
         }
     }
 
@@ -56,8 +63,15 @@ export default class MakeCard extends Component {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
+
             if (makeCard) {
-                this.setState({makeCard: makeCard, signin: signin});
+                var my_check = []
+                fonts.forEach((folder) => {
+                    my_check.push(false)
+                });
+                console.log('my check', my_check)
+
+                this.setState({makeCard: makeCard, signin: signin, check: my_check});
             }
         }
     }
@@ -121,9 +135,10 @@ export default class MakeCard extends Component {
         var text = title + '\n' + caption;
         var textColor = this.state.textColor || colors.primary1;
         var position = this.state.position;
+        var font = this.state.font;
         var textSize = 48;
         //
-        Marker.addTextByPostion(url, text, position, textColor, 'Arial-BoldItalicMT', textSize)
+        Marker.addTextByPostion(url, text, position, textColor, font, textSize)
             .then((path) => {
                 this.setState({
                     show: true,
@@ -141,11 +156,43 @@ export default class MakeCard extends Component {
         });
 
     }
+    updateFont = (item, index) => {
+        console.log('item is ', item)
+        console.log('index is ', index)
+        // var myFonts = this.state.check;
+        this.setState({check: []});
+        var my_check = []
+        fonts.forEach(() => {
+            my_check.push(false)
+        });
+
+        my_check[index] = true;
+        this.setState({
+            check: my_check,
+            font: item,
+        })
+    }
+    updateFontSize = (rule) => {
+        let showRules = ['14', '16', '18', '20', '22', '24'];
+
+        this.setState({fontSize: rule}, function () {
+            for (let rule of showRules) {
+                if (this.state.fontSize === rule) {
+                    let index = showRules.indexOf(rule);
+                    let value = ( index == 0 ) ? 0 : (index + 2);
+                    AsyncStorage.setItem('ruleValue', value.toString());
+                    this.setState({ruleValue: value});
+                }
+
+            }
+        })
+
+    }
 
     renderEdit = () => {
         return (
-            <View style={layoutStyle.container}>
-                <ScrollView style={cardStyle.container}>
+            <View style={[layoutStyle.container, ]}>
+                <ScrollView style={[cardStyle.container]}>
                     <KeyboardAvoidingView behavior='position' contentContainerStyle={{
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -197,6 +244,43 @@ export default class MakeCard extends Component {
                     </KeyboardAvoidingView>
 
                     <View style={cardStyle.container}>
+                        <Text style={cardStyle.editCardTip}>
+                            font
+                        </Text>
+                        <View style={cardStyle.container}>
+                            <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
+                                <Picker.Item label="14" value={14}/>
+                                <Picker.Item label="16" value={16}/>
+                                <Picker.Item label="18" value={18}/>
+                                <Picker.Item label="20" value={20}/>
+                                <Picker.Item label="22" value={22}/>
+                                <Picker.Item label="24" value={24}/>
+                            </Picker>
+                        </View>
+                        <View style={cardStyle.editCardPositionContainer}>
+                            <ScrollView
+                                style={cardStyle.container}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                            >
+
+                                <View style={cardStyle.container}>
+                                    <FlatList
+                                        data={fonts}
+                                        extraData={this.state}
+                                        renderItem={({item, index}) => (
+                                            <CheckBox
+                                                title={item}
+                                                key={index}
+                                                checked={this.state.check[index]}
+                                                onPress={() => this.updateFont(item, index)}
+                                            />
+                                        )}
+                                    />
+                                </View>
+
+                            </ScrollView>
+                        </View>
                         <Text style={cardStyle.editCardTip}>
                             Text Position
                         </Text>
@@ -255,28 +339,28 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
-                <View style={{flex: 1, marginBottom: 80,}}>
-                    <View style={cardStyle.statusBar}/>
-                    <View style={cardStyle.editImageContainer}>
-                        {
-                            this.state.show
-                                ? <Image
-                                    source={{uri: this.state.imageUrl}}
-                                    style={cardStyle.editImage}
-                                /> : <Image
-                                    source={{uri: (this.state.makeCard).illustration}}
-                                    style={cardStyle.editImage}
-                                />
-                        }
-                    </View>
+
+
+                <View style={cardStyle.editImageContainer}>
+                    {
+                        this.state.show
+                            ? <Image
+                                source={{uri: this.state.imageUrl}}
+                                style={cardStyle.editImage}
+                            /> : <Image
+                                source={{uri: (this.state.makeCard).illustration}}
+                                style={cardStyle.editImage}
+                            />
+                    }
                 </View>
+
 
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>
                         <ColorWheel
                             initialColor="#ee0000"
                             onColorChange={(color) => this.setTextColor(color)}
-                            style={{width: 100, marginLeft: 20,}}
+                            style={{width: 60, height: 60, marginLeft: 20,}}
                             thumbSize={20}
                             thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
 
@@ -292,7 +376,6 @@ export default class MakeCard extends Component {
                         />
                     </View>
                 </View>
-
 
 
             </View>
