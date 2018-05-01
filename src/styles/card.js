@@ -205,8 +205,8 @@ export default{
         justifyContent: 'center',
         alignItems: 'center',
         // height: 220,
-        // height: IMAGE_SIZE,
-        flexGrow: 2,
+        height: IMAGE_SIZE,
+        // flexGrow: 2,
 
     },
     editImage: {

@@ -176,12 +176,32 @@ export default class MakeCard extends Component {
     updateFontSize = (rule) => {
         this.setState({fontSize: rule});
     }
+    onPreview = (url) => {
+        var title = this.state.title;
+        var caption = this.state.caption;
+
+        title = this.insertEnter(title, 26)
+        var text = title + '\n' + caption;
+        var textColor = this.state.textColor || colors.primary1;
+        var position = this.state.position;
+        var font = this.state.font;
+        console.log('size ', this.state.fontSize)
+        var textSize = this.state.fontSize;
+        this.props.navigation.navigate('PreviewCard', {
+            url: url, text: text, position: position, textColor: textColor, font: font, textSize: textSize
+        });
+    }
 
     renderEdit = () => {
         return (
             <View style={[layoutStyle.container,]}>
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>
+                        <View style={cardStyle.shareRightIcon}>
+                            <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
+                                  onPress={() => this.onPreview((this.state.makeCard).illustration)}
+                            />
+                        </View>
                         <ColorWheel
                             initialColor="#ee0000"
                             onColorChange={(color) => this.setTextColor(color)}
@@ -202,7 +222,7 @@ export default class MakeCard extends Component {
                     </View>
                 </View>
                 <ScrollView style={[cardStyle.container, {
-                    flexGrow: 1,
+                    flexGrow: 2,
                 }]}>
                     <KeyboardAvoidingView behavior='position' contentContainerStyle={{
                         alignItems: 'center',
@@ -258,17 +278,7 @@ export default class MakeCard extends Component {
                         <Text style={cardStyle.editCardTip}>
                             font
                         </Text>
-                        <View style={cardStyle.container}>
-                            <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
-                                <Picker.Item label="32" value={32}/>
-                                <Picker.Item label="48" value={48}/>
-                                <Picker.Item label="50" value={50}/>
-                                <Picker.Item label="54" value={54}/>
-                                <Picker.Item label="58" value={58}/>
-                                <Picker.Item label="60" value={60}/>
 
-                            </Picker>
-                        </View>
                         <View style={cardStyle.editCardPositionContainer}>
                             <ScrollView
                                 style={cardStyle.container}
@@ -348,24 +358,24 @@ export default class MakeCard extends Component {
                                 </View>
                             </ScrollView>
                         </View>
+                        <View style={cardStyle.container}>
+                            <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
+                                <Picker.Item label="32" value={32}/>
+                                <Picker.Item label="48" value={48}/>
+                                <Picker.Item label="50" value={50}/>
+                                <Picker.Item label="54" value={54}/>
+                                <Picker.Item label="58" value={58}/>
+                                <Picker.Item label="60" value={60}/>
+
+                            </Picker>
+                        </View>
                     </View>
 
 
                 </ScrollView>
 
 
-                <View style={cardStyle.editImageContainer}>
-                    {
-                        this.state.show
-                            ? <Image
-                                source={{uri: this.state.imageUrl}}
-                                style={cardStyle.editImage}
-                            /> : <Image
-                                source={{uri: (this.state.makeCard).illustration}}
-                                style={cardStyle.editImage}
-                            />
-                    }
-                </View>
+
 
 
             </View>

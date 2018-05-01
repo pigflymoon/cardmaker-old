@@ -13,6 +13,7 @@ import CardsGalleryScreen from './screens/explore/CardsGallery';
 import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
+import PreviewCardScreen from './screens/makeCard/PreviewCard';
 //Profile
 import AuthScreen from './screens/profile/Auth';
 import ConfirmEmailScreen from './screens/profile/ConfirmEmail';
@@ -68,6 +69,15 @@ const MakeCardTab = StackNavigator({
         screen: MakeCardScreen,
         navigationOptions: {
             title: 'Make Card',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        }
+
+    },
+    PreviewCard: {
+        screen: PreviewCardScreen,
+        navigationOptions: {
+            title: 'Preview Card',
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
         }
