@@ -185,13 +185,17 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: 100,
+        // height: 80,
+        // backgroundColor: colors.primary1,
+        marginTop: -30,
 
     },
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'center',
+        height: 60,
+        // backgroundColor: colors.grey2,
 
 
     },
@@ -201,7 +205,8 @@ export default{
         justifyContent: 'center',
         alignItems: 'center',
         // height: 220,
-        height: IMAGE_SIZE,
+        // height: IMAGE_SIZE,
+        flexGrow: 2,
 
     },
     editImage: {

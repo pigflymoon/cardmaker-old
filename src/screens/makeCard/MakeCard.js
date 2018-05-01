@@ -55,7 +55,7 @@ export default class MakeCard extends Component {
             textColor: colors.primary1,
             check: [],
             font: 'SnellRoundhand-Bold',
-            fontSize: 14,
+            fontSize: 48,
         }
     }
 
@@ -136,7 +136,8 @@ export default class MakeCard extends Component {
         var textColor = this.state.textColor || colors.primary1;
         var position = this.state.position;
         var font = this.state.font;
-        var textSize = 48;
+        console.log('size ', this.state.fontSize)
+        var textSize = this.state.fontSize;
         //
         Marker.addTextByPostion(url, text, position, textColor, font, textSize)
             .then((path) => {
@@ -173,26 +174,36 @@ export default class MakeCard extends Component {
         })
     }
     updateFontSize = (rule) => {
-        let showRules = ['14', '16', '18', '20', '22', '24'];
-
-        this.setState({fontSize: rule}, function () {
-            for (let rule of showRules) {
-                if (this.state.fontSize === rule) {
-                    let index = showRules.indexOf(rule);
-                    let value = ( index == 0 ) ? 0 : (index + 2);
-                    AsyncStorage.setItem('ruleValue', value.toString());
-                    this.setState({ruleValue: value});
-                }
-
-            }
-        })
-
+        this.setState({fontSize: rule});
     }
 
     renderEdit = () => {
         return (
-            <View style={[layoutStyle.container, ]}>
-                <ScrollView style={[cardStyle.container]}>
+            <View style={[layoutStyle.container,]}>
+                <View style={cardStyle.iconsContainer}>
+                    <View style={cardStyle.shareRightIcon}>
+                        <ColorWheel
+                            initialColor="#ee0000"
+                            onColorChange={(color) => this.setTextColor(color)}
+                            style={{width: 60, height: 60, marginLeft: 20,}}
+                            thumbSize={20}
+                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
+
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                        />
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={this.onShare}
+                        />
+                    </View>
+                </View>
+                <ScrollView style={[cardStyle.container, {
+                    flexGrow: 1,
+                }]}>
                     <KeyboardAvoidingView behavior='position' contentContainerStyle={{
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -249,12 +260,13 @@ export default class MakeCard extends Component {
                         </Text>
                         <View style={cardStyle.container}>
                             <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
-                                <Picker.Item label="14" value={14}/>
-                                <Picker.Item label="16" value={16}/>
-                                <Picker.Item label="18" value={18}/>
-                                <Picker.Item label="20" value={20}/>
-                                <Picker.Item label="22" value={22}/>
-                                <Picker.Item label="24" value={24}/>
+                                <Picker.Item label="32" value={32}/>
+                                <Picker.Item label="48" value={48}/>
+                                <Picker.Item label="50" value={50}/>
+                                <Picker.Item label="54" value={54}/>
+                                <Picker.Item label="58" value={58}/>
+                                <Picker.Item label="60" value={60}/>
+
                             </Picker>
                         </View>
                         <View style={cardStyle.editCardPositionContainer}>
@@ -263,9 +275,10 @@ export default class MakeCard extends Component {
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                             >
-
-                                <View style={cardStyle.container}>
+                                <View style={[cardStyle.container]}>
                                     <FlatList
+                                        style={[{flexDirection: 'column'}]}
+                                        numColumns={2}
                                         data={fonts}
                                         extraData={this.state}
                                         renderItem={({item, index}) => (
@@ -352,29 +365,6 @@ export default class MakeCard extends Component {
                                 style={cardStyle.editImage}
                             />
                     }
-                </View>
-
-
-                <View style={cardStyle.iconsContainer}>
-                    <View style={cardStyle.shareRightIcon}>
-                        <ColorWheel
-                            initialColor="#ee0000"
-                            onColorChange={(color) => this.setTextColor(color)}
-                            style={{width: 60, height: 60, marginLeft: 20,}}
-                            thumbSize={20}
-                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
-
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                        />
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={this.onShare}
-                        />
-                    </View>
                 </View>
 
 
