@@ -256,5 +256,9 @@ export default{
         textAlign: 'center',
         padding: 10,
     },
+    pickerContainer: {
+        height: 100,
+        // width: 100,
+    }
 
 }

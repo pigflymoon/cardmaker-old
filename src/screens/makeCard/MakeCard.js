@@ -38,7 +38,7 @@ import layoutStyle from '../../styles/layout';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand', 'Party LET', 'Snell Roundhand', 'Zapfino']
+const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand','Noteworthy-Bold', 'Party LET', 'Papyrus', 'SnellRoundhand-Bold', 'Zapfino']
 const fonts = iOS_fonts;
 
 export default class MakeCard extends Component {
@@ -190,7 +190,7 @@ export default class MakeCard extends Component {
 
     renderEdit = () => {
         return (
-            <View style={[layoutStyle.container,]}>
+            <View style={layoutStyle.container}>
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>
 
@@ -281,6 +281,7 @@ export default class MakeCard extends Component {
                                         renderItem={({item, index}) => (
                                             <CheckBox
                                                 title={item}
+                                                fontFamily={item}
                                                 key={index}
                                                 checked={this.state.check[index]}
                                                 onPress={() => this.updateFont(item, index)}
@@ -350,7 +351,10 @@ export default class MakeCard extends Component {
                         </Text>
 
                         <View style={cardStyle.container}>
-                            <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
+                            <Picker style={cardStyle.pickerContainer}
+                                    selectedValue={this.state.fontSize}
+                                    onValueChange={this.updateFontSize}
+                            >
                                 <Picker.Item label="32" value={32}/>
                                 <Picker.Item label="48" value={48}/>
                                 <Picker.Item label="50" value={50}/>
