@@ -89,18 +89,11 @@ export default class PreviewCard extends Component {
         }
     }
 
-    imageMarker = (url, text, position, textColor, font, textSize) => {
-        // var title = this.state.title;
-        // var caption = this.state.caption;
+    onShare = () => {
+        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
+    }
 
-        // title = this.insertEnter(title, 26)
-        // var text = title + '\n' + caption;
-        // var textColor = this.state.textColor || colors.primary1;
-        // var position = this.state.position;
-        // var font = this.state.font;
-        // console.log('size ', this.state.fontSize)
-        // var textSize = this.state.fontSize;
-        //
+    imageMarker = (url, text, position, textColor, font, textSize) => {
         Marker.addTextByPostion(url, text, position, textColor, font, textSize)
             .then((path) => {
                 this.setState({
@@ -116,14 +109,22 @@ export default class PreviewCard extends Component {
     renderEdit = () => {
         return (
             <View style={[layoutStyle.container,]}>
-                <View style={cardStyle.editImageContainer}>
+
+                <View style={cardStyle.previewImageContainer}>
                     {
                         <Image
                             source={{uri: this.state.imageUrl}}
-                            style={cardStyle.editImage}
+                            style={cardStyle.previewImage}
                         />
                     }
                 </View>
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={this.onShare}
+                    />
+                </View>
+
+
 
 
             </View>

@@ -4,6 +4,8 @@ import {
 import colors from '../styles/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
+const PRVIEW_IMAGE_SIZE = SCREEN_WIDTH - 20;
+
 export default{
     //cards
     container: {
@@ -204,10 +206,24 @@ export default{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        // height: 220,
         height: IMAGE_SIZE,
-        // flexGrow: 2,
 
+    },
+    previewImageContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        flexGrow: 2,
+    },
+
+    previewImage: {
+        flex: 1,
+        width: PRVIEW_IMAGE_SIZE,
+        height: PRVIEW_IMAGE_SIZE,
+        // height: 220,
+        borderRadius: 10,
     },
     editImage: {
         flex: 1,

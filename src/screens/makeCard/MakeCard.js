@@ -104,10 +104,6 @@ export default class MakeCard extends Component {
         this.setState({caption: text});
     }
 
-    onShare = () => {
-        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
-    }
-
 
     setTextColor = (color) => {
         var hexColor = color ? color.hexColor : colors.primary1;
@@ -197,11 +193,7 @@ export default class MakeCard extends Component {
             <View style={[layoutStyle.container,]}>
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>
-                        <View style={cardStyle.shareRightIcon}>
-                            <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                                  onPress={() => this.onPreview((this.state.makeCard).illustration)}
-                            />
-                        </View>
+
                         <ColorWheel
                             initialColor="#ee0000"
                             onColorChange={(color) => this.setTextColor(color)}
@@ -212,14 +204,10 @@ export default class MakeCard extends Component {
                     </View>
                     <View style={cardStyle.shareRightIcon}>
                         <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                              onPress={() => this.onPreview((this.state.makeCard).illustration)}
                         />
                     </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={this.onShare}
-                        />
-                    </View>
+
                 </View>
                 <ScrollView style={[cardStyle.container, {
                     flexGrow: 2,
@@ -376,9 +364,6 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
-
-
-
 
 
             </View>
