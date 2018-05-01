@@ -276,9 +276,8 @@ export default class MakeCard extends Component {
 
                     <View style={cardStyle.container}>
                         <Text style={cardStyle.editCardTip}>
-                            font
+                            Font Family
                         </Text>
-
                         <View style={cardStyle.editCardPositionContainer}>
                             <ScrollView
                                 style={cardStyle.container}
@@ -358,6 +357,10 @@ export default class MakeCard extends Component {
                                 </View>
                             </ScrollView>
                         </View>
+                        <Text style={cardStyle.editCardTip}>
+                            Font Size
+                        </Text>
+
                         <View style={cardStyle.container}>
                             <Picker selectedValue={this.state.fontSize} onValueChange={this.updateFontSize}>
                                 <Picker.Item label="32" value={32}/>
