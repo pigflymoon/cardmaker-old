@@ -139,6 +139,8 @@ const fontFamily = [{
     value: 'Menlo'
 }, {
     value: 'Noteworthy'
+},{
+    value:'Noteworthy-Bold'
 }, {
     value: 'Optima-BoldItalic'
 }, {
@@ -407,6 +409,9 @@ export default class MakeCard extends Component {
                             data={fontSize}
                             onChangeText={this.onChangeFontSize}
                         />
+                        <Text style={[cardStyle.editCardTip,{fontFamily:this.state.fontFamily}]}>
+                           selected: {this.state.fontFamily}
+                        </Text>
                         <Dropdown
                             label='Font Family'
                             data={fontFamily}
