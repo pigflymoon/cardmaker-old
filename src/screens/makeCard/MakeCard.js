@@ -25,10 +25,9 @@ import {
     CheckBox
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
-import {auth} from '../../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
 import {Dropdown} from 'react-native-material-dropdown';
-import TextPositionButton from '../../components/TextPositionButton';
+import {auth} from '../../config/FirebaseConfig';
 
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
@@ -56,9 +55,119 @@ const fontFamily = [{
     value: 'AmericanTypewriter-Condensed'
 }, {
     value: 'AmericanTypewriter-CondensedBold'
+}, {
+    value: 'Apple Color Emoji'
+}, {
+    value: 'Apple SD Gothic Neo'
+}, {
+    value: 'AppleSDGothicNeo-Bold'
+}, {
+    value: 'Arial'
+}, {
+    value: 'Arial-BoldItalicMT'
+}, {
+    value: 'Arial-BoldMT'
+}, {
+    value: 'ArialHebrew-Bold'
+}, {
+    value: 'ArialMT'
+}, {
+    value: 'Avenir'
+}, {
+    value: 'AvenirNext-DemiBoldItalic'
+}, {
+    value: 'Bangla Sangam MN'
+}, {
+    value: 'Baskerville-Bold'
+}, {
+    value: 'Bodoni 72'
+}, {
+    value: 'Bodoni 72 Oldstyle'
+}, {
+    value: 'Bradley Hand'
+}, {
+    value: 'BradleyHandITCTT-Bold'
+}, {
+    value: 'Chalkboard SE'
+}, {
+    value: 'ChalkboardSE-Bold'
+}, {
+    value: 'Chalkduster'
+}, {
+    value: 'Cochin-Bold'
+}, {
+    value: 'Cochin-BoldItalic'
+}, {
+    value: 'Courier'
+}, {
+    value: 'DamascusBold'
+}, {
+    value: 'Didot',
+}, {
+    value: 'Didot-Bold'
+}, {
+    value: 'Didot-Italic'
+}, {
+    value: 'EuphemiaUCAS-Bold'
+}, {
+    value: 'Farah'
+}, {
+    value: 'Futura'
+}, {
+    value: 'GeezaPro-Bold'
+}, {
+    value: 'Georgia-Bold'
+}, {
+    value: 'Gill Sans'
+}, {
+    value: 'GillSans-Bold'
+}, {
+    value: 'GillSans-Italic'
+}, {
+    value: 'GujaratiSangamMN-Bold'
+}, {
+    value: 'Helvetica'
+}, {
+    value: 'Helvetica-Bold'
+}, {
+    value: 'HelveticaNeue-Bold'
+}, {
+    value: 'HelveticaNeue-Italic'
+}, {
+    value: 'Marker Felt'
+}, {
+    value: 'Menlo'
+}, {
+    value: 'Noteworthy'
+}, {
+    value: 'Optima-BoldItalic'
+}, {
+    value: 'Palatino-Bold'
+}, {
+    value: 'Palatino-BoldItalic'
+}, {
+    value: 'Papyrus'
+}, {
+    value: 'Party LET'
+}, {
+    value: 'PartyLetPlain'
+}, {
+    value: 'Savoye LET'
+}, {
+    value: 'SnellRoundhand-Bold'
+}, {
+    value: 'Times New Roman'
+}, {
+    value: 'TimesNewRomanPS-BoldItalicMT'
+}, {
+    value: 'Trebuchet-BoldItalic'
+}, {
+    value: 'Verdana-BoldItalic'
+}, {
+    value: 'Zapf Dingbats'
+}, {
+    value: 'Zapfino'
 }
-
-
 ]
 const fontSize = [{
     value: 32,
@@ -118,13 +227,7 @@ export default class MakeCard extends Component {
             var signin = this.props.navigation.state.params.signin;
 
             if (makeCard) {
-                var my_check = []
-                fonts.forEach((folder) => {
-                    my_check.push(false)
-                });
-                console.log('my check', my_check)
-
-                this.setState({makeCard: makeCard, signin: signin, check: my_check});
+                this.setState({makeCard: makeCard, signin: signin});
             }
         }
     }
@@ -185,7 +288,7 @@ export default class MakeCard extends Component {
         var textColor = this.state.textColor || colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
-        console.log('size ', this.state.fontSize)
+        console.log('size  font position', this.state.fontSize, this.state.fontFamily, this.state.textPosition)
         var textSize = this.state.fontSize;
         //
         Marker.addTextByPostion(url, text, position, textColor, font, textSize)
@@ -197,48 +300,6 @@ export default class MakeCard extends Component {
             }).catch((err) => {
             console.log(err)
         })
-    }
-    onHandleSelect = (selectedName, selectedValue, position) => {
-        this.setState({
-            selectedName: selectedName,
-            selectedValue: selectedValue,
-            position: position
-        });
-
-    }
-    updateFont = (item, index) => {
-        console.log('item is ', item)
-        console.log('index is ', index)
-        // var myFonts = this.state.check;
-        this.setState({check: []});
-        var my_check = []
-        fonts.forEach(() => {
-            my_check.push(false)
-        });
-
-        my_check[index] = true;
-        this.setState({
-            check: my_check,
-            font: item,
-        })
-    }
-    updateFontSize = (rule) => {
-        this.setState({fontSize: rule});
-    }
-    onPreview = (url) => {
-        var title = this.state.title;
-        var caption = this.state.caption;
-
-        title = this.insertEnter(title, 26)
-        var text = title + '\n' + caption;
-        var textColor = this.state.textColor || colors.primary1;
-        var position = this.state.textPosition;
-        var font = this.state.fontFamily;
-        console.log('size ', this.state.fontSize)
-        var textSize = this.state.fontSize;
-        this.props.navigation.navigate('PreviewCard', {
-            url: url, text: text, position: position, textColor: textColor, font: font, textSize: textSize
-        });
     }
 
     onChangeFontSize = (size) => {
@@ -256,7 +317,7 @@ export default class MakeCard extends Component {
     onChangeTextPosition = (position) => {
         console.log('position is ', position)
         this.setState({
-            textPostion: position
+            textPosition: position
         });
 
     }
@@ -276,20 +337,26 @@ export default class MakeCard extends Component {
                     </View>
                     <View style={cardStyle.shareRightIcon}>
                         <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={() => this.onPreview((this.state.makeCard).illustration)}
+                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                        />
+                    </View>
+                    <View style={cardStyle.shareRightIcon}>
+                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                              onPress={this.onShare}
                         />
                     </View>
 
+
                 </View>
                 <ScrollView style={[cardStyle.container, {
-                    flexGrow: 2,
+                    flexGrow: 1,
                 }]}>
                     <KeyboardAvoidingView behavior='position' contentContainerStyle={{
                         alignItems: 'center',
                         justifyContent: 'center',
 
                     }}>
-                        <View style={cardStyle.editTextContainer}>
+                        <View style={[cardStyle.editTextContainer]}>
                             <View style={formStyle.inputsContainer}>
                                 <View style={cardStyle.inputContainer}>
                                     <FormLabel containerStyle={cardStyle.labelContainerStyle}
@@ -334,10 +401,7 @@ export default class MakeCard extends Component {
                         </View>
                     </KeyboardAvoidingView>
 
-                    <View style={cardStyle.container}>
-                        <Text style={cardStyle.editCardTip}>
-                            Font Family
-                        </Text>
+                    <View style={[cardStyle.container, cardStyle.wrapper]}>
                         <Dropdown
                             label='Font Size'
                             data={fontSize}
@@ -358,6 +422,23 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
+                <View style={{
+                    flex: 1, flexGrow: 2,
+                }}>
+
+                    <View style={cardStyle.editImageContainer}>
+                        {
+                            this.state.show
+                                ? <Image
+                                    source={{uri: this.state.imageUrl}}
+                                    style={cardStyle.editImage}
+                                /> : <Image
+                                    source={{uri: (this.state.makeCard).illustration}}
+                                    style={cardStyle.editImage}
+                                />
+                        }
+                    </View>
+                </View>
 
 
             </View>

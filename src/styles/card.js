@@ -11,6 +11,9 @@ export default{
     container: {
         flex: 1,
     },
+    wrapper: {
+        marginHorizontal: 40,
+    },
     cardsContainer: {
         flex: 1,
     },
@@ -235,15 +238,12 @@ export default{
     editTextContainer: {
         flex: 1,
         marginTop: 10,
-        width: SCREEN_WIDTH - 80,
-        marginLeft: 40,
-
+        width: SCREEN_WIDTH - 40,
     },
     editCardTip: {
         flex: 1,
         fontSize: 15,
         color: 'rgba(216, 121, 112, 1)',
-        marginLeft: 40,
         marginTop: 15,
     },
     editCardPositionContainer: {
