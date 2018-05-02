@@ -27,9 +27,9 @@ import {
 import {ColorWheel} from 'react-native-color-wheel';
 import {auth} from '../../config/FirebaseConfig';
 import Marker from 'react-native-image-marker'
+import {Dropdown} from 'react-native-material-dropdown';
 import TextPositionButton from '../../components/TextPositionButton';
-// import CustomTagGroups from '../../components/CustomTagGroups';
-import  Utils from '../../utils/utils';
+
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
@@ -38,9 +38,62 @@ import layoutStyle from '../../styles/layout';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand','Noteworthy-Bold', 'Party LET', 'Papyrus', 'SnellRoundhand-Bold', 'Zapfino']
+const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand', 'Noteworthy-Bold', 'Party LET', 'Papyrus', 'SnellRoundhand-Bold', 'Zapfino']
 const fonts = iOS_fonts;
+const fontFamily = [{
+    value: 'Academy Engraved LET'
+}, {
+    value: 'AcademyEngravedLetPlain'
+}, {
+    value: 'Al Nile'
+}, {
+    value: 'AlNile-Bold'
+}, {
+    value: 'American Typewriter'
+}, {
+    value: 'AmericanTypewriter-Bold'
+}, {
+    value: 'AmericanTypewriter-Condensed'
+}, {
+    value: 'AmericanTypewriter-CondensedBold'
+}
 
+
+]
+const fontSize = [{
+    value: 32,
+}, {
+    value: 48,
+}, {
+    value: 50,
+}, {
+    value: 52
+}, {
+    value: 54
+}, {
+    value: 58
+}, {
+    value: 64
+}, {
+    value: 72
+},
+];
+
+const textPostion = [{
+    value: 'topLeft'
+}, {
+    value: 'topCenter'
+}, {
+    value: 'topRight'
+}, {
+    value: 'bottomLeft'
+}, {
+    value: 'bottomCenter'
+}, {
+    value: 'bottomRight'
+}, {
+    value: 'center'
+},]
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -51,10 +104,10 @@ export default class MakeCard extends Component {
             caption: '',
             checked: false,
             signin: false,
-            position: 'bottomCenter',
+            textPosition: 'bottomCenter',
             textColor: colors.primary1,
             check: [],
-            font: 'SnellRoundhand-Bold',
+            fontFamily: 'SnellRoundhand-Bold',
             fontSize: 48,
         }
     }
@@ -130,8 +183,8 @@ export default class MakeCard extends Component {
         title = this.insertEnter(title, 26)
         var text = title + '\n' + caption;
         var textColor = this.state.textColor || colors.primary1;
-        var position = this.state.position;
-        var font = this.state.font;
+        var position = this.state.textPosition;
+        var font = this.state.fontFamily;
         console.log('size ', this.state.fontSize)
         var textSize = this.state.fontSize;
         //
@@ -179,8 +232,8 @@ export default class MakeCard extends Component {
         title = this.insertEnter(title, 26)
         var text = title + '\n' + caption;
         var textColor = this.state.textColor || colors.primary1;
-        var position = this.state.position;
-        var font = this.state.font;
+        var position = this.state.textPosition;
+        var font = this.state.fontFamily;
         console.log('size ', this.state.fontSize)
         var textSize = this.state.fontSize;
         this.props.navigation.navigate('PreviewCard', {
@@ -188,6 +241,25 @@ export default class MakeCard extends Component {
         });
     }
 
+    onChangeFontSize = (size) => {
+        console.log('size is ', size)
+        this.setState({
+            fontSize: size,
+        });
+    }
+    onChangeFontFamily = (font) => {
+        console.log('font is ', font)
+        this.setState({
+            fontFamily: font,
+        });
+    }
+    onChangeTextPosition = (position) => {
+        console.log('position is ', position)
+        this.setState({
+            textPostion: position
+        });
+
+    }
     renderEdit = () => {
         return (
             <View style={layoutStyle.container}>
@@ -266,104 +338,22 @@ export default class MakeCard extends Component {
                         <Text style={cardStyle.editCardTip}>
                             Font Family
                         </Text>
-                        <View style={cardStyle.editCardPositionContainer}>
-                            <ScrollView
-                                style={cardStyle.container}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                <View style={[cardStyle.container]}>
-                                    <FlatList
-                                        style={[{flexDirection: 'column'}]}
-                                        numColumns={2}
-                                        data={fonts}
-                                        extraData={this.state}
-                                        renderItem={({item, index}) => (
-                                            <CheckBox
-                                                title={item}
-                                                fontFamily={item}
-                                                key={index}
-                                                checked={this.state.check[index]}
-                                                onPress={() => this.updateFont(item, index)}
-                                            />
-                                        )}
-                                    />
-                                </View>
+                        <Dropdown
+                            label='Font Size'
+                            data={fontSize}
+                            onChangeText={this.onChangeFontSize}
+                        />
+                        <Dropdown
+                            label='Font Family'
+                            data={fontFamily}
+                            onChangeText={this.onChangeFontFamily}
+                        />
+                        <Dropdown
+                            label='Text Position'
+                            data={textPostion}
+                            onChangeText={this.onChangeTextPosition}
+                        />
 
-                            </ScrollView>
-                        </View>
-                        <Text style={cardStyle.editCardTip}>
-                            Text Position
-                        </Text>
-                        <View style={cardStyle.editCardPositionContainer}>
-                            <ScrollView
-                                style={cardStyle.container}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            >
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                                        <View style={cardStyle.container}>
-                                            <TextPositionButton positionType="topLeft"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-                                            <TextPositionButton positionType="bottomLeft"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-                                            <TextPositionButton positionType="center"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-
-
-                                        </View>
-                                        <View style={cardStyle.container}>
-                                            <TextPositionButton positionType="topCenter"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-                                            <TextPositionButton positionType="bottomCenter"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-
-                                        </View>
-                                        <View style={cardStyle.container}>
-                                            <TextPositionButton positionType="topRight"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-                                            <TextPositionButton positionType="bottomRight"
-                                                                selectedName={this.state.selectedName}
-                                                                selectedValue={this.state.selectedValue}
-                                                                handleSelect={this.onHandleSelect}/>
-
-
-                                        </View>
-                                    </View>
-                                </View>
-                            </ScrollView>
-                        </View>
-                        <Text style={cardStyle.editCardTip}>
-                            Font Size
-                        </Text>
-
-                        <View style={cardStyle.container}>
-                            <Picker style={cardStyle.pickerContainer}
-                                    selectedValue={this.state.fontSize}
-                                    onValueChange={this.updateFontSize}
-                            >
-                                <Picker.Item label="32" value={32}/>
-                                <Picker.Item label="48" value={48}/>
-                                <Picker.Item label="50" value={50}/>
-                                <Picker.Item label="54" value={54}/>
-                                <Picker.Item label="58" value={58}/>
-                                <Picker.Item label="60" value={60}/>
-
-                            </Picker>
-                        </View>
                     </View>
 
 
