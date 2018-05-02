@@ -37,8 +37,7 @@ import layoutStyle from '../../styles/layout';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-const iOS_fonts = ['SnellRoundhand-Bold', 'Baskerville-Italic', 'Bradley Hand', 'Noteworthy-Bold', 'Party LET', 'Papyrus', 'SnellRoundhand-Bold', 'Zapfino']
-const fonts = iOS_fonts;
+
 const fontFamily = [{
     value: 'Academy Engraved LET'
 }, {
@@ -204,7 +203,7 @@ const textPostion = [{
     value: 'bottomRight'
 }, {
     value: 'center'
-},]
+}]
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -217,7 +216,6 @@ export default class MakeCard extends Component {
             signin: false,
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
-            check: [],
             fontFamily: 'SnellRoundhand-Bold',
             fontSize: 48,
         }
