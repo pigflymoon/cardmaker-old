@@ -6,16 +6,21 @@ import {
     ImageBackground,
     TouchableHighlight,
     TouchableOpacity,
+
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
 import {auth} from '../../config/FirebaseConfig';
 
 import {Icon, Card, Button} from 'react-native-elements';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import bg from '../../assets/images/noWifiBg.png';
 
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
 import cardStyle from '../../styles/card';
+import showInfo from '../../styles/showInfo';
 
 import {
     renderAuthBox,
@@ -142,6 +147,45 @@ export default class MyCards extends Component {
         );
     }
 
+    renderEmptyStates = () => {
+        return (
+            <View style={cardStyle.container}>
+                <ImageBackground
+                    source={bg}
+                    style={{
+                        flex: 1,
+                        width: null,
+                        height: 400,
+                    }}
+                >
+                    <View style={showInfo.container}><Text style={showInfo.greyText}>Oops,No cards!</Text>
+                        <TouchableOpacity style={{
+                            paddingLeft: 8,
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start'
+                        }}>
+                            <Ionicons
+                                name={'ios-return-left'}
+                                size={28}
+                                style={{color: colors.secondary2, paddingRight: 20,}}
+                                onPress={() => {
+                                    {
+                                        this.props.navigation.goBack();
+                                    }
+
+                                }}
+                            />
+                            <Text style={showInfo.greyText}>Start Swiping to choose. Have fun!</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground >
+
+            </View>
+        );
+    }
+
     renderCards() {
         return (
             <GridView
@@ -176,11 +220,13 @@ export default class MyCards extends Component {
             )
         }
         if (!renderSign) {
-            {return renderAuthBox(this.state.isLoading,navigation)}
+            {
+                return renderAuthBox(this.state.isLoading, navigation)
+            }
         } else {
             return (
                 <View style={layoutStyle.container}>
-                    {this.renderHeader()}
+                    {this.renderEmptyStates()}
                 </View>
             )
         }

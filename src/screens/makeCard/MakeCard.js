@@ -28,11 +28,14 @@ import {ColorWheel} from 'react-native-color-wheel';
 import Marker from 'react-native-image-marker'
 import {Dropdown} from 'react-native-material-dropdown';
 import {auth} from '../../config/FirebaseConfig';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import bg from '../../assets/images/noWifiBg.png';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
+import showInfo from '../../styles/showInfo';
 
 import {
     renderAuthBox,
@@ -138,8 +141,8 @@ const fontFamily = [{
     value: 'Menlo'
 }, {
     value: 'Noteworthy'
-},{
-    value:'Noteworthy-Bold'
+}, {
+    value: 'Noteworthy-Bold'
 }, {
     value: 'Optima-BoldItalic'
 }, {
@@ -407,8 +410,8 @@ export default class MakeCard extends Component {
                             data={fontSize}
                             onChangeText={this.onChangeFontSize}
                         />
-                        <Text style={[cardStyle.editCardTip,{fontFamily:this.state.fontFamily}]}>
-                           selected: {this.state.fontFamily}
+                        <Text style={[cardStyle.editCardTip, {fontFamily: this.state.fontFamily}]}>
+                            selected: {this.state.fontFamily}
                         </Text>
                         <Dropdown
                             label='Font Family'
@@ -448,22 +451,57 @@ export default class MakeCard extends Component {
         )
     }
 
+    renderEmptyStates = () => {
+        return (
+            <View style={cardStyle.container}>
+                <ImageBackground
+                    source={bg}
+                    style={{
+                        flex: 1,
+                        width: null,
+                        height: 400,
+                    }}
+                >
+                    <View style={showInfo.container}><Text style={showInfo.greyText}>Oops,No cards!</Text>
+                        <TouchableOpacity style={{
+                            paddingLeft: 8,
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start'
+                        }}>
+                            <Ionicons
+                                name={'ios-return-left'}
+                                size={28}
+                                style={{color: colors.secondary2, paddingRight: 20,}}
+                                onPress={() => {
+                                    {
+                                        this.props.navigation.goBack();
+                                    }
+
+                                }}
+                            />
+                            <Text style={showInfo.greyText}>Start Swiping to choose. Have fun!</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground >
+
+            </View>
+        );
+    }
+
     render() {
         var navigation = this.props.navigation;
+        var renderCard = ((this.state.makeCard.length > 0) && this.state.signin);
 
-        if ((this.state.makeCard) && (this.state.signin)) {
+        if (renderCard) {
             return this.renderEdit();
 
         }
         else if (this.state.signin) {
             return (
-                <View style={cardStyle.container}>
-                    <Card title='Welcome to cardmaker'>
-                        <Text style={{marginBottom: 10}}>
-                            Please choose picture to make card
-                        </Text>
-
-                    </Card>
+                <View style={layoutStyle.container}>
+                    {this.renderEmptyStates()}
                 </View>
             )
         } else {
