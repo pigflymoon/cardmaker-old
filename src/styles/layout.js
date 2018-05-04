@@ -25,22 +25,6 @@ export default{
     loadingBackgroundStyle: {
         backgroundColor: colors.secondary4,
     },
-    cardContainer: {
-        borderRadius: 5,
-    },
-    cardInnerwrapper: {
-        paddingTop: 6,
-        paddingBottom: 2,
-
-    },
-    cardImage: {
-        flex: 1,
-        // justifyContent: "center",
-        alignSelf: 'center',
-        height: 330,
-        width: 330,
-
-    },
     textWrapper: {
         paddingHorizontal: 10,
     },

@@ -14,6 +14,7 @@ import {Card,} from 'react-native-elements';
 import {db} from '../../config/FirebaseConfig';
 
 import layoutStyle from '../../styles/layout';
+import exploreStyle from '../../styles/explore';
 
 let paidReferenceToOldestKey = '', lastPaidKey = '';
 
@@ -179,9 +180,8 @@ export default class CardsGallery extends Component {
                             key={`${item.id}`}
                             image={{uri: item.uri}}
                             featuredTitle={item.name}
-                            imageStyle={layoutStyle.cardImage}
-                            containerStyle={layoutStyle.cardContainer}
-                            wrapperStyle={layoutStyle.cardInnerwrapper}
+                            imageStyle={exploreStyle.cardImage}
+                            containerStyle={exploreStyle.cardContainer}
                         />
 
                     }
