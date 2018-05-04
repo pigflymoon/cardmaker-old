@@ -78,16 +78,16 @@ export default{
         margin: 10,
     },
     //
-    imageListContainer: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
-        // flexGrow: 1.5,
-        height: 300,
-
-    },
+    // imageListContainer: {
+    //     flex: 1,
+    //     backgroundColor: '#F5FCFF',
+    //     flexDirection: 'row',
+    //     width: '100%',
+    //     justifyContent: 'space-between',
+    //     // flexGrow: 1.5,
+    //     height: 300,
+    //
+    // },
     imageContainer: {
         justifyContent: 'flex-start',
         paddingRight: 15,
