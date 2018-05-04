@@ -248,6 +248,7 @@ export default class MakeCard extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = nextProps.navigation.state.params.chooseCards;
+        console.log('make card is ', makeCard)
         this.setState({makeCard: makeCard});
     }
 
@@ -428,7 +429,7 @@ export default class MakeCard extends Component {
 
 
                 </ScrollView>
-                <View style={{
+                <ScrollView style={{
                     flex: 1, flexGrow: 2,
                 }}>
 
@@ -444,7 +445,7 @@ export default class MakeCard extends Component {
                                 />
                         }
                     </View>
-                </View>
+                </ScrollView>
 
 
             </View>
@@ -492,7 +493,9 @@ export default class MakeCard extends Component {
 
     render() {
         var navigation = this.props.navigation;
-        var renderCard = ((this.state.makeCard.length > 0) && this.state.signin);
+        var renderCard = ((this.state.makeCard) !== null && this.state.signin);
+        console.log('make card length is', (this.state.makeCard) !== null)
+        console.log('sign is', this.state.signin)
 
         if (renderCard) {
             return this.renderEdit();

@@ -1360,7 +1360,7 @@
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "7933089a-ec55-42c1-a382-5579851b386d";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1405,7 +1405,7 @@
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "7933089a-ec55-42c1-a382-5579851b386d";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
