@@ -25,7 +25,7 @@ import showInfo from '../../styles/showInfo';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-var makeCard = [];
+var makeCard = {};
 export default class MyCards extends Component {
     constructor(props, context) {
         super(props, context);

@@ -102,6 +102,9 @@ export default class Utils {
 
         return re.test(email);
     }
+
+    static isEmptyObject = (obj) => Object.keys(obj).length === 0 && (obj).constructor === Object
+
     static renderOffline = () => {
         return (
             <ImageBackground

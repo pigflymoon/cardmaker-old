@@ -21,14 +21,15 @@ import {
     FormInput,
     FormLabel,
     FormValidationMessage,
-    Card,
-    CheckBox
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
 import Marker from 'react-native-image-marker'
 import {Dropdown} from 'react-native-material-dropdown';
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import  Utils from '../../utils/utils';
+
 
 import bg from '../../assets/images/noWifiBg.png';
 import formStyle from '../../styles/form';
@@ -40,173 +41,8 @@ import showInfo from '../../styles/showInfo';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
+import CardConfig from '../../config/CardConfig';
 
-const fontFamily = [{
-    value: 'Academy Engraved LET'
-}, {
-    value: 'AcademyEngravedLetPlain'
-}, {
-    value: 'Al Nile'
-}, {
-    value: 'AlNile-Bold'
-}, {
-    value: 'American Typewriter'
-}, {
-    value: 'AmericanTypewriter-Bold'
-}, {
-    value: 'AmericanTypewriter-Condensed'
-}, {
-    value: 'AmericanTypewriter-CondensedBold'
-}, {
-    value: 'Apple Color Emoji'
-}, {
-    value: 'Apple SD Gothic Neo'
-}, {
-    value: 'AppleSDGothicNeo-Bold'
-}, {
-    value: 'Arial'
-}, {
-    value: 'Arial-BoldItalicMT'
-}, {
-    value: 'Arial-BoldMT'
-}, {
-    value: 'ArialHebrew-Bold'
-}, {
-    value: 'ArialMT'
-}, {
-    value: 'Avenir'
-}, {
-    value: 'AvenirNext-DemiBoldItalic'
-}, {
-    value: 'Bangla Sangam MN'
-}, {
-    value: 'Baskerville-Bold'
-}, {
-    value: 'Bodoni 72'
-}, {
-    value: 'Bodoni 72 Oldstyle'
-}, {
-    value: 'Bradley Hand'
-}, {
-    value: 'BradleyHandITCTT-Bold'
-}, {
-    value: 'Chalkboard SE'
-}, {
-    value: 'ChalkboardSE-Bold'
-}, {
-    value: 'Chalkduster'
-}, {
-    value: 'Cochin-Bold'
-}, {
-    value: 'Cochin-BoldItalic'
-}, {
-    value: 'Courier'
-}, {
-    value: 'DamascusBold'
-}, {
-    value: 'Didot',
-}, {
-    value: 'Didot-Bold'
-}, {
-    value: 'Didot-Italic'
-}, {
-    value: 'EuphemiaUCAS-Bold'
-}, {
-    value: 'Farah'
-}, {
-    value: 'Futura'
-}, {
-    value: 'GeezaPro-Bold'
-}, {
-    value: 'Georgia-Bold'
-}, {
-    value: 'Gill Sans'
-}, {
-    value: 'GillSans-Bold'
-}, {
-    value: 'GillSans-Italic'
-}, {
-    value: 'GujaratiSangamMN-Bold'
-}, {
-    value: 'Helvetica'
-}, {
-    value: 'Helvetica-Bold'
-}, {
-    value: 'HelveticaNeue-Bold'
-}, {
-    value: 'HelveticaNeue-Italic'
-}, {
-    value: 'Marker Felt'
-}, {
-    value: 'Menlo'
-}, {
-    value: 'Noteworthy'
-}, {
-    value: 'Noteworthy-Bold'
-}, {
-    value: 'Optima-BoldItalic'
-}, {
-    value: 'Palatino-Bold'
-}, {
-    value: 'Palatino-BoldItalic'
-}, {
-    value: 'Papyrus'
-}, {
-    value: 'Party LET'
-}, {
-    value: 'PartyLetPlain'
-}, {
-    value: 'Savoye LET'
-}, {
-    value: 'SnellRoundhand-Bold'
-}, {
-    value: 'Times New Roman'
-}, {
-    value: 'TimesNewRomanPS-BoldItalicMT'
-}, {
-    value: 'Trebuchet-BoldItalic'
-}, {
-    value: 'Verdana-BoldItalic'
-}, {
-    value: 'Zapf Dingbats'
-}, {
-    value: 'Zapfino'
-}
-]
-const fontSize = [{
-    value: 32,
-}, {
-    value: 48,
-}, {
-    value: 50,
-}, {
-    value: 52
-}, {
-    value: 54
-}, {
-    value: 58
-}, {
-    value: 64
-}, {
-    value: 72
-},
-];
-
-const textPostion = [{
-    value: 'topLeft'
-}, {
-    value: 'topCenter'
-}, {
-    value: 'topRight'
-}, {
-    value: 'bottomLeft'
-}, {
-    value: 'bottomCenter'
-}, {
-    value: 'bottomRight'
-}, {
-    value: 'center'
-}]
 export default class MakeCard extends Component {
 
     constructor(props) {
@@ -247,7 +83,7 @@ export default class MakeCard extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        var makeCard = nextProps.navigation.state.params.chooseCards;
+        var makeCard = (nextProps.navigation.state.params.chooseCards);
         console.log('make card is ', makeCard)
         this.setState({makeCard: makeCard});
     }
@@ -408,7 +244,7 @@ export default class MakeCard extends Component {
                     <View style={[cardStyle.container, cardStyle.wrapper]}>
                         <Dropdown
                             label='Font Size'
-                            data={fontSize}
+                            data={CardConfig.fontSize}
                             onChangeText={this.onChangeFontSize}
                         />
                         <Text style={[cardStyle.editCardTip, {fontFamily: this.state.fontFamily}]}>
@@ -416,12 +252,12 @@ export default class MakeCard extends Component {
                         </Text>
                         <Dropdown
                             label='Font Family'
-                            data={fontFamily}
+                            data={CardConfig.fontFamily}
                             onChangeText={this.onChangeFontFamily}
                         />
                         <Dropdown
                             label='Text Position'
-                            data={textPostion}
+                            data={CardConfig.textPostion}
                             onChangeText={this.onChangeTextPosition}
                         />
 
@@ -482,7 +318,8 @@ export default class MakeCard extends Component {
 
                                 }}
                             />
-                            <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have fun! </Text>
+                            <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have
+                                fun! </Text>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground >
@@ -493,8 +330,10 @@ export default class MakeCard extends Component {
 
     render() {
         var navigation = this.props.navigation;
-        var renderCard = ((this.state.makeCard).length > 0 && this.state.signin);
-        console.log('make card length is', (this.state.makeCard))
+        var card = Utils.isEmptyObject(this.state.makeCard)
+        var renderCard = (!card && this.state.signin);
+
+        console.log('make card is Empty Object', card)
         console.log('sign is', this.state.signin)
 
         if (renderCard) {
