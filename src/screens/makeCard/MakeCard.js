@@ -253,7 +253,7 @@ export default class MakeCard extends Component {
     }
 
     componentWillUnmount() {
-        this.setState({makeCard: null});
+        this.setState({makeCard: []});
     }
 
     setWishwords = (text) => {
@@ -482,7 +482,7 @@ export default class MakeCard extends Component {
 
                                 }}
                             />
-                            <Text style={showInfo.greyText}>Start Swiping to choose. Have fun!</Text>
+                            <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have fun! </Text>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground >
@@ -493,8 +493,8 @@ export default class MakeCard extends Component {
 
     render() {
         var navigation = this.props.navigation;
-        var renderCard = ((this.state.makeCard) !== null && this.state.signin);
-        console.log('make card length is', (this.state.makeCard) !== null)
+        var renderCard = ((this.state.makeCard).length > 0 && this.state.signin);
+        console.log('make card length is', (this.state.makeCard))
         console.log('sign is', this.state.signin)
 
         if (renderCard) {

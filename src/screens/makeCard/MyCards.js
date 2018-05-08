@@ -177,7 +177,7 @@ export default class MyCards extends Component {
 
                                 }}
                             />
-                            <Text style={showInfo.greyText}>Start Swiping to choose. Have fun!</Text>
+                            <Text style={showInfo.greyText}>Start Swiping to choose. Enjoy!</Text>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground >
