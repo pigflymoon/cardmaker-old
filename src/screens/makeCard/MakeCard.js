@@ -57,6 +57,8 @@ export default class MakeCard extends Component {
             textColor: colors.primary1,
             fontFamily: 'SnellRoundhand-Bold',
             fontSize: 48,
+            fontStyle: 'normal',
+            fontWeight: 'normal',
         }
     }
 
@@ -154,6 +156,14 @@ export default class MakeCard extends Component {
             fontFamily: font,
         });
     }
+
+    onChangeFontStyle = (style) => {
+        this.setState({fontStyle: style});
+    }
+
+    onChangeFontWeight = (weight) => {
+        this.setState({fontStyle: weight});
+    }
     onChangeTextPosition = (position) => {
         console.log('position is ', position)
         this.setState({
@@ -247,14 +257,13 @@ export default class MakeCard extends Component {
                             data={CardConfig.fontSize}
                             onChangeText={this.onChangeFontSize}
                         />
-                        <Text style={[cardStyle.editCardTip, {fontFamily: this.state.fontFamily}]}>
-                            selected: {this.state.fontFamily}
-                        </Text>
                         <Dropdown
                             label='Font Family'
                             data={CardConfig.fontFamily}
+                            setFontFamily={true}
                             onChangeText={this.onChangeFontFamily}
                         />
+
                         <Dropdown
                             label='Text Position'
                             data={CardConfig.textPostion}

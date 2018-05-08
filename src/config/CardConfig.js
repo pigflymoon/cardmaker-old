@@ -162,6 +162,17 @@ export default CardConfig = {
     }, {
         value: 'Zapfino'
     }
-    ]
+    ],
+    fontStyle: [{
+        value: 'normal'
+    }, {
+        value: 'bold'
+    }
+    ],
+    fontWeight: [{
+        value: 'normal',
+    }, {
+        value: 'bold'
+    }]
 
 };
