@@ -35,6 +35,8 @@ import {HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT} from '../.
 
 import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
+import bg1 from '../../assets/images/bg1.jpg';
+
 import {
     getFreeImages,
 } from '../../utils/FetchImagesByApi';
@@ -222,11 +224,11 @@ export default class Explore extends Component {
 
         console.log('data', data)
         return (
-            <View style={{flexDirection: 'row',alignItems:'flex-end',}}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end',marginTop:20, }}>
 
                 {data.map((image, index) => (
                     <View style={{
-                        flex: 1,  marginHorizontal: 5,
+                        flex: 1, marginHorizontal: 5,
                         justifyContent: 'center',
                     }}>
                         <Avatar
@@ -263,6 +265,20 @@ export default class Explore extends Component {
             outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
             extrapolate: 'clamp',
         });
+
+
+        const imageOpacity = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+            outputRange: [1, 1, 0],
+            extrapolate: 'clamp',
+        });
+        const imageTranslate = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE],
+            outputRange: [0, -50],
+            extrapolate: 'clamp',
+        });
+
+
         // console.log('data is ',this.state.latestotherImages)
 
         return (
@@ -350,12 +366,24 @@ export default class Explore extends Component {
                             {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
                     </ScrollView>
-                    <Animated.View style={[exploreStyle.header, {height: headerHeight}]}>
-                        <View style={exploreStyle.bar}>
-                          <Text style={exploreStyle.title}>Title</Text>
-                        </View>
-                        {this.renderBanner(this.state.latestImages, 'New images', 'Browse All', (!this.state.contentIsLoading))}
 
+
+                    <Animated.View style={[exploreStyle.header, {height: headerHeight}]}>
+                        <Animated.View
+                            style={[
+                                exploreStyle.backgroundImage,
+                                {opacity: imageOpacity, transform: [{translateY: imageTranslate}]},
+                            ]}
+                        >
+                            {this.renderBanner(this.state.latestImages, 'New images', 'Browse All', (!this.state.contentIsLoading))}
+
+                        </Animated.View>
+                        <Animated.View>
+                            <View style={exploreStyle.bar}>
+                                <Text style={exploreStyle.title}>Title</Text>
+                            </View>
+
+                        </Animated.View>
                     </Animated.View>
 
                 </Loader>

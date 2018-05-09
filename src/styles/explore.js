@@ -36,13 +36,12 @@ export default {
         overflow: 'hidden',
     },
     bar: {
-        marginTop: 32,
+        marginTop: 28,
         height: 32,
         alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
-
         backgroundColor: 'transparent',
         color: 'white',
     },
@@ -51,5 +50,14 @@ export default {
     },
     scrollViewContent: {
         marginTop: HEADER_MAX_HEIGHT,
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        width: null,
+        height: HEADER_MAX_HEIGHT,
+        // resizeMode: 'cover',
     },
 }
