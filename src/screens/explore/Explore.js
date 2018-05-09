@@ -16,7 +16,7 @@ import {
 import {
     Icon,
     Avatar,
-
+    Button,
 } from 'react-native-elements';
 import VersionCheck from 'react-native-version-check';
 
@@ -224,7 +224,7 @@ export default class Explore extends Component {
 
         console.log('data', data)
         return (
-            <View style={{flexDirection: 'row', alignItems: 'flex-end',marginTop:20, }}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 20,}}>
 
                 {data.map((image, index) => (
                     <View style={{
@@ -278,6 +278,16 @@ export default class Explore extends Component {
             extrapolate: 'clamp',
         });
 
+        const bannerOpacity = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+            outputRange: [0, 1, 1],
+            extrapolate: 'clamp',
+        });
+        const bannerTranslate = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE],
+            outputRange: [0, 50],
+            extrapolate: 'clamp',
+        });
 
         // console.log('data is ',this.state.latestotherImages)
 
@@ -380,7 +390,19 @@ export default class Explore extends Component {
                         </Animated.View>
                         <Animated.View>
                             <View style={exploreStyle.bar}>
-                                <Text style={exploreStyle.title}>Title</Text>
+                                <Animated.View style={[exploreStyle.showBanner,{opacity: bannerOpacity,}]}>
+                                    <Text style={[exploreStyle.title]}>
+                                        It's Ok to want them all!</Text>
+                                    <Icon
+                                        raised
+                                        name='key'
+                                        type='font-awesome'
+                                        color={colors.primary3}
+                                        size={22}
+                                        onPress={() => console.log('hello')} />
+                                </Animated.View>
+
+
                             </View>
 
                         </Animated.View>

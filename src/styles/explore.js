@@ -6,7 +6,7 @@ import colors from '../styles/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
-export const HEADER_MAX_HEIGHT = 200;
+export const HEADER_MAX_HEIGHT = 120;
 export const HEADER_MIN_HEIGHT = 60;
 export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
@@ -32,12 +32,12 @@ export default {
         top: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#03A9F4',
+        backgroundColor: colors.primary3,
+        opacity: 0.9,
         overflow: 'hidden',
     },
     bar: {
-        marginTop: 28,
-        height: 32,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -60,4 +60,12 @@ export default {
         height: HEADER_MAX_HEIGHT,
         // resizeMode: 'cover',
     },
+    showBanner: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+
+    }
 }
