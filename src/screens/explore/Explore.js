@@ -11,6 +11,7 @@ import {
     Dimensions,
     Linking,
     Alert,
+    Animated,
 } from 'react-native';
 import {
     Icon,
@@ -23,9 +24,12 @@ import Placeholder from 'rn-placeholder';
 
 import layoutStyle from '../../styles/layout';
 import carouselStyle from '../../styles/carousel';
+import exploreStyle from '../../styles/explore';
+
 import colors from '../../styles/colors';
 
 import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
+import {HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT} from '../../styles/explore';
 
 import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
@@ -58,25 +62,27 @@ export default class Explore extends Component {
             holidayImages: [],
             weddingImages: [],
             otherImages: [],
+            latestImages: [],
 
             appReady: false,
             rootKey: Math.random(),
-            connectionInfo: this.props.screenProps.connectionInfo
+            connectionInfo: this.props.screenProps.connectionInfo,
+            scrollY: new Animated.Value(0),
         };
         this.maskImage = logo;
+
     }
 
 
     fetchImages = (cardType) => {
-        var self = this;
-        //
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
-
                 getFreeImages(cardType).then(function (images) {
-                    self.setState({[cardType]: images});
+                    resolve(images)
+                    // self.setState({[cardType]: images});
+
                 });
 
 
@@ -97,14 +103,14 @@ export default class Explore extends Component {
             'Update to the latest version',
             'Cardmaker App?',
             [
-            {text: 'OK', onPress: () => Linking.openURL(downloadUrl)}, // open store if update is needed.
-            {text: 'Download next time', onPress: () => console.log('update later')}
-        ])
+                {text: 'OK', onPress: () => Linking.openURL(downloadUrl)}, // open store if update is needed.
+                {text: 'Download next time', onPress: () => console.log('update later')}
+            ])
     }
 
     componentWillMount() {
 
-
+        var self = this;
         VersionCheck.needUpdate()
             .then(async res => {
                 console.log(res.isNeeded);    // true
@@ -112,10 +118,33 @@ export default class Explore extends Component {
                     this.showAlert();
                 }
             });
-        this.fetchImages(birthdayImages);
-        this.fetchImages(holidayImages);
-        this.fetchImages(weddingImages);
-        this.fetchImages(otherImages);
+
+        Promise.all([this.fetchImages(birthdayImages), this.fetchImages(holidayImages), this.fetchImages(weddingImages), this.fetchImages(otherImages)])
+            .then(function (results) {
+                let latestbirthDayImages = results[0][0];
+                let latestholidayImages = results[1][0];
+                let latestweddingImages = results[2][0];
+                let latestotherImages = results[3][0];
+                let latestImages = [];
+                latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages)
+                console.log('latestImages : ', latestImages)
+
+
+                self.setState(
+                    {
+                        birthdayImages: results[0],
+                        holidayImages: results[1],
+                        weddingImages: results[2],
+                        otherImages: results[3],
+                        latestImages: latestImages
+
+                    });
+                // do something with result1 and result2
+                // available as results[0] and results[1] respectively
+            })
+            .catch(function (err) { /* ... */
+            });
+
 
         this.setState({
             contentIsLoading: true
@@ -128,6 +157,7 @@ export default class Explore extends Component {
 
     componentDidMount() {
         this.resetAnimation();
+
     }
 
     componentWillUnmount() {
@@ -201,6 +231,12 @@ export default class Explore extends Component {
         if (!isConnected) {
             return Utils.renderOffline();
         }
+        const headerHeight = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE],
+            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+            extrapolate: 'clamp',
+        });
+        // console.log('data is ',this.state.latestotherImages)
 
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
@@ -211,9 +247,14 @@ export default class Explore extends Component {
                 >
                     <ScrollView
                         style={carouselStyle.scrollView}
-                        scrollEventThrottle={200}
-                        directionalLockEnabled={true}>
-                        <View style={layoutStyle.container}>
+
+                        directionalLockEnabled={true}
+                        scrollEventThrottle={16}
+                        onScroll={Animated.event(
+                            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                        )}
+                    >
+                        <View style={[layoutStyle.container, exploreStyle.scrollViewContent]}>
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Birthday'}</Text>
@@ -282,6 +323,12 @@ export default class Explore extends Component {
                             {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
                     </ScrollView>
+                    <Animated.View style={[exploreStyle.header, {height: headerHeight}]}>
+                        <View style={exploreStyle.bar}>
+                            <Text style={exploreStyle.title}>Title</Text>
+                        </View>
+                    </Animated.View>
+
                 </Loader>
             </View>
         );
