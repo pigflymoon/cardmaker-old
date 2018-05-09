@@ -1,6 +1,8 @@
 import {
     Dimensions,
 } from 'react-native';
+import colors from '../styles/colors';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
@@ -13,12 +15,6 @@ export default {
         // borderRadius: 5,
         // width: IMAGE_SIZE,
         paddingTop: 20,
-    },
-    cardInnerwrapper: {
-        // paddingTop: 2,
-        // paddingBottom: 2,
-
-
     },
     cardImage: {
         flex: 1,
@@ -40,15 +36,18 @@ export default {
         overflow: 'hidden',
     },
     bar: {
-        marginTop: 28,
+        marginTop: 32,
         height: 32,
         alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
+
         backgroundColor: 'transparent',
         color: 'white',
-        fontSize: 18,
+    },
+    newFeatures: {
+        color: colors.secondary2,
     },
     scrollViewContent: {
         marginTop: HEADER_MAX_HEIGHT,

@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import {
     Icon,
+    Avatar,
+
 } from 'react-native-elements';
 import VersionCheck from 'react-native-version-check';
 
@@ -35,7 +37,6 @@ import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
 import {
     getFreeImages,
-    getAllImages,
 } from '../../utils/FetchImagesByApi';
 import  Utils from '../../utils/utils';
 
@@ -217,6 +218,32 @@ export default class Explore extends Component {
         );
     }
 
+    renderBanner = (data) => {
+
+        console.log('data', data)
+        return (
+            <View style={{flexDirection: 'row',alignItems:'flex-end',}}>
+
+                {data.map((image, index) => (
+                    <View style={{
+                        flex: 1,  marginHorizontal: 5,
+                        justifyContent: 'center',
+                    }}>
+                        <Avatar
+                            key={index}
+                            large
+                            rounded
+                            source={{uri: image.illustration}}
+                            onPress={() => console.log("Works!")}
+                            activeOpacity={0.7}
+                        />
+                        <Text style={exploreStyle.title}>{'New Images'}</Text>
+
+                    </View>))}
+            </View>
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
         if (this.props.screenProps.isConnected == false && isConnected == true) {
@@ -325,8 +352,10 @@ export default class Explore extends Component {
                     </ScrollView>
                     <Animated.View style={[exploreStyle.header, {height: headerHeight}]}>
                         <View style={exploreStyle.bar}>
-                            <Text style={exploreStyle.title}>Title</Text>
+                          <Text style={exploreStyle.title}>Title</Text>
                         </View>
+                        {this.renderBanner(this.state.latestImages, 'New images', 'Browse All', (!this.state.contentIsLoading))}
+
                     </Animated.View>
 
                 </Loader>
