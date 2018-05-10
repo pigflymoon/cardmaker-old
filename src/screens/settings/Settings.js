@@ -16,17 +16,17 @@ import {
 } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 
-import {List, ListItem, Card,} from 'react-native-elements';
+import {List, ListItem, Card, Icon} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {auth, db} from '../../config/FirebaseConfig';
-// var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
-// var verifyHost = verifysandboxHost;
+var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
+var verifyHost = verifysandboxHost;
 
-var verifyproductionHost = Config.receiptVerify.Host.productionHost;
-var verifyHost = verifyproductionHost;
+// var verifyproductionHost = Config.receiptVerify.Host.productionHost;
+// var verifyHost = verifyproductionHost;
 
 import {onceGetReceipts, doCreateReceipt} from '../../config/db';
 
@@ -43,6 +43,7 @@ export default class Settings extends Component {
         this.state = {
             version: '2.0.1',
             isPro: 'DISABLED',
+            unlock: false,
             showProData: false,//remove in-purchase
 
         };
@@ -58,7 +59,7 @@ export default class Settings extends Component {
         Utils.shareText(message, url)
     }
 
-    onRate() {
+    onRate = () => {
         let link = 'https://itunes.apple.com/nz/app/cardmaker-app/id1318023993';
         //
         if (Platform.OS === 'ios') {
@@ -160,6 +161,7 @@ export default class Settings extends Component {
             }
         });
     }
+
     onRestore = () => {
         InAppUtils.restorePurchases((error, response) => {
             if (error) {
@@ -188,9 +190,10 @@ export default class Settings extends Component {
             }
         });
     }
+
     onProversion = () => {
         this.props.navigation.navigate('Proversion', {});
-    };
+    }
 
     sendRecipt = (receipt) => {
         var transactionKey = ((receipt.in_app)[0].transaction_id) ? ( (receipt.in_app)[0].transaction_id).toString() : null;
@@ -233,6 +236,7 @@ export default class Settings extends Component {
         }
 
     }
+
     getUserRole = () => {
         var self = this;
         auth.onAuthStateChanged(function (authUser) {
@@ -258,6 +262,13 @@ export default class Settings extends Component {
         });
     }
 
+    toggleUnlockSwitch = (value) => {
+        console.log('unlock', value)
+        this.props.navigation.navigate('UnLock');
+        // this.setState({unlock: value})
+
+    }
+
     componentWillMount() {
 
         VersionCheck.getLatestVersion({
@@ -277,6 +288,16 @@ export default class Settings extends Component {
         return (
             <ScrollView>
                 <List>
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        hideChevron
+                        leftIcon={{name: 'notifications', color: colors.grey2}}
+                        title={` It's Ok to want them all!`}
+                        switchOnTintColor={colors.primary1}
+                        switchButton
+                        onSwitch={this.toggleUnlockSwitch}
+                        switched={this.state.unlock}
+                    />
                     <Card
                         containerStyle={{marginTop: 15, marginBottom: 15}}
                         title="Thank you for your support"

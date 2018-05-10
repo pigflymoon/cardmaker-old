@@ -24,6 +24,7 @@ import PolicyScreen from './screens/profile/PrivacyPolicy';
 import SettingsScreen from './screens/settings/Settings';
 import AboutScreen from './screens/settings/About';
 import ProversionScreen from './screens/settings/Proversion';
+import UnLockModalScreen from './screens/settings/UnLockModal';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from './styles/colors';
@@ -122,6 +123,51 @@ const ProfileTab = StackNavigator({
     //     mode: 'modal',
     // }
 )
+//
+
+const MainSettingsStack = StackNavigator({
+    Settings: {
+        screen: SettingsScreen,
+        navigationOptions: {
+            title: 'Settings',
+        },
+    },
+    About: {
+        screen: AboutScreen,
+        navigationOptions: {
+            title: 'About',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        }
+    },
+    Proversion: {
+        screen: ProversionScreen,
+        navigationOptions: {
+            title: 'PRO Version',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        },
+    },
+})
+
+
+const SettingsRootStack = StackNavigator(
+    {
+        Main: {
+            screen: MainSettingsStack,
+        },
+        UnLock: {
+            screen: UnLockModalScreen,
+        },
+    },
+    {
+        mode: 'modal',
+        headerMode: 'none',
+    }
+);
+
+
+//
 const SettingsTab = StackNavigator({
     Settings: {
         screen: SettingsScreen,
@@ -150,7 +196,7 @@ const SettingsTab = StackNavigator({
 const StacksInTabs = TabNavigator(
     {
         SettingsTab: {
-            screen: SettingsTab,
+            screen: SettingsRootStack,
             navigationOptions: {
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({tintColor, focused}) => (
