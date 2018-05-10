@@ -14,7 +14,7 @@ export default{
     title: {
         paddingHorizontal: 30,
         backgroundColor: 'transparent',
-        color: colors.grey1,
+        color: colors.white,
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center'
@@ -52,16 +52,20 @@ export default{
         height: SCREEN_HEIGHT,
         justifyContent: 'center',
     },
-    loginButton: {
+    button: {
         backgroundColor: colors.primary3,
         borderRadius: 5,
         height: 50,
         width: 200,
     },
-    authButtonContainer: {
-        alignSelf: 'center',
+    restoreButton:{
+        backgroundColor: colors.secondary2,
     },
-    loginTextButton: {
+    buttonContainer: {
+        alignSelf: 'center',
+        marginBottom: 10,
+    },
+    buttonText: {
         fontSize: 16,
         color: colors.white,
         fontWeight: 'bold',

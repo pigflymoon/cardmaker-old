@@ -21,35 +21,18 @@ const SLIDER_1_FIRST_ITEM = 1;
 
 export const ENTRIES1 = [
     {
-        title: 'Beautiful and dramatic Antelope Canyon',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+        title: 'Get all types of illustration with new illustrations always on the way',
         illustration: 'https://i.imgur.com/UYiroysl.jpg'
     },
     {
-        title: 'Earlier this morning, NYC',
-        subtitle: 'Lorem ipsum dolor sit amet',
+        title: 'Create unique color for your text',
         illustration: 'https://i.imgur.com/UPrs1EWl.jpg'
     },
     {
-        title: 'White Pocket Sunset',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
+        title: 'Make your own card with popular font family',
         illustration: 'https://i.imgur.com/MABUbpDl.jpg'
     },
-    {
-        title: 'Acrocorinth, Greece',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'https://i.imgur.com/KZsmUi2l.jpg'
-    },
-    {
-        title: 'The lone tree, majestic landscape of New Zealand',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/2nCt3Sbl.jpg'
-    },
-    {
-        title: 'Middle Earth, Germany',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/lceHsT6l.jpg'
-    }
+
 ];
 export  default class UnLockModal extends Component {
     constructor(props) {
@@ -136,7 +119,7 @@ export  default class UnLockModal extends Component {
                         <Icon
                             name='close'
                             type='font-awesome'
-                            color={colors.red1}
+                            color={colors.white}
                             size={22}
                             onPress={() => this.props.navigation.goBack()}
                         />
@@ -145,12 +128,22 @@ export  default class UnLockModal extends Component {
                     {this.renderSlide()}
                     <View>
                         <Button
-                            buttonStyle={unlockModalStyle.loginButton}
-                            containerViewStyle={unlockModalStyle.authButtonContainer}
+                            buttonStyle={unlockModalStyle.button}
+                            containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
                             title={'Unlock PRO Version'}
                             onPress={ this.unlockProVersion}
-                            textStyle={unlockModalStyle.loginTextButton}
+                            textStyle={unlockModalStyle.buttonText}
+                            loading={isLoading}
+                            disabled={isLoading}
+                        />
+                        <Button
+                            buttonStyle={[unlockModalStyle.button, unlockModalStyle.restoreButton]}
+                            containerViewStyle={unlockModalStyle.buttonContainer}
+                            activeOpacity={0.8}
+                            title={'Restore Purchase'}
+                            onPress={ this.unlockProVersion}
+                            textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}
                             disabled={isLoading}
                         />

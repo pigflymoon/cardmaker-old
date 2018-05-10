@@ -45,6 +45,14 @@ export default class SliderEntry extends Component {
                     { title.toUpperCase() }
                 </Text>
             ) : false;
+        const slideTitle = title ? (
+                <Text
+                    style={[styles.title]}
+                    numberOfLines={2}
+                >
+                    { title }
+                </Text>
+            ) : false;
 
         return (
             <TouchableOpacity
@@ -57,7 +65,7 @@ export default class SliderEntry extends Component {
                     <View style={[styles.radiusMask]} />
                 </View>
                 <View style={[styles.textContainer,]}>
-                    { uppercaseTitle }
+                    { slideTitle }
                     <Text
                         style={[styles.subtitle]}
                         numberOfLines={2}
