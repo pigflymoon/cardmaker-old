@@ -149,6 +149,19 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
+        SettingsTab: {
+            screen: SettingsTab,
+            navigationOptions: {
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                ),
+            },
+        },
         ExploreTab: {
             screen: ExploreTab,
             navigationOptions: {
@@ -193,19 +206,7 @@ const StacksInTabs = TabNavigator(
             }
 
         },
-        SettingsTab: {
-            screen: SettingsTab,
-            navigationOptions: {
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-settings' : 'ios-settings-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                ),
-            },
-        },
+
 
     },
     {

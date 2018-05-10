@@ -16,7 +16,6 @@ import {
 import {
     Icon,
     Avatar,
-    Button,
 } from 'react-native-elements';
 import VersionCheck from 'react-native-version-check';
 
