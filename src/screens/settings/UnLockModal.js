@@ -2,14 +2,21 @@ import React, {Component} from 'react';
 import {
     Text,
     View,
-    Button,
+    ScrollView,
+    ImageBackground,
 } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {
+    Icon,
+    Button
+} from 'react-native-elements';
 import SliderEntry from '../../components/SliderEntry';
 
 import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import unlockModalStyle from '../../styles/unlockModal';
 import colors from '../../styles/colors';
+import BG_IMAGE from '../../assets/images/gradient-bg.png';
+import layoutStyle from '../../styles/layout';
 const SLIDER_1_FIRST_ITEM = 1;
 
 export const ENTRIES1 = [
@@ -48,7 +55,8 @@ export  default class UnLockModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+            slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
+            isLoading: false,
         };
     }
 
@@ -68,7 +76,7 @@ export  default class UnLockModal extends Component {
 
         return (
             <View style={unlockModalStyle.exampleContainer}>
-                <Text style={unlockModalStyle.title}>{`Example`}</Text>
+                <Text style={unlockModalStyle.title}>{`PRO Version`}</Text>
                 <Carousel
                     ref={c => this._slider1Ref = c}
                     data={ENTRIES1}
@@ -79,7 +87,6 @@ export  default class UnLockModal extends Component {
                     firstItem={SLIDER_1_FIRST_ITEM}
                     inactiveSlideScale={0.94}
                     inactiveSlideOpacity={0.7}
-                    // inactiveSlideShift={20}
                     containerCustomStyle={unlockModalStyle.slider}
                     contentContainerCustomStyle={unlockModalStyle.sliderContentContainer}
                     loop={true}
@@ -106,15 +113,53 @@ export  default class UnLockModal extends Component {
     }
 
     render() {
+        const {
+            isLoading,
+        } = this.state;
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 30}}>This is a modal!</Text>
-                <Button
-                    onPress={() => this.props.navigation.goBack()}
-                    title="Dismiss"
-                />
-                {this.renderSlide()}
-            </View>
+            <ImageBackground
+                source={BG_IMAGE}
+                style={layoutStyle.bgImage}
+            >
+
+                <ScrollView style={{flex: 1,}}
+                            scrollEventThrottle={200}
+                            directionalLockEnabled={true}
+                >
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        marginLeft: 20,
+                        marginTop: 30,
+                    }}>
+                        <Icon
+                            name='close'
+                            type='font-awesome'
+                            color={colors.red1}
+                            size={22}
+                            onPress={() => this.props.navigation.goBack()}
+                        />
+
+                    </View>
+                    {this.renderSlide()}
+                    <View>
+                        <Button
+                            buttonStyle={unlockModalStyle.loginButton}
+                            containerViewStyle={unlockModalStyle.authButtonContainer}
+                            activeOpacity={0.8}
+                            title={'Unlock PRO Version'}
+                            onPress={ this.unlockProVersion}
+                            textStyle={unlockModalStyle.loginTextButton}
+                            loading={isLoading}
+                            disabled={isLoading}
+                        />
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+
+
+
         );
     }
 }
