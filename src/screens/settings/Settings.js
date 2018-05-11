@@ -79,7 +79,6 @@ export default class Settings extends Component {
         return Utils.goToURL(link);
     }
 
-
     onPay = () => {
         var self = this;
         InAppUtils.canMakePayments((enabled) => {
@@ -148,39 +147,6 @@ export default class Settings extends Component {
                 Alert.alert('IAP disabled');
             }
         });
-    }
-
-    onRestore = () => {
-        InAppUtils.restorePurchases((error, response) => {
-            if (error) {
-                Alert.alert('itunes Error', 'Could not connect to itunes store.');
-            } else {
-                if (response.length === 0) {
-                    Alert.alert('No Purchases', "We didn't find any purchases to restore.");
-                    return;
-                } else {
-                    var productIdentifier = Config.products.productIdentifier;
-
-                    response.forEach((purchase) => {
-                        if (purchase.productIdentifier === productIdentifier) {
-                            // Handle purchased product.
-                            this.setState({showProData: true, isPro: 'Available'});
-                            // AsyncStorage.setItem('dataSource', 'true');
-                            //update db user
-                            this.upDateRole();
-
-                            Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
-
-                        }
-                    });
-                }
-
-            }
-        });
-    }
-
-    onProversion = () => {
-        this.props.navigation.navigate('Proversion', {});
     }
 
     sendRecipt = (receipt) => {
@@ -297,7 +263,6 @@ export default class Settings extends Component {
                         style={{
                             flex: 1,
                             height: 200,
-
                         }}>
                         <List containerStyle={{backgroundColor: 'transparent', borderTopWidth: 0,}}>
                             <ListItem
@@ -305,7 +270,7 @@ export default class Settings extends Component {
                                 hideChevron
                                 leftIcon={{name: 'vpn-key', color: colors.secondary2}}
                                 title={`Unlock Pro Version`}
-                                titleStyle={{color: colors.secondary2,fontWeight:'bold'}}
+                                titleStyle={{color: colors.secondary2, fontWeight: 'bold'}}
                                 switchOnTintColor={colors.primary1}
                                 switchButton
                                 onSwitch={this.toggleUnlockSwitch}

@@ -13,7 +13,7 @@ export function getFreeImages(cardType = 'birthdayImages') {
         setTimeout(function () {
             // resolve the promise with some value
 
-            db.ref(cardType).orderByKey().limitToLast(3).on("value", function (snapshot) {
+            db.ref(cardType).limitToLast(3).once("value", function (snapshot) {
                 var downloadImages = snapshot.val();
                 downloadImages = Utils.reverseObject(downloadImages)
                 if (downloadImages) {
@@ -81,6 +81,7 @@ export function getAllImages(cardType = 'birthdayImages') {
             db.ref(cardType).once("value", function (snapshot) {//'birthdayImages'
 
                 var downloadImages = snapshot.val();
+                downloadImages = Utils.reverseObject(downloadImages)
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {

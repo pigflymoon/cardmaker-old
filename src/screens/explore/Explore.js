@@ -220,18 +220,17 @@ export default class Explore extends Component {
     }
 
     renderBanner = (data) => {
-
-        console.log('data', data)
         return (
             <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 20,}}>
 
                 {data.map((image, index) => (
-                    <View style={{
+                    <View
+                        key={index}
+                        style={{
                         flex: 1, marginHorizontal: 5,
                         justifyContent: 'center',
                     }}>
                         <Avatar
-                            key={index}
                             large
                             rounded
                             source={{uri: image.illustration}}
