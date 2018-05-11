@@ -303,9 +303,9 @@ export default class Settings extends Component {
                             <ListItem
                                 containerStyle={{borderBottomWidth: 0,}}
                                 hideChevron
-                                leftIcon={{name: 'notifications', color: colors.primary3}}
+                                leftIcon={{name: 'vpn-key', color: colors.secondary2}}
                                 title={`Unlock Pro Version`}
-                                titleStyle={{color: colors.secondary2}}
+                                titleStyle={{color: colors.secondary2,fontWeight:'bold'}}
                                 switchOnTintColor={colors.primary1}
                                 switchButton
                                 onSwitch={this.toggleUnlockSwitch}
