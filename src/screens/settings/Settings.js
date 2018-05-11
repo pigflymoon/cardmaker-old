@@ -79,104 +79,6 @@ export default class Settings extends Component {
         return Utils.goToURL(link);
     }
 
-    onPay = () => {
-        var self = this;
-        InAppUtils.canMakePayments((enabled) => {
-
-            if (enabled) {
-                var productIdentifier = Config.products.productIdentifier;
-                var products = [
-                    productIdentifier,
-                ];
-
-                InAppUtils.loadProducts(products, (error, products) => {
-                    //update store here.
-                    var productIdentifier = Config.products.productIdentifier;
-                    InAppUtils.purchaseProduct(productIdentifier, (error, response) => {
-                        // NOTE for v3.0: User can cancel the payment which will be available as error object here.
-                        //transactionReceipt
-                        if (response && response.transactionReceipt) {
-                            InAppUtils.receiptData((error, receiptData) => {
-                                if (error) {
-                                    Alert.alert('itunes Error', 'Receipt not found.');
-                                } else {
-                                    //send to validation server
-                                    axios.post(verifyHost, {
-                                        'receipt-data': receiptData,
-                                    })
-                                        .then(function (response) {
-                                            if (response.data.receipt) {
-                                                self.sendRecipt(response.data.receipt);
-                                                var status = response.data.status;
-                                                var statusCode = Config.receiptVerify.statusCode;
-                                                for (var prop in statusCode) {
-                                                    if (status == prop) {
-                                                        if (status == 0) {
-                                                            AsyncStorage.setItem("isPro", 'true');
-                                                            self.setState({
-                                                                showProData: true,
-                                                                isPro: 'Available'
-                                                            }, function () {
-                                                                // AsyncStorage.setItem('dataSource', 'true');
-                                                                this.upDateRole();
-                                                            });
-
-
-                                                            //
-                                                        } else {
-                                                            Alert.alert('Message: ' + statusCode[prop].message);
-                                                        }
-                                                    }
-                                                }
-                                            } else {
-                                                Alert.alert('Please try later.')
-                                            }
-
-                                        })
-                                        .catch(function (error) {
-                                            Alert.alert(error)
-                                        })
-                                }
-                            });
-                        }
-
-                    });
-                });
-
-            } else {
-                Alert.alert('IAP disabled');
-            }
-        });
-    }
-
-    sendRecipt = (receipt) => {
-        var transactionKey = ((receipt.in_app)[0].transaction_id) ? ( (receipt.in_app)[0].transaction_id).toString() : null;
-        if (transactionKey) {
-            onceGetReceipts().then(snapshot => {
-                if (snapshot) {
-                    if (snapshot.hasChild(transactionKey)) {
-                        console.log('exists')
-                    } else {
-                        // Create a receipt in your own accessible Firebase Database too
-                        doCreateReceipt(transactionKey, receipt)
-                            .then(() => {
-                                console.log('Got the receipt!')
-                                // user.updateProfile({displayName: self.state.name});
-                                // console.log('email', email)
-                                // self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
-                            })
-                            .catch(error => {
-                                console.log(('error', error))
-                            });
-                        //
-                    }
-                }
-            });
-
-
-        }
-    }
-
     titleStyle = () => {
         const {showProData} = this.state;
         if (showProData) {
@@ -277,11 +179,9 @@ export default class Settings extends Component {
                                 switched={this.state.unlock}
                             />
                         </List>
-
                     </ImageBackground>
                 </View>
                 <List>
-
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'favorite', color: colors.grey2}}
@@ -290,15 +190,9 @@ export default class Settings extends Component {
                         rightTitle={this.state.isPro}
                         rightTitleStyle={this.titleStyle()}
                         hideChevron
-                        onPress={() => {
-                            this.onPay()
-                        }}
                     />
 
-
                 </List>
-
-
                 <List>
                     <ListItem
                         containerStyle={listStyle.listItem}
