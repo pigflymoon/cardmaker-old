@@ -234,10 +234,8 @@ export default class Explore extends Component {
                             large
                             rounded
                             source={{uri: image.illustration}}
-                            onPress={() => console.log("Works!")}
                             activeOpacity={0.7}
                         />
-                        <Text style={exploreStyle.title}>{'New Images'}</Text>
 
                     </View>))}
             </View>
