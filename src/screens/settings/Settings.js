@@ -13,15 +13,17 @@ import {
     Alert,
     TouchableHighlight,
     Image,
+    ImageBackground
 } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 
-import {List, ListItem, Card, Icon} from 'react-native-elements';
+import {List, ListItem, Avatar, Icon} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {auth, db} from '../../config/FirebaseConfig';
+import probg from '../../assets/images/bg1.jpg';
 
 import {
     upDateRole
@@ -289,17 +291,31 @@ export default class Settings extends Component {
     render() {
         return (
             <ScrollView>
+                <View>
+                    <ImageBackground
+                        source={probg}
+                        style={{
+                            flex: 1,
+                            height: 200,
+
+                        }}>
+                        <List containerStyle={{backgroundColor: 'transparent', borderTopWidth: 0,}}>
+                            <ListItem
+                                containerStyle={{borderBottomWidth: 0,}}
+                                hideChevron
+                                leftIcon={{name: 'notifications', color: colors.primary3}}
+                                title={`Unlock Pro Version`}
+                                titleStyle={{color: colors.secondary2}}
+                                switchOnTintColor={colors.primary1}
+                                switchButton
+                                onSwitch={this.toggleUnlockSwitch}
+                                switched={this.state.unlock}
+                            />
+                        </List>
+
+                    </ImageBackground>
+                </View>
                 <List>
-                    <ListItem
-                        containerStyle={listStyle.listItem}
-                        hideChevron
-                        leftIcon={{name: 'notifications', color: colors.grey2}}
-                        title={` It's Ok to want them all!`}
-                        switchOnTintColor={colors.primary1}
-                        switchButton
-                        onSwitch={this.toggleUnlockSwitch}
-                        switched={this.state.unlock}
-                    />
 
                     <ListItem
                         containerStyle={listStyle.listItem}
