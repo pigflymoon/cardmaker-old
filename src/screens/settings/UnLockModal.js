@@ -4,6 +4,7 @@ import {
     View,
     ScrollView,
     ImageBackground,
+    Alert,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {
@@ -12,6 +13,11 @@ import {
 } from 'react-native-elements';
 import SliderEntry from '../../components/SliderEntry';
 
+import {
+    onPay,
+    onRestore,
+    upDateRole
+} from '../../utils/AppPay';
 import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import unlockModalStyle from '../../styles/unlockModal';
 import colors from '../../styles/colors';
@@ -40,6 +46,7 @@ export  default class UnLockModal extends Component {
         this.state = {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             isLoading: false,
+            unlock: false,
         };
     }
 
@@ -52,6 +59,54 @@ export  default class UnLockModal extends Component {
                 parallaxProps={parallaxProps}
             />
         );
+    }
+
+    unlockProVersion = () => {
+        var self = this;
+        onPay().then(function (statusResult) {
+            var status = statusResult.status, statusCode = statusResult.statusCode;
+
+            console.log('status is ', status)
+            if (statusCode) {
+                for (var prop in statusCode) {
+                    if (status == prop) {
+                        if (status == 0) {
+                            self.setState({unlock: true})
+
+                        } else {
+                            Alert.alert('Message: ' + statusCode[prop].message);
+                        }
+                    }
+                }
+            } else {
+                Alert.alert('Please try later');
+
+            }
+        })
+
+
+        //
+    }
+
+    goBack = () => {
+        const {navigation} = this.props;
+        navigation.goBack();
+        navigation.state.params.onUnlock({unLock: this.state.unlock});
+    }
+
+    restorePurchase = () => {
+        var self =this;
+        onRestore().then(function (restoreResponse) {
+            console.log('restoreResponse',restoreResponse)
+            if(restoreResponse.restore){
+                self.setState({unlock: true});
+                //update db user
+                upDateRole();
+                Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
+
+            }
+        })
+
     }
 
     renderSlide = () => {
@@ -121,7 +176,7 @@ export  default class UnLockModal extends Component {
                             type='font-awesome'
                             color={colors.white}
                             size={22}
-                            onPress={() => this.props.navigation.goBack()}
+                            onPress={this.goBack}
                         />
 
                     </View>
@@ -131,7 +186,7 @@ export  default class UnLockModal extends Component {
                             buttonStyle={unlockModalStyle.button}
                             containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
-                            title={'Unlock PRO Version'}
+                            title={'Unlock PRO ($2.99)'}
                             onPress={ this.unlockProVersion}
                             textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}
@@ -142,7 +197,7 @@ export  default class UnLockModal extends Component {
                             containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
                             title={'Restore Purchase'}
-                            onPress={ this.unlockProVersion}
+                            onPress={ this.restorePurchase}
                             textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}
                             disabled={isLoading}

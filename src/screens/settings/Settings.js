@@ -22,6 +22,11 @@ import {NativeModules} from 'react-native';
 const {InAppUtils}  = NativeModules;
 import axios from 'axios';
 import {auth, db} from '../../config/FirebaseConfig';
+
+import {
+    upDateRole
+} from '../../utils/AppPay';
+
 var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
 var verifyHost = verifysandboxHost;
 
@@ -72,25 +77,6 @@ export default class Settings extends Component {
         return Utils.goToURL(link);
     }
 
-    upDateRole = () => {
-        //update db user
-        var self = this;
-        auth.onAuthStateChanged(function (authUser) {
-            if (authUser) {
-                var userId = auth.currentUser.uid;
-                db.ref('/users/' + userId).update({
-                    role: {
-                        admin: false,
-                        free_user: true,
-                        paid_user: true,
-                    }
-                })
-
-            } else {
-                self.setState({signin: false, cardsData: []})
-            }
-        });
-    }
 
     onPay = () => {
         var self = this;
@@ -262,10 +248,26 @@ export default class Settings extends Component {
         });
     }
 
+    onUnlock = data => {
+        console.log('return  data is ', data);
+        var unlock = data.unLock;
+
+        if (unlock === true) {
+            AsyncStorage.setItem("isPro", 'true');
+            this.setState({
+                showProData: true,
+                isPro: 'Available',
+                unlock: true,
+            }, function () {
+                upDateRole();
+            });
+        }
+
+        // this.setState(data);
+    };
     toggleUnlockSwitch = (value) => {
         console.log('unlock', value)
-        this.props.navigation.navigate('UnLock');
-        // this.setState({unlock: value})
+        this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
 
     }
 
@@ -298,36 +300,6 @@ export default class Settings extends Component {
                         onSwitch={this.toggleUnlockSwitch}
                         switched={this.state.unlock}
                     />
-                    <Card
-                        containerStyle={{marginTop: 15, marginBottom: 15}}
-                        title="Thank you for your support"
-                        titleStyle={{color: colors.primary3}}
-                    >
-                        <View style={SettingStyle.proContainer}>
-                            <TouchableOpacity activeOpacity={.5} onPress={this.onPay}>
-                                <View style={SettingStyle.getAppContainer}>
-                                    <Text style={{color: '#ffffff'}}>Get PRO Version</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={.5} onPress={() => {
-                                this.onRestore()
-                            }}>
-                                <View style={SettingStyle.getRestoreContainer}>
-                                    <Text style={{color: '#ffffff'}}>Restore Purchases</Text>
-                                </View>
-                            </TouchableOpacity>
-
-                        </View>
-                        <View style={SettingStyle.container}>
-                            <TouchableOpacity activeOpacity={.5} onPress={() => this.onProversion()}
-                                              style={SettingStyle.more}>
-                                <View>
-                                    <Text style={SettingStyle.link}>Find out more ></Text>
-                                </View>
-                            </TouchableOpacity></View>
-
-                    </Card>
-
 
                     <ListItem
                         containerStyle={listStyle.listItem}
