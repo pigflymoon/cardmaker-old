@@ -12,6 +12,7 @@ import {
     Linking,
     Alert,
     Animated,
+    AsyncStorage,
 } from 'react-native';
 import {
     Icon,
@@ -34,11 +35,14 @@ import {HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT} from '../.
 
 import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
-import bg1 from '../../assets/images/bg1.jpg';
 
 import {
     getFreeImages,
 } from '../../utils/FetchImagesByApi';
+import {
+    upDateRole
+} from '../../utils/AppPay';
+
 import  Utils from '../../utils/utils';
 
 const birthdayImages = 'birthdayImages';
@@ -186,6 +190,25 @@ export default class Explore extends Component {
         }, 1000);
     }
 
+    onUnlock = data => {
+        console.log('return  data is ', data);
+        var unlock = data.unLock;
+
+        if (unlock === true) {
+            AsyncStorage.setItem('unlock', 'true')
+                .then(function () {
+                    upDateRole();
+                })
+
+        }
+
+        // this.setState(data);
+    };
+
+    onUnLock = () => {
+        this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
+
+    }
 
     renderItem = ({item, index}) => {
         return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
@@ -221,15 +244,15 @@ export default class Explore extends Component {
 
     renderBanner = (data) => {
         return (
-            <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 20,}}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 10,}}>
 
                 {data.map((image, index) => (
                     <View
                         key={index}
                         style={{
-                        flex: 1, marginHorizontal: 5,
-                        justifyContent: 'center',
-                    }}>
+                            flex: 1, marginHorizontal: 5,
+                            justifyContent: 'center',
+                        }}>
                         <Avatar
                             large
                             rounded
@@ -279,13 +302,6 @@ export default class Explore extends Component {
             outputRange: [0, 1, 1],
             extrapolate: 'clamp',
         });
-        const bannerTranslate = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 50],
-            extrapolate: 'clamp',
-        });
-
-        // console.log('data is ',this.state.latestotherImages)
 
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
@@ -381,12 +397,17 @@ export default class Explore extends Component {
                                 {opacity: imageOpacity, transform: [{translateY: imageTranslate}]},
                             ]}
                         >
-                            {this.renderBanner(this.state.latestImages, 'New images', 'Browse All', (!this.state.contentIsLoading))}
+                            <Text style={{
+                                color: colors.white,
+                                fontSize: 18,
+                                paddingHorizontal: 10
+                            }}>New</Text>
+                            {this.renderBanner(this.state.latestImages)}
 
                         </Animated.View>
                         <Animated.View>
                             <View style={exploreStyle.bar}>
-                                <Animated.View style={[exploreStyle.showBanner,{opacity: bannerOpacity,}]}>
+                                <Animated.View style={[exploreStyle.showBanner, {opacity: bannerOpacity,}]}>
                                     <Text style={[exploreStyle.title]}>
                                         It's Ok to want them all!</Text>
                                     <Icon
@@ -395,7 +416,7 @@ export default class Explore extends Component {
                                         type='font-awesome'
                                         color={colors.primary3}
                                         size={22}
-                                        onPress={() => console.log('hello')} />
+                                        onPress={this.onUnLock}/>
                                 </Animated.View>
 
 

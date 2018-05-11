@@ -42,7 +42,6 @@ import Utils from '../../utils/utils';
 
 import colors from '../../styles/colors';
 import listStyle from '../../styles/list';
-import SettingStyle from '../../styles/setting';
 export default class Settings extends Component {
 
     constructor(props, context) {
@@ -153,6 +152,19 @@ export default class Settings extends Component {
     }
 
     componentDidMount() {
+        //
+        var self = this;
+        AsyncStorage.getItem("unlock").then((value) => {
+            console.log('unlock value', value)
+            if (value == 'true')
+                self.setState({
+                    showProData: true,
+                    isPro: 'Available',
+                    unlock: true,
+                });
+        });
+
+        //
         this.getUserRole();
     }
 
