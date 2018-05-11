@@ -74,7 +74,7 @@ const MakeCardTab = StackNavigator({
         }
 
     },
- })
+})
 const ProfileTab = StackNavigator({
         Auth: {
             screen: AuthScreen,
@@ -156,9 +156,9 @@ const SettingsRootStack = StackNavigator(
         Main: {
             screen: MainSettingsStack,
         },
-        UnLock: {
-            screen: UnLockModalScreen,
-        },
+        // UnLock: {
+        //     screen: UnLockModalScreen,
+        // },
     },
     {
         mode: 'modal',
@@ -196,7 +196,7 @@ const SettingsTab = StackNavigator({
 const StacksInTabs = TabNavigator(
     {
         SettingsTab: {
-            screen: SettingsRootStack,
+            screen: SettingsTab,
             navigationOptions: {
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({tintColor, focused}) => (
@@ -264,6 +264,24 @@ const StacksInTabs = TabNavigator(
     },
 );
 
-export default StacksInTabs;
+const StacksOverTabs = StackNavigator({
+        Root: {
+            screen: StacksInTabs,
+        },
+        UnLock: {
+            screen: UnLockModalScreen,
+            navigationOptions: {
+                title: 'UnLock',
+            },
+        },
+
+    },
+    {
+        headerMode: 'none',
+        mode: 'modal',
+    }
+);
+
+export default StacksOverTabs;
 console.disableYellowBox = true
 console.ignoredYellowBox = ['Remote debugger'];
