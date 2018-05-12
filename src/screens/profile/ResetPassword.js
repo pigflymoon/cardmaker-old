@@ -95,6 +95,7 @@ export default class ResetPassword extends Component {
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
+                            autoCapitalize="none"
                             onChangeText={(text) => this.setEmail(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
