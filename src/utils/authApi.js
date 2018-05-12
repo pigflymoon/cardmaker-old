@@ -22,7 +22,6 @@ export function navigateToAuth(navigation) {
     navigation.navigate('Auth', {});
 }
 export function renderAuthBox(isLoading = false, navigation) {
-console.log('auth box is called')
     return (
         <View style={authStyle.container}>
             <ImageBackground

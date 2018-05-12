@@ -118,7 +118,6 @@ export default class Explore extends Component {
         var self = this;
         VersionCheck.needUpdate()
             .then(async res => {
-                console.log(res.isNeeded);    // true
                 if (res.isNeeded) {
                     this.showAlert();
                 }
@@ -131,9 +130,7 @@ export default class Explore extends Component {
                 let latestweddingImages = results[2][0];
                 let latestotherImages = results[3][0];
                 let latestImages = [];
-                latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages)
-                console.log('latestImages : ', latestImages)
-
+                latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages);
 
                 self.setState(
                     {

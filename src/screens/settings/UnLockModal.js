@@ -65,8 +65,6 @@ export  default class UnLockModal extends Component {
         var self = this;
         onPay().then(function (statusResult) {
             var status = statusResult.status, statusCode = statusResult.statusCode;
-
-            console.log('status is ', status)
             if (statusCode) {
                 for (var prop in statusCode) {
                     if (status == prop) {
@@ -97,7 +95,6 @@ export  default class UnLockModal extends Component {
     restorePurchase = () => {
         var self =this;
         onRestore().then(function (restoreResponse) {
-            console.log('restoreResponse',restoreResponse)
             if(restoreResponse.restore){
                 self.setState({unlock: true});
                 //update db user

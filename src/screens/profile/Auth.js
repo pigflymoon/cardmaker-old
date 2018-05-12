@@ -343,6 +343,7 @@ export default class Auth extends Component {
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
+                            autoCapitalize = "none"
                             onChangeText={(text) => this.setEmail(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
@@ -358,6 +359,7 @@ export default class Auth extends Component {
                             containerRef="passwordcontainerRef"
                             textInputRef="passwordInputRef"
                             placeholder="Please enter your password..."
+                            autoCapitalize = "none"
                             onChangeText={(text) => this.setPassword(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
@@ -373,6 +375,7 @@ export default class Auth extends Component {
                             containerRef="namecontainerRef"
                             textInputRef="nameInputRef"
                             placeholder="Please enter your name..."
+                            autoCapitalize = "none"
                             onChangeText={(text) => this.setName(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}

@@ -129,6 +129,7 @@ export default class ConfirmEmail extends Component {
                             ref="email"
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
+                            autoCapitalize = "none"
                             value={email}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}

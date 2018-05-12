@@ -85,7 +85,6 @@ export default class MakeCard extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
-        console.log('make card is ', makeCard)
         this.setState({makeCard: makeCard});
     }
 
@@ -129,7 +128,6 @@ export default class MakeCard extends Component {
         var textColor = this.state.textColor || colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
-        console.log('size  font position', this.state.fontSize, this.state.fontFamily, this.state.textPosition)
         var textSize = this.state.fontSize;
         //
         Marker.addTextByPostion(url, text, position, textColor, font, textSize)
@@ -144,13 +142,11 @@ export default class MakeCard extends Component {
     }
 
     onChangeFontSize = (size) => {
-        console.log('size is ', size)
         this.setState({
             fontSize: size,
         });
     }
     onChangeFontFamily = (font) => {
-        console.log('font is ', font)
         this.setState({
             fontFamily: font,
         });
@@ -160,11 +156,8 @@ export default class MakeCard extends Component {
         this.setState({fontStyle: style});
     }
 
-    onChangeFontWeight = (weight) => {
-        this.setState({fontStyle: weight});
-    }
+
     onChangeTextPosition = (position) => {
-        console.log('position is ', position)
         this.setState({
             textPosition: position
         });
@@ -219,6 +212,7 @@ export default class MakeCard extends Component {
                                                maxLength={80}
                                                containerRef="wishwordscontainerRef"
                                                textInputRef="wishwordsInputRef"
+                                               autoCapitalize = "none"
                                                placeholder="Please enter wish words(length less than 80)"
                                                placeholderTextColor={colors.grey3}
                                                onChangeText={(text) => this.setWishwords(text)}
@@ -236,6 +230,7 @@ export default class MakeCard extends Component {
                                                containerRef="namecontainerRef"
                                                textInputRef="nameInputRef"
                                                placeholder="Please Sign your name(length less than 80)"
+                                               autoCapitalize = "none"
                                                placeholderTextColor={colors.grey3}
                                                onChangeText={(text) => this.setName(text)}
                                     />
@@ -340,9 +335,6 @@ export default class MakeCard extends Component {
         var navigation = this.props.navigation;
         var card = Utils.isEmptyObject(this.state.makeCard)
         var renderCard = (!card && this.state.signin);
-
-        console.log('make card is Empty Object', card)
-        console.log('sign is', this.state.signin)
 
         if (renderCard) {
             return this.renderEdit();

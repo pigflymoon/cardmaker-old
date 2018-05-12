@@ -34,9 +34,6 @@ export function sendRecipt(receipt) {
                     doCreateReceipt(transactionKey, receipt)
                         .then(() => {
                             console.log('Got the receipt!')
-                            // user.updateProfile({displayName: self.state.name});
-                            // console.log('email', email)
-                            // self.props.navigation.navigate('VerifyEmail', {user: user, email: email});
                         })
                         .catch(error => {
                             console.log(('error', error))
@@ -83,7 +80,6 @@ export function onPay() {
                                                     sendRecipt(response.data.receipt);
                                                     var status = response.data.status;
                                                     var statusCode = Config.receiptVerify.statusCode;
-                                                    console.log('statusCode', statusCode)
                                                     resolve({status: status, statusCode: statusCode});
                                                 } else {
                                                     resolve({status: {}, statusCode: {}});

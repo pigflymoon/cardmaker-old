@@ -42,8 +42,6 @@ export default class Settings extends Component {
             versionColor: colors.grey2,
             bgImage: graybg,
             unlock: false,
-            // showProData: false,//remove in-purchase
-
         };
     }
 
@@ -114,11 +112,9 @@ export default class Settings extends Component {
     }
 
     onUnlock = data => {
-        console.log('return  data is ', data);
         var unlock = data.unLock;
 
         if (unlock === true) {
-            // AsyncStorage.setItem("isPro", 'true');
             this.setState({
                 showProData: true,
                 isPro: 'Available',
@@ -133,13 +129,11 @@ export default class Settings extends Component {
     };
     toggleUnlockSwitch = () => {
         this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
-
     }
 
     restorePurchase = () => {
         var self = this;
         onRestore().then(function (restoreResponse) {
-            console.log('restoreResponse', restoreResponse)
             if (restoreResponse.restore) {
                 self.setState({
                     // showProData: true,
@@ -163,7 +157,6 @@ export default class Settings extends Component {
             provider: 'appStore'  // for iOS
         })
             .then(latestVersion => {
-                console.log(latestVersion);
                 this.setState({version: latestVersion})
             });
     }

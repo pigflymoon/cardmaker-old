@@ -8,6 +8,7 @@ import {
     getAllImages,
     getFreeImages,
 } from '../utils/FetchImagesByApi';
+import {auth, db} from '../config/FirebaseConfig';
 
 import colors from '../styles/colors';
 import layoutStyle from '../styles/layout';
@@ -72,7 +73,22 @@ export default class CardsDeck extends Component {
     refreshImages = () => {
         this.setState({cardsData: []});
         const {cardType, isPaidUser} = this.props;
-        this.getUserImages(cardType, isPaidUser);
+        //
+        var self = this;
+        var userId = auth.currentUser.uid;
+        db.ref('/users/' + userId).once('value').then(function (snapshot) {
+            var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
+            var isPaidUser = userrole.paid_user;
+            console.log('paid_user', isPaidUser)
+            self.setState({isPaidUser: isPaidUser}, () => {
+                self.getUserImages(cardType, isPaidUser);
+            });
+
+
+        });
+
+        //
+
     }
 
     getUserImages = (cardType = 'birthdayImages', isPaidUser) => {
