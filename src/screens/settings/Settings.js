@@ -37,12 +37,12 @@ export default class Settings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            version: '2.0.1',
-            isPro: 'DISABLED',
+            version: '2.0.3',
+            isPro: 'Disabled',
             versionColor: colors.grey2,
             bgImage: graybg,
             unlock: false,
-            showProData: false,//remove in-purchase
+            // showProData: false,//remove in-purchase
 
         };
     }
@@ -71,8 +71,8 @@ export default class Settings extends Component {
     }
 
     titleStyle = () => {
-        const {showProData} = this.state;
-        if (showProData) {
+        const {unlock} = this.state;
+        if (unlock) {
             return {
                 color: colors.green
             }
@@ -94,7 +94,7 @@ export default class Settings extends Component {
                     var isPaidUser = userrole.paid_user;
                     if (isPaidUser) {
                         self.setState({
-                            showProData: true,
+                            // showProData: true,
                             isPro: 'Available',
                             unlock: true,
                             bgImage: probg,
@@ -105,8 +105,9 @@ export default class Settings extends Component {
                 });
             } else {
                 self.setState({
-                    showProData: false,
-                    isPro: 'DISABLED'
+                    // showProData: false,
+                    unlock: false,
+                    isPro: 'Disabled'
                 });
             }
         });
@@ -141,7 +142,7 @@ export default class Settings extends Component {
             console.log('restoreResponse', restoreResponse)
             if (restoreResponse.restore) {
                 self.setState({
-                    showProData: true,
+                    // showProData: true,
                     isPro: 'Available',
                     unlock: true,
                     bgImage: probg,
@@ -162,6 +163,7 @@ export default class Settings extends Component {
             provider: 'appStore'  // for iOS
         })
             .then(latestVersion => {
+                console.log(latestVersion);
                 this.setState({version: latestVersion})
             });
     }

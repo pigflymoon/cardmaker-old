@@ -190,13 +190,10 @@ export default class Explore extends Component {
     }
 
     onUnlock = data => {
-        console.log('return  data is ', data);
         var unlock = data.unLock;
-
         if (unlock === true) {
             upDateRole();
         }
-
     };
 
     onUnLock = () => {
