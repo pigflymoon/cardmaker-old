@@ -74,11 +74,11 @@ export default class Settings extends Component {
         const {showProData} = this.state;
         if (showProData) {
             return {
-                color: colors.secondary2
+                color: colors.green
             }
         } else {
             return {
-                color: colors.red1
+                color: colors.red
             }
         }
 
@@ -95,7 +95,10 @@ export default class Settings extends Component {
                     if (isPaidUser) {
                         self.setState({
                             showProData: true,
-                            isPro: 'Available'
+                            isPro: 'Available',
+                            unlock: true,
+                            bgImage: probg,
+                            versionColor: colors.green,
                         });
                     }
 
@@ -120,14 +123,14 @@ export default class Settings extends Component {
                 isPro: 'Available',
                 unlock: true,
                 bgImage: probg,
-                versionColor: colors.secondary2,
+                versionColor: colors.green,
             }, function () {
                 upDateRole();
             });
         }
 
     };
-    toggleUnlockSwitch = (value) => {
+    toggleUnlockSwitch = () => {
         this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
 
     }
@@ -142,7 +145,7 @@ export default class Settings extends Component {
                     isPro: 'Available',
                     unlock: true,
                     bgImage: probg,
-                    versionColor: colors.secondary2,
+                    versionColor: colors.green,
                 });
                 //update db user
                 upDateRole();
@@ -159,7 +162,6 @@ export default class Settings extends Component {
             provider: 'appStore'  // for iOS
         })
             .then(latestVersion => {
-                console.log(latestVersion);    // 0.1.2
                 this.setState({version: latestVersion})
             });
     }
@@ -183,11 +185,11 @@ export default class Settings extends Component {
                             <ListItem
                                 containerStyle={{borderBottomWidth: 0,}}
                                 hideChevron
-                                leftIcon={{name: 'vpn-key', color: colors.secondary2}}
+                                leftIcon={{name: 'vpn-key', color: colors.green}}
                                 title={`Unlock Pro Version`}
-                                titleStyle={{color: colors.secondary2, fontWeight: 'bold'}}
-                                switchOnTintColor={colors.primary1}
-                                switchTintColor={colors.secondary2}
+                                titleStyle={{color: colors.green, fontWeight: 'bold'}}
+                                switchOnTintColor={colors.green}
+                                switchTintColor={colors.green}
                                 switchButton
                                 onSwitch={this.toggleUnlockSwitch}
                                 switched={this.state.unlock}
@@ -196,10 +198,10 @@ export default class Settings extends Component {
 
                     </ImageBackground>
                 </View>
-                <List>
+                <List containerStyle={listStyle.listContainer}>
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'refresh', color: colors.secondary2}}
+                        leftIcon={{name: 'refresh', color: colors.green}}
                         title={`Restore Purchase`}
                         onPress={this.restorePurchase}
                         hideChevron
@@ -215,28 +217,33 @@ export default class Settings extends Component {
                     />
 
                 </List>
-                <List>
+                <List containerStyle={listStyle.listContainer}>
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'chat', color: colors.orange1}}
                         title={`Tell a friend`}
                         onPress={() => this.onShare()}
+                        chevronColor={colors.grey5}
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'favorite', color: colors.red1}}
+                        leftIcon={{name: 'favorite', color: colors.red}}
                         title={`Rate us`}
                         onPress={() => this.onRate()}
+                        chevronColor={colors.grey5}
+
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'info', color: colors.purple1}}
+                        leftIcon={{name: 'info', color: colors.tealBlue}}
                         title={`About`}
                         onPress={() => this.onAbout()}
+                        chevronColor={colors.grey5}
+
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'perm-device-information', color: colors.primary2}}
+                        leftIcon={{name: 'perm-device-information', color: colors.purple}}
                         hideChevron
                         title={`Version`}
                         subtitle={this.state.version}

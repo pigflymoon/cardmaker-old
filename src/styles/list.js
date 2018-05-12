@@ -5,8 +5,9 @@ export default{
         flex: 1,
         backgroundColor: colors.white,
     },
+
     listItem: {
-        borderBottomColor: colors.grey4,
+        borderBottomColor: colors.grey5,
     },
     label: {
         paddingLeft: 20,
@@ -16,7 +17,8 @@ export default{
         fontSize: 14,
     },
     listContainer: {
-        marginHorizontal: 6,
+        borderTopColor: colors.grey4,
+
     },
     title: {
         fontWeight: '600',

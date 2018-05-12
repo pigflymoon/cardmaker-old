@@ -7,10 +7,10 @@ const PURPLE = '#5856D6';
 const TEAL_BLUE = '#5AC8FA';
 
 export default {
-    primary: '#9E9E9E',
+    primary: BLUE,
     primary1: '#4d86f7',
     primary2: '#6296f9',
-    primary3:'#DB7E95',
+    primary3: '#DB7E95',
     secondary: '#8F0CE8',
     secondary2: '#60B87B',//backgroundColor: 'rgba(87,185,126 , 1)' #00B233
     secondary3: '#00FF48',
@@ -29,13 +29,16 @@ export default {
     white: '#ffffff',
     black: '#000000',
     error: '#ff190c',
-    orange: 'tomato',
+    orange: ORANGE,
     orange1: '#E77151',
+    purple: PURPLE,
     purple1: '#D19FE8',
     purple2: '#663854',
     purple3: '990066',
+    green: GREEN,
+    red: RED,
     red1: '#bb0f24',
-
+    tealBlue: TEAL_BLUE,
 
 
 };
