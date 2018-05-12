@@ -1,3 +1,11 @@
+const ORANGE = '#FF9500';
+const BLUE = '#007AFF';
+const GREEN = '#4CD964';
+const RED = '#FF3B30';
+const GREY = '#8E8E93';
+const PURPLE = '#5856D6';
+const TEAL_BLUE = '#5AC8FA';
+
 export default {
     primary: '#9E9E9E',
     primary1: '#4d86f7',
@@ -27,6 +35,7 @@ export default {
     purple2: '#663854',
     purple3: '990066',
     red1: '#bb0f24',
+
 
 
 };

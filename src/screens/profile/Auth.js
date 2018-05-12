@@ -27,7 +27,7 @@ import authStyle from '../../styles/authLayout';
 import layoutStyle from '../../styles/layout';
 
 
-import bg1 from '../../assets/images/bg1.jpg';
+import bg1 from '../../assets/images/bg.jpg';
 import  Utils from '../../utils/utils';
 
 

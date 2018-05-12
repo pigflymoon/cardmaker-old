@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {Card,} from 'react-native-elements';
 
-import bg1 from '../../assets/images/bg1.jpg';
+import bg1 from '../../assets/images/bg.jpg';
 import layoutStyle from '../../styles/layout';
 import Copyright from '../../components/Copyright';
 

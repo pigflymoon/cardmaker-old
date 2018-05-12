@@ -15,9 +15,9 @@ import {
     ImageBackground
 } from 'react-native';
 import VersionCheck from 'react-native-version-check';
-
 import {List, ListItem,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
+
 import {auth, db} from '../../config/FirebaseConfig';
 import probg from '../../assets/images/bg.jpg';
 import graybg from '../../assets/images/bg-grey.jpg';

@@ -23,7 +23,6 @@ import PolicyScreen from './screens/profile/PrivacyPolicy';
 //Settings
 import SettingsScreen from './screens/settings/Settings';
 import AboutScreen from './screens/settings/About';
-import ProversionScreen from './screens/settings/Proversion';
 import UnLockModalScreen from './screens/settings/UnLockModal';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -76,98 +75,49 @@ const MakeCardTab = StackNavigator({
     },
 })
 const ProfileTab = StackNavigator({
-        Auth: {
-            screen: AuthScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Welcome',
-                // headerBackTitle: 'Back',
-                headerLeft: null,
-            }),
-        },
-        ConfirmEmail: {
-            screen: ConfirmEmailScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Confirm email',
-                headerLeft: null,
-                // headerLeft: null,
-            }),
-        },
-        ResetPassword: {
-            screen: ResetPasswordScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Reset password',
-                // headerLeft: null,
-            }),
-        },
-        Terms: {
-            screen: TermsScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Terms of Use',
-                headerTintColor: colors.secondary2,
-                headerTitleStyle: {color: colors.black},
-
-            }),
-        },
-        Policy: {
-            screen: PolicyScreen,
-            navigationOptions: ({navigation}) => ({
-                title: 'Privacy Policy',
-                headerTintColor: colors.secondary2,
-                headerTitleStyle: {color: colors.black},
-            }),
-        },
-
+    Auth: {
+        screen: AuthScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Welcome',
+            // headerBackTitle: 'Back',
+            headerLeft: null,
+        }),
     },
-    // {
-    //     headerMode: 'none',
-    //     mode: 'modal',
-    // }
-)
-//
-
-const MainSettingsStack = StackNavigator({
-    Settings: {
-        screen: SettingsScreen,
-        navigationOptions: {
-            title: 'Settings',
-        },
+    ConfirmEmail: {
+        screen: ConfirmEmailScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Confirm email',
+            headerLeft: null,
+            // headerLeft: null,
+        }),
     },
-    About: {
-        screen: AboutScreen,
-        navigationOptions: {
-            title: 'About',
+    ResetPassword: {
+        screen: ResetPasswordScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Reset password',
+            // headerLeft: null,
+        }),
+    },
+    Terms: {
+        screen: TermsScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Terms of Use',
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
-        }
+
+        }),
     },
-    Proversion: {
-        screen: ProversionScreen,
-        navigationOptions: {
-            title: 'PRO Version',
+    Policy: {
+        screen: PolicyScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Privacy Policy',
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
-        },
+        }),
     },
+
 })
 
-
-const SettingsRootStack = StackNavigator(
-    {
-        Main: {
-            screen: MainSettingsStack,
-        },
-        // UnLock: {
-        //     screen: UnLockModalScreen,
-        // },
-    },
-    {
-        mode: 'modal',
-        headerMode: 'none',
-    }
-);
-
-
-//
 const SettingsTab = StackNavigator({
     Settings: {
         screen: SettingsScreen,
@@ -182,14 +132,6 @@ const SettingsTab = StackNavigator({
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
         }
-    },
-    Proversion: {
-        screen: ProversionScreen,
-        navigationOptions: {
-            title: 'PRO Version',
-            headerTintColor: colors.secondary2,
-            headerTitleStyle: {color: colors.black},
-        },
     },
 });
 
