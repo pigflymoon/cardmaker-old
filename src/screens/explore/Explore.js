@@ -12,7 +12,6 @@ import {
     Linking,
     Alert,
     Animated,
-    AsyncStorage,
 } from 'react-native';
 import {
     Icon,
@@ -195,14 +194,9 @@ export default class Explore extends Component {
         var unlock = data.unLock;
 
         if (unlock === true) {
-            AsyncStorage.setItem('unlock', 'true')
-                .then(function () {
-                    upDateRole();
-                })
-
+            upDateRole();
         }
 
-        // this.setState(data);
     };
 
     onUnLock = () => {

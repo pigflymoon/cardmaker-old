@@ -5,7 +5,6 @@ import {
     View,
     Dimensions,
     Alert,
-    AsyncStorage,
     TouchableOpacity,
     ImageBackground,
     LayoutAnimation,

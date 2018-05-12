@@ -14,7 +14,6 @@ import {
     ScrollView,
     ImageBackground,
     KeyboardAvoidingView,
-    AsyncStorage
 } from 'react-native';
 import {
     Icon,

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, AsyncStorage, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity} from 'react-native';
 
 import {Card, Icon,} from 'react-native-elements';
 

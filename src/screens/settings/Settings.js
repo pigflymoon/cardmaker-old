@@ -7,7 +7,6 @@ import {
     Linking,
     AppState,
     Platform,
-    AsyncStorage,
     Item,
     TouchableOpacity,
     Alert,
@@ -17,25 +16,16 @@ import {
 } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 
-import {List, ListItem, Avatar, Icon} from 'react-native-elements';
+import {List, ListItem,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
-import {NativeModules} from 'react-native';
-const {InAppUtils}  = NativeModules;
-import axios from 'axios';
 import {auth, db} from '../../config/FirebaseConfig';
-import probg from '../../assets/images/bg1.jpg';
+import probg from '../../assets/images/bg.jpg';
+import graybg from '../../assets/images/bg-grey1.jpg';
 
 import {
+    onRestore,
     upDateRole
 } from '../../utils/AppPay';
-
-var verifysandboxHost = Config.receiptVerify.Host.sandboxHost;
-var verifyHost = verifysandboxHost;
-
-// var verifyproductionHost = Config.receiptVerify.Host.productionHost;
-// var verifyHost = verifyproductionHost;
-
-import {onceGetReceipts, doCreateReceipt} from '../../config/db';
 
 import Config from '../../config/ApiConfig';
 import Utils from '../../utils/utils';
@@ -49,6 +39,8 @@ export default class Settings extends Component {
         this.state = {
             version: '2.0.1',
             isPro: 'DISABLED',
+            versionColor: colors.grey2,
+            bgImage: graybg,
             unlock: false,
             showProData: false,//remove in-purchase
 
@@ -122,21 +114,42 @@ export default class Settings extends Component {
         var unlock = data.unLock;
 
         if (unlock === true) {
-            AsyncStorage.setItem("isPro", 'true');
+            // AsyncStorage.setItem("isPro", 'true');
             this.setState({
                 showProData: true,
                 isPro: 'Available',
                 unlock: true,
+                bgImage: probg,
+                versionColor: colors.secondary2,
             }, function () {
                 upDateRole();
             });
         }
 
-        // this.setState(data);
     };
     toggleUnlockSwitch = (value) => {
-        console.log('unlock', value)
         this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
+
+    }
+
+    restorePurchase = () => {
+        var self = this;
+        onRestore().then(function (restoreResponse) {
+            console.log('restoreResponse', restoreResponse)
+            if (restoreResponse.restore) {
+                self.setState({
+                    showProData: true,
+                    isPro: 'Available',
+                    unlock: true,
+                    bgImage: probg,
+                    versionColor: colors.secondary2,
+                });
+                //update db user
+                upDateRole();
+                Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
+
+            }
+        })
 
     }
 
@@ -152,19 +165,6 @@ export default class Settings extends Component {
     }
 
     componentDidMount() {
-        //
-        var self = this;
-        AsyncStorage.getItem("unlock").then((value) => {
-            console.log('unlock value', value)
-            if (value == 'true')
-                self.setState({
-                    showProData: true,
-                    isPro: 'Available',
-                    unlock: true,
-                });
-        });
-
-        //
         this.getUserRole();
     }
 
@@ -173,10 +173,11 @@ export default class Settings extends Component {
             <ScrollView>
                 <View>
                     <ImageBackground
-                        source={probg}
+                        source={this.state.bgImage}
                         style={{
                             flex: 1,
-                            height: 200,
+                            height: 120,
+
                         }}>
                         <List containerStyle={{backgroundColor: 'transparent', borderTopWidth: 0,}}>
                             <ListItem
@@ -186,17 +187,26 @@ export default class Settings extends Component {
                                 title={`Unlock Pro Version`}
                                 titleStyle={{color: colors.secondary2, fontWeight: 'bold'}}
                                 switchOnTintColor={colors.primary1}
+                                switchTintColor={colors.secondary2}
                                 switchButton
                                 onSwitch={this.toggleUnlockSwitch}
                                 switched={this.state.unlock}
                             />
                         </List>
+
                     </ImageBackground>
                 </View>
                 <List>
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'favorite', color: colors.grey2}}
+                        leftIcon={{name: 'refresh', color: colors.secondary2}}
+                        title={`Restore Purchase`}
+                        onPress={this.restorePurchase}
+                        hideChevron
+                    />
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        leftIcon={{name: 'favorite', color: this.state.versionColor}}
                         title={`PRO Version`}
                         titleStyle={this.titleStyle()}
                         rightTitle={this.state.isPro}
@@ -208,7 +218,7 @@ export default class Settings extends Component {
                 <List>
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'chat', color: colors.secondary2}}
+                        leftIcon={{name: 'chat', color: colors.orange1}}
                         title={`Tell a friend`}
                         onPress={() => this.onShare()}
                     />
