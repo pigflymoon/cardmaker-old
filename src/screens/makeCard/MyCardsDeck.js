@@ -50,6 +50,7 @@ export default class MyCardsDeck extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         const params = navigation.state.params || {};
+        console.log('paidUser', paidUser)
 
         if (params.signin) {
             return ({
@@ -122,6 +123,9 @@ export default class MyCardsDeck extends Component {
     handleSavedCards = (likedCards) => {
         savedCards = likedCards;
     }
+    updateUserType = (type) => {
+        paidUser = type;
+    }
 
     render() {
         var isConnected = this.props.screenProps.isConnected;
@@ -144,6 +148,7 @@ export default class MyCardsDeck extends Component {
                     <CardsDeck cardType={this.state.cardType}
                                isPaidUser={this.state.isPaidUser}
                                onSavedCards={this.handleSavedCards}
+                               onRefreshUser={this.updateUserType}
                     />
 
                 </View>

@@ -86,6 +86,7 @@ export default class MakeCard extends Component {
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         var isPaidUser = nextProps.navigation.state.params.isPaidUser;
+        console.log('ispaid user',isPaidUser)
 
         this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
     }
