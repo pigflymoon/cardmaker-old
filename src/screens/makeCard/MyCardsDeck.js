@@ -50,7 +50,6 @@ export default class MyCardsDeck extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         const params = navigation.state.params || {};
-        console.log('paidUser', paidUser)
 
         if (params.signin) {
             return ({
@@ -96,7 +95,6 @@ export default class MyCardsDeck extends Component {
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
                     var isPaidUser = userrole.paid_user;
-                    console.log('paid_user', isPaidUser)
                     self.setState({signin: true, authUser, isPaidUser: isPaidUser});
                     paidUser = isPaidUser;
                     self.props.navigation.setParams({

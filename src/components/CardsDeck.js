@@ -79,7 +79,6 @@ export default class CardsDeck extends Component {
         db.ref('/users/' + userId).once('value').then(function (snapshot) {
             var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
             var isPaidUser = userrole.paid_user;
-            console.log('paid_user', isPaidUser)
             self.props.onRefreshUser(isPaidUser);
             self.setState({isPaidUser: isPaidUser}, () => {
                 self.getUserImages(cardType, isPaidUser);
