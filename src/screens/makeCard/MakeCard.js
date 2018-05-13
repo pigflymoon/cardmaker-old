@@ -14,8 +14,10 @@ import {
     ScrollView,
     ImageBackground,
     KeyboardAvoidingView,
+    Alert,
 } from 'react-native';
 import {
+    Button,
     Icon,
     FormInput,
     FormLabel,
@@ -36,7 +38,10 @@ import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
 import showInfo from '../../styles/showInfo';
-
+import {
+    onRestore,
+    upDateRole
+} from '../../utils/AppPay';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
@@ -59,6 +64,50 @@ export default class MakeCard extends Component {
             fontWeight: 'normal',
         }
     }
+
+    //right  header
+    static navigationOptions = ({navigation}) => {
+        const params = navigation.state.params || {};
+
+        if (params.signin) {
+            return ({
+                headerRight: (
+                    <Button
+                        title="Restore"
+                        icon={{name: 'refresh', color: colors.secondary2, size: 24}}
+                        onPress={() => {
+                            onRestore().then(function (restoreResponse) {
+                                if (restoreResponse.restore) {
+                                    navigation.setParams({
+                                        isPaidUser: true,
+                                    });
+                                    //update db user
+                                    upDateRole();
+                                    Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
+
+                                }
+                            })
+
+                        }}
+                        textStyle={{fontWeight: '700', color: colors.secondary2}}
+                        buttonStyle={{
+                            backgroundColor: 'transparent',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                        }}
+                        containerViewStyle={{width: 100,}}
+                    />
+
+                )
+            });
+        } else {
+            return {
+                headerRight: false,
+            };
+        }
+
+    };
 
     componentWillMount() {
         if (this.props.navigation.state.params) {
@@ -86,7 +135,7 @@ export default class MakeCard extends Component {
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         var isPaidUser = nextProps.navigation.state.params.isPaidUser;
-        console.log('ispaid user',isPaidUser)
+        console.log('ispaid user', isPaidUser)
 
         this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
     }
