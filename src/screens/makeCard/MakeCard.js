@@ -54,9 +54,8 @@ export default class MakeCard extends Component {
             signin: false,
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
-            fontFamily: 'SnellRoundhand-Bold',
+            fontFamily: 'AmericanTypewriter-Bold',
             fontSize: 48,
-            fontStyle: 'normal',
             fontWeight: 'normal',
         }
     }
@@ -65,9 +64,10 @@ export default class MakeCard extends Component {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
+            var isPaidUser = this.props.navigation.state.params.isPaidUser;
 
             if (makeCard) {
-                this.setState({makeCard: makeCard, signin: signin});
+                this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
         }
     }
@@ -85,7 +85,9 @@ export default class MakeCard extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
-        this.setState({makeCard: makeCard});
+        var isPaidUser = nextProps.navigation.state.params.isPaidUser;
+
+        this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
     }
 
     componentWillUnmount() {
@@ -152,11 +154,23 @@ export default class MakeCard extends Component {
         });
     }
 
-    onChangeFontStyle = (style) => {
-        this.setState({fontStyle: style});
+    onChangeTextColor = (color) => {
+        let showColors = {
+            'grey': colors.grey1,
+            'red': colors.red,
+            'green': colors.secondary2,
+            'purple': colors.purple,
+            'orange': colors.orange1,
+            'blue': colors.blue,
+            'pink': colors.primary3,
+        }
+
+        for (let key in showColors) {
+            if (color == key) {
+                this.setState({textColor: showColors[key]})
+            }
+        }
     }
-
-
     onChangeTextPosition = (position) => {
         this.setState({
             textPosition: position
@@ -164,17 +178,24 @@ export default class MakeCard extends Component {
 
     }
     renderEdit = () => {
+        let fontFamily = CardConfig.freefontFamily, isPaidUser = this.state.isPaidUser;
+        if (isPaidUser) {
+            fontFamily = CardConfig.allfontFamily;
+        }
         return (
             <View style={layoutStyle.container}>
                 <View style={cardStyle.iconsContainer}>
                     <View style={cardStyle.shareRightIcon}>
+                        {
+                            isPaidUser
+                                ? <ColorWheel
+                                    initialColor="#ee0000"
+                                    onColorChange={(color) => this.setTextColor(color)}
+                                    style={{width: 60, height: 60, marginLeft: 20,}}
+                                    thumbSize={20}
+                                    thumbStyle={{height: 50, width: 50, borderRadius: 50}}/> : null
+                        }
 
-                        <ColorWheel
-                            initialColor="#ee0000"
-                            onColorChange={(color) => this.setTextColor(color)}
-                            style={{width: 60, height: 60, marginLeft: 20,}}
-                            thumbSize={20}
-                            thumbStyle={{height: 50, width: 50, borderRadius: 50}}/>
 
                     </View>
                     <View style={cardStyle.shareRightIcon}>
@@ -212,7 +233,6 @@ export default class MakeCard extends Component {
                                                maxLength={80}
                                                containerRef="wishwordscontainerRef"
                                                textInputRef="wishwordsInputRef"
-                                               autoCapitalize = "none"
                                                placeholder="Please enter wish words(length less than 80)"
                                                placeholderTextColor={colors.grey3}
                                                onChangeText={(text) => this.setWishwords(text)}
@@ -230,7 +250,6 @@ export default class MakeCard extends Component {
                                                containerRef="namecontainerRef"
                                                textInputRef="nameInputRef"
                                                placeholder="Please Sign your name(length less than 80)"
-                                               autoCapitalize = "none"
                                                placeholderTextColor={colors.grey3}
                                                onChangeText={(text) => this.setName(text)}
                                     />
@@ -246,6 +265,11 @@ export default class MakeCard extends Component {
                     </KeyboardAvoidingView>
 
                     <View style={[cardStyle.container, cardStyle.wrapper]}>
+                        {isPaidUser ? null : <Dropdown
+                                label='Text Color'
+                                data={CardConfig.textColor}
+                                onChangeText={this.onChangeTextColor}
+                            />}
                         <Dropdown
                             label='Font Size'
                             data={CardConfig.fontSize}
@@ -253,7 +277,7 @@ export default class MakeCard extends Component {
                         />
                         <Dropdown
                             label='Font Family'
-                            data={CardConfig.fontFamily}
+                            data={fontFamily}
                             setFontFamily={true}
                             onChangeText={this.onChangeFontFamily}
                         />

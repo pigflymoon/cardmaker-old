@@ -25,7 +25,7 @@ import {
 } from '../../utils/authApi';
 import CardsDeck from '../../components/CardsDeck';
 
-var savedCards = [];
+var savedCards = [], paidUser = false;
 const component1 = () => <Text>Birthday</Text>
 const component2 = () => <Text>Holiday</Text>
 const component3 = () => <Text>Wedding</Text>
@@ -58,6 +58,7 @@ export default class MyCardsDeck extends Component {
                         <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                               onPress={() => navigation.navigate('MyCards', {
                                   likedCards: savedCards,
+                                  isPaidUser: paidUser
                               })}/>
                     </TouchableOpacity>
                 )
@@ -94,8 +95,9 @@ export default class MyCardsDeck extends Component {
                 db.ref('/users/' + userId).once('value').then(function (snapshot) {
                     var userrole = (snapshot.val() && snapshot.val().role) || {free_user: true, paid_user: false};
                     var isPaidUser = userrole.paid_user;
-                    console.log('paid_user',isPaidUser)
+                    console.log('paid_user', isPaidUser)
                     self.setState({signin: true, authUser, isPaidUser: isPaidUser});
+                    paidUser = isPaidUser;
                     self.props.navigation.setParams({
                         signin: true,
                         isPaidUser: isPaidUser,

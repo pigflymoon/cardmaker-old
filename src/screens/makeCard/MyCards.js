@@ -42,6 +42,7 @@ export default class MyCards extends Component {
 
     //right  header
     static navigationOptions = ({navigation}) => {
+        var isPaidUser = navigation.state.params.isPaidUser;
         return ({
             headerRight: (
                 <TouchableOpacity style={{paddingRight: 5}}>
@@ -50,7 +51,8 @@ export default class MyCards extends Component {
                               {
                                   navigation.navigate('MakeCard', {
                                       chooseCards: makeCard,
-                                      signin: true
+                                      signin: true,
+                                      isPaidUser: isPaidUser
                                   });
                               }
 

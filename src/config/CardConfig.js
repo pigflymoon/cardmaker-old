@@ -1,3 +1,5 @@
+import colors from '../styles/colors';
+
 export default CardConfig = {
     textPostion: [{
         value: 'topLeft'
@@ -31,7 +33,40 @@ export default CardConfig = {
     }, {
         value: 72
     }],
-    fontFamily: [{
+
+    freefontFamily: [{
+        value: 'AlNile-Bold'
+    }, {
+        value: 'American Typewriter'
+    }, {
+        value: 'AmericanTypewriter-Bold'
+    }, {
+        value: 'Baskerville-Bold'
+    }, {
+        value: 'Bodoni 72'
+    }, {
+        value: 'Bodoni 72 Oldstyle'
+    }, {
+        value: 'Bradley Hand'
+    }, {
+        value: 'Chalkboard SE'
+    }, {
+        value: 'Courier'
+    }, {
+        value: 'Marker Felt'
+    }, {
+        value: 'Party LET'
+    }, {
+        value: 'PartyLetPlain'
+    }, {
+        value: 'Savoye LET'
+    }, {
+        value: 'SnellRoundhand-Bold'
+    }, {
+        value: 'Zapfino'
+    }
+    ],
+    allfontFamily: [{
         value: 'Academy Engraved LET'
     }, {
         value: 'AcademyEngravedLetPlain'
@@ -173,6 +208,22 @@ export default CardConfig = {
         value: 'normal',
     }, {
         value: 'bold'
-    }]
+    }],
+    textColor: [{
+        value: 'grey',
+    }, {
+        value: 'red',
+    }, {
+        value: 'green',
+    }, {
+        value: 'purple',
+    }, {
+        value: 'orange',
+    }, {
+        value: 'blue',
+    }, {
+        value: 'pink'
+    },
+    ]
 
 };

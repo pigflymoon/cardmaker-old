@@ -7,6 +7,7 @@ const PURPLE = '#5856D6';
 const TEAL_BLUE = '#5AC8FA';
 
 export default {
+    blue: BLUE,
     primary: BLUE,
     primary1: '#4d86f7',
     primary2: '#6296f9',
