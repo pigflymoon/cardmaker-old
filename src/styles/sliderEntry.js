@@ -49,12 +49,16 @@ export default{
     imageContainerEven: {
         backgroundColor: colors.black
     },
+
     image: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: 'center',
         borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius
+    },
+    resizeModeContain:{
+        resizeMode: 'contain',
     },
     // image's border radius is buggy on iOS; let's hack it!
     radiusMask: {

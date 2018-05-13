@@ -59,6 +59,7 @@ export  default class UnLockModal extends Component {
                 even={(index + 1) % 2 === 0}
                 parallax={true}
                 parallaxProps={parallaxProps}
+                resizeStyle={true}
             />
         );
     }
