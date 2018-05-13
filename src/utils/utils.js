@@ -52,8 +52,7 @@ export default class Utils {
             let shareImageBase64 = {
                 title: caption,
                 message: message,
-                url: imageUrl,//"http://facebook.github.io/react-native/",
-                // url: imageUrl,
+                url: imageUrl,
                 subject: caption //  for email
             };
             Share.open(shareImageBase64).catch(err => console.log(err));

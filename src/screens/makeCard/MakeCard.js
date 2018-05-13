@@ -152,6 +152,10 @@ export default class MakeCard extends Component {
         this.setState({caption: text});
     }
 
+    onShare = () => {
+        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
+    }
+
 
     setTextColor = (color) => {
         var hexColor = color ? color.hexColor : colors.primary1;
