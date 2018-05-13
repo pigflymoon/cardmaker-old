@@ -22,21 +22,23 @@ import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import unlockModalStyle from '../../styles/unlockModal';
 import colors from '../../styles/colors';
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
+
+
 import layoutStyle from '../../styles/layout';
-const SLIDER_1_FIRST_ITEM = 1;
+const SLIDER_1_FIRST_ITEM = 0;
 
 export const ENTRIES1 = [
     {
         title: 'Get all types of illustration with new illustrations always on the way',
-        illustration: 'https://i.imgur.com/UYiroysl.jpg'
+        illustration:'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner1.jpg?alt=media&token=77f65b50-0664-4f39-a3c7-bf580c96e5eb'
     },
     {
         title: 'Create unique color for your text',
-        illustration: 'https://i.imgur.com/UPrs1EWl.jpg'
+        illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner2.jpg?alt=media&token=18df4d9f-6c1a-44fe-8d18-ce2a7a1a232d'
     },
     {
         title: 'Make your own card with popular font family',
-        illustration: 'https://i.imgur.com/MABUbpDl.jpg'
+        illustration:'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
     },
 
 ];
@@ -93,9 +95,9 @@ export  default class UnLockModal extends Component {
     }
 
     restorePurchase = () => {
-        var self =this;
+        var self = this;
         onRestore().then(function (restoreResponse) {
-            if(restoreResponse.restore){
+            if (restoreResponse.restore) {
                 self.setState({unlock: true});
                 //update db user
                 upDateRole();
@@ -170,9 +172,8 @@ export  default class UnLockModal extends Component {
                     }}>
                         <Icon
                             name='close'
-                            type='font-awesome'
                             color={colors.white}
-                            size={22}
+                            size={28}
                             onPress={this.goBack}
                         />
 
