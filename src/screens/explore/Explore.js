@@ -16,6 +16,7 @@ import {
 import {
     Icon,
     Avatar,
+    ButtonGroup
 } from 'react-native-elements';
 import VersionCheck from 'react-native-version-check';
 
@@ -37,6 +38,7 @@ import  logo from '../../assets/images/logo.png';
 
 import {
     getFreeImages,
+    getFreeImagesNew
 } from '../../utils/FetchImagesByApi';
 import {
     upDateRole
@@ -59,34 +61,73 @@ const words = [
     },
 ];
 
+const component1 = () => <Text>Cards</Text>
+const component2 = () => <Text>Invitations</Text>
+let cardsType = {
+    holiday: ["christmas", "newYear", "easter"],
+    birthday: ["kids", "forHer", "forHim"],
+    thankyou: ["general", "birthday", "wedding"]
+}
+let invitationsType = {
+    holiday: ["christmas", "newYear", "easter"],
+    birthday: ["kids", "women", "men"],
+    wedding: ["invitation", "saveTheDate", "rsvp"]
+}
+
 export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            birthdayImages: [],
-            holidayImages: [],
-            weddingImages: [],
-            otherImages: [],
-            latestImages: [],
-
+            // birthdayImages: [],
+            // holidayImages: [],
+            // weddingImages: [],
+            // otherImages: [],
+            // latestImages: [],
+            updatedcards: [],
             appReady: false,
             rootKey: Math.random(),
             connectionInfo: this.props.screenProps.connectionInfo,
             scrollY: new Animated.Value(0),
+            imageCategory: 'cards',
+            imageType: cardsType,
         };
         this.maskImage = logo;
 
     }
 
 
-    fetchImages = (cardType) => {
+    fetchImages = (catergory, imageType) => {
+        var array = []
+        // return new Promise(function (resolve, reject) {
+        // some async operation here
+        // setTimeout(function () {
+        // resolve the promise with some value
+        var promises = imageType.map(function (type) {
+            return getFreeImagesNew(catergory).then(function (images) {
+                console.log('#######images are ', images)
+                array.push(images);
+                return array;
+            });
+        })
+
+
+        return Promise.all(promises).then(function (results) {
+            console.log('### promise result #####', results)
+            return results
+        })
+
+
+        // }, 500);
+        // });
+    }
+
+    fetchUpdatedImages = (catergory) => {
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
-                getFreeImages(cardType).then(function (images) {
+                getFreeImagesNew(catergory).then(function (images) {
                     resolve(images)
-                    // self.setState({[cardType]: images});
 
                 });
 
@@ -114,6 +155,7 @@ export default class Explore extends Component {
     }
 
     componentWillMount() {
+        const {imageCategory} = this.state
 
         var self = this;
         VersionCheck.needUpdate()
@@ -123,29 +165,43 @@ export default class Explore extends Component {
                 }
             });
 
-        Promise.all([this.fetchImages(birthdayImages), this.fetchImages(holidayImages), this.fetchImages(weddingImages), this.fetchImages(otherImages)])
-            .then(function (results) {
-                let latestbirthDayImages = results[0][0];
-                let latestholidayImages = results[1][0];
-                let latestweddingImages = results[2][0];
-                let latestotherImages = results[3][0];
-                let latestImages = [];
-                latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages);
+        // Promise.all([this.fetchImages(imageCategory, cardsType.holiday), this.fetchImages(imageCategory, cardsType.birthday), this.fetchImages(imageCategory, cardsType.thankyou)])
+        //     .then(function (results) {
+        //         console.log('results are ', results)
+        //         let latestChristmasCardsImages = results[0][0];
+        //         let latestnewYearCardsImages = results[1][0];
+        //         let latesteasterCardsImages = results[2][0];
+        //         // let latestotherImages = results[3][0];
+        //         console.log('latesteasterCardsImages are ',latesteasterCardsImages)
+        //         /*
+        //          let latestbirthDayImages = results[0][0];
+        //          let latestholidayImages = results[1][0];
+        //          let latestweddingImages = results[2][0];
+        //          let latestotherImages = results[3][0];
+        //          let latestImages = [];
+        //          latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages);
+        //
+        //          self.setState(
+        //          {
+        //          birthdayImages: results[0],
+        //          holidayImages: results[1],
+        //          weddingImages: results[2],
+        //          otherImages: results[3],
+        //          latestImages: latestImages
+        //
+        //          });
+        //
+        //          */
+        //         // do something with result1 and result2
+        //         // available as results[0] and results[1] respectively
+        //     })
+        //     .catch(function (err) { /* ... */
+        //     });
 
-                self.setState(
-                    {
-                        birthdayImages: results[0],
-                        holidayImages: results[1],
-                        weddingImages: results[2],
-                        otherImages: results[3],
-                        latestImages: latestImages
-
-                    });
-                // do something with result1 and result2
-                // available as results[0] and results[1] respectively
-            })
-            .catch(function (err) { /* ... */
-            });
+        this.fetchUpdatedImages(imageCategory).then(function (results) {
+            console.log('results', results)
+            self.setState({updatedcards: results});
+        })
 
 
         this.setState({
@@ -164,10 +220,7 @@ export default class Explore extends Component {
 
     componentWillUnmount() {
         this.setState({
-            birthdayImages: [],
-            holidayImages: [],
-            weddingImages: [],
-            otherImages: [],
+            updatedcards: []
         })
 
 
@@ -195,6 +248,24 @@ export default class Explore extends Component {
 
     onUnLock = () => {
         this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
+
+    }
+
+    updateIndex = (selectedIndex) => {
+        let showCategory = ['Cards', 'Invitations'];
+
+        this.setState({selectedIndex: selectedIndex}, function () {
+            for (let type of showCategory) {
+                let index = showCategory.indexOf(type);
+
+                if (this.state.selectedIndex === index) {
+
+                    let imageType = (type == 'Cards') ? cardsType : invitationsType;
+                    console.log('category is :', type, 'image type is', imageType)
+                    this.setState({imageType: imageType, imageCategory: type});
+                }
+            }
+        })
 
     }
 
@@ -253,6 +324,33 @@ export default class Explore extends Component {
         );
     }
 
+    renderImageList = (category) => {
+        console.log('category is ', category, this.state.updatedcards)
+        return (
+            <View>
+                <View style={[layoutStyle.container]}>
+
+                    <View style={carouselStyle.container}>
+                        <Text style={carouselStyle.title}>{category}</Text>
+                        <TouchableOpacity
+                            onPress={() => this.navigateToShowAll(category)}>
+                            <View style={carouselStyle.subtitleContainer}>
+                                <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                <Icon
+                                    name='chevron-right'
+                                    color={colors.secondary2}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    {this.renderCarousel(this.state.updatedcards, category, 'Browse All', (!this.state.contentIsLoading))}
+
+                </View>
+
+            </View>
+        )
+    }
+
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
         if (this.props.screenProps.isConnected == false && isConnected == true) {
@@ -260,6 +358,7 @@ export default class Explore extends Component {
         }
 
     }
+
 
     render() {
         var isConnected = this.props.screenProps.isConnected;
@@ -290,7 +389,8 @@ export default class Explore extends Component {
             outputRange: [0, 1, 1],
             extrapolate: 'clamp',
         });
-
+        const buttons = [{element: component1}, {element: component2}]
+        const {selectedIndex, imageCategory} = this.state
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
                 <Loader
@@ -307,74 +407,18 @@ export default class Explore extends Component {
                             [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                         )}
                     >
-                        <View style={[layoutStyle.container, exploreStyle.scrollViewContent]}>
 
-                            <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Birthday'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(birthdayImages)}>
-                                    <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                        <Icon
-                                            name='chevron-right'
-                                            color={colors.secondary2}
-                                        />
-                                    </View>
-                                </TouchableOpacity>
+                        <View style={exploreStyle.scrollViewContent}>
+                            <ButtonGroup
+                                onPress={this.updateIndex}
+                                selectedIndex={selectedIndex}
+                                buttons={buttons}
+                                containerStyle={{height: 40}}/>
+                            <View>
+                                {this.renderImageList(imageCategory)}
                             </View>
-                            {this.renderCarousel(this.state.birthdayImages, 'Birthday', 'Browse All', (!this.state.contentIsLoading))}
-                        </View>
-                        <View style={layoutStyle.container}>
-
-                            <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Holidays'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(holidayImages)}>
-                                    <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                        <Icon
-                                            name='chevron-right'
-                                            color={colors.secondary2}
-                                        />
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            {this.renderCarousel(this.state.holidayImages, 'Holidays', 'Browse All', (!this.state.contentIsLoading))}
-                        </View>
-                        <View style={layoutStyle.container}>
-
-                            <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Wedding'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(weddingImages)}>
-                                    <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                        <Icon
-                                            name='chevron-right'
-                                            color={colors.secondary2}
-                                        />
-                                    </View>
-
-
-                                </TouchableOpacity>
-
-                            </View>
-                            {this.renderCarousel(this.state.weddingImages, 'Wedding', 'Browse All', (!this.state.contentIsLoading))}
                         </View>
 
-                        <View style={layoutStyle.container}>
-
-                            <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Others'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(otherImages)}>
-                                    <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
-                                        <Icon
-                                            name='chevron-right'
-                                            color={colors.secondary2}
-                                        />
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            {this.renderCarousel(this.state.otherImages, 'Others', 'Browse All', (!this.state.contentIsLoading))}
-                        </View>
                     </ScrollView>
 
 
