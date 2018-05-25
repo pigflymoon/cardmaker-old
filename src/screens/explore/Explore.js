@@ -65,10 +65,10 @@ let invitationsType = {
 const words = [
 
     {
-        width: '60%',
+        width: '50%',
     },
     {
-        width: '40%',
+        width: '50%',
     },
 ];
 
@@ -320,18 +320,23 @@ export default class Explore extends Component {
 
     renderChildren() {
         const {updatedcards} = this.state
+        const heightStyle = {height: 150};
 
         return updatedcards.map((image, key) => {
             console.log('image.illustration', image.illustration)
             return (
-                <View style={this.getChildrenStyle()} key={key}>
-                    <Text>{image.title}</Text>
-                    <ImageBackground
-                        source={{uri: image.illustration}}
-                        style={this.getChildrenStyle()}
+                <View
+                    style={[carouselStyle.carouselContainer, (this.state.contentIsLoading) && heightStyle]}>
 
-                    />
+                    <Placeholder.MultiWords onReady={!this.state.contentIsLoading} words={words} animate="fade">
+                        <View style={this.getChildrenStyle()} key={key}>
+
+                            <Text>Test</Text>
+                        </View>
+                    </Placeholder.MultiWords>
+
                 </View>
+
             );
         }, this);
     }
@@ -382,7 +387,6 @@ export default class Explore extends Component {
         });
         const buttons = [{element: component1}, {element: component2}]
         const {selectedIndex, imageCategory} = this.state
-        const heightStyle = {height: 150};
 
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
@@ -407,15 +411,11 @@ export default class Explore extends Component {
                                 selectedIndex={selectedIndex}
                                 buttons={buttons}
                                 containerStyle={{height: 40}}/>
-                            <View style={[carouselStyle.carouselContainer, (this.state.contentIsLoading) && heightStyle]}>
-                                <Placeholder.MultiWords onReady={!this.state.contentIsLoading} words={words} animate="fade">
 
-                                <AutoResponsive {...this.getAutoResponsiveProps()} >
-                                    {this.renderChildren()}
-                                </AutoResponsive>
-                                </Placeholder.MultiWords>
-                                {/*{this.renderImageList()}*/}
-                            </View>
+                            <AutoResponsive {...this.getAutoResponsiveProps()} >
+                                {this.renderChildren()}
+                            </AutoResponsive>
+
                         </View>
 
                     </ScrollView>
