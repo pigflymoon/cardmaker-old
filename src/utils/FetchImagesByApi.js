@@ -13,8 +13,8 @@ export function getUpdatedImages(category = 'cards', count = 9) {
 
             db.ref().child(`updated${category}`).limitToLast(count).once("value", function (snapshot) {
                 var downloadImages = snapshot.val();
+
                 downloadImages = Utils.reverseObject(downloadImages)
-                console.log('downloadImages are !!!!!!!!', downloadImages)
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {

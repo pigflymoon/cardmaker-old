@@ -92,6 +92,7 @@ export default class Explore extends Component {
 
 
     fetchUpdatedImages = (catergory, showImagesNumber) => {
+        console.log('fetchUpdatedImages called')
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
@@ -128,45 +129,13 @@ export default class Explore extends Component {
         const {imageCategory} = this.state
 
         var self = this;
+        console.log('called!!!!!')
         VersionCheck.needUpdate()
             .then(async res => {
                 if (res.isNeeded) {
                     this.showAlert();
                 }
             });
-
-        // Promise.all([this.fetchImages(imageCategory, cardsType.holiday), this.fetchImages(imageCategory, cardsType.birthday), this.fetchImages(imageCategory, cardsType.thankyou)])
-        //     .then(function (results) {
-        //         console.log('results are ', results)
-        //         let latestChristmasCardsImages = results[0][0];
-        //         let latestnewYearCardsImages = results[1][0];
-        //         let latesteasterCardsImages = results[2][0];
-        //         // let latestotherImages = results[3][0];
-        //         console.log('latesteasterCardsImages are ',latesteasterCardsImages)
-        //         /*
-        //          let latestbirthDayImages = results[0][0];
-        //          let latestholidayImages = results[1][0];
-        //          let latestweddingImages = results[2][0];
-        //          let latestotherImages = results[3][0];
-        //          let latestImages = [];
-        //          latestImages.push(latestbirthDayImages, latestholidayImages, latestweddingImages, latestotherImages);
-        //
-        //          self.setState(
-        //          {
-        //          birthdayImages: results[0],
-        //          holidayImages: results[1],
-        //          weddingImages: results[2],
-        //          otherImages: results[3],
-        //          latestImages: latestImages
-        //
-        //          });
-        //
-        //          */
-        //         // do something with result1 and result2
-        //         // available as results[0] and results[1] respectively
-        //     })
-        //     .catch(function (err) { /* ... */
-        //     });
 
         this.fetchUpdatedImages(imageCategory, showImagesNumber).then(function (results) {
             console.log('results', results)
@@ -325,18 +294,14 @@ export default class Explore extends Component {
         return updatedcards.map((image, key) => {
             console.log('image.illustration', image.illustration)
             return (
-                <View
-                    style={[carouselStyle.carouselContainer, (this.state.contentIsLoading) && heightStyle]}>
+                <View style={this.getChildrenStyle()} key={key}>
+                    <Text>{image.title}</Text>
+                    <ImageBackground
+                        source={{uri: image.illustration}}
+                        style={this.getChildrenStyle()}
 
-                    <Placeholder.MultiWords onReady={!this.state.contentIsLoading} words={words} animate="fade">
-                        <View style={this.getChildrenStyle()} key={key}>
-
-                            <Text>Test</Text>
-                        </View>
-                    </Placeholder.MultiWords>
-
+                    />
                 </View>
-
             );
         }, this);
     }
@@ -387,6 +352,7 @@ export default class Explore extends Component {
         });
         const buttons = [{element: component1}, {element: component2}]
         const {selectedIndex, imageCategory} = this.state
+        const heightStyle = {height: 150};
 
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
@@ -411,11 +377,12 @@ export default class Explore extends Component {
                                 selectedIndex={selectedIndex}
                                 buttons={buttons}
                                 containerStyle={{height: 40}}/>
-
-                            <AutoResponsive {...this.getAutoResponsiveProps()} >
-                                {this.renderChildren()}
-                            </AutoResponsive>
-
+                            <View style={{paddingHorizontal: 10,}}>
+                                <AutoResponsive {...this.getAutoResponsiveProps()} >
+                                    {this.renderChildren()}
+                                </AutoResponsive>
+                                {/*{this.renderImageList()}*/}
+                            </View>
                         </View>
 
                     </ScrollView>
