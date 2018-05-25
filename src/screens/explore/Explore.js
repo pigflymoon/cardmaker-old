@@ -49,6 +49,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const component1 = () => <Text>Cards</Text>
 const component2 = () => <Text>Invitations</Text>
 const showImagesNumber = 9;
+const showLatestImagesNumber = 4;
 let cardsType = {
     holiday: ["christmas", "newYear", "easter"],
     birthday: ["kids", "forHer", "forHim"],
@@ -158,7 +159,7 @@ export default class Explore extends Component {
 
         this.fetchUpdatedImages(imageCategory, showImagesNumber).then(function (results) {
             console.log('results', results)
-            let latestImages = results.slice(0, 6);
+            let latestImages = results.slice(0, showLatestImagesNumber);
             self.setState({updatedcards: results, latestImages: latestImages});
         })
 
@@ -224,7 +225,7 @@ export default class Explore extends Component {
                     console.log('category is :', type)
                     self.fetchUpdatedImages(type.toLocaleLowerCase(), showImagesNumber).then(function (results) {
                         console.log('updated results#######', results)
-                        let latestImages = results.slice(0, 6);
+                        let latestImages = results.slice(0, showLatestImagesNumber);
                         self.setState({imageCategory: type, updatedcards: results, latestImages: latestImages});
                     })
                     // this.setState({});
