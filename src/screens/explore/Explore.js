@@ -43,10 +43,12 @@ import {
 import  Utils from '../../utils/utils';
 import CarouselImages from '../../components/CarouselImages';
 
+import AutoResponsive from 'autoresponsive-react-native';
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
-
+const SCREEN_WIDTH = Dimensions.get('window').width;
 const component1 = () => <Text>Cards</Text>
 const component2 = () => <Text>Invitations</Text>
+const showImagesNumber = 9;
 let cardsType = {
     holiday: ["christmas", "newYear", "easter"],
     birthday: ["kids", "forHer", "forHim"],
@@ -70,18 +72,19 @@ export default class Explore extends Component {
             scrollY: new Animated.Value(0),
             imageCategory: 'cards',
             imageType: cardsType,
+            array: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         };
         this.maskImage = logo;
 
     }
 
 
-    fetchUpdatedImages = (catergory) => {
+    fetchUpdatedImages = (catergory, showImagesNumber) => {
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
-                getUpdatedImages(catergory).then(function (images) {
+                getUpdatedImages(catergory, showImagesNumber).then(function (images) {
                     resolve(images)
 
                 });
@@ -153,9 +156,10 @@ export default class Explore extends Component {
         //     .catch(function (err) { /* ... */
         //     });
 
-        this.fetchUpdatedImages(imageCategory).then(function (results) {
+        this.fetchUpdatedImages(imageCategory, showImagesNumber).then(function (results) {
             console.log('results', results)
-            self.setState({updatedcards: results});
+            let latestImages = results.slice(0, 6);
+            self.setState({updatedcards: results, latestImages: latestImages});
         })
 
 
@@ -218,9 +222,10 @@ export default class Explore extends Component {
 
                     // let imageType = (type == 'Cards') ? cardsType : invitationsType;
                     console.log('category is :', type)
-                    self.fetchUpdatedImages(type.toLocaleLowerCase()).then(function (results) {
+                    self.fetchUpdatedImages(type.toLocaleLowerCase(), showImagesNumber).then(function (results) {
                         console.log('updated results#######', results)
-                        self.setState({imageCategory: type, updatedcards: results});
+                        let latestImages = results.slice(0, 6);
+                        self.setState({imageCategory: type, updatedcards: results, latestImages: latestImages});
                     })
                     // this.setState({});
                 }
@@ -253,9 +258,9 @@ export default class Explore extends Component {
     }
 
     renderImageList = () => {
-        console.log( this.state.updatedcards)
+        console.log(this.state.updatedcards)
         const {imageCategory, updatedcards, contentIsLoading} = this.state;
-        console.log('image list updatedcards########',updatedcards)
+        console.log('image list updatedcards########', updatedcards)
 
         return (
             <View>
@@ -283,6 +288,48 @@ export default class Explore extends Component {
         )
     }
 
+//
+    getChildrenStyle() {
+        return {
+            width: (SCREEN_WIDTH - 28) / 2,
+            height: (SCREEN_WIDTH - 28) / 2 * 1.2,//parseInt(Math.random() * 20 + 12) * 10,
+            backgroundColor: colors.secondary2,
+            paddingTop: 20,
+            borderRadius: 8,
+
+        };
+    }
+
+    getAutoResponsiveProps() {
+        return {
+            itemMargin: 8,
+        };
+    }
+
+    renderChildren() {
+        const {updatedcards} = this.state
+
+        return updatedcards.map((image, key) => {
+            console.log('image.illustration', image.illustration)
+            return (
+                <View style={this.getChildrenStyle()} key={key}>
+                    <Text>{image.title}</Text>
+                    <ImageBackground
+                        source={{uri: image.illustration}}
+                        style={this.getChildrenStyle()}
+
+                    />
+                </View>
+            );
+        }, this);
+    }
+
+    onPressTitle = () => {
+        this.setState({
+            array: [...this.state.array, parseInt(Math.random() * 30)],
+        });
+    }
+    //
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
         if (this.props.screenProps.isConnected == false && isConnected == true) {
@@ -346,8 +393,11 @@ export default class Explore extends Component {
                                 selectedIndex={selectedIndex}
                                 buttons={buttons}
                                 containerStyle={{height: 40}}/>
-                            <View>
-                                {this.renderImageList()}
+                            <View style={{paddingHorizontal: 10,}}>
+                                <AutoResponsive {...this.getAutoResponsiveProps()} >
+                                    {this.renderChildren()}
+                                </AutoResponsive>
+                                {/*{this.renderImageList()}*/}
                             </View>
                         </View>
 

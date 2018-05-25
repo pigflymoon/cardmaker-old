@@ -4,17 +4,17 @@ import {
 import {auth, db, storage} from '../config/FirebaseConfig';
 import Utils from './utils';
 
-export function getUpdatedImages(category = 'cards') {
+export function getUpdatedImages(category = 'cards', count = 9) {
     var self = this;
     return new Promise(function (resolve, reject) {
         // some async operation here
         setTimeout(function () {
             // resolve the promise with some value
 
-            db.ref().child(`updated${category}`).limitToLast(3).once("value", function (snapshot) {
+            db.ref().child(`updated${category}`).limitToLast(count).once("value", function (snapshot) {
                 var downloadImages = snapshot.val();
                 downloadImages = Utils.reverseObject(downloadImages)
-                console.log('downloadImages are !!!!!!!!',downloadImages)
+                console.log('downloadImages are !!!!!!!!', downloadImages)
                 if (downloadImages) {
                     var images = Object.keys(downloadImages).map(key => (
                             {
@@ -35,6 +35,9 @@ export function getUpdatedImages(category = 'cards') {
         }, 500);
     });
 }
+
+
+
 
 export function getFreeImages(category = 'cards', cardType = 'christmas') {
     var self = this;
