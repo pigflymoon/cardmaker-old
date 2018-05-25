@@ -20,9 +20,7 @@ import {
 } from 'react-native-elements';
 import VersionCheck from 'react-native-version-check';
 
-import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
-import Placeholder from 'rn-placeholder';
 
 import layoutStyle from '../../styles/layout';
 import carouselStyle from '../../styles/carousel';
@@ -30,36 +28,22 @@ import exploreStyle from '../../styles/explore';
 
 import colors from '../../styles/colors';
 
-import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import {HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT} from '../../styles/explore';
 
-import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
 
 import {
     getFreeImages,
-    getFreeImagesNew
+    getUpdatedImages
 } from '../../utils/FetchImagesByApi';
 import {
     upDateRole
 } from '../../utils/AppPay';
 
 import  Utils from '../../utils/utils';
+import CarouselImages from '../../components/CarouselImages';
 
-const birthdayImages = 'birthdayImages';
-const holidayImages = 'holidayImages';
-const weddingImages = 'weddingImages';
-const otherImages = 'otherImages';
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
-const words = [
-
-    {
-        width: '60%',
-    },
-    {
-        width: '40%',
-    },
-];
 
 const component1 = () => <Text>Cards</Text>
 const component2 = () => <Text>Invitations</Text>
@@ -78,11 +62,7 @@ export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            // birthdayImages: [],
-            // holidayImages: [],
-            // weddingImages: [],
-            // otherImages: [],
-            // latestImages: [],
+            latestImages: [],
             updatedcards: [],
             appReady: false,
             rootKey: Math.random(),
@@ -96,37 +76,12 @@ export default class Explore extends Component {
     }
 
 
-    fetchImages = (catergory, imageType) => {
-        var array = []
-        // return new Promise(function (resolve, reject) {
-        // some async operation here
-        // setTimeout(function () {
-        // resolve the promise with some value
-        var promises = imageType.map(function (type) {
-            return getFreeImagesNew(catergory).then(function (images) {
-                console.log('#######images are ', images)
-                array.push(images);
-                return array;
-            });
-        })
-
-
-        return Promise.all(promises).then(function (results) {
-            console.log('### promise result #####', results)
-            return results
-        })
-
-
-        // }, 500);
-        // });
-    }
-
     fetchUpdatedImages = (catergory) => {
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
-                getFreeImagesNew(catergory).then(function (images) {
+                getUpdatedImages(catergory).then(function (images) {
                     resolve(images)
 
                 });
@@ -246,13 +201,14 @@ export default class Explore extends Component {
         }
     };
 
-    onUnLock = () => {
+    navigateToUnLock = () => {
         this.props.navigation.navigate("UnLock", {onUnlock: this.onUnlock});
 
     }
 
     updateIndex = (selectedIndex) => {
         let showCategory = ['Cards', 'Invitations'];
+        var self = this;
 
         this.setState({selectedIndex: selectedIndex}, function () {
             for (let type of showCategory) {
@@ -260,45 +216,17 @@ export default class Explore extends Component {
 
                 if (this.state.selectedIndex === index) {
 
-                    let imageType = (type == 'Cards') ? cardsType : invitationsType;
-                    console.log('category is :', type, 'image type is', imageType)
-                    this.setState({imageType: imageType, imageCategory: type});
+                    // let imageType = (type == 'Cards') ? cardsType : invitationsType;
+                    console.log('category is :', type)
+                    self.fetchUpdatedImages(type.toLocaleLowerCase()).then(function (results) {
+                        console.log('updated results#######', results)
+                        self.setState({imageCategory: type, updatedcards: results});
+                    })
+                    // this.setState({});
                 }
             }
         })
 
-    }
-
-    renderItem = ({item, index}) => {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
-    }
-
-    renderCarousel = (data, title, subtitle, isLoaded) => {
-        const heightStyle = {height: 150};
-
-        return (
-            <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
-                <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
-                    <Carousel
-                        data={data}
-                        renderItem={this.renderItem}
-                        sliderWidth={sliderWidth}
-                        itemWidth={itemWidth}
-                        inactiveSlideScale={0.95}
-                        inactiveSlideOpacity={1}
-                        enableMomentum={true}
-                        activeSlideAlignment={'start'}
-                        containerCustomStyle={carouselStyle.slider}
-                        contentContainerCustomStyle={carouselStyle.sliderContentContainer}
-                        activeAnimationType={'spring'}
-                        activeAnimationOptions={{
-                            friction: 4,
-                            tension: 40
-                        }}
-                    />
-                </Placeholder.MultiWords>
-            </View>
-        );
     }
 
     renderBanner = (data) => {
@@ -324,16 +252,19 @@ export default class Explore extends Component {
         );
     }
 
-    renderImageList = (category) => {
-        console.log('category is ', category, this.state.updatedcards)
+    renderImageList = () => {
+        console.log( this.state.updatedcards)
+        const {imageCategory, updatedcards, contentIsLoading} = this.state;
+        console.log('image list updatedcards########',updatedcards)
+
         return (
             <View>
                 <View style={[layoutStyle.container]}>
 
                     <View style={carouselStyle.container}>
-                        <Text style={carouselStyle.title}>{category}</Text>
+                        <Text style={carouselStyle.title}>{imageCategory}</Text>
                         <TouchableOpacity
-                            onPress={() => this.navigateToShowAll(category)}>
+                            onPress={() => this.navigateToShowAll(imageCategory)}>
                             <View style={carouselStyle.subtitleContainer}>
                                 <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                 <Icon
@@ -343,7 +274,8 @@ export default class Explore extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    {this.renderCarousel(this.state.updatedcards, category, 'Browse All', (!this.state.contentIsLoading))}
+                    <CarouselImages cards={updatedcards} category={imageCategory}
+                                    rightTitle="Browse All" contentIsLoading={(!contentIsLoading)}/>
 
                 </View>
 
@@ -415,7 +347,7 @@ export default class Explore extends Component {
                                 buttons={buttons}
                                 containerStyle={{height: 40}}/>
                             <View>
-                                {this.renderImageList(imageCategory)}
+                                {this.renderImageList()}
                             </View>
                         </View>
 
@@ -448,7 +380,7 @@ export default class Explore extends Component {
                                         type='font-awesome'
                                         color={colors.primary3}
                                         size={22}
-                                        onPress={this.onUnLock}/>
+                                        onPress={this.navigateToUnLock}/>
                                 </Animated.View>
 
 
