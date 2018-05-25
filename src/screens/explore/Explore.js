@@ -44,6 +44,8 @@ import  Utils from '../../utils/utils';
 import CarouselImages from '../../components/CarouselImages';
 
 import AutoResponsive from 'autoresponsive-react-native';
+import Placeholder from 'rn-placeholder';
+
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const component1 = () => <Text>Cards</Text>
@@ -60,6 +62,15 @@ let invitationsType = {
     birthday: ["kids", "women", "men"],
     wedding: ["invitation", "saveTheDate", "rsvp"]
 }
+const words = [
+
+    {
+        width: '60%',
+    },
+    {
+        width: '40%',
+    },
+];
 
 export default class Explore extends Component {
     constructor(props, context) {
@@ -371,6 +382,8 @@ export default class Explore extends Component {
         });
         const buttons = [{element: component1}, {element: component2}]
         const {selectedIndex, imageCategory} = this.state
+        const heightStyle = {height: 150};
+
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
                 <Loader
@@ -394,10 +407,13 @@ export default class Explore extends Component {
                                 selectedIndex={selectedIndex}
                                 buttons={buttons}
                                 containerStyle={{height: 40}}/>
-                            <View style={{paddingHorizontal: 10,}}>
+                            <View style={[carouselStyle.carouselContainer, (this.state.contentIsLoading) && heightStyle]}>
+                                <Placeholder.MultiWords onReady={!this.state.contentIsLoading} words={words} animate="fade">
+
                                 <AutoResponsive {...this.getAutoResponsiveProps()} >
                                     {this.renderChildren()}
                                 </AutoResponsive>
+                                </Placeholder.MultiWords>
                                 {/*{this.renderImageList()}*/}
                             </View>
                         </View>
