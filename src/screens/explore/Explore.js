@@ -140,17 +140,12 @@ export default class Explore extends Component {
         this.fetchUpdatedImages(imageCategory, showImagesNumber).then(function (results) {
             console.log('results', results)
             let latestImages = results.slice(0, showLatestImagesNumber);
-            self.setState({updatedcards: results, latestImages: latestImages});
+            self.setState({updatedcards: results, latestImages: latestImages,contentIsLoading: true});
         })
-
-
-        this.setState({
-            contentIsLoading: true
-        });
 
         setTimeout(() => {
             this.setState({contentIsLoading: false});
-        }, 4000);
+        }, 3000);
     }
 
     componentDidMount() {
@@ -201,14 +196,15 @@ export default class Explore extends Component {
 
                 if (this.state.selectedIndex === index) {
 
-                    // let imageType = (type == 'Cards') ? cardsType : invitationsType;
-                    console.log('category is :', type)
                     self.fetchUpdatedImages(type.toLocaleLowerCase(), showImagesNumber).then(function (results) {
                         console.log('updated results#######', results)
                         let latestImages = results.slice(0, showLatestImagesNumber);
-                        self.setState({imageCategory: type, updatedcards: results, latestImages: latestImages});
+                        self.setState({imageCategory: type, updatedcards: results, latestImages: latestImages,contentIsLoading: true});
                     })
-                    // this.setState({});
+
+                    setTimeout(() => {
+                        self.setState({contentIsLoading: false});
+                    }, 3000);
                 }
             }
         })
@@ -216,6 +212,9 @@ export default class Explore extends Component {
     }
 
     renderBanner = (data) => {
+        const {contentIsLoading} = this.state
+        const heightStyle = {height: 50};
+
         return (
             <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 10,}}>
 
@@ -226,12 +225,25 @@ export default class Explore extends Component {
                             flex: 1, marginHorizontal: 5,
                             justifyContent: 'center',
                         }}>
-                        <Avatar
-                            large
-                            rounded
-                            source={{uri: image.illustration}}
-                            activeOpacity={0.7}
-                        />
+                        <View style={[carouselStyle.carouselContainer, contentIsLoading && heightStyle]}>
+                            <Placeholder.ImageContent
+                                position="left"
+                                hasRadius
+                                size={60}
+                                animate="fade"
+                                textSize={14}
+                                color={colors.grey5}
+                                width="100%"
+                                onReady={!contentIsLoading}
+                            >
+                                <Avatar
+                                    large
+                                    rounded
+                                    source={{uri: image.illustration}}
+                                    activeOpacity={0.7}
+                                />
+                            </Placeholder.ImageContent>
+                        </View>
 
                     </View>))}
             </View>
@@ -288,29 +300,37 @@ export default class Explore extends Component {
     }
 
     renderChildren() {
-        const {updatedcards} = this.state
+        const {updatedcards, contentIsLoading} = this.state
         const heightStyle = {height: 150};
 
         return updatedcards.map((image, key) => {
             console.log('image.illustration', image.illustration)
             return (
                 <View style={this.getChildrenStyle()} key={key}>
-                    <Text>{image.title}</Text>
-                    <ImageBackground
-                        source={{uri: image.illustration}}
-                        style={this.getChildrenStyle()}
+                    <View style={[carouselStyle.carouselContainer, contentIsLoading && heightStyle]}>
+                        <Placeholder.ImageContent
+                            position="left"
+                            hasRadius
+                            size={100}
+                            animate="fade"
+                            textSize={14}
+                            color={colors.grey5}
+                            width="100%"
+                            onReady={!contentIsLoading}
+                        >
+                            <Text>{image.title}</Text>
+                            <ImageBackground
+                                source={{uri: image.illustration}}
+                                style={this.getChildrenStyle()}
 
-                    />
+                            />
+                        </Placeholder.ImageContent>
+                    </View>
                 </View>
             );
         }, this);
     }
 
-    onPressTitle = () => {
-        this.setState({
-            array: [...this.state.array, parseInt(Math.random() * 30)],
-        });
-    }
     //
     componentWillReceiveProps(nextProps) {
         var isConnected = nextProps.screenProps.isConnected;//update netinfo
