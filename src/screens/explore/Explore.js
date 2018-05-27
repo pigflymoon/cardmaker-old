@@ -94,9 +94,9 @@ export default class Explore extends Component {
         });
     }
 
-    navigateToShowAll = (cardType) => {
-        this.props.navigation.navigate('CardsGallery', {
-            cardType: cardType,
+    navigateToShowAll = (imageType) => {
+        this.props.navigation.navigate('ImagesGallery', {
+            imageType: imageType,
         });
     }
 
@@ -302,7 +302,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Cards'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(birthdayImages)}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll('cards')}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                         <Icon
@@ -312,13 +312,13 @@ export default class Explore extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {this.renderCarousel(updatedcards, (!this.state.contentIsLoading))}
+                            {this.renderCarousel(updatedcards, (!contentIsLoading))}
                         </View>
                         <View style={layoutStyle.container}>
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Invitations'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll(holidayImages)}>
+                                <TouchableOpacity onPress={() => this.navigateToShowAll('invitations')}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                         <Icon
@@ -328,7 +328,7 @@ export default class Explore extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {this.renderCarousel(updatedinvitations, (!this.state.contentIsLoading))}
+                            {this.renderCarousel(updatedinvitations, (!contentIsLoading))}
                         </View>
 
                     </ScrollView>

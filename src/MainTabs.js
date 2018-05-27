@@ -9,6 +9,8 @@ import {StackNavigator, TabNavigator} from 'react-navigation';
 //Explore
 import ExploreScreen from './screens/explore/Explore';
 import CardsGalleryScreen from './screens/explore/CardsGallery';
+import ImagesGalleryScreen from './screens/explore/ImagesGallery';
+
 //Make card
 import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
 import MyCardsScreen from './screens/makeCard/MyCards';
@@ -34,6 +36,15 @@ const ExploreTab = StackNavigator({
         screen: ExploreScreen,
         navigationOptions: ({navigation}) => ({
             title: 'Explore',
+        }),
+    },
+    ImagesGallery: {
+        screen: ImagesGalleryScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Images Gallery',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+            // headerBackTitleStyle: {color: colors.secondary2},
         }),
     },
     CardsGallery: {
