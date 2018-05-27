@@ -13,11 +13,31 @@ import {Card,} from 'react-native-elements';
 
 import {db} from '../../config/FirebaseConfig';
 
+import ImageTypeTab from '../../components/ImageTypeTab';
 import layoutStyle from '../../styles/layout';
 import exploreStyle from '../../styles/explore';
 
 let paidReferenceToOldestKey = '', lastPaidKey = '';
 
+let cardsType = {
+    holiday: ["christmas", "newYear", "easter"],
+    birthday: ["kids", "forHer", "forHim"],
+    thankyou: ["general", "birthday", "wedding"]
+}
+
+
+// let cardsType = [
+//     ["christmas", "newYear", "easter"],
+//     ["kids", "forHer", "forHim"],
+//     ["general", "birthday", "wedding"]
+// ];
+
+
+let invitationsType = {
+    holiday: ["christmas", "newYear", "easter"],
+    birthday: ["kids", "women", "men"],
+    wedding: ["invitation", "saveTheDate", "rsvp"]
+}
 
 export default class ImagesGallery extends Component {
     constructor(props, context) {
@@ -142,9 +162,49 @@ export default class ImagesGallery extends Component {
             })
         }
     };
+    //
+    onHandleSelect = (selectedName, selectedValue, type) => {
+        this.setState({
+            selectedName: selectedName,
+            selectedValue: selectedValue,
+            type: type
+        });
+
+    }
+    //
+
+    renderTabs = (imageType) => {
+        let imagesTypes = (imageType == 'cards') ? cardsType : invitationsType;
+        return (
+            Object.keys(imagesTypes).map((imagesType, key) => {
+                console.log('type is ', imagesType, 'key is ', key)
+                return (
+                    <View style={{flex: 1,}} key={key}>
+                        <Text style={{
+                            justifyContent: 'center',
+                            paddingHorizontal: 30,
+                            paddingVertical: 10,
+                        }}>{imagesType}</Text>
+                        {imagesTypes[imagesType].map((type, index) => {
+                            return (
+                                <ImageTypeTab key={index}
+                                                    imageType={type}
+                                                    selectedName={this.state.selectedName}
+                                                    selectedValue={this.state.selectedValue}
+                                                    handleSelect={this.onHandleSelect}/>
+                            )
+                        })}
+                    </View>
+                )
+
+            })
+        )
+
+    }
 
     componentWillMount() {
         const {imageType} = this.props.navigation.state.params;
+
         var self = this;
 
         this.fetchData(imageType).then(function (pages) {
@@ -162,7 +222,13 @@ export default class ImagesGallery extends Component {
         const {imageType} = this.props.navigation.state.params;
         return (
             <View style={layoutStyle.container}>
+                <View style={{flex: 1, flexDirection: 'row',}}>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+                        {this.renderTabs(imageType)}
+                    </View>
+                </View>
                 <FlatList
+                    style={{flex: 1, flexGrow: 2,}}
                     data={this.state.cardsData}
                     keyExtractor={(item, index) => `${index}-image`}
                     onEndReached={() => this.handleScrollToEnd(imageType)}
@@ -187,6 +253,7 @@ export default class ImagesGallery extends Component {
                     }
 
                 />
+
             </View>
         );
     }

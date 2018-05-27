@@ -45,10 +45,6 @@ import {
 
 import  Utils from '../../utils/utils';
 
-const birthdayImages = 'birthdayImages';
-const holidayImages = 'holidayImages';
-const weddingImages = 'weddingImages';
-const otherImages = 'otherImages';
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
 const words = [
 
