@@ -195,7 +195,6 @@ export default class Explore extends Component {
                 let index = showCategory.indexOf(type);
 
                 if (this.state.selectedIndex === index) {
-
                     self.fetchUpdatedImages(type.toLocaleLowerCase(), showImagesNumber).then(function (results) {
                         console.log('updated results#######', results)
                         let latestImages = results.slice(0, showLatestImagesNumber);
@@ -281,18 +280,6 @@ export default class Explore extends Component {
         )
     }
 
-//
-    getChildrenStyle() {
-        return {
-            width: (SCREEN_WIDTH - 28) / 2,
-            height: (SCREEN_WIDTH - 28) / 2 * 1.2,//parseInt(Math.random() * 20 + 12) * 10,
-            backgroundColor: colors.secondary2,
-            paddingTop: 20,
-            borderRadius: 8,
-
-        };
-    }
-
     getAutoResponsiveProps() {
         return {
             itemMargin: 8,
@@ -306,7 +293,7 @@ export default class Explore extends Component {
         return updatedcards.map((image, key) => {
             console.log('image.illustration', image.illustration)
             return (
-                <View style={this.getChildrenStyle()} key={key}>
+                <View  style={exploreStyle.imageList} key={key}>
                     <View style={[carouselStyle.carouselContainer, contentIsLoading && heightStyle]}>
                         <Placeholder.ImageContent
                             position="left"
@@ -321,7 +308,7 @@ export default class Explore extends Component {
                             <Text>{image.title}</Text>
                             <ImageBackground
                                 source={{uri: image.illustration}}
-                                style={this.getChildrenStyle()}
+                                style={exploreStyle.imageList}
 
                             />
                         </Placeholder.ImageContent>
@@ -371,8 +358,7 @@ export default class Explore extends Component {
             extrapolate: 'clamp',
         });
         const buttons = [{element: component1}, {element: component2}]
-        const {selectedIndex, imageCategory} = this.state
-        const heightStyle = {height: 150};
+        const {selectedIndex} = this.state
 
         return (
             <View style={[layoutStyle.container, layoutStyle.maskLoader]} key={this.state.rootKey}>
@@ -383,7 +369,6 @@ export default class Explore extends Component {
                 >
                     <ScrollView
                         style={carouselStyle.scrollView}
-
                         directionalLockEnabled={true}
                         scrollEventThrottle={16}
                         onScroll={Animated.event(
@@ -401,7 +386,6 @@ export default class Explore extends Component {
                                 <AutoResponsive {...this.getAutoResponsiveProps()} >
                                     {this.renderChildren()}
                                 </AutoResponsive>
-                                {/*{this.renderImageList()}*/}
                             </View>
                         </View>
 

@@ -67,5 +67,12 @@ export default {
         justifyContent: 'space-around',
         alignItems: 'center',
 
+    },
+    imageList:{
+        width: (SCREEN_WIDTH - 28) / 2,
+        height: (SCREEN_WIDTH - 28) / 2 * 1.2,//parseInt(Math.random() * 20 + 12) * 10,
+        backgroundColor: colors.secondary2,
+        paddingTop: 20,
+        borderRadius: 8,
     }
 }
