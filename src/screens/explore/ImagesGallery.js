@@ -54,35 +54,45 @@ export default class ImagesGallery extends Component {
     }
 
     getPaidImages = (imageType = 'cards') => {
+        console.log('imageType is ********', imageType)
+
         if (!paidReferenceToOldestKey) {
-            return db.ref().child(`updated${imageType}`)
+            return db.ref().child(imageType)
                 .orderByKey()
                 .limitToLast(5)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
-                    // changing to reverse chronological order (latest first)
-                    let arrayOfKeys = Object.keys(snapshot.val())
-                        .sort()
-                        .reverse();
-                    // transforming to array
-                    let results = arrayOfKeys
-                        .map((key) => {
-                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
-                        });
-                    // storing reference
+                        // changing to reverse chronological order (latest first)
+                        console.log('key is snapshot is ', snapshot.val())
 
-                    paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
-                    resolve(results);
+                        if (snapshot.val()) {
+                            let arrayOfKeys = Object.keys(snapshot.val())
+                                .sort()
+                                .reverse();
+                            // transforming to array
+                            let results = arrayOfKeys
+                                .map((key) => {
+                                    return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
+                                });
+                            // storing reference
 
-                    // Do what you want to do with the data, i.e.
-                    // append to page or dispatch({ … }) if using redux
-                }))
+                            paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                            resolve(results);
+                        }
+
+
+                        // Do what you want to do with the data, i.e.
+                        // append to page or dispatch({ … }) if using redux
+                    }
+                ))
                 .catch((error) => {
                     console.log('error')
                 })
 
         } else {
-            return db.ref().child(`updated${imageType}`)
+            console.log('imageType is ********', imageType)
+
+            return db.ref().child(imageType)
                 .orderByKey()
                 .endAt(paidReferenceToOldestKey)
                 .limitToLast(5)
@@ -90,19 +100,24 @@ export default class ImagesGallery extends Component {
                 .then((snapshot) => new Promise((resolve) => {
                     // changing to reverse chronological order (latest first)
                     // & removing duplicate
-                    let arrayOfKeys = Object.keys(snapshot.val())
-                        .sort()
-                        .reverse()
-                        .slice(1);
-                    // transforming to array
-                    let results = arrayOfKeys
-                        .map((key) => {
-                            return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
-                        });
-                    // updating reference
+                    console.log('snapshot is ', snapshot.val())
+                    if (snapshot.val()) {
+                        let arrayOfKeys = Object.keys(snapshot.val())
+                            .sort()
+                            .reverse()
+                            .slice(1);
+                        // transforming to array
+                        let results = arrayOfKeys
+                            .map((key) => {
+                                return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
+                            });
+                        // updating reference
 
-                    paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
-                    resolve(results);
+                        paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                        resolve(results);
+                    }
+
+
                     // Do what you want to do with the data, i.e.
                     // append to page or dispatch({ … }) if using redux
                 }))
@@ -117,8 +132,30 @@ export default class ImagesGallery extends Component {
 
 
     }
-    fetchData = async(imageType) => {
-        var self = this;
+    fetchData = async(type) => {
+        var self = this, imageType;
+        console.log('fetch type  is ********', type)
+        switch (type) {
+            case 'cards':
+                imageType = 'updatedcards';
+                break;
+            case 'invitations':
+                imageType = 'updatedinvitations';
+                break;
+            case 'christmas' :
+            case 'newYear' :
+            case 'easter' :
+            case 'kids' :
+            case 'forHer' :
+            case 'forHim' :
+            case 'general' :
+            case 'birthday' :
+            case 'wedding' :
+                imageType = `cards/${type}`;
+                break;
+
+        }
+        console.log('*******cardType is ', imageType)
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getPaidImages(imageType).then(function (paidPages) {
@@ -154,6 +191,8 @@ export default class ImagesGallery extends Component {
         if (this.state.lodingFinished) {
             return false
         } else {
+
+
             this.fetchData(cardType).then(function (pages) {
                 var images = self.state.cardsData;
                 images = [...images, ...pages]
@@ -164,11 +203,23 @@ export default class ImagesGallery extends Component {
     };
     //
     onHandleSelect = (selectedName, selectedValue, type) => {
-        this.setState({
-            selectedName: selectedName,
-            selectedValue: selectedValue,
-            type: type
-        });
+        var self = this;
+        paidReferenceToOldestKey = '', lastPaidKey = '';
+        this.fetchData(type).then(function (pages) {
+            // var images = self.state.cardsData;
+            // images = [...images, ...pages]
+            console.log('type is *********:', type)
+
+            console.log('pages are', pages.length)
+            self.setState({
+                selectedName: selectedName,
+                selectedValue: selectedValue,
+                type: type,
+                cardsData: pages, loading: false
+            })
+
+        })
+
 
     }
     //
@@ -177,7 +228,6 @@ export default class ImagesGallery extends Component {
         let imagesTypes = (imageType == 'cards') ? cardsType : invitationsType;
         return (
             Object.keys(imagesTypes).map((imagesType, key) => {
-                console.log('type is ', imagesType, 'key is ', key)
                 return (
                     <View style={{flex: 1,}} key={key}>
                         <Text style={{
@@ -188,10 +238,10 @@ export default class ImagesGallery extends Component {
                         {imagesTypes[imagesType].map((type, index) => {
                             return (
                                 <ImageTypeTab key={index}
-                                                    imageType={type}
-                                                    selectedName={this.state.selectedName}
-                                                    selectedValue={this.state.selectedValue}
-                                                    handleSelect={this.onHandleSelect}/>
+                                              imageType={type}
+                                              selectedName={this.state.selectedName}
+                                              selectedValue={this.state.selectedValue}
+                                              handleSelect={this.onHandleSelect}/>
                             )
                         })}
                     </View>
@@ -206,7 +256,13 @@ export default class ImagesGallery extends Component {
         const {imageType} = this.props.navigation.state.params;
 
         var self = this;
-
+        db.ref().child('cards/christmas')
+            .orderByKey()
+            .limitToLast(5)
+            .once('value')
+            .then((snapshot) => {
+                console.log('return cards is ', snapshot.val())
+            })
         this.fetchData(imageType).then(function (pages) {
             self.setState({cardsData: pages, loading: false})
         })
@@ -227,32 +283,36 @@ export default class ImagesGallery extends Component {
                         {this.renderTabs(imageType)}
                     </View>
                 </View>
-                <FlatList
-                    style={{flex: 1, flexGrow: 2,}}
-                    data={this.state.cardsData}
-                    keyExtractor={(item, index) => `${index}-image`}
-                    onEndReached={() => this.handleScrollToEnd(imageType)}
-                    onEndReachedThreshold={0}
-                    shouldItemUpdate={(props, nextProps) => {
-                        return props.item !== nextProps.item
+                {
+                    this.state.cardsData.length > 0
+                        ? <FlatList
+                            style={{flex: 1, flexGrow: 2,}}
+                            data={this.state.cardsData}
+                            keyExtractor={(item, index) => `${index}-image`}
+                            onEndReached={() => this.handleScrollToEnd(imageType)}
+                            onEndReachedThreshold={0}
+                            shouldItemUpdate={(props, nextProps) => {
+                                return props.item !== nextProps.item
 
-                    }  }
-                    ListFooterComponent={() =>
-                        this.state.loading
-                            ? <ActivityIndicator size="large" animating/>
-                            : null}
-                    renderItem={({item}) =>
-                        <Card
-                            key={`${item.id}`}
-                            image={{uri: item.uri}}
-                            featuredTitle={item.name}
-                            imageStyle={exploreStyle.cardImage}
-                            containerStyle={exploreStyle.cardContainer}
-                        />
+                            }  }
+                            ListFooterComponent={() =>
+                                this.state.loading
+                                    ? <ActivityIndicator size="large" animating/>
+                                    : null}
+                            renderItem={({item}) =>
+                                <Card
+                                    key={`${item.id}`}
+                                    image={{uri: item.uri}}
+                                    featuredTitle={item.name}
+                                    imageStyle={exploreStyle.cardImage}
+                                    containerStyle={exploreStyle.cardContainer}
+                                />
 
-                    }
+                            }
 
-                />
+                        /> : <View><Text>No images</Text></View>
+                }
+
 
             </View>
         );
