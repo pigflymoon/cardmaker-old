@@ -8,6 +8,7 @@ import {
     FlatList,
     TouchableOpacity,
     Image,
+    ImageBackground,
 } from 'react-native';
 import {Card,} from 'react-native-elements';
 
@@ -16,6 +17,8 @@ import {db} from '../../config/FirebaseConfig';
 import ImageTypeTab from '../../components/ImageTypeTab';
 import layoutStyle from '../../styles/layout';
 import exploreStyle from '../../styles/explore';
+import bg1 from '../../assets/images/bg.jpg';
+import showInfo from '../../styles/showInfo';
 
 let paidReferenceToOldestKey = '', lastPaidKey = '';
 
@@ -79,6 +82,10 @@ export default class ImagesGallery extends Component {
                             paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                             console.log('paidReferenceToOldestKey results are:', results)
                             resolve(results);
+                        } else {
+                            let results = [];
+                            resolve(results);
+
                         }
 
 
@@ -117,6 +124,9 @@ export default class ImagesGallery extends Component {
                         paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                         console.log('No tKey results are:', results)
 
+                        resolve(results);
+                    } else {
+                        let results = [];
                         resolve(results);
                     }
 
@@ -317,7 +327,20 @@ export default class ImagesGallery extends Component {
 
                             }
 
-                        /> : <View style={{flex: 1, justifyContent: 'center',}}><Text>Coming soon!</Text></View>
+                        /> : <View style={{flex: 1,flexDirection: 'column', justifyContent: 'center',}}>
+
+                            <ImageBackground
+                                source={bg1}
+                                style={{
+                                    flex: 1,
+                                    width: null,
+                                    height: 400,
+                                }}
+                            >
+                                <View style={showInfo.container}><Text style={showInfo.text}>Meow. Coming soon! </Text></View>
+                            </ImageBackground >
+
+                        </View>
                 }
 
 
