@@ -64,6 +64,8 @@ export default{
 
     deck: {
         flex: 1,
+        // marginBottom:50,
+
     },
     footer: {
         height: 64,

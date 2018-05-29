@@ -12,6 +12,8 @@ import ImagesGalleryScreen from './screens/explore/ImagesGallery';
 
 //Make card
 import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
+import CardsDeckScreen from './screens/makeCard/CardsDeck';
+
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
 //Profile
@@ -49,6 +51,13 @@ const ExploreTab = StackNavigator({
 
 })
 const MakeCardTab = StackNavigator({
+    CardsDeck: {
+        screen: CardsDeckScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cards Deck',
+            headerLeft: null,
+        }),
+    },
     MyCardsDeck: {
         screen: MyCardsDeckScreen,
         navigationOptions: ({navigation}) => ({
@@ -137,20 +146,6 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        ExploreTab: {
-            screen: ExploreTab,
-            navigationOptions: {
-                tabBarLabel: 'Explore',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                )
-            }
-
-        },
         MakeCardTab: {
             screen: MakeCardTab,
             navigationOptions: {
@@ -167,6 +162,21 @@ const StacksInTabs = TabNavigator(
             }
 
         },
+        ExploreTab: {
+            screen: ExploreTab,
+            navigationOptions: {
+                tabBarLabel: 'Explore',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                )
+            }
+
+        },
+
         ProfileTab: {
             screen: ProfileTab,
             navigationOptions: {

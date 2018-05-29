@@ -23,7 +23,7 @@ import colors from '../../styles/colors';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-import CardsDeck from '../../components/CardsDeck';
+import CardDeck from '../../components/CardDeck';
 
 var savedCards = [], paidUser = false;
 const component1 = () => <Text>Birthday</Text>
@@ -143,7 +143,7 @@ export default class MyCardsDeck extends Component {
                         selectedIndex={selectedIndex}
                         buttons={buttons}
                         containerStyle={{height: 40}}/>
-                    <CardsDeck cardType={this.state.cardType}
+                    <CardDeck cardType={this.state.cardType}
                                isPaidUser={this.state.isPaidUser}
                                onSavedCards={this.handleSavedCards}
                                onRefreshUser={this.updateUserType}
