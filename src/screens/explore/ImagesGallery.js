@@ -19,20 +19,8 @@ import layoutStyle from '../../styles/layout';
 import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
-
+import CategoryConfig from '../../config/CategoryConfig';
 let imageReferenceToOldestKey = '', lastImageKey = '';
-
-let cardsType = {
-    holiday: ["christmas", "newYear", "easter"],
-    birthday: ["kids", "forHer", "forHim"],
-    thankyou: ["general", "birthday", "wedding"]
-}
-
-let invitationsType = {
-    holiday: ["christmas", "newYear", "easter"],
-    birthday: ["kids", "women", "men"],
-    wedding: ["invitation", "saveTheDate", "rsvp"]
-}
 
 export default class ImagesGallery extends Component {
     constructor(props, context) {
@@ -45,13 +33,13 @@ export default class ImagesGallery extends Component {
             cardsData: [],
             lodingFinished: false,
             allImages: [],
-            selectedName:'christmas',//default
-            selectedValue:true,
+            selectedName: 'christmas',//default
+            selectedValue: true,
         }
     }
 
-    getAllImages = (imageType = 'cards') => {
-        console.log('getAllImages imageType is ********', imageType)
+    getImagesPaginationByKey = (imageType = 'cards') => {
+        console.log('getImagesPaginationByKey imageType is ********', imageType)
 
         if (!imageReferenceToOldestKey) {
             return db.ref().child(imageType)
@@ -79,12 +67,7 @@ export default class ImagesGallery extends Component {
                         } else {
                             let results = [];
                             resolve(results);
-
                         }
-
-
-                        // Do what you want to do with the data, i.e.
-                        // append to page or dispatch({ … }) if using redux
                     }
                 ))
                 .catch((error) => {
@@ -92,8 +75,6 @@ export default class ImagesGallery extends Component {
                 })
 
         } else {
-            console.log('imageType is ********', imageType)
-
             return db.ref().child(imageType)
                 .orderByKey()
                 .endAt(imageReferenceToOldestKey)
@@ -123,20 +104,11 @@ export default class ImagesGallery extends Component {
                         let results = [];
                         resolve(results);
                     }
-
-
-                    // Do what you want to do with the data, i.e.
-                    // append to page or dispatch({ … }) if using redux
                 }))
                 .catch((error) => {
                     console.log('error')
                 });
-            // }
-
-
         }
-        // }
-
 
     }
     fetchData = async(imageType) => {
@@ -145,7 +117,7 @@ export default class ImagesGallery extends Component {
             setTimeout(() => {
 
                 console.log('*******cardType is ', imageType)
-                self.getAllImages(imageType).then(function (allPages) {
+                self.getImagesPaginationByKey(imageType).then(function (allPages) {
                     var newPaidArr = [];
                     var images = self.state.allImages;
                     console.log('allPages are ##########', allPages)
@@ -192,8 +164,7 @@ export default class ImagesGallery extends Component {
         }
     };
     //
-    onHandleSelect = (selectedName, selectedValue, type,category) => {
-        console.log('selectedName is ', selectedName, 'selectedValue is ', selectedValue)
+    onHandleSelect = (selectedName, selectedValue, type, category) => {
         var self = this;
         var imageType;
         console.log('fetch type  is ********', type)
@@ -254,7 +225,7 @@ export default class ImagesGallery extends Component {
     //
 
     renderTabs = (imageType) => {
-        let imagesTypes = (imageType == 'cards') ? cardsType : invitationsType;
+        let imagesTypes = (imageType == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
         return (
             Object.keys(imagesTypes).map((imagesType, key) => {
                 return (
@@ -285,7 +256,6 @@ export default class ImagesGallery extends Component {
     componentWillMount() {
         const {imageType} = this.props.navigation.state.params;
         let type = (imageType == 'cards') ? 'cards/christmas' : 'invitations/christmas';
-
         var self = this;
 
         this.fetchData(type).then(function (pages) {
