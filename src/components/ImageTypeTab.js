@@ -33,7 +33,8 @@ export default class ImageTypeTab extends Component {
                 self.props.handleSelect(
                     item.name,
                     item.value,
-                    item.name
+                    item.name,
+                    category
                 )
             }
         })

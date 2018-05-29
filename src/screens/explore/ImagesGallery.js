@@ -20,21 +20,13 @@ import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
 
-let paidReferenceToOldestKey = '', lastPaidKey = '';
+let imageReferenceToOldestKey = '', lastImageKey = '';
 
 let cardsType = {
     holiday: ["christmas", "newYear", "easter"],
     birthday: ["kids", "forHer", "forHim"],
     thankyou: ["general", "birthday", "wedding"]
 }
-
-
-// let cardsType = [
-//     ["christmas", "newYear", "easter"],
-//     ["kids", "forHer", "forHim"],
-//     ["general", "birthday", "wedding"]
-// ];
-
 
 let invitationsType = {
     holiday: ["christmas", "newYear", "easter"],
@@ -52,14 +44,16 @@ export default class ImagesGallery extends Component {
             loading: true,
             cardsData: [],
             lodingFinished: false,
-            paidCards: [],
+            allImages: [],
+            selectedName:'christmas',//default
+            selectedValue:true,
         }
     }
 
-    getPaidImages = (imageType = 'cards') => {
-        // console.log('imageType is ********', imageType)
+    getAllImages = (imageType = 'cards') => {
+        console.log('getAllImages imageType is ********', imageType)
 
-        if (!paidReferenceToOldestKey) {
+        if (!imageReferenceToOldestKey) {
             return db.ref().child(imageType)
                 .orderByKey()
                 .limitToLast(5)
@@ -79,8 +73,8 @@ export default class ImagesGallery extends Component {
                                 });
                             // storing reference
 
-                            paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
-                            console.log('paidReferenceToOldestKey results are:', results)
+                            imageReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                            console.log('imageReferenceToOldestKey results are:', results)
                             resolve(results);
                         } else {
                             let results = [];
@@ -102,7 +96,7 @@ export default class ImagesGallery extends Component {
 
             return db.ref().child(imageType)
                 .orderByKey()
-                .endAt(paidReferenceToOldestKey)
+                .endAt(imageReferenceToOldestKey)
                 .limitToLast(5)
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
@@ -121,7 +115,7 @@ export default class ImagesGallery extends Component {
                             });
                         // updating reference
 
-                        paidReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                        imageReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                         console.log('No tKey results are:', results)
 
                         resolve(results);
@@ -146,29 +140,27 @@ export default class ImagesGallery extends Component {
 
     }
     fetchData = async(imageType) => {
-
-
         var self = this;
-        var paidPages = await (new Promise(function (resolve, reject) {
+        var allPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
 
                 console.log('*******cardType is ', imageType)
-                self.getPaidImages(imageType).then(function (paidPages) {
+                self.getAllImages(imageType).then(function (allPages) {
                     var newPaidArr = [];
-                    var images = self.state.paidCards;
-                    console.log('paidPages are ##########', paidPages)
-                    if (paidPages.length > 0) {
-                        var arrToConvert = paidPages;
-                        lastPaidKey = paidPages[paidPages.length - 1].id;
-                        if (lastPaidKey == self.state.lastPaidKey) {
+                    var images = self.state.allImages;
+                    console.log('allPages are ##########', allPages)
+                    if (allPages.length > 0) {
+                        var arrToConvert = allPages;
+                        lastImageKey = allPages[allPages.length - 1].id;
+                        if (lastImageKey == self.state.lastImageKey) {
                             resolve(images)
                         } else {
                             for (var i = 0; i < arrToConvert.length; i++) {
-                                newPaidArr = newPaidArr.concat(paidPages[i]);
+                                newPaidArr = newPaidArr.concat(allPages[i]);
                             }
 
                             images = [...images, ...newPaidArr]
-                            self.setState({lastPaidKey: lastPaidKey})
+                            self.setState({lastImageKey: lastImageKey})
                             // console.log('images are ##########', images)
 
                             resolve(images);
@@ -182,7 +174,7 @@ export default class ImagesGallery extends Component {
                 }), 2000
             });
         }));
-        return paidPages;
+        return allPages;
     }
     handleScrollToEnd = (cardType) => {
         var self = this;
@@ -200,11 +192,12 @@ export default class ImagesGallery extends Component {
         }
     };
     //
-    onHandleSelect = (selectedName, selectedValue, type) => {
+    onHandleSelect = (selectedName, selectedValue, type,category) => {
+        console.log('selectedName is ', selectedName, 'selectedValue is ', selectedValue)
         var self = this;
         var imageType;
         console.log('fetch type  is ********', type)
-        if (type == 'cards') {
+        if (category == 'cards') {
             switch (type) {
                 case 'cards':
                     imageType = 'updatedcards';
@@ -238,30 +231,25 @@ export default class ImagesGallery extends Component {
                 case 'rsvp' :
                     imageType = `invitations/${type}`;
                     break;
-
             }
-
-
         }
 
 
         this.setState((prevState) => {
             if (prevState.type != type) {
-                paidReferenceToOldestKey = '',
+                imageReferenceToOldestKey = '',
                     this.fetchData(imageType).then(function (pages) {
                         self.setState({
                             selectedName: selectedName,
                             selectedValue: selectedValue,
                             type: type,
-                            paidCards: [],
+                            allImages: [],
                             cardsData: pages,
                             loading: false
                         });
                     })
             }
         })
-
-
     }
     //
 
@@ -296,18 +284,18 @@ export default class ImagesGallery extends Component {
 
     componentWillMount() {
         const {imageType} = this.props.navigation.state.params;
-        let type = imageType == 'cards' ? 'cards/christmas' : 'invitations/christmas';
+        let type = (imageType == 'cards') ? 'cards/christmas' : 'invitations/christmas';
 
         var self = this;
 
-        this.fetchData(imageType).then(function (pages) {
+        this.fetchData(type).then(function (pages) {
             self.setState({cardsData: pages, loading: false})
         })
 
     }
 
     componentWillUnmount() {
-        paidReferenceToOldestKey = '';
+        imageReferenceToOldestKey = '';
         this.setState({cardsData: []});
     }
 
