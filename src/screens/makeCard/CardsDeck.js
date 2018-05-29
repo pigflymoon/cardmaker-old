@@ -23,6 +23,7 @@ import colors from '../../styles/colors';
 import {
     renderAuthBox,
 } from '../../utils/authApi';
+
 import CardDeck from '../../components/CardDeck';
 import ImageTypeTab from '../../components/ImageTypeTab';
 
@@ -42,6 +43,8 @@ export default class CardsDeck extends Component {
             selectedIndex: 0,
             index: 0,
             cardType: 'birthdayImages',
+            imageType:'cards/christmas',
+            category: 'cards',
             selectedName: 'christmas',//default
             selectedValue: true,
         }
@@ -84,6 +87,98 @@ export default class CardsDeck extends Component {
                 }
             }
         })
+
+    }
+
+    //
+
+
+
+    onHandleSelect = (selectedName, selectedValue, type, category) => {
+        var self = this;
+        var imageType;
+        console.log('fetch type  is ********', type)
+        if (category == 'cards') {
+            switch (type) {
+                case 'cards':
+                    imageType = 'updatedcards';
+                    break;
+                case 'christmas' :
+                case 'newYear' :
+                case 'easter' :
+                case 'kids' :
+                case 'forHer' :
+                case 'forHim' :
+                case 'general' :
+                case 'birthday' :
+                case 'wedding' :
+                    imageType = `cards/${type}`;
+                    break;
+
+            }
+        } else {//
+            switch (type) {
+                case 'invitations':
+                    imageType = 'updatedinvitations';
+                    break;
+                case 'christmas' :
+                case 'newYear' :
+                case 'easter' :
+                case 'kids' :
+                case 'women' :
+                case 'men' :
+                case 'invitation' :
+                case 'saveTheDate' :
+                case 'rsvp' :
+                    imageType = `invitations/${type}`;
+                    break;
+            }
+        }
+
+
+        this.setState((prevState) => {
+            if (prevState.type != type) {
+                self.setState({
+                    selectedName: selectedName,
+                    selectedValue: selectedValue,
+                    type: type,
+                    allImages: [],
+                    // cardsData: pages,
+                    loading: false,
+                    imageType: imageType
+                });
+                // imageReferenceToOldestKey = '',
+                //     this.fetchData(imageType).then(function (pages) {
+                //         self.setState({
+                //             selectedName: selectedName,
+                //             selectedValue: selectedValue,
+                //             type: type,
+                //             allImages: [],
+                //             // cardsData: pages,
+                //             loading: false,
+                //             imageType:imageType
+                //         });
+                //     })
+            }
+        })
+    }
+    //
+    updateCategory = (selectedIndex) => {
+        // let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
+        console.log('selectedIndex is ', selectedIndex)
+        let imagesTypes = (selectedIndex == 0) ? 'cards' : 'invitations';
+        this.setState({selectedIndex: selectedIndex, category: imagesTypes});
+        // this.setState({selectedIndex: selectedIndex}, function () {
+        /*
+         for (let type of showTypes) {
+         let index = showTypes.indexOf(type);
+
+         if (this.state.selectedIndex === index) {
+         this.setState({cardType: type});
+         }
+         }
+         */
+        // })
 
     }
 
@@ -160,26 +255,29 @@ export default class CardsDeck extends Component {
         if (!isConnected) {
             return Utils.renderOffline();
         }
-        const {selectedIndex} = this.state
-        const imageType = 'cards'
+        const {selectedIndex, category} = this.state
+        // const imageType = 'cards'
         const buttons = ['Cards', 'Invitations']
         if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
 
-                    <ScrollView style={{flex: 1, flexDirection: 'column',  height:220}}>
+                    <ScrollView style={{flex: 1, flexDirection: 'column', height: 220}}>
                         <ButtonGroup
-                            onPress={this.updateIndex}
+                            onPress={this.updateCategory}
                             selectedIndex={selectedIndex}
                             buttons={buttons}
                             containerStyle={{height: 30}}
+                            selectedButtonStyle={{backgroundColor: colors.secondary2}}
+                            selectedTextStyle={{color: colors.white}}
                         />
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
-                            {this.renderTabs(imageType)}
+                            {this.renderTabs(category)}
                         </View>
                     </ScrollView>
 
                     <CardDeck
+                        imageType={this.state.imageType}
                         cardType={this.state.cardType}
                         isPaidUser={this.state.isPaidUser}
                         onSavedCards={this.handleSavedCards}

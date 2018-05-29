@@ -44,6 +44,7 @@ import {
 } from '../../utils/AppPay';
 
 import  Utils from '../../utils/utils';
+import CategoryConfig from '../../config/CategoryConfig';
 
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
 const words = [
@@ -55,8 +56,8 @@ const words = [
         width: '40%',
     },
 ];
-const showImagesNumber = 9;
-const showLatestImagesNumber = 4;
+
+
 export default class Explore extends Component {
     constructor(props, context) {
         super(props, context);
@@ -120,12 +121,12 @@ export default class Explore extends Component {
                 }
             });
 
-        this.fetchUpdatedImages('cards', showImagesNumber).then(function (results) {
+        this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
             console.log('results', results)
-            let latestImages = results.slice(0, showLatestImagesNumber);
+            let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
             self.setState({updatedcards: results, latestImages: latestImages,});
         })
-        this.fetchUpdatedImages('invitations', showImagesNumber).then(function (results) {
+        this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
             console.log('results', results)
             // let latestImages = results.slice(0, showLatestImagesNumber);
             self.setState({updatedinvitations: results});

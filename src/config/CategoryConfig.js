@@ -12,5 +12,8 @@ const invitationsType = {
 
 export default CategoryConfig = {
     cards: cardsType,
-    invitations: invitationsType
+    invitations: invitationsType,
+    showImagesNumber:9,
+    showLatestImagesNumber:4,
+    showFreeImagesNumber:3
 }

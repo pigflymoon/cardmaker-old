@@ -5,8 +5,8 @@ import {Card, Icon,} from 'react-native-elements';
 
 import SwipeDeck from '../components/SwipeDeck';
 import {
-    getAllImages,
-    getFreeImages,
+    getFreeImagesByImageType,
+    getAllImagesByImageType
 } from '../utils/FetchImagesByApi';
 import {auth, db} from '../config/FirebaseConfig';
 
@@ -15,6 +15,7 @@ import layoutStyle from '../styles/layout';
 import cardStyle from '../styles/card';
 
 import refreshMore from '../assets/images/refreshMore.jpg';
+import CategoryConfig from '../config/CategoryConfig';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -28,6 +29,7 @@ export default class CardsDeck extends Component {
         this.state = {
             signin: false,
             cardsData: [],
+            imagesData: [],
         }
     }
 
@@ -72,7 +74,7 @@ export default class CardsDeck extends Component {
 
     refreshImages = () => {
         this.setState({cardsData: []});
-        const {cardType, isPaidUser} = this.props;
+        const {imageType, isPaidUser} = this.props;
         //
         var self = this;
         var userId = auth.currentUser.uid;
@@ -81,7 +83,11 @@ export default class CardsDeck extends Component {
             var isPaidUser = userrole.paid_user;
             self.props.onRefreshUser(isPaidUser);
             self.setState({isPaidUser: isPaidUser}, () => {
-                self.getUserImages(cardType, isPaidUser);
+                self.fetchData(imageType, isPaidUser).then(function (images) {
+                    self.setState({
+                        imagesData: images
+                    });
+                });
             });
 
 
@@ -91,25 +97,42 @@ export default class CardsDeck extends Component {
 
     }
 
-    getUserImages = (cardType = 'birthdayImages', isPaidUser) => {
-        var self = this;
-        if (!isPaidUser) {
-            getFreeImages(cardType).then(function (images) {
-                self.setState({cardsData: images});
-            });
-        } else {
-            getAllImages(cardType).then(function (images) {
-                self.setState({cardsData: images});
-            });
-
-        }
 
 
+    fetchData = (imageType, isPaidUser) => {
+        console.log('fetchUpdatedImages called', imageType)
+        return new Promise(function (resolve, reject) {
+            // some async operation here
+            setTimeout(function () {
+                // resolve the promise with some value
+                if (!isPaidUser) {
+                    getFreeImagesByImageType(imageType, CategoryConfig.showFreeImagesNumber).then(function (images) {
+                        resolve(images)
+
+                    });
+                } else {
+                    getAllImagesByImageType(imageType).then(function (images) {
+                        resolve(images)
+
+                    });
+                }
+
+
+            }, 500);
+        });
     }
 
     componentDidMount() {
-        const {cardType, isPaidUser} = this.props;
-        this.getUserImages(cardType, isPaidUser);
+        var self = this;
+        const {imageType, cardType, isPaidUser} = this.props;
+        // this.getUserImages(cardType, isPaidUser);
+        this.fetchData(imageType, isPaidUser).then(function (images) {
+            console.log('images are', images)
+            self.setState({
+                imagesData: images
+            });
+        })
+
     }
 
     componentWillUnmount() {
@@ -117,12 +140,20 @@ export default class CardsDeck extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.cardType != this.props.cardType) {
+        var self = this;
+
+        if (nextProps.imageType != this.props.imageType) {
             likedCards = [];//cardtype is different ,clean the likedcards
         }
-        const {cardType, isPaidUser} = nextProps;
+        const {imageType, cardType, isPaidUser} = nextProps;
 
-        this.getUserImages(cardType, isPaidUser);
+        // this.getUserImages(cardType, isPaidUser);
+        this.fetchData(imageType, isPaidUser).then(function (images) {
+            console.log('images are', images)
+            self.setState({
+                imagesData: images
+            });
+        })
     }
 
     renderNoMoreCards() {
@@ -168,13 +199,14 @@ export default class CardsDeck extends Component {
 
     render() {
         return (
-            <View style={[layoutStyle.container,{
+            <View style={[layoutStyle.container, {
                 flexGrow: 2,
                 flexDirection: 'column',
-                marginBottom: 10,}]}>
+                marginBottom: 10,
+            }]}>
                 <View style={cardStyle.deck}>
                     <SwipeDeck
-                        data={this.state.cardsData}
+                        data={this.state.imagesData}
                         renderCard={this.renderCard}
                         renderNoMoreCards={this.renderNoMoreCards}
                         onSwipeRight={this.onSwipeRight}
