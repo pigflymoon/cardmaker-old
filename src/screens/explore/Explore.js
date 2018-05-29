@@ -93,6 +93,7 @@ export default class Explore extends Component {
     navigateToShowAll = (imageType) => {
         this.props.navigation.navigate('ImagesGallery', {
             imageType: imageType,
+
         });
     }
 

@@ -11,24 +11,20 @@ export default class ImageTypeTab extends Component {
 
         this.state = {
             selected: false,
-            selectedItem: [{name: "christmas", value: false},
-                {name: "newYear", value: false},
-                {name: "easter", value: false},
-                {name: "kids", value: false},
-                {name: "forHer", value: false},
-                {name: "forHim", value: false},
-                {name: "general", value: false},
-                {name: "birthday", value: false},
-                {name: "wedding", value: false},
-            ],
             selectedIndex: 0,
         };
     }
 
-    updateChoice = (type) => {
+    updateChoice = (category, type) => {
         var self = this;
-        let showPosition = ["christmas", "newYear", "easter","kids", "forHer", "forHim","general", "birthday", "wedding"];
-        var selectedItem = showPosition.map(position => ({name: position, value: false}));
+
+        let showCardsType = ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding"];
+        let showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp"];
+        let showTypes = (category == "cards") ? showCardsType : showInvitationsType;
+
+        // let showPosition = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp"];
+
+        var selectedItem = showTypes.map(position => ({name: position, value: false}));
         var selectedIndex = 0;
         selectedItem.forEach(function (item, i) {
             if (item.name == type) {
@@ -44,7 +40,7 @@ export default class ImageTypeTab extends Component {
     }
 
     render() {
-        const {imageType, selectedName, selectedValue} = this.props;
+        const {category, imageType, selectedName, selectedValue} = this.props;
         return (
             <Button
                 title={imageType}
@@ -63,7 +59,7 @@ export default class ImageTypeTab extends Component {
                         marginBottom: 10,
                     }}
                 onPress={() => {
-                    this.updateChoice(imageType)
+                    this.updateChoice(category, imageType)
                 }}/>
         );
     }

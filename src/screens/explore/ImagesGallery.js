@@ -57,7 +57,7 @@ export default class ImagesGallery extends Component {
     }
 
     getPaidImages = (imageType = 'cards') => {
-        console.log('imageType is ********', imageType)
+        // console.log('imageType is ********', imageType)
 
         if (!paidReferenceToOldestKey) {
             return db.ref().child(imageType)
@@ -145,32 +145,13 @@ export default class ImagesGallery extends Component {
 
 
     }
-    fetchData = async(type) => {
+    fetchData = async(imageType) => {
+
+
         var self = this;
         var paidPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
-                var imageType;
-                console.log('fetch type  is ********', type)
-                switch (type) {
-                    case 'cards':
-                        imageType = 'updatedcards';
-                        break;
-                    case 'invitations':
-                        imageType = 'updatedinvitations';
-                        break;
-                    case 'christmas' :
-                    case 'newYear' :
-                    case 'easter' :
-                    case 'kids' :
-                    case 'forHer' :
-                    case 'forHim' :
-                    case 'general' :
-                    case 'birthday' :
-                    case 'wedding' :
-                        imageType = `cards/${type}`;
-                        break;
 
-                }
                 console.log('*******cardType is ', imageType)
                 self.getPaidImages(imageType).then(function (paidPages) {
                     var newPaidArr = [];
@@ -188,7 +169,7 @@ export default class ImagesGallery extends Component {
 
                             images = [...images, ...newPaidArr]
                             self.setState({lastPaidKey: lastPaidKey})
-                            console.log('images are ##########', images)
+                            // console.log('images are ##########', images)
 
                             resolve(images);
                         }
@@ -221,10 +202,53 @@ export default class ImagesGallery extends Component {
     //
     onHandleSelect = (selectedName, selectedValue, type) => {
         var self = this;
+        var imageType;
+        console.log('fetch type  is ********', type)
+        if (type == 'cards') {
+            switch (type) {
+                case 'cards':
+                    imageType = 'updatedcards';
+                    break;
+                case 'christmas' :
+                case 'newYear' :
+                case 'easter' :
+                case 'kids' :
+                case 'forHer' :
+                case 'forHim' :
+                case 'general' :
+                case 'birthday' :
+                case 'wedding' :
+                    imageType = `cards/${type}`;
+                    break;
+
+            }
+        } else {//
+            switch (type) {
+                case 'invitations':
+                    imageType = 'updatedinvitations';
+                    break;
+                case 'christmas' :
+                case 'newYear' :
+                case 'easter' :
+                case 'kids' :
+                case 'women' :
+                case 'men' :
+                case 'invitation' :
+                case 'saveTheDate' :
+                case 'rsvp' :
+                    imageType = `invitations/${type}`;
+                    break;
+
+            }
+
+
+        }
+
+
         this.setState((prevState) => {
             if (prevState.type != type) {
                 paidReferenceToOldestKey = '',
-                    this.fetchData(type).then(function (pages) {
+                    this.fetchData(imageType).then(function (pages) {
                         self.setState({
                             selectedName: selectedName,
                             selectedValue: selectedValue,
@@ -255,6 +279,7 @@ export default class ImagesGallery extends Component {
                         {imagesTypes[imagesType].map((type, index) => {
                             return (
                                 <ImageTypeTab key={index}
+                                              category={imageType}
                                               imageType={type}
                                               selectedName={this.state.selectedName}
                                               selectedValue={this.state.selectedValue}
@@ -271,15 +296,10 @@ export default class ImagesGallery extends Component {
 
     componentWillMount() {
         const {imageType} = this.props.navigation.state.params;
+        let type = imageType == 'cards' ? 'cards/christmas' : 'invitations/christmas';
 
         var self = this;
-        db.ref().child('cards/christmas')
-            .orderByKey()
-            .limitToLast(5)
-            .once('value')
-            .then((snapshot) => {
-                console.log('return cards is ', snapshot.val())
-            })
+
         this.fetchData(imageType).then(function (pages) {
             self.setState({cardsData: pages, loading: false})
         })
@@ -327,7 +347,7 @@ export default class ImagesGallery extends Component {
 
                             }
 
-                        /> : <View style={{flex: 1,flexDirection: 'column', justifyContent: 'center',}}>
+                        /> : <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center',}}>
 
                             <ImageBackground
                                 source={bg1}
