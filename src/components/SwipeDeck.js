@@ -75,10 +75,20 @@ export default class SwipeDeck extends Component {
     onSwipeComplete(direction) {
         const {onSwipeRight, onSwipeLeft, data} = this.props;
         const item = data[this.state.index];
+        if (item) {
+            direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
+            this.state.position.setValue({x: 0, y: 0});
+            this.setState({index: this.state.index + 1});
+        }
 
-        direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
-        this.state.position.setValue({x: 0, y: 0});
-        this.setState({index: this.state.index + 1});
+    }
+
+    onCurrentCard() {
+        const {data} = this.props;
+        const item = data[this.state.index];
+        if (item) {
+            return item;
+        }
     }
 
     resetPosition() {

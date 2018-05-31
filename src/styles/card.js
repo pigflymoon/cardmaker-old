@@ -102,14 +102,14 @@ export default{
     footer: {
         height: 64,
         flexDirection: 'row',
-        paddingBottom: 10,
+        // paddingBottom: 10,
     },
     footerIcon: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        margin: 10,
+        // margin: 10,
     },
     //my card grid cards
     gridView: {

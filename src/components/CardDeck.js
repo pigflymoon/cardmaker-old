@@ -30,6 +30,7 @@ export default class CardsDeck extends Component {
             signin: false,
             cardsData: [],
             imagesData: [],
+            iconColor: colors.primary1,
         }
     }
 
@@ -58,7 +59,9 @@ export default class CardsDeck extends Component {
         );
     }
 
-    onSwipeRight = (card) => {
+    handleSwipeRight = (card) => {
+        console.log('called')
+        this.setState({iconColor: colors.primary1})
 
         likedCards.push(card);
         var savedCard = new Map(likedCards.map(obj => [obj.illustration, obj]));
@@ -69,9 +72,18 @@ export default class CardsDeck extends Component {
     }
 
     onSwipeLeft = (card) => {
+        this.setState({iconColor: colors.primary1})
+
         dislikedCards.push(card);
     }
+    saveToFavorite = () => {
+        let currentCard = this.swiper.onCurrentCard();
+        if (currentCard) {
+            this.setState({iconColor: colors.secondary2})
+            console.log('favorite is ', currentCard)
+        }
 
+    }
     refreshImages = () => {
         this.setState({cardsData: []});
         const {imageType, isPaidUser} = this.props;
@@ -89,14 +101,8 @@ export default class CardsDeck extends Component {
                     });
                 });
             });
-
-
         });
-
-        //
-
     }
-
 
 
     fetchData = (imageType, isPaidUser) => {
@@ -177,10 +183,11 @@ export default class CardsDeck extends Component {
     renderFooter() {
         return (
             <View style={cardStyle.footer}>
-                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
+                <View style={cardStyle.footerIcon}>
+
                     <Icon
                         containerStyle={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'rgba(255, 255, 255, .8)',
                             width: 50,
                             height: 50,
                             borderRadius: 25,
@@ -189,6 +196,58 @@ export default class CardsDeck extends Component {
                         size={30}
                         color={colors.primary3}
                         onPress={(e) => this.refreshImages(e)}
+                    />
+                </View>
+                <View style={cardStyle.footerIcon}>
+
+                    <Icon
+                        containerStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, .8)',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                        }}
+                        name='close'
+                        size={30}
+                        color={colors.primary3}
+                        onPress={() => {
+                            console.log('swipe left?', this.swiper)
+                            this.swiper.forceSwipe('left');
+                        }}
+                    />
+                </View>
+                <View style={cardStyle.footerIcon}>
+
+                    <Icon
+                        containerStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, .8)',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                        }}
+                        name='check'
+                        size={30}
+                        color={colors.primary3}
+                        onPress={() => {
+                            console.log('swipe right?', this.swiper)
+                            this.swiper.forceSwipe('right');
+                        }}
+                    />
+                </View>
+
+                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
+
+                    <Icon
+                        containerStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, .8)',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                        }}
+                        name='star'
+                        size={30}
+                        color={this.state.iconColor}
+                        onPress={this.saveToFavorite}
                     />
                 </View>
 
@@ -206,10 +265,13 @@ export default class CardsDeck extends Component {
             }]}>
                 <View style={cardStyle.deck}>
                     <SwipeDeck
+                        ref={swiper => {
+                            this.swiper = swiper
+                        }}
                         data={this.state.imagesData}
                         renderCard={this.renderCard}
                         renderNoMoreCards={this.renderNoMoreCards}
-                        onSwipeRight={this.onSwipeRight}
+                        onSwipeRight={this.handleSwipeRight}
                         onSwipeLeft={this.onSwipeLeft}
                     />
                 </View>
