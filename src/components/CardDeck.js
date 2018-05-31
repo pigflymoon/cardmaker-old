@@ -250,8 +250,6 @@ export default class CardsDeck extends Component {
                         onPress={this.saveToFavorite}
                     />
                 </View>
-
-
             </View>
         );
     }
