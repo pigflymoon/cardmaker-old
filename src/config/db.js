@@ -6,7 +6,7 @@ export const onceGetFreeImages = () =>
     db.ref('freeUploadImages').once('value');
 
 export const onceGetImages = () => {
-     db.ref('upImages').limitToFirst(8).on("value", function (snapshot) {
+    db.ref('upImages').limitToFirst(8).on("value", function (snapshot) {
         return snapshot;
     });
 }
@@ -19,6 +19,27 @@ export const doCreateUser = (id, username, email) =>
         email,
         role: {free_user: true, paid_user: false, admin: false}
     });
+
+export const saveFavoriteCard = (userid, username, cardId, cardUrl, cardName) => {
+    return new Promise(function (resolve, reject) {
+
+        db.ref(`favorite/${userid}/${cardId}`).once("value", snapshot => {
+            console.log('snapshot.value is ', snapshot.exists())
+            if (snapshot.exists()) {
+                reject('Card already saved!')
+            } else {
+                resolve(db.ref(`favorite/${userid}`).child(cardId).set({
+                        downloadUrl: cardUrl,
+                        name: cardName,
+                        cardId: cardId
+                    })
+                )
+            }
+        })
+    })
+
+
+}
 
 export const onceGetReceipts = () =>
     db.ref('receipts').once('value');

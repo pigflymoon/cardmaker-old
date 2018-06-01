@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity,} from 'react-native';
 
 import {Card, Icon,} from 'react-native-elements';
 
@@ -9,6 +9,7 @@ import {
     getAllImagesByImageType
 } from '../utils/FetchImagesByApi';
 import {auth, db} from '../config/FirebaseConfig';
+import {saveFavoriteCard} from '../config/db';
 
 import colors from '../styles/colors';
 import layoutStyle from '../styles/layout';
@@ -20,7 +21,7 @@ import CategoryConfig from '../config/CategoryConfig';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-var likedCards = [], dislikedCards = [], savedCards = [];
+var likedCards = [], dislikedCards = [], savedCards = [], favoriteCardCount = 10, favoriteCardNumber = 0;
 
 export default class CardsDeck extends Component {
     constructor(props, context) {
@@ -81,6 +82,56 @@ export default class CardsDeck extends Component {
         if (currentCard) {
             this.setState({iconColor: colors.secondary2})
             console.log('favorite is ', currentCard)
+            favoriteCardNumber = favoriteCardNumber + 1;
+            var cardUrl = currentCard.illustration;
+
+
+            if (auth.currentUser != null && favoriteCardNumber <= favoriteCardCount) {
+
+                var userId = auth.currentUser.uid,
+                    name = auth.currentUser.displayName;
+                console.log('userid,', userId, 'name is ', auth.currentUser, 'email is ', auth.currentUser.email)
+                db.ref(`favorite/${userId}`).once("value")
+                    .then(function (snapshot) {
+                        var savedCount = snapshot.numChildren(); // 1 ("name")
+                        if (savedCount <= 10) {
+                            saveFavoriteCard(userId, name, currentCard.id, currentCard.illustration, currentCard.title)
+                                .then((data) => {
+                                    if (data) {
+                                        console.log('data is ########', data)
+                                        console.log('Saved successfully!')
+                                    } else {
+                                        console.log('Already exists!')
+                                    }
+
+                                })
+                                .catch(error => {
+                                    console.log('Error', error)
+                                    Alert.alert(
+                                        'Oops!',
+                                        `${error}`,
+                                        [
+                                            {text: 'OK'},
+                                        ],
+                                        {cancelable: false}
+                                    );
+
+                                });
+                        } else {
+                            Alert.alert(
+                                'Oops!',
+                                `You have reached 10 favorite card in total!`,
+                                [
+                                    {text: 'OK'},
+                                ],
+                                {cancelable: false}
+                            );
+                        }
+                    });
+
+            }
+
+
         }
 
     }
@@ -147,6 +198,7 @@ export default class CardsDeck extends Component {
 
     componentWillReceiveProps(nextProps) {
         var self = this;
+        this.setState({iconColor: colors.primary1})
 
         if (nextProps.imageType != this.props.imageType) {
             likedCards = [];//cardtype is different ,clean the likedcards
