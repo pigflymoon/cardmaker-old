@@ -193,7 +193,7 @@ export default class CardsDeck extends Component {
     }
 
     componentWillUnmount() {
-        this.setState({cardsData: []});
+        this.setState({cardsData: [], imagesData: []});
     }
 
     componentWillReceiveProps(nextProps) {

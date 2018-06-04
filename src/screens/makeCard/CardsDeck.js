@@ -29,7 +29,7 @@ import ImageTypeTab from '../../components/ImageTypeTab';
 
 import CategoryConfig from '../../config/CategoryConfig';
 
-var savedCards = [], paidUser = false;
+var savedCards = [], paidUser = false, category = 'cards';
 
 export default class CardsDeck extends Component {
     constructor(props, context) {
@@ -43,7 +43,7 @@ export default class CardsDeck extends Component {
             selectedIndex: 0,
             index: 0,
             cardType: 'birthdayImages',
-            imageType:'cards/christmas',
+            imageType: 'cards/christmas',
             category: 'cards',
             selectedName: 'christmas',//default
             selectedValue: true,
@@ -61,7 +61,8 @@ export default class CardsDeck extends Component {
                         <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                               onPress={() => navigation.navigate('MyCards', {
                                   likedCards: savedCards,
-                                  isPaidUser: paidUser
+                                  isPaidUser: paidUser,
+                                  category: category
                               })}/>
                     </TouchableOpacity>
                 )
@@ -73,26 +74,6 @@ export default class CardsDeck extends Component {
         }
 
     };
-
-
-    updateIndex = (selectedIndex) => {
-        let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
-
-        this.setState({selectedIndex: selectedIndex}, function () {
-            for (let type of showTypes) {
-                let index = showTypes.indexOf(type);
-
-                if (this.state.selectedIndex === index) {
-                    this.setState({cardType: type});
-                }
-            }
-        })
-
-    }
-
-    //
-
-
 
     onHandleSelect = (selectedName, selectedValue, type, category) => {
         var self = this;
@@ -167,19 +148,8 @@ export default class CardsDeck extends Component {
         // let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
         console.log('selectedIndex is ', selectedIndex)
         let imagesTypes = (selectedIndex == 0) ? 'cards' : 'invitations';
+        category = imagesTypes;
         this.setState({selectedIndex: selectedIndex, category: imagesTypes});
-        // this.setState({selectedIndex: selectedIndex}, function () {
-        /*
-         for (let type of showTypes) {
-         let index = showTypes.indexOf(type);
-
-         if (this.state.selectedIndex === index) {
-         this.setState({cardType: type});
-         }
-         }
-         */
-        // })
-
     }
 
     componentDidMount() {
@@ -214,6 +184,7 @@ export default class CardsDeck extends Component {
     }
 
     handleSavedCards = (likedCards) => {
+        console.log('saved cards :', likedCards)
         savedCards = likedCards;
     }
     updateUserType = (type) => {
