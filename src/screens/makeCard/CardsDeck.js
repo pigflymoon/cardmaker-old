@@ -29,8 +29,6 @@ import ImageTypeTab from '../../components/ImageTypeTab';
 
 import CategoryConfig from '../../config/CategoryConfig';
 
-var savedCards = [], paidUser = false, category = 'cards';
-
 export default class CardsDeck extends Component {
     constructor(props, context) {
         super(props, context);
@@ -119,7 +117,7 @@ export default class CardsDeck extends Component {
 
         this.setState((prevState) => {
             if (prevState.type != type) {
-                self.setState({
+                return {
                     selectedName: selectedName,
                     selectedValue: selectedValue,
                     type: type,
@@ -127,19 +125,7 @@ export default class CardsDeck extends Component {
                     // cardsData: pages,
                     loading: false,
                     imageType: imageType
-                });
-                // imageReferenceToOldestKey = '',
-                //     this.fetchData(imageType).then(function (pages) {
-                //         self.setState({
-                //             selectedName: selectedName,
-                //             selectedValue: selectedValue,
-                //             type: type,
-                //             allImages: [],
-                //             // cardsData: pages,
-                //             loading: false,
-                //             imageType:imageType
-                //         });
-                //     })
+                }
             }
         })
     }
@@ -266,4 +252,6 @@ export default class CardsDeck extends Component {
 
     }
 }
+
+var savedCards = [], paidUser = false, category = 'cards';
 

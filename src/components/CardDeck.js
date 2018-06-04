@@ -184,11 +184,34 @@ export default class CardsDeck extends Component {
         const {imageType, cardType, isPaidUser} = this.props;
         // this.getUserImages(cardType, isPaidUser);
         this.fetchData(imageType, isPaidUser).then(function (images) {
-            console.log('images are', images)
+            console.log('####card deck images are', images)
             self.setState({
                 imagesData: images
             });
         })
+
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        var self = this;
+        const {imageType, cardType, isPaidUser} = nextProps;
+        if (imageType != this.props.imageType) {
+            this.setState({iconColor: colors.primary1}, function () {
+
+                likedCards = [];//cardtype is different ,clean the likedcards
+                console.log('imageType is ', imageType)
+
+                self.fetchData(imageType, isPaidUser).then(function (images) {
+                    console.log('######next props images are', images)
+                    self.setState({
+                        imagesData: images
+                    });
+                })
+                // }
+
+            })
+        }
 
     }
 
@@ -196,23 +219,6 @@ export default class CardsDeck extends Component {
         this.setState({cardsData: [], imagesData: []});
     }
 
-    componentWillReceiveProps(nextProps) {
-        var self = this;
-        this.setState({iconColor: colors.primary1})
-
-        if (nextProps.imageType != this.props.imageType) {
-            likedCards = [];//cardtype is different ,clean the likedcards
-        }
-        const {imageType, cardType, isPaidUser} = nextProps;
-
-        // this.getUserImages(cardType, isPaidUser);
-        this.fetchData(imageType, isPaidUser).then(function (images) {
-            console.log('images are', images)
-            self.setState({
-                imagesData: images
-            });
-        })
-    }
 
     renderNoMoreCards() {
         return (

@@ -36,6 +36,7 @@ export default class MyCards extends Component {
             signin: false,
             selectedIndex: 0,
             selectedItem: [{id: '0', value: '0'}],
+            category: 'cards',
         }
 
     }
@@ -70,14 +71,17 @@ export default class MyCards extends Component {
     componentDidMount() {
         var self = this;
         if (this.props.navigation.state.params) {
-            var chooseCards = this.props.navigation.state.params.likedCards;
-            var signin = this.props.navigation.state.params.signin;
+            const {likedCards, signin, category} = this.props.navigation.state.params;
 
-            if (chooseCards.length > 0) {
+            // var chooseCards = this.props.navigation.state.params.likedCards;
+            // var signin = this.props.navigation.state.params.signin;
+            console.log('likedcards are', likedCards, 'category is ', category)
+            if (likedCards.length > 0) {
                 this.setState({
                     signin: signin,
-                    chooseCards: chooseCards,
-                    selectedItem: this.initialSelectedItem(chooseCards)
+                    chooseCards: likedCards,
+                    selectedItem: this.initialSelectedItem(likedCards),
+                    category: category
                 })
             }
         }
@@ -95,8 +99,15 @@ export default class MyCards extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        var chooseCards = nextProps.navigation.state.params.likedCards;
-        this.setState({chooseCards: chooseCards, selectedItem: this.initialSelectedItem(chooseCards)});
+        // var chooseCards = nextProps.navigation.state.params.likedCards;
+        const {likedCards, category} = nextProps.navigation.state.params;
+        console.log('likedcards are', likedCards, 'category is ', category)
+
+        this.setState({
+            chooseCards: likedCards,
+            category: category,
+            selectedItem: this.initialSelectedItem(likedCards)
+        });
 
     }
 
