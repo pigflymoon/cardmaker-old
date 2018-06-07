@@ -50,7 +50,7 @@ export default class MyCards extends Component {
                     <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                           onPress={() => {
                               {
-                                  navigation.navigate('MakeCard', {
+                                  navigation.navigate('MakeCard', {//MakeCard MakeInvitation
                                       chooseCards: makeCard,
                                       signin: true,
                                       isPaidUser: isPaidUser
@@ -72,10 +72,6 @@ export default class MyCards extends Component {
         var self = this;
         if (this.props.navigation.state.params) {
             const {likedCards, signin, category} = this.props.navigation.state.params;
-
-            // var chooseCards = this.props.navigation.state.params.likedCards;
-            // var signin = this.props.navigation.state.params.signin;
-            console.log('likedcards are', likedCards, 'category is ', category)
             if (likedCards.length > 0) {
                 this.setState({
                     signin: signin,

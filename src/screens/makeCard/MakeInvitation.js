@@ -26,6 +26,8 @@ import {
 import {ColorWheel} from 'react-native-color-wheel';
 import Marker from 'react-native-image-marker'
 import {Dropdown} from 'react-native-material-dropdown';
+import Modal from "react-native-modal";
+
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -45,11 +47,12 @@ import {
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-import {WriteImage} from '../../utils/WriteImage';
-
 import CardConfig from '../../config/CardConfig';
-
-export default class MakeCard extends Component {
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const IMAGE_SIZE = SCREEN_WIDTH - 80;
+const PRVIEW_IMAGE_SIZE = SCREEN_WIDTH - 20;
+export default class MakeInvitation extends Component {
 
     constructor(props) {
         super(props)
@@ -175,82 +178,7 @@ export default class MakeCard extends Component {
         }
     }
 
-
-    textInput = (url, text, position, textColor, font, textSize) => {
-        return new Promise(function (resolve, reject) {
-            // some async operation here
-            setTimeout(function () {
-                // resolve the promise with some value
-                Marker.addTextByPostion(url, text, position, textColor, font, textSize)
-                    .then((path) => {
-                        resolve(path)
-                    });
-            }, 500);
-        });
-    }
-
-
-    setMaker = (url, text, position, textColor, font, textSize) => {
-        console.log('font is ', font)
-        return new Promise(function (resolve, reject) {
-            setTimeout(() => {
-                Marker.addTextByPostion(url, text, position, textColor, font, textSize)
-                    .then((path) => {
-                        resolve(path)
-                    });
-            }, 1000);
-        });
-    }
-
-    task1 = (url, text, position, textColor, font, textSize) => {
-
-        return new Promise((resolve, reject) => {
-            if (resolve) {
-                var value2 = this.setMaker(url, text, position, textColor, font, textSize)
-                console.log('value 2 ', value2)
-                resolve(value2)
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
-    }
-
-    task2 = (value2) => {
-        console.log('value2###### ', value2)
-
-        var text = "Hello duck";
-        var position = 'topCenter';
-        var textColor = colors.secondary2;
-        var font = 'Didot-Italic';
-        var textSize = 40;
-        return new Promise((resolve, reject) => {
-            if (resolve) {
-                var value3 = this.setMaker(value2, text, position, textColor, font, textSize)
-                console.log('value3 is######## ', value3)
-                resolve(value3)
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
-    }
-    task3 = (value3) => {
-        var self = this;
-        console.log('value3 is ', value3)
-        return new Promise((resolve, reject) => {
-            if (resolve) {
-                self.setState({
-                    show: true,
-                    imageUrl: Platform.OS === 'android' ? 'file://' + value3 : value3
-                })
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
-    }
-
-
     imageMarker = (url) => {
-        var self = this;
         var title = this.state.title;
         var caption = this.state.caption;
 
@@ -261,20 +189,15 @@ export default class MakeCard extends Component {
         var font = this.state.fontFamily;
         var textSize = this.state.fontSize;
         //
-        var imageUrl = url;
-        var textInfo = {
-            text: text,
-            position: position,
-            textColor: textColor,
-            font: font,
-            textSize: textSize
-        }
-        WriteImage(imageUrl, textInfo).then((path)=>{
-            self.setState({
-                show: true,
-                imageUrl: Platform.OS === 'android' ? 'file://' + path : path
-            })
-        });
+        Marker.addTextByPostion(url, text, position, textColor, font, textSize)
+            .then((path) => {
+                this.setState({
+                    show: true,
+                    imageUrl: Platform.OS === 'android' ? 'file://' + path : path
+                })
+            }).catch((err) => {
+            console.log(err)
+        })
     }
 
     onChangeFontSize = (size) => {
@@ -488,6 +411,83 @@ export default class MakeCard extends Component {
             </View>
         );
     }
+    renderEditBox = () => {
+        return (
+            <ScrollView style={cardStyle.container} showsHorizontalScrollIndicator={false}>
+                <KeyboardAvoidingView contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }} behavior='position'>
+
+                    <View style={{
+                        width: SCREEN_WIDTH - 30,
+                        borderRadius: 10,
+                        paddingTop: 32,
+                        paddingBottom: 32,
+                        alignItems: 'center',
+                    }}>
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            autoCapitalize="none"
+                            onChangeText={(text) => this.setEmail(text)}
+                            inputStyle={{
+                                marginLeft: 20,
+                                color: colors.grey1,
+                            }}
+                            containerStyle={{
+                                width: SCREEN_WIDTH - 60,
+                                marginTop: 16,
+                                borderBottomColor: 'rgba(0, 0, 0, 0.38)',
+                            }}
+                        />
+                        <FormInput
+                            ref="email"
+                            containerRef="emailcontainerRef"
+                            textInputRef="emailInputRef"
+                            placeholder="Please enter your email..."
+                            autoCapitalize="none"
+                            onChangeText={(text) => this.setEmail(text)}
+                            inputStyle={{
+                                marginLeft: 20,
+                                color: colors.grey1,
+                            }}
+                            containerStyle={{
+                                width: SCREEN_WIDTH - 60,
+                                marginTop: 16,
+                                borderBottomColor: 'rgba(0, 0, 0, 0.38)',
+                            }}
+                        />
+                    </View>
+                </KeyboardAvoidingView>
+
+            </ScrollView>
+        )
+    }
+    renderEditContainer = () => {
+        console.log('imageUrl is ', this.state.imageUrl)
+        return (
+            <View style={cardStyle.container}>
+                <ImageBackground
+                    source={{uri: (this.state.makeCard).illustration}}
+                    style={{
+                        flex: 1,
+                        top: 0,
+                        left: 0,
+                        width: SCREEN_WIDTH,
+                        height: 500,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    {this.renderEditBox()}
+
+                </ImageBackground>
+            </View>
+        )
+    }
 
     render() {
         var navigation = this.props.navigation;
@@ -495,7 +495,7 @@ export default class MakeCard extends Component {
         var renderCard = (!card && this.state.signin);
 
         if (renderCard) {
-            return this.renderEdit();
+            return this.renderEditContainer();
 
         }
         else if (this.state.signin) {

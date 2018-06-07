@@ -16,6 +16,8 @@ import CardsDeckScreen from './screens/makeCard/CardsDeck';
 
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
+import MakeInvitationScreen from './screens/makeCard/MakeInvitation';
+
 //Profile
 import AuthScreen from './screens/profile/Auth';
 import ConfirmEmailScreen from './screens/profile/ConfirmEmail';
@@ -78,6 +80,15 @@ const MakeCardTab = StackNavigator({
         screen: MakeCardScreen,
         navigationOptions: {
             title: 'Make Card',
+            headerTintColor: colors.secondary2,
+            headerTitleStyle: {color: colors.black},
+        }
+
+    },
+    MakeInvitation: {
+        screen: MakeInvitationScreen,
+        navigationOptions: {
+            title: 'Make Invitation',
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
         }
