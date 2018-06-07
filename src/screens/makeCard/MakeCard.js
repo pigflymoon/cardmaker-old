@@ -24,7 +24,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 import {ColorWheel} from 'react-native-color-wheel';
-import Marker from 'react-native-image-marker'
+// import Marker from 'react-native-image-marker'
 import {Dropdown} from 'react-native-material-dropdown';
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';

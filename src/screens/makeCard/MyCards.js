@@ -50,7 +50,7 @@ export default class MyCards extends Component {
                     <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                           onPress={() => {
                               {
-                                  navigation.navigate('MakeCard', {//MakeCard MakeInvitation
+                                  navigation.navigate('MakeInvitation', {//MakeCard MakeInvitation
                                       chooseCards: makeCard,
                                       signin: true,
                                       isPaidUser: isPaidUser
