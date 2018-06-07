@@ -45,7 +45,7 @@ import {
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-import {WriteImage} from '../../utils/WriteImage';
+import {makerTask} from '../../utils/MakerTask';
 
 import CardConfig from '../../config/CardConfig';
 
@@ -175,79 +175,13 @@ export default class MakeCard extends Component {
         }
     }
 
-
-    textInput = (url, text, position, textColor, font, textSize) => {
-        return new Promise(function (resolve, reject) {
-            // some async operation here
-            setTimeout(function () {
-                // resolve the promise with some value
-                Marker.addTextByPostion(url, text, position, textColor, font, textSize)
-                    .then((path) => {
-                        resolve(path)
-                    });
-            }, 500);
-        });
-    }
-
-
-    setMaker = (url, text, position, textColor, font, textSize) => {
-        console.log('font is ', font)
-        return new Promise(function (resolve, reject) {
-            setTimeout(() => {
-                Marker.addTextByPostion(url, text, position, textColor, font, textSize)
-                    .then((path) => {
-                        resolve(path)
-                    });
-            }, 1000);
-        });
-    }
-
-    task1 = (url, text, position, textColor, font, textSize) => {
-
+    writeImage = (imageUrl, textInfo1, textInfo2, textInfo3) => {
         return new Promise((resolve, reject) => {
-            if (resolve) {
-                var value2 = this.setMaker(url, text, position, textColor, font, textSize)
-                console.log('value 2 ', value2)
-                resolve(value2)
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
-    }
+            var value = makerTask(imageUrl, textInfo1).then((data) => makerTask(data, textInfo2)).then((data) => makerTask(data, textInfo3));
+            resolve(value);
+        })
 
-    task2 = (value2) => {
-        console.log('value2###### ', value2)
-
-        var text = "Hello duck";
-        var position = 'topCenter';
-        var textColor = colors.secondary2;
-        var font = 'Didot-Italic';
-        var textSize = 40;
-        return new Promise((resolve, reject) => {
-            if (resolve) {
-                var value3 = this.setMaker(value2, text, position, textColor, font, textSize)
-                console.log('value3 is######## ', value3)
-                resolve(value3)
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
     }
-    task3 = (value3) => {
-        var self = this;
-        console.log('value3 is ', value3)
-        return new Promise((resolve, reject) => {
-            if (resolve) {
-                self.setState({
-                    show: true,
-                    imageUrl: Platform.OS === 'android' ? 'file://' + value3 : value3
-                })
-            } else {
-                throw new Error("throw Error @ task1");
-            }
-        });
-    }
-
 
     imageMarker = (url) => {
         var self = this;
@@ -262,14 +196,30 @@ export default class MakeCard extends Component {
         var textSize = this.state.fontSize;
         //
         var imageUrl = url;
-        var textInfo = {
+        var textInfo1 = {
             text: text,
             position: position,
             textColor: textColor,
             font: font,
             textSize: textSize
         }
-        WriteImage(imageUrl, textInfo).then((path)=>{
+
+        var textInfo2 = {
+            text: "Hello duck",
+            position: 'bottomLeft',
+            textColor: colors.primary3,
+            font: 'Didot-Italic',
+            textSize: 50
+        }
+
+        var textInfo3 = {
+            text: "Hello dog",
+            position: 'topRight',
+            textColor: colors.primary2,
+            font: 'Marker Felt',
+            textSize: 50
+        }
+        this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3).then((path) => {
             self.setState({
                 show: true,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
