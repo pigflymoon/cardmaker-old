@@ -30,9 +30,9 @@ export default {
     },
     scrollableModalContent1: {
         height: 200,
-        backgroundColor: "orange",
-        alignItems: "center",
-        justifyContent: "center"
+        backgroundColor: "white",
+        // alignItems: "center",
+        // justifyContent: "center"
     },
     scrollableModalContent2: {
         height: 200,

@@ -192,17 +192,17 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // height: 80,
-        // backgroundColor: colors.primary1,
-        marginTop: -30,
+        alignItems: 'flex-start',
+        flexGrow: 1,
+        backgroundColor: colors.white,
 
     },
     shareRightIcon: {
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'center',
-        height: 60,
-        // backgroundColor: colors.grey2,
+        // height: 60,
+        // backgroundColor: colors.white,
 
 
     },
