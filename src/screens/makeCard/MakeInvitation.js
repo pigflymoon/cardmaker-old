@@ -158,7 +158,7 @@ export default class MakeInvitation extends Component {
         var stateName = `${input}Text`;
         console.log('input name is ', stateName)
 
-        this.setState({title: text});
+        this.setState({[stateName]: this.insertEnter(text, 26)});
     }
 
     setName = (text) => {
@@ -213,7 +213,8 @@ export default class MakeInvitation extends Component {
             // font: font,
             // textSize: textSize,
             // position: position,
-            text: text,
+            text: this.state.input1Text || '',
+
             textColor: textColor,
             textSize: this.state.input1FontSize || textSize,
             font: this.state.input1FontFamily || font,
@@ -223,7 +224,8 @@ export default class MakeInvitation extends Component {
         }
 
         var textInfo2 = {
-            text: "Hello duck",
+            text: this.state.input2Text || '',
+
             textColor: textColor,
             textSize: this.state.input2FontSize || textSize,
             font: this.state.input2FontFamily || font,
@@ -232,7 +234,7 @@ export default class MakeInvitation extends Component {
         }
 
         var textInfo3 = {
-            text: this.state.input,
+            text: this.state.input3Text || '',
             textColor: textColor,
             textSize: this.state.input3FontSize || textSize,
             font: this.state.input3FontFamily || font,
@@ -527,7 +529,6 @@ export default class MakeInvitation extends Component {
                         <View style={{
                             width: SCREEN_WIDTH - 30,
                             borderRadius: 10,
-                            paddingTop: 32,
                             paddingBottom: 32,
                             alignItems: 'center',
                         }}>
@@ -701,46 +702,64 @@ export default class MakeInvitation extends Component {
 
                 {
                     this.state.show
-                        ? <View style={cardStyle.container}>
+                        ? <View style={[cardStyle.container, {
+                            justifyContent: 'center',
+                        }]}>
                             {this.renderIconPanel()}
-                            <ImageBackground
-                                source={{uri: this.state.imageUrl}}
-                                style={{
-                                    flex: 1,
-                                    flexGrow:8,
-                                    top: 0,
-                                    left: 0,
-                                    width: SCREEN_WIDTH,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                            <View style={[cardStyle.container, {
+                                width: SCREEN_WIDTH,
+                                flex: 1,
+                                flexGrow: 8,
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
 
-                                {this.state.showIconPanel ? this.renderEditBox() : null}
-                                {this.renderModal()}
-                            </ImageBackground>
+                            }]}>
+                                <ImageBackground
+                                    source={{uri: this.state.imageUrl}}
+                                    style={{
+                                        flex: 1,
+                                        width: '100%',
+                                        justifyContent: 'flex-start',
+
+
+                                    }}
+                                    imageStyle={{resizeMode: 'contain'}}
+                                >
+
+                                    {this.renderModal()}
+                                </ImageBackground>
+                            </View>
                         </View>
 
                         :
-                        <View style={cardStyle.container}>
+                        <View style={[cardStyle.container, {
+                            justifyContent: 'center',
+                        }]}>
                             {this.renderIconPanel()}
-                            <ImageBackground
-                                source={{uri: (this.state.makeCard).illustration}}
-                                style={{
-                                    flex: 1,
-                                    top: 0,
-                                    left: 0,
-                                    flexGrow:8,
+                            <View style={[cardStyle.container, {
+                                flex: 1,
+                                width: SCREEN_WIDTH,
+                                flexGrow: 8,
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
 
-                                    width: SCREEN_WIDTH,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                            }]}>
+                                <ImageBackground
+                                    source={{uri: (this.state.makeCard).illustration}}
+                                    style={{
+                                        flex: 1,
+                                        width: '100%',
+                                        justifyContent: 'flex-start',
 
-                                {this.state.showIconPanel ? this.renderEditBox() : null}
-                                {this.renderModal()}
-                            </ImageBackground>
+
+                                    }}
+                                    imageStyle={{resizeMode: 'contain'}}
+                                >
+
+
+                                    {this.renderModal()}
+                                </ImageBackground>
+                            </View>
                         </View>
 
                 }
