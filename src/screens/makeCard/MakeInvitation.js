@@ -710,22 +710,17 @@ export default class MakeInvitation extends Component {
                                 width: SCREEN_WIDTH,
                                 flex: 1,
                                 flexGrow: 8,
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
-
+                                backgroundColor:'white',
                             }]}>
                                 <ImageBackground
                                     source={{uri: this.state.imageUrl}}
                                     style={{
                                         flex: 1,
                                         width: '100%',
-                                        justifyContent: 'flex-start',
-
-
                                     }}
                                     imageStyle={{resizeMode: 'contain'}}
                                 >
-
+                                    {this.state.showIconPanel ? this.renderEditBox() : null}
                                     {this.renderModal()}
                                 </ImageBackground>
                             </View>
@@ -740,8 +735,7 @@ export default class MakeInvitation extends Component {
                                 flex: 1,
                                 width: SCREEN_WIDTH,
                                 flexGrow: 8,
-                                justifyContent: 'flex-start',
-                                alignItems: 'flex-start',
+                                backgroundColor:'white',
 
                             }]}>
                                 <ImageBackground
@@ -749,16 +743,14 @@ export default class MakeInvitation extends Component {
                                     style={{
                                         flex: 1,
                                         width: '100%',
-                                        justifyContent: 'flex-start',
-
-
                                     }}
                                     imageStyle={{resizeMode: 'contain'}}
+
                                 >
-
-
+                                    {this.state.showIconPanel ? this.renderEditBox() : null}
                                     {this.renderModal()}
                                 </ImageBackground>
+
                             </View>
                         </View>
 
