@@ -153,6 +153,12 @@ export default class MakeInvitation extends Component {
         this.setState({makeCard: []});
     }
 
+    /**
+     *
+     * @param text
+     * @param input
+     */
+
     setWishwords = (text, input) => {
         console.log('input is ', input)
         var stateName = `${input}Text`;
@@ -187,7 +193,14 @@ export default class MakeInvitation extends Component {
             return str;
         }
     }
-
+    /**
+     *
+     * @param imageUrl
+     * @param textInfo1
+     * @param textInfo2
+     * @param textInfo3
+     * @returns {Promise}
+     */
     writeImage = (imageUrl, textInfo1, textInfo2, textInfo3) => {
         return new Promise((resolve, reject) => {
             var value = makerTask(imageUrl, textInfo1).then((data) => makerTask(data, textInfo2)).then((data) => makerTask(data, textInfo3));
@@ -214,7 +227,6 @@ export default class MakeInvitation extends Component {
             // textSize: textSize,
             // position: position,
             text: this.state.input1Text || '',
-
             textColor: textColor,
             textSize: this.state.input1FontSize || textSize,
             font: this.state.input1FontFamily || font,
@@ -225,7 +237,6 @@ export default class MakeInvitation extends Component {
 
         var textInfo2 = {
             text: this.state.input2Text || '',
-
             textColor: textColor,
             textSize: this.state.input2FontSize || textSize,
             font: this.state.input2FontFamily || font,
@@ -248,7 +259,10 @@ export default class MakeInvitation extends Component {
             })
         });
     }
-
+    /**
+     * Edit input style
+     * @param size
+     */
     onChangeFontSize = (size) => {
         var stateName = `input${this.state.modalIndex}FontSize`;
         console.log('stateName is', stateName)
@@ -296,14 +310,33 @@ export default class MakeInvitation extends Component {
             [stateName]: position,
             textPosition: position
         });
-
     }
 
+    handleOnScroll = event => {
+        this.setState({
+            scrollOffset: event.nativeEvent.contentOffset.y
+        });
+    };
+
+    handleScrollTo = p => {
+        if (this.scrollViewRef) {
+            this.scrollViewRef.scrollTo(p);
+        }
+    };
+    /**
+     * show Icon panel or not
+     */
     showIconPanel = () => {
         let showPanel = (this.state.showIconPanel == true) ? false : true;
         console.log('showPanel is ', showPanel)
         this.setState({showIconPanel: showPanel})
     }
+
+
+    /**
+     * render component
+     * @returns {XML}
+     */
     renderEdit = () => {
         let fontFamily = CardConfig.freefontFamily, isPaidUser = this.state.isPaidUser;
         if (isPaidUser) {
@@ -504,18 +537,12 @@ export default class MakeInvitation extends Component {
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
     );
-    handleOnScroll = event => {
-        this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y
-        });
-    };
 
-    handleScrollTo = p => {
-        if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-        }
-    };
-    renderEditBox = () => {
+    /**
+     * Render Edit
+     * @returns {XML}
+     */
+    renderEditInput = () => {
 
         return (
             <View style={cardStyle.container}>
@@ -548,9 +575,7 @@ export default class MakeInvitation extends Component {
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("edit", () => {
-
                                         this.setState({visibleModal: 8, modalIndex: 1})
-
                                     })}
 
                                 </View>
@@ -608,6 +633,32 @@ export default class MakeInvitation extends Component {
         )
     }
 
+    renderIconPanel = () => {
+        return (
+            <View style={cardStyle.iconsContainer}>
+
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="pencil" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={() => this.showIconPanel()}
+                    />
+                </View>
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="magic" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={() => this.imageMarker((this.state.makeCard).illustration)}
+                    />
+                </View>
+
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={this.onShare}
+                    />
+                </View>
+
+
+            </View>
+        )
+    }
+
     renderModal = () => {
         let fontFamily = CardConfig.freefontFamily, isPaidUser = this.state.isPaidUser;
         if (isPaidUser) {
@@ -658,45 +709,15 @@ export default class MakeInvitation extends Component {
 
                             </View>
                         </View>
-                        <View style={modalStyles.scrollableModalContent1}>
-                            <Text>Scroll me up</Text>
-                        </View>
+
                     </ScrollView>
 
                 </View>
             </Modal>
         )
     }
-    renderIconPanel = () => {
-        let isPaidUser = this.state.isPaidUser;
-        return (
-            <View style={cardStyle.iconsContainer}>
 
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="pencil" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={() => this.showIconPanel()}
-                    />
-                </View>
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="magic" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                    />
-                </View>
-
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={this.onShare}
-                    />
-                </View>
-
-
-            </View>
-        )
-    }
     renderEditContainer = () => {
-        console.log('imageUrl is ', this.state.imageUrl)
-        let modalIndex = this.state.modalIndex;
-        console.log('modalIndex is ', modalIndex)
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
             <View style={cardStyle.container}>
@@ -704,21 +725,13 @@ export default class MakeInvitation extends Component {
                     justifyContent: 'center',
                 }]}>
                     {this.renderIconPanel()}
-                    <View style={[cardStyle.container, {
-                        width: SCREEN_WIDTH,
-                        flex: 1,
-                        flexGrow: 8,
-                        backgroundColor: 'white',
-                    }]}>
+                    <View style={[cardStyle.container, cardStyle.editCardContainer]}>
                         <ImageBackground
                             source={{uri: imageUrl}}
-                            style={{
-                                flex: 1,
-                                width: '100%',
-                            }}
+                            style={cardStyle.cardImage}
                             imageStyle={{resizeMode: 'contain'}}
                         >
-                            {this.state.showIconPanel ? this.renderEditBox() : null}
+                            {this.state.showIconPanel ? this.renderEditInput() : null}
                             {this.renderModal()}
                         </ImageBackground>
                     </View>
@@ -728,6 +741,10 @@ export default class MakeInvitation extends Component {
         )
     }
 
+    /**
+     * render
+     * @returns {*}
+     */
     render() {
         var navigation = this.props.navigation;
         var card = Utils.isEmptyObject(this.state.makeCard)

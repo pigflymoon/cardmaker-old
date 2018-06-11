@@ -17,6 +17,16 @@ export default{
     cardsContainer: {
         flex: 1,
     },
+    editCardContainer: {
+        width: SCREEN_WIDTH,
+        flex: 1,
+        flexGrow: 8,
+        backgroundColor: 'white',
+    },
+    cardImage: {
+        flex: 1,
+        width: '100%',
+    },
     imageSize: IMAGE_SIZE,
     labelStyle: {
         marginTop: 5,
