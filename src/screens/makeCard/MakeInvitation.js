@@ -30,17 +30,19 @@ import Modal from "react-native-modal";
 
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+    SlidersColorPicker,
+} from 'react-native-color';
+import tinycolor from 'tinycolor2';
 
 import  Utils from '../../utils/utils';
-
-
 import bg from '../../assets/images/noWifiBg.png';
 import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
 import modalStyles from "../../styles/modal";
-
+import colorPickerStyle from '../../styles/colorPicker';
 import showInfo from '../../styles/showInfo';
 import {
     onRestore,
@@ -73,6 +75,9 @@ export default class MakeInvitation extends Component {
             fontWeight: 'normal',
             modalIndex: 1,
             showIconPanel: true,
+            modalVisible: false,
+            recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
+            color: tinycolor('#70c1b3').toHsl()
         }
     }
 
@@ -216,7 +221,7 @@ export default class MakeInvitation extends Component {
 
         title = this.insertEnter(title, 26)
         var text = (title + '\n' + caption) || '';
-        var textColor = this.state.textColor || colors.primary1;
+        var textColor =  colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
         var textSize = this.state.fontSize;
@@ -227,29 +232,26 @@ export default class MakeInvitation extends Component {
             // textSize: textSize,
             // position: position,
             text: this.state.input1Text || '',
-            textColor: textColor,
+            textColor: this.state.input1Color || textColor,
             textSize: this.state.input1FontSize || textSize,
             font: this.state.input1FontFamily || font,
-            // input1TextColor: this.state.input1TextColor,
             position: this.state.input1Position || position,
 
         }
 
         var textInfo2 = {
             text: this.state.input2Text || '',
-            textColor: textColor,
+            textColor: this.state.input2Color || textColor,
             textSize: this.state.input2FontSize || textSize,
             font: this.state.input2FontFamily || font,
-            // input2TextColor: this.state.input2TextColor,
             position: this.state.input2Position || position,
         }
 
         var textInfo3 = {
             text: this.state.input3Text || '',
-            textColor: textColor,
+            textColor: this.state.input3Color || textColor,
             textSize: this.state.input3FontSize || textSize,
             font: this.state.input3FontFamily || font,
-            // input3TextColor: this.state.input3TextColor,
             position: this.state.input3Position || position,
         }
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3).then((path) => {
@@ -264,6 +266,7 @@ export default class MakeInvitation extends Component {
      * @param size
      */
     onChangeFontSize = (size) => {
+        console.log('state is :',this.state)
         var stateName = `input${this.state.modalIndex}FontSize`;
         console.log('stateName is', stateName)
 
@@ -664,6 +667,9 @@ export default class MakeInvitation extends Component {
         if (isPaidUser) {
             fontFamily = CardConfig.allfontFamily;
         }
+        const overlayTextColor = tinycolor(this.state.color).isDark()
+            ? '#FAFAFA'
+            : '#222';
         return (
             <Modal
                 isVisible={this.state.visibleModal === 8}
@@ -689,6 +695,48 @@ export default class MakeInvitation extends Component {
                                         data={CardConfig.textColor}
                                         onChangeText={this.onChangeTextColor}
                                     />}
+
+
+                                <Text style={colorPickerStyle.sectionText}>Font Color</Text>
+                                <TouchableOpacity
+                                    onPress={() => this.setState({ modalVisible: true })}
+                                    style={[
+                                        colorPickerStyle.colorPreview,
+                                        { backgroundColor: tinycolor(this.state.color).toHslString() }
+                                    ]}
+                                >
+                                    <Text style={[colorPickerStyle.colorString, { color: overlayTextColor }]}>
+                                        {tinycolor(this.state.color).toHexString()}
+                                    </Text>
+                                </TouchableOpacity>
+
+
+                                <SlidersColorPicker
+                                    visible={this.state.modalVisible}
+                                    color={this.state.color}
+                                    returnMode={'hex'}
+                                    onCancel={() => this.setState({ modalVisible: false })}
+                                    onOk={colorHex => {
+                                        var stateName = `input${this.state.modalIndex}Color`;
+
+                                        this.setState({
+                                            modalVisible: false,
+                                            color: tinycolor(colorHex).toHsl(),
+                                            [stateName]: colorHex,
+
+                                        });
+                                        this.setState({
+                                            recents: [
+                                                colorHex,
+                                                ...this.state.recents.filter(c => c !== colorHex).slice(0, 4)
+                                            ]
+                                        });
+                                    }}
+                                    swatches={this.state.recents}
+                                    swatchesLabel="RECENTS"
+                                    okLabel="Done"
+                                    cancelLabel="Cancel"
+                                />
                                 <Dropdown
                                     label='Font Size'
                                     data={CardConfig.fontSize}

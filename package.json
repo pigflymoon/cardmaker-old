@@ -27,6 +27,7 @@
     "firebase": "^4.6.2",
     "react": "^16.2.0",
     "react-native": "^0.54.2",
+    "react-native-color": "0.0.10",
     "react-native-color-wheel": "git+https://github.com/pigflymoon/react-native-color-wheel.git",
     "react-native-elements": "^0.19.1",
     "react-native-fast-image": "^3.0.2",

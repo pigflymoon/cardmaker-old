@@ -29,7 +29,7 @@ export default {
         height: 300
     },
     scrollableModalContent1: {
-        height: 200,
+        // height: 200,
         backgroundColor: "white",
         // alignItems: "center",
         // justifyContent: "center"
