@@ -697,64 +697,32 @@ export default class MakeInvitation extends Component {
         console.log('imageUrl is ', this.state.imageUrl)
         let modalIndex = this.state.modalIndex;
         console.log('modalIndex is ', modalIndex)
+        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
             <View style={cardStyle.container}>
-
-                {
-                    this.state.show
-                        ? <View style={[cardStyle.container, {
-                            justifyContent: 'center',
-                        }]}>
-                            {this.renderIconPanel()}
-                            <View style={[cardStyle.container, {
-                                width: SCREEN_WIDTH,
+                <View style={[cardStyle.container, {
+                    justifyContent: 'center',
+                }]}>
+                    {this.renderIconPanel()}
+                    <View style={[cardStyle.container, {
+                        width: SCREEN_WIDTH,
+                        flex: 1,
+                        flexGrow: 8,
+                        backgroundColor: 'white',
+                    }]}>
+                        <ImageBackground
+                            source={{uri: imageUrl}}
+                            style={{
                                 flex: 1,
-                                flexGrow: 8,
-                                backgroundColor:'white',
-                            }]}>
-                                <ImageBackground
-                                    source={{uri: this.state.imageUrl}}
-                                    style={{
-                                        flex: 1,
-                                        width: '100%',
-                                    }}
-                                    imageStyle={{resizeMode: 'contain'}}
-                                >
-                                    {this.state.showIconPanel ? this.renderEditBox() : null}
-                                    {this.renderModal()}
-                                </ImageBackground>
-                            </View>
-                        </View>
-
-                        :
-                        <View style={[cardStyle.container, {
-                            justifyContent: 'center',
-                        }]}>
-                            {this.renderIconPanel()}
-                            <View style={[cardStyle.container, {
-                                flex: 1,
-                                width: SCREEN_WIDTH,
-                                flexGrow: 8,
-                                backgroundColor:'white',
-
-                            }]}>
-                                <ImageBackground
-                                    source={{uri: (this.state.makeCard).illustration}}
-                                    style={{
-                                        flex: 1,
-                                        width: '100%',
-                                    }}
-                                    imageStyle={{resizeMode: 'contain'}}
-
-                                >
-                                    {this.state.showIconPanel ? this.renderEditBox() : null}
-                                    {this.renderModal()}
-                                </ImageBackground>
-
-                            </View>
-                        </View>
-
-                }
+                                width: '100%',
+                            }}
+                            imageStyle={{resizeMode: 'contain'}}
+                        >
+                            {this.state.showIconPanel ? this.renderEditBox() : null}
+                            {this.renderModal()}
+                        </ImageBackground>
+                    </View>
+                </View>
 
             </View>
         )
