@@ -35,6 +35,7 @@ import {
 } from 'react-native-color';
 import tinycolor from 'tinycolor2';
 
+import CardEditInputModal from '../../components/CardEditInputModal';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
 import formStyle from '../../styles/form';
@@ -221,7 +222,7 @@ export default class MakeInvitation extends Component {
 
         title = this.insertEnter(title, 26)
         var text = (title + '\n' + caption) || '';
-        var textColor =  colors.primary1;
+        var textColor = colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
         var textSize = this.state.fontSize;
@@ -266,7 +267,7 @@ export default class MakeInvitation extends Component {
      * @param size
      */
     onChangeFontSize = (size) => {
-        console.log('state is :',this.state)
+        console.log('state is :', this.state)
         var stateName = `input${this.state.modalIndex}FontSize`;
         console.log('stateName is', stateName)
 
@@ -578,7 +579,7 @@ export default class MakeInvitation extends Component {
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("edit", () => {
-                                        this.setState({visibleModal: 8, modalIndex: 1})
+                                        this.setState({modalVisible: true, modalIndex: 1})
                                     })}
 
                                 </View>
@@ -599,7 +600,7 @@ export default class MakeInvitation extends Component {
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("edit", () => {
-                                        this.setState({visibleModal: 8, modalIndex: 2})
+                                        this.setState({modalVisible: true, modalIndex: 2})
 
                                     })}
 
@@ -621,7 +622,7 @@ export default class MakeInvitation extends Component {
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("edit", () => {
-                                        this.setState({visibleModal: 8, modalIndex: 3})
+                                        this.setState({modalVisible: true, modalIndex: 3})
 
                                     })}
 
@@ -659,6 +660,42 @@ export default class MakeInvitation extends Component {
 
 
             </View>
+        )
+    }
+    /**
+     * Edit modal
+     * @returns {XML}
+     */
+    renderEditModal = () => {
+        console.log('modalIndex is ', this.state.modalIndex)
+
+        return (
+            <CardEditInputModal
+                visible={this.state.modalVisible}
+                color={this.state.color}
+
+                onCancel={() => this.setState({modalVisible: false})}
+                onOk={(color, size, family, position) => {
+                    console.log('edit modal return values are!!', color, size, family, position)
+                    var fontSize = `input${this.state.modalIndex}FontSize`;
+                    var fontFamily = `input${this.state.modalIndex}FontFamily`;
+                    var textPosition = `input${this.state.modalIndex}Position`;
+                    var textColor = `input${this.state.modalIndex}Color`;
+
+                    this.setState({
+                        [fontSize]: size,
+                        [fontFamily]: family,
+                        [textColor]: color,
+                        [textPosition]: position,
+                        modalVisible: false,
+
+                    });
+
+                }}
+                modalIndex={this.state.modalIndex}
+                okLabel="Done"
+                cancelLabel="Cancel"
+            />
         )
     }
 
@@ -699,13 +736,13 @@ export default class MakeInvitation extends Component {
 
                                 <Text style={colorPickerStyle.sectionText}>Font Color</Text>
                                 <TouchableOpacity
-                                    onPress={() => this.setState({ modalVisible: true })}
+                                    onPress={() => this.setState({modalVisible: true})}
                                     style={[
                                         colorPickerStyle.colorPreview,
-                                        { backgroundColor: tinycolor(this.state.color).toHslString() }
+                                        {backgroundColor: tinycolor(this.state.color).toHslString()}
                                     ]}
                                 >
-                                    <Text style={[colorPickerStyle.colorString, { color: overlayTextColor }]}>
+                                    <Text style={[colorPickerStyle.colorString, {color: overlayTextColor}]}>
                                         {tinycolor(this.state.color).toHexString()}
                                     </Text>
                                 </TouchableOpacity>
@@ -715,7 +752,7 @@ export default class MakeInvitation extends Component {
                                     visible={this.state.modalVisible}
                                     color={this.state.color}
                                     returnMode={'hex'}
-                                    onCancel={() => this.setState({ modalVisible: false })}
+                                    onCancel={() => this.setState({modalVisible: false})}
                                     onOk={colorHex => {
                                         var stateName = `input${this.state.modalIndex}Color`;
 
@@ -765,7 +802,7 @@ export default class MakeInvitation extends Component {
         )
     }
 
-    renderEditContainer = () => {
+    renderEditContainer = () => {//renderEditModal renderModal
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
             <View style={cardStyle.container}>
@@ -780,7 +817,7 @@ export default class MakeInvitation extends Component {
                             imageStyle={{resizeMode: 'contain'}}
                         >
                             {this.state.showIconPanel ? this.renderEditInput() : null}
-                            {this.renderModal()}
+                            {this.renderEditModal()}
                         </ImageBackground>
                     </View>
                 </View>
