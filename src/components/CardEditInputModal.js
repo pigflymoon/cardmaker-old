@@ -96,6 +96,7 @@ export default class CardEditInputModal extends Component {
         var textPosition = `input${modalIndex}Position`;
 
         var textColor = `input${modalIndex}Color`;
+        console.log('textColor ', textColor,' is :',(this.state)[textColor])
         console.log('font family is ', (this.state)[fontFamily])
 
         let fontsFamily = CardConfig.allfontFamily;
@@ -137,11 +138,11 @@ export default class CardEditInputModal extends Component {
                                 onPress={() => this.setState({modalVisible: true})}
                                 style={[
                                     colorPickerStyle.colorPreview,
-                                    {backgroundColor: tinycolor(this.state.color).toHslString()}
+                                    {backgroundColor: tinycolor((this.state)[textColor]).toHslString()}
                                 ]}
                             >
                                 <Text style={[colorPickerStyle.colorString, {color: overlayTextColor}]}>
-                                    {tinycolor(this.state.color).toHexString()}
+                                    {tinycolor((this.state)[textColor]).toHexString()}
                                 </Text>
                             </TouchableOpacity>
 
