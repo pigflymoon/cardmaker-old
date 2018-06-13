@@ -128,7 +128,11 @@ export default class CardEditInputModal extends Component {
 
                         <View style={[cardStyle.container, cardStyle.wrapper]}>
 
-                            <Text style={colorPickerStyle.sectionText}>Font Color</Text>
+                            <Text style={[colorPickerStyle.sectionText, {
+                                color: (this.state)[textColor],
+                                fontFamily: (this.state)[fontFamily]
+                            }]}>
+                                Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
                                 style={[

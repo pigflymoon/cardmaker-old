@@ -548,21 +548,6 @@ export default class MakeInvitation extends Component {
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
     );
-    updateInputStyle = () => {
-        console.log('this.state.input1Color', this.state.input1Color)
-        var color1 = this.state.input1Color || colors.primary1;
-        console.log(' input1Color ', color1)
-        return {
-            color: color1,
-            width: '100%',
-            fontSize: 12,
-            paddingTop: 0,
-            marginBottom: 2,
-        };
-
-
-    }
-
     /**
      * Render Edit
      * @returns {XML}
@@ -588,7 +573,7 @@ export default class MakeInvitation extends Component {
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={this.updateInputStyle()}
+                                        inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
@@ -611,10 +596,7 @@ export default class MakeInvitation extends Component {
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={[cardStyle.inputStyle, {
-                                            color: this.state.input2Color || colors.primary1,
-                                            fontFamily: this.state.input2FontFamily || this.state.fontFamily
-                                        }]}
+                                        inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
@@ -637,10 +619,7 @@ export default class MakeInvitation extends Component {
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={[cardStyle.inputStyle, {
-                                            color: this.state.input3Color || colors.primary1,
-                                            fontFamily: this.state.input3FontFamily || this.state.fontFamily
-                                        }]}
+                                        inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}

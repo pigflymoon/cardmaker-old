@@ -7,7 +7,7 @@ export default{
         marginTop: 32,
         color: '#222',
         fontSize: 22,
-        lineHeight: 28,
+        lineHeight: 32,
         ...Platform.select({
             android: {
                 fontFamily: 'sans-serif-medium'
