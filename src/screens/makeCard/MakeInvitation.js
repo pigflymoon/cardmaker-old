@@ -79,7 +79,8 @@ export default class MakeInvitation extends Component {
             showIconPanel: true,
             modalVisible: false,
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
-            color: tinycolor('#70c1b3').toHsl()
+            color: tinycolor('#70c1b3').toHsl(),
+            selectText: false,
         }
     }
 
@@ -547,13 +548,28 @@ export default class MakeInvitation extends Component {
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
     );
+    updateInputStyle = () => {
+        console.log('this.state.input1Color', this.state.input1Color)
+        var color1 = this.state.input1Color || colors.primary1;
+        console.log(' input1Color ', color1)
+        return {
+            color: color1,
+            width: '100%',
+            fontSize: 12,
+            paddingTop: 0,
+            marginBottom: 2,
+        };
+
+
+    }
 
     /**
      * Render Edit
      * @returns {XML}
      */
     renderEditInput = () => {
-        console.log('this.state.input1Color', this.state.input1Color)
+
+
         return (
             <View style={cardStyle.container}>
 
@@ -572,10 +588,7 @@ export default class MakeInvitation extends Component {
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={[cardStyle.inputStyle, {
-                                            color: this.state.input1Color || colors.primary1,
-                                            fontFamily: this.state.input1FontFamily || this.state.fontFamily
-                                        }]}
+                                        inputStyle={this.updateInputStyle()}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
@@ -585,11 +598,12 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
+                                        selectTextOnFocus={this.state.selectText}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("edit", () => {
-                                        this.setState({modalVisible: true, modalIndex: 1})
+                                        this.setState({modalVisible: true, selectText: true, modalIndex: 1})
                                     })}
 
                                 </View>
