@@ -71,6 +71,7 @@ export default class MakeInvitation extends Component {
             signin: false,
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
+
             fontFamily: 'AmericanTypewriter-Bold',
             fontSize: 48,
             fontWeight: 'normal',
@@ -255,6 +256,11 @@ export default class MakeInvitation extends Component {
             font: this.state.input3FontFamily || font,
             position: this.state.input3Position || position,
         }
+        console.log('textInfo1 :', textInfo1);
+        console.log('textInfo2 :', textInfo2);
+        console.log('textInfo3 :', textInfo3);
+
+
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3).then((path) => {
             self.setState({
                 show: true,
@@ -547,7 +553,7 @@ export default class MakeInvitation extends Component {
      * @returns {XML}
      */
     renderEditInput = () => {
-
+        console.log('this.state.input1Color', this.state.input1Color)
         return (
             <View style={cardStyle.container}>
 
@@ -565,16 +571,20 @@ export default class MakeInvitation extends Component {
                         }}>
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="wishwords"
-                                               multiline
-                                               numberOfLines={4}
-                                               maxLength={80}
-                                               containerRef="wishwordscontainerRef"
-                                               textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words(length less than 80)"
-                                               placeholderTextColor={colors.grey0}
-                                               onChangeText={(text) => this.setWishwords(text, 'input1')}
+                                    <FormInput
+                                        inputStyle={[cardStyle.inputStyle, {
+                                            color: this.state.input1Color || colors.primary1,
+                                            fontFamily: this.state.input1FontFamily || this.state.fontFamily
+                                        }]}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input1')}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
@@ -586,16 +596,20 @@ export default class MakeInvitation extends Component {
                             </View>
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="wishwords"
-                                               multiline
-                                               numberOfLines={4}
-                                               maxLength={80}
-                                               containerRef="wishwordscontainerRef"
-                                               textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words(length less than 80)"
-                                               placeholderTextColor={colors.grey0}
-                                               onChangeText={(text) => this.setWishwords(text, 'input2')}
+                                    <FormInput
+                                        inputStyle={[cardStyle.inputStyle, {
+                                            color: this.state.input2Color || colors.primary1,
+                                            fontFamily: this.state.input2FontFamily || this.state.fontFamily
+                                        }]}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
@@ -608,16 +622,20 @@ export default class MakeInvitation extends Component {
                             </View>
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="wishwords"
-                                               multiline
-                                               numberOfLines={4}
-                                               maxLength={80}
-                                               containerRef="wishwordscontainerRef"
-                                               textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words(length less than 80)"
-                                               placeholderTextColor={colors.grey0}
-                                               onChangeText={(text) => this.setWishwords(text, 'input3')}
+                                    <FormInput
+                                        inputStyle={[cardStyle.inputStyle, {
+                                            color: this.state.input3Color || colors.primary1,
+                                            fontFamily: this.state.input3FontFamily || this.state.fontFamily
+                                        }]}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>

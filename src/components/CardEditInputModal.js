@@ -76,6 +76,10 @@ export default class CardEditInputModal extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {modalIndex} = nextProps;
+        this.setState({modalIndex: modalIndex})
+    }
 
     render() {
         const {
