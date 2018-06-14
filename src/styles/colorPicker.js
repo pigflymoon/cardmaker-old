@@ -6,7 +6,7 @@ export default{
     sectionText: {
         marginTop: 32,
         color: '#222',
-        fontSize: 22,
+        fontSize: 16,
         lineHeight: 32,
         ...Platform.select({
             android: {
