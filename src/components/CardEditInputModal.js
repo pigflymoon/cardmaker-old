@@ -44,10 +44,6 @@ export default class CardEditInputModal extends Component {
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             modalIndex: this.props.modalIndex,
-            fontSizeLabel: 'Font Size',
-            fontFamilyLabel: 'Font Family',
-            textPositionLabel: 'Text Position',
-
         }
     }
 
