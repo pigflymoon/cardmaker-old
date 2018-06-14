@@ -44,6 +44,9 @@ export default class CardEditInputModal extends Component {
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             modalIndex: this.props.modalIndex,
+            fontSizeLabel: 'Font Size',
+            fontFamilyLabel: 'Font Family',
+            textPositionLabel: 'Text Position',
 
         }
     }
@@ -60,12 +63,14 @@ export default class CardEditInputModal extends Component {
 
         this.setState({
             [stateName]: size,
+            fontSizeLabel: size,
         });
     }
     onChangeFontFamily = (font) => {
         var stateName = `input${this.state.modalIndex}FontFamily`;
         this.setState({
             [stateName]: font,
+            fontFamilyLabel: font,
         });
     }
     onChangeTextPosition = (position) => {
@@ -73,6 +78,7 @@ export default class CardEditInputModal extends Component {
 
         this.setState({
             [stateName]: position,
+            textPositionLabel: position,
         });
     }
 
@@ -94,16 +100,8 @@ export default class CardEditInputModal extends Component {
         var fontSize = `input${modalIndex}FontSize`;
         var fontFamily = `input${modalIndex}FontFamily`;
         var textPosition = `input${modalIndex}Position`;
-
         var textColor = `input${modalIndex}Color`;
-        console.log('textColor ', textColor, ' is :', (this.state)[textColor])
-        console.log('font family is ', (this.state)[fontFamily])
-
         let fontsFamily = CardConfig.allfontFamily;
-        const textInfo = ((this.state)[textColor] && (this.state)[fontFamily] && (this.state)[textPosition]) ?
-            `Font Color: ${(this.state)[textColor]}
-        Font Family: ${(this.state)[fontFamily]}   
-        textPosition: ${(this.state)[textPosition]}` : `Font Style`;
         const overlayTextColor = tinycolor(this.state.color).isDark()
             ? '#FAFAFA'
             : '#222';
@@ -135,7 +133,7 @@ export default class CardEditInputModal extends Component {
                             <Text style={[colorPickerStyle.sectionText, {
                                 color: (this.state)[textColor],
                                 fontFamily: (this.state)[fontFamily]
-                            }]}>{textInfo}</Text>
+                            }]}>Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
                                 style={[
@@ -176,19 +174,19 @@ export default class CardEditInputModal extends Component {
                                 cancelLabel="Cancel"
                             />
                             <Dropdown
-                                label='Font Size'
+                                label={(this.state)[fontSize] || 'Font Size'}
                                 data={CardConfig.fontSize}
                                 onChangeText={this.onChangeFontSize}
                             />
                             <Dropdown
-                                label='Font Family'
+                                label={(this.state)[fontFamily] || 'Font Family'}
                                 data={fontsFamily}
                                 setFontFamily={true}
                                 onChangeText={this.onChangeFontFamily}
                             />
 
                             <Dropdown
-                                label='Text Position'
+                                label={(this.state)[textPosition] || 'Text Position'}
                                 data={CardConfig.textPostion}
                                 onChangeText={this.onChangeTextPosition}
                             />

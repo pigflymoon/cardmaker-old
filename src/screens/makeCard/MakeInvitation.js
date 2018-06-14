@@ -653,7 +653,7 @@ export default class MakeInvitation extends Component {
             <View style={cardStyle.iconsContainer}>
 
                 <View style={cardStyle.shareRightIcon}>
-                    <Icon name="pencil" type="font-awesome" color={colors.secondary2} size={28}
+                    <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.showIconPanel()}
                     />
                 </View>
@@ -707,109 +707,6 @@ export default class MakeInvitation extends Component {
                 okLabel="Done"
                 cancelLabel="Cancel"
             />
-        )
-    }
-
-    renderModal = () => {
-        let fontFamily = CardConfig.freefontFamily, isPaidUser = this.state.isPaidUser;
-        if (isPaidUser) {
-            fontFamily = CardConfig.allfontFamily;
-        }
-        const overlayTextColor = tinycolor(this.state.color).isDark()
-            ? '#FAFAFA'
-            : '#222';
-        return (
-            <Modal
-                isVisible={this.state.visibleModal === 8}
-                onSwipe={() => this.setState({visibleModal: null})}
-                swipeDirection="down"
-                scrollTo={this.handleScrollTo}
-                scrollOffset={this.state.scrollOffset}
-                scrollOffsetMax={400 - 300} // content height - ScrollView height
-                style={modalStyles.bottomModal}
-            >
-                <View style={modalStyles.scrollableModal}>
-                    <ScrollView
-                        ref={ref => (this.scrollViewRef = ref)}
-                        onScroll={this.handleOnScroll}
-                        scrollEventThrottle={16}
-                    >
-                        {this.renderButton("Close", () => this.setState({visibleModal: null}))}
-
-                        <View style={modalStyles.scrollableModalContent1}>
-                            <View style={[cardStyle.container, cardStyle.wrapper]}>
-                                {isPaidUser ? null : <Dropdown
-                                        label='Text Color'
-                                        data={CardConfig.textColor}
-                                        onChangeText={this.onChangeTextColor}
-                                    />}
-
-
-                                <Text style={colorPickerStyle.sectionText}>Font Color</Text>
-                                <TouchableOpacity
-                                    onPress={() => this.setState({modalVisible: true})}
-                                    style={[
-                                        colorPickerStyle.colorPreview,
-                                        {backgroundColor: tinycolor(this.state.color).toHslString()}
-                                    ]}
-                                >
-                                    <Text style={[colorPickerStyle.colorString, {color: overlayTextColor}]}>
-                                        {tinycolor(this.state.color).toHexString()}
-                                    </Text>
-                                </TouchableOpacity>
-
-
-                                <SlidersColorPicker
-                                    visible={this.state.modalVisible}
-                                    color={this.state.color}
-                                    returnMode={'hex'}
-                                    onCancel={() => this.setState({modalVisible: false})}
-                                    onOk={colorHex => {
-                                        var stateName = `input${this.state.modalIndex}Color`;
-
-                                        this.setState({
-                                            modalVisible: false,
-                                            color: tinycolor(colorHex).toHsl(),
-                                            [stateName]: colorHex,
-
-                                        });
-                                        this.setState({
-                                            recents: [
-                                                colorHex,
-                                                ...this.state.recents.filter(c => c !== colorHex).slice(0, 4)
-                                            ]
-                                        });
-                                    }}
-                                    swatches={this.state.recents}
-                                    swatchesLabel="RECENTS"
-                                    okLabel="Done"
-                                    cancelLabel="Cancel"
-                                />
-                                <Dropdown
-                                    label='Font Size'
-                                    data={CardConfig.fontSize}
-                                    onChangeText={this.onChangeFontSize}
-                                />
-                                <Dropdown
-                                    label='Font Family'
-                                    data={fontFamily}
-                                    setFontFamily={true}
-                                    onChangeText={this.onChangeFontFamily}
-                                />
-
-                                <Dropdown
-                                    label='Text Position'
-                                    data={CardConfig.textPostion}
-                                    onChangeText={this.onChangeTextPosition}
-                                />
-
-                            </View>
-                        </View>
-
-                    </ScrollView>
-
-                </View>
-            </Modal>
         )
     }
 
