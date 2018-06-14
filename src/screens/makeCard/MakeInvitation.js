@@ -81,6 +81,7 @@ export default class MakeInvitation extends Component {
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             color: tinycolor('#70c1b3').toHsl(),
             selectText: false,
+            opacity: 1,
         }
     }
 
@@ -209,9 +210,11 @@ export default class MakeInvitation extends Component {
      * @param textInfo3
      * @returns {Promise}
      */
-    writeImage = (imageUrl, textInfo1, textInfo2, textInfo3) => {
+    writeImage = (imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7) => {
         return new Promise((resolve, reject) => {
-            var value = makerTask(imageUrl, textInfo1).then((data) => makerTask(data, textInfo2)).then((data) => makerTask(data, textInfo3));
+            var value = makerTask(imageUrl, textInfo1).then((data) => makerTask(data, textInfo2)).then((data) => makerTask(data, textInfo3))
+                .then((data) => makerTask(data, textInfo4)).then((data) => makerTask(data, textInfo5)).then((data) => makerTask(data, textInfo6))
+                .then((data) => makerTask(data, textInfo7));
             resolve(value);
         })
 
@@ -257,12 +260,40 @@ export default class MakeInvitation extends Component {
             font: this.state.input3FontFamily || font,
             position: this.state.input3Position || position,
         }
+        var textInfo4 = {
+            text: this.state.input4Text || '',
+            textColor: this.state.input4Color || textColor,
+            textSize: this.state.input4FontSize || textSize,
+            font: this.state.input4FontFamily || font,
+            position: this.state.input4Position || position,
+        }
+        var textInfo5 = {
+            text: this.state.input5Text || '',
+            textColor: this.state.input5Color || textColor,
+            textSize: this.state.input5FontSize || textSize,
+            font: this.state.input5FontFamily || font,
+            position: this.state.input5Position || position,
+        }
+        var textInfo6 = {
+            text: this.state.input6Text || '',
+            textColor: this.state.input6Color || textColor,
+            textSize: this.state.input6FontSize || textSize,
+            font: this.state.input6FontFamily || font,
+            position: this.state.input6Position || position,
+        }
+        var textInfo7 = {
+            text: this.state.input7Text || '',
+            textColor: this.state.input7Color || textColor,
+            textSize: this.state.input7FontSize || textSize,
+            font: this.state.input7FontFamily || font,
+            position: this.state.input7Position || position,
+        }
         console.log('textInfo1 :', textInfo1);
         console.log('textInfo2 :', textInfo2);
         console.log('textInfo3 :', textInfo3);
 
 
-        this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3).then((path) => {
+        this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
                 show: true,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
@@ -270,220 +301,12 @@ export default class MakeInvitation extends Component {
         });
     }
     /**
-     * Edit input style
-     * @param size
-     */
-    onChangeFontSize = (size) => {
-        console.log('state is :', this.state)
-        var stateName = `input${this.state.modalIndex}FontSize`;
-        console.log('stateName is', stateName)
-
-
-        this.setState({
-            [stateName]: size,
-            fontSize: size,
-        });
-    }
-    onChangeFontFamily = (font) => {
-        var stateName = `input${this.state.modalIndex}FontFamily`;
-        this.setState({
-            [stateName]: font,
-            fontFamily: font,
-        });
-    }
-
-    onChangeTextColor = (color) => {
-        var stateName = `input${this.state.modalIndex}TextColor`;
-
-        let showColors = {
-            'grey': colors.grey1,
-            'red': colors.red,
-            'green': colors.secondary2,
-            'purple': colors.purple,
-            'orange': colors.orange1,
-            'blue': colors.blue,
-            'pink': colors.primary3,
-        }
-
-        for (let key in showColors) {
-            if (color == key) {
-                this.setState({
-                    [stateName]: showColors[key],
-                    textColor: showColors[key]
-                });
-            }
-        }
-    }
-    onChangeTextPosition = (position) => {
-        var stateName = `input${this.state.modalIndex}Position`;
-
-        this.setState({
-            [stateName]: position,
-            textPosition: position
-        });
-    }
-
-    handleOnScroll = event => {
-        this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y
-        });
-    };
-
-    handleScrollTo = p => {
-        if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-        }
-    };
-    /**
      * show Icon panel or not
      */
     showIconPanel = () => {
         let showPanel = (this.state.showIconPanel == true) ? false : true;
         console.log('showPanel is ', showPanel)
         this.setState({showIconPanel: showPanel})
-    }
-
-
-    /**
-     * render component
-     * @returns {XML}
-     */
-    renderEdit = () => {
-        let fontFamily = CardConfig.freefontFamily, isPaidUser = this.state.isPaidUser;
-        if (isPaidUser) {
-            fontFamily = CardConfig.allfontFamily;
-        }
-        return (
-            <View style={layoutStyle.container}>
-                <View style={cardStyle.iconsContainer}>
-                    <View style={cardStyle.shareRightIcon}>
-                        {
-                            isPaidUser
-                                ? <ColorWheel
-                                    initialColor="#ee0000"
-                                    onColorChange={(color) => this.setTextColor(color)}
-                                    style={{width: 60, height: 60, marginLeft: 20,}}
-                                    thumbSize={20}
-                                    thumbStyle={{height: 50, width: 50, borderRadius: 50}}/> : null
-                        }
-
-
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="pencil-square" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={() => this.imageMarker((this.state.makeCard).illustration)}
-                        />
-                    </View>
-                    <View style={cardStyle.shareRightIcon}>
-                        <Icon name="share-alt" type="font-awesome" color={colors.secondary2} size={28}
-                              onPress={this.onShare}
-                        />
-                    </View>
-
-
-                </View>
-                <ScrollView style={[cardStyle.container, {
-                    flexGrow: 1,
-                }]}>
-                    <KeyboardAvoidingView behavior='position' contentContainerStyle={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-
-                    }}>
-                        <View style={[cardStyle.editTextContainer]}>
-                            <View style={formStyle.inputsContainer}>
-                                <View style={cardStyle.inputContainer}>
-                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                               labelStyle={cardStyle.labelStyle}>
-                                        Wish words
-                                    </FormLabel>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="wishwords"
-                                               multiline
-                                               numberOfLines={4}
-                                               maxLength={80}
-                                               containerRef="wishwordscontainerRef"
-                                               textInputRef="wishwordsInputRef"
-                                               placeholder="Please enter wish words(length less than 80)"
-                                               placeholderTextColor={colors.grey3}
-                                               onChangeText={(text) => this.setWishwords(text)}
-                                    />
-                                </View>
-
-                                <View style={cardStyle.inputContainer}>
-                                    <FormLabel containerStyle={cardStyle.labelContainerStyle}
-                                               labelStyle={cardStyle.labelStyle}>
-                                        Name
-                                    </FormLabel>
-                                    <FormInput inputStyle={cardStyle.inputStyle}
-                                               ref="Name"
-                                               maxLength={80}
-                                               containerRef="namecontainerRef"
-                                               textInputRef="nameInputRef"
-                                               placeholder="Please Sign your name(length less than 80)"
-                                               placeholderTextColor={colors.grey3}
-                                               onChangeText={(text) => this.setName(text)}
-                                    />
-                                </View>
-                                {this.state.errorMessage ?
-                                    <FormValidationMessage containerStyle={formStyle.validateContainer}>
-                                        {this.state.errorMessage}
-                                    </FormValidationMessage>
-                                    : null
-                                }
-                            </View>
-                        </View>
-                    </KeyboardAvoidingView>
-
-                    <View style={[cardStyle.container, cardStyle.wrapper]}>
-                        {isPaidUser ? null : <Dropdown
-                                label='Text Color'
-                                data={CardConfig.textColor}
-                                onChangeText={this.onChangeTextColor}
-                            />}
-                        <Dropdown
-                            label='Font Size'
-                            data={CardConfig.fontSize}
-                            onChangeText={this.onChangeFontSize}
-                        />
-                        <Dropdown
-                            label='Font Family'
-                            data={fontFamily}
-                            setFontFamily={true}
-                            onChangeText={this.onChangeFontFamily}
-                        />
-
-                        <Dropdown
-                            label='Text Position'
-                            data={CardConfig.textPostion}
-                            onChangeText={this.onChangeTextPosition}
-                        />
-
-                    </View>
-
-
-                </ScrollView>
-                <ScrollView style={{
-                    flex: 1, flexGrow: 2,
-                }}>
-
-                    <View style={cardStyle.editImageContainer}>
-                        {
-                            this.state.show
-                                ? <Image
-                                    source={{uri: this.state.imageUrl}}
-                                    style={cardStyle.editImage}
-                                /> : <Image
-                                    source={{uri: (this.state.makeCard).illustration}}
-                                    style={cardStyle.editImage}
-                                />
-                        }
-                    </View>
-                </ScrollView>
-
-
-            </View>
-        )
     }
 
     renderEmptyStates = () => {
@@ -525,17 +348,10 @@ export default class MakeInvitation extends Component {
             </View>
         );
     }
-    renderButton = (text, onPress) => (
-        <TouchableOpacity onPress={onPress}>
-            <View style={modalStyles.button}>
-                <Text>{text}</Text>
-            </View>
-        </TouchableOpacity>
-    );
     renderIcon = (name, onPress) => (
         <Button
             title=""
-            icon={{name: name,type: 'font-awesome', color: colors.secondary2, size: 24}}
+            icon={{name: name, type: 'font-awesome', color: colors.secondary2, size: 24}}
             onPress={onPress}
             buttonStyle={{
                 padding: 0,
@@ -547,17 +363,14 @@ export default class MakeInvitation extends Component {
 
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
-    );
+    )
     /**
      * Render Edit
      * @returns {XML}
      */
     renderEditInput = () => {
-
-
         return (
-            <View style={cardStyle.container}>
-
+            <View style={[cardStyle.container, this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}>
                 <ScrollView style={cardStyle.container} showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={{
                         alignItems: 'center',
@@ -634,9 +447,91 @@ export default class MakeInvitation extends Component {
                                 <View style={{flex: 1, flexGrow: 1}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 3})
-
                                     })}
-
+                                </View>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                                <View style={{flex: 1, flexGrow: 6}}>
+                                    <FormInput
+                                        inputStyle={cardStyle.inputStyle}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input4')}
+                                    />
+                                </View>
+                                <View style={{flex: 1, flexGrow: 1}}>
+                                    {this.renderIcon("cog", () => {
+                                        this.setState({modalVisible: true, modalIndex: 4})
+                                    })}
+                                </View>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                                <View style={{flex: 1, flexGrow: 6}}>
+                                    <FormInput
+                                        inputStyle={cardStyle.inputStyle}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input5')}
+                                    />
+                                </View>
+                                <View style={{flex: 1, flexGrow: 1}}>
+                                    {this.renderIcon("cog", () => {
+                                        this.setState({modalVisible: true, modalIndex: 5})
+                                    })}
+                                </View>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                                <View style={{flex: 1, flexGrow: 6}}>
+                                    <FormInput
+                                        inputStyle={cardStyle.inputStyle}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input6')}
+                                    />
+                                </View>
+                                <View style={{flex: 1, flexGrow: 1}}>
+                                    {this.renderIcon("cog", () => {
+                                        this.setState({modalVisible: true, modalIndex: 6})
+                                    })}
+                                </View>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                                <View style={{flex: 1, flexGrow: 6}}>
+                                    <FormInput
+                                        inputStyle={cardStyle.inputStyle}
+                                        ref="wishwords"
+                                        multiline
+                                        numberOfLines={4}
+                                        maxLength={80}
+                                        containerRef="wishwordscontainerRef"
+                                        textInputRef="wishwordsInputRef"
+                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholderTextColor={colors.grey0}
+                                        onChangeText={(text) => this.setWishwords(text, 'input7')}
+                                    />
+                                </View>
+                                <View style={{flex: 1, flexGrow: 1}}>
+                                    {this.renderIcon("cog", () => {
+                                        this.setState({modalVisible: true, modalIndex: 7})
+                                    })}
                                 </View>
                             </View>
                         </View>
@@ -724,7 +619,7 @@ export default class MakeInvitation extends Component {
                             style={cardStyle.cardImage}
                             imageStyle={{resizeMode: 'contain'}}
                         >
-                            {this.state.showIconPanel ? this.renderEditInput() : null}
+                            {this.renderEditInput()}
                             {this.renderEditModal()}
                         </ImageBackground>
                     </View>
