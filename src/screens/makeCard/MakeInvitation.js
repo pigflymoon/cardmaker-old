@@ -535,7 +535,7 @@ export default class MakeInvitation extends Component {
     renderIcon = (name, onPress) => (
         <Button
             title=""
-            icon={{name: name, color: colors.secondary2, size: 24}}
+            icon={{name: name,type: 'font-awesome', color: colors.secondary2, size: 24}}
             onPress={onPress}
             buttonStyle={{
                 padding: 0,
@@ -587,7 +587,7 @@ export default class MakeInvitation extends Component {
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
-                                    {this.renderIcon("edit", () => {
+                                    {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, selectText: true, modalIndex: 1})
                                     })}
 
@@ -609,7 +609,7 @@ export default class MakeInvitation extends Component {
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
-                                    {this.renderIcon("edit", () => {
+                                    {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 2})
 
                                     })}
@@ -632,7 +632,7 @@ export default class MakeInvitation extends Component {
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1}}>
-                                    {this.renderIcon("edit", () => {
+                                    {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 3})
 
                                     })}
