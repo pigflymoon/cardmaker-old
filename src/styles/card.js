@@ -191,6 +191,7 @@ export default{
     },
     inputStyle: {
         width: '100%',
+        maxHeight: 60,
         fontSize: 12,
         paddingTop: 0,
         marginBottom: 2,

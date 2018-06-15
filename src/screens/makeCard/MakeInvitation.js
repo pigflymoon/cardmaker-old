@@ -15,6 +15,7 @@ import {
     ImageBackground,
     KeyboardAvoidingView,
     Alert,
+    Keyboard
 } from 'react-native';
 import {
     Button,
@@ -23,27 +24,14 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
-import {ColorWheel} from 'react-native-color-wheel';
-import Marker from 'react-native-image-marker'
-import {Dropdown} from 'react-native-material-dropdown';
-import Modal from "react-native-modal";
-
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-    SlidersColorPicker,
-} from 'react-native-color';
-import tinycolor from 'tinycolor2';
-
 import CardEditInputModal from '../../components/CardEditInputModal';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
-import formStyle from '../../styles/form';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
-import modalStyles from "../../styles/modal";
-import colorPickerStyle from '../../styles/colorPicker';
 import showInfo from '../../styles/showInfo';
 import {
     onRestore,
@@ -54,13 +42,9 @@ import {
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
 
-import CardConfig from '../../config/CardConfig';
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const IMAGE_SIZE = SCREEN_WIDTH - 80;
-const PRVIEW_IMAGE_SIZE = SCREEN_WIDTH - 20;
-export default class MakeInvitation extends Component {
 
+export default class MakeInvitation extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -71,15 +55,12 @@ export default class MakeInvitation extends Component {
             signin: false,
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
-
             fontFamily: 'AmericanTypewriter-Bold',
             fontSize: 48,
             fontWeight: 'normal',
             modalIndex: 1,
             showIconPanel: true,
             modalVisible: false,
-            recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
-            color: tinycolor('#70c1b3').toHsl(),
             selectText: false,
             opacity: 1,
         }
@@ -162,6 +143,9 @@ export default class MakeInvitation extends Component {
         this.setState({makeCard: []});
     }
 
+    onShare = () => {
+        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
+    }
     /**
      *
      * @param text
@@ -176,20 +160,18 @@ export default class MakeInvitation extends Component {
         this.setState({[stateName]: this.insertEnter(text, 26)});
     }
 
-    setName = (text) => {
-        this.setState({caption: text});
-    }
+    handleOnScroll = event => {
+        this.setState({
+            scrollOffset: event.nativeEvent.contentOffset.y
+        });
+    };
 
-    onShare = () => {
-        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
-    }
-
-
-    setTextColor = (color) => {
-        var hexColor = color ? color.hexColor : colors.primary1;
-        this.setState({textColor: hexColor})
-    }
-
+    handleScrollTo = p => {
+        console.log('#######p is :########', p)
+        if (this.scrollViewRef) {
+            this.scrollViewRef.scrollTo(p);
+        }
+    };
     insertEnter = (str, n) => {
         var len = str.length;//获取字符的长度
         var strTemp = '';
@@ -305,8 +287,7 @@ export default class MakeInvitation extends Component {
      */
     showIconPanel = () => {
         let showPanel = (this.state.showIconPanel == true) ? false : true;
-        console.log('showPanel is ', showPanel)
-        this.setState({showIconPanel: showPanel})
+        this.setState({showIconPanel: showPanel});
     }
 
     renderEmptyStates = () => {
@@ -333,10 +314,7 @@ export default class MakeInvitation extends Component {
                                 size={28}
                                 style={{color: colors.secondary2, paddingRight: 20,}}
                                 onPress={() => {
-                                    {
-                                        this.props.navigation.goBack();
-                                    }
-
+                                    this.props.navigation.goBack();
                                 }}
                             />
                             <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have
@@ -344,7 +322,6 @@ export default class MakeInvitation extends Component {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground >
-
             </View>
         );
     }
@@ -368,32 +345,42 @@ export default class MakeInvitation extends Component {
      * Render Edit
      * @returns {XML}
      */
+
     renderEditInput = () => {
         return (
-            <View style={[cardStyle.container, this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}>
-                <ScrollView style={cardStyle.container} showsHorizontalScrollIndicator={false}>
+            <View
+                style={[cardStyle.container, this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}
+            >
+                <ScrollView style={cardStyle.container}
+
+                            showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={{
                         alignItems: 'center',
-                        justifyContent: 'center'
-                    }} behavior='position'>
+                        justifyContent: 'center',
+                    }}
+                                          enabled
+                                          behavior='position'
 
-                        <View style={{
-                            width: SCREEN_WIDTH - 30,
-                            borderRadius: 10,
-                            paddingBottom: 32,
-                            alignItems: 'center',
-                        }}>
+                    >
+                        <View
+                            style={{
+                                width: SCREEN_WIDTH - 30,
+                                borderRadius: 10,
+                                paddingBottom: 32,
+                                alignItems: 'center',
+                            }}>
+
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={cardStyle.inputStyle}
+                                        inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
                                         selectTextOnFocus={this.state.selectText}
@@ -413,10 +400,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
@@ -436,10 +423,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
@@ -457,10 +444,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
@@ -478,10 +465,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
@@ -499,10 +486,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
@@ -520,10 +507,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={80}
+                                        maxLength={78}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(length less than 78)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />
@@ -534,6 +521,7 @@ export default class MakeInvitation extends Component {
                                     })}
                                 </View>
                             </View>
+
                         </View>
                     </KeyboardAvoidingView>
 
@@ -546,7 +534,6 @@ export default class MakeInvitation extends Component {
     renderIconPanel = () => {
         return (
             <View style={cardStyle.iconsContainer}>
-
                 <View style={cardStyle.shareRightIcon}>
                     <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.showIconPanel()}
@@ -573,8 +560,6 @@ export default class MakeInvitation extends Component {
      * @returns {XML}
      */
     renderEditModal = () => {
-        console.log('modalIndex is ', this.state.modalIndex)
-
         return (
             <CardEditInputModal
                 visible={this.state.modalVisible}
@@ -604,7 +589,10 @@ export default class MakeInvitation extends Component {
             />
         )
     }
-
+    /**
+     *
+     * @returns {XML}
+     */
     renderEditContainer = () => {//renderEditModal renderModal
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
@@ -641,18 +629,14 @@ export default class MakeInvitation extends Component {
         if (renderCard) {
             return this.renderEditContainer();
 
-        }
-        else if (this.state.signin) {
+        } else if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
                     {this.renderEmptyStates()}
                 </View>
             )
         } else {
-            {
-                return renderAuthBox(this.state.isLoading, navigation)
-            }
-
+            return renderAuthBox(this.state.isLoading, navigation)
         }
     }
 }
