@@ -74,6 +74,12 @@ export default class CardEditInputModal extends Component {
             [stateName]: font,
             fontFamilyLabel: font,
         });
+        this.setState({
+            recentsFontFamily: [
+                font,
+                ...this.state.recentsFontFamily.filter(c => c !== font).slice(0, 2)
+            ]
+        });
     }
     onChangeTextPosition = (position) => {
         var stateName = `input${this.state.modalIndex}Position`;
@@ -209,7 +215,7 @@ export default class CardEditInputModal extends Component {
                                             {
                                                 flex: 1,
                                                 aspectRatio: 1,
-                                                maxHeight: 100,
+                                                maxHeight: 200,
                                                 maxWidth: 100,
                                                 padding: 5,
                                                 borderRadius: 3,
