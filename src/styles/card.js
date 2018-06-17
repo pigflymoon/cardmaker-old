@@ -31,6 +31,16 @@ export default{
     labelStyle: {
         marginTop: 5,
     },
+    thumb: {
+        width: 24,
+        height: 24,
+        borderRadius: 24 / 2,
+        shadowColor: 'black',
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 4,
+        shadowOpacity: 0.1,
+        backgroundColor: colors.secondary2,
+    },
     header: {
         height: 50,
         flexDirection: 'row',

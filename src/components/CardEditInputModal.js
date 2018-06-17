@@ -8,6 +8,9 @@ import {
 import {
     SlidersColorPicker,
 } from 'react-native-color';
+import {
+    Slider
+} from 'react-native-elements';
 import tinycolor from 'tinycolor2';
 import {Dropdown} from 'react-native-material-dropdown';
 
@@ -44,6 +47,7 @@ export default class CardEditInputModal extends Component {
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             modalIndex: this.props.modalIndex,
+            fontSize: 24,
         }
     }
 
@@ -169,11 +173,18 @@ export default class CardEditInputModal extends Component {
                                 okLabel="Done"
                                 cancelLabel="Cancel"
                             />
-                            <Dropdown
-                                label={(this.state)[fontSize] || 'Font Size'}
-                                data={CardConfig.fontSize}
-                                onChangeText={this.onChangeFontSize}
+                            <Slider
+                                value={this.state.fontSize}
+                                step={1}
+                                animateTransitions
+                                animationType="spring"
+                                thumbTouchSize={{width: 48, height: 48}}
+                                maximumValue={100}
+                                onValueChange={this.onChangeFontSize}
+                                thumbStyle={cardStyle.thumb}
                             />
+                            <Text>Font Size: {(this.state)[fontSize]}</Text>
+
                             <Dropdown
                                 label={(this.state)[fontFamily] || 'Font Family'}
                                 data={fontsFamily}
