@@ -208,66 +208,66 @@ export default class MakeInvitation extends Component {
         var caption = this.state.caption;
 
         title = this.insertEnter(title, 26)
-        var text = (title + '\n' + caption) || '';
         var textColor = colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
-        var textSize = this.state.fontSize;
+        var fontSize = this.state.fontSize;
         //
         var imageUrl = url;
         var textInfo1 = {
             // font: font,
-            // textSize: textSize,
+            // fontSize: fontSize,
             // position: position,
             text: this.state.input1Text || '',
-            textColor: this.state.input1Color || textColor,
-            textSize: this.state.input1FontSize || textSize,
-            font: this.state.input1FontFamily || font,
+            color: this.state.input1Color || textColor,
+            fontSize: this.state.input1FontSize || fontSize,
+            fontName: this.state.input1FontFamily || font,
             position: this.state.input1Position || position,
+
 
         }
 
         var textInfo2 = {
             text: this.state.input2Text || '',
-            textColor: this.state.input2Color || textColor,
-            textSize: this.state.input2FontSize || textSize,
-            font: this.state.input2FontFamily || font,
+            color: this.state.input2Color || textColor,
+            fontSize: this.state.input2FontSize || fontSize,
+            fontName: this.state.input2FontFamily || font,
             position: this.state.input2Position || position,
         }
 
         var textInfo3 = {
             text: this.state.input3Text || '',
-            textColor: this.state.input3Color || textColor,
-            textSize: this.state.input3FontSize || textSize,
-            font: this.state.input3FontFamily || font,
+            color: this.state.input3Color || textColor,
+            fontSize: this.state.input3FontSize || fontSize,
+            fontName: this.state.input3FontFamily || font,
             position: this.state.input3Position || position,
         }
         var textInfo4 = {
             text: this.state.input4Text || '',
-            textColor: this.state.input4Color || textColor,
-            textSize: this.state.input4FontSize || textSize,
-            font: this.state.input4FontFamily || font,
+            color: this.state.input4Color || textColor,
+            fontSize: this.state.input4FontSize || fontSize,
+            fontName: this.state.input4FontFamily || font,
             position: this.state.input4Position || position,
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
-            textColor: this.state.input5Color || textColor,
-            textSize: this.state.input5FontSize || textSize,
-            font: this.state.input5FontFamily || font,
+            color: this.state.input5Color || textColor,
+            fontSize: this.state.input5FontSize || fontSize,
+            fontName: this.state.input5FontFamily || font,
             position: this.state.input5Position || position,
         }
         var textInfo6 = {
             text: this.state.input6Text || '',
-            textColor: this.state.input6Color || textColor,
-            textSize: this.state.input6FontSize || textSize,
-            font: this.state.input6FontFamily || font,
+            color: this.state.input6Color || textColor,
+            fontSize: this.state.input6FontSize || fontSize,
+            fontName: this.state.input6FontFamily || font,
             position: this.state.input6Position || position,
         }
         var textInfo7 = {
             text: this.state.input7Text || '',
-            textColor: this.state.input7Color || textColor,
-            textSize: this.state.input7FontSize || textSize,
-            font: this.state.input7FontFamily || font,
+            color: this.state.input7Color || textColor,
+            fontSize: this.state.input7FontSize || fontSize,
+            fontName: this.state.input7FontFamily || font,
             position: this.state.input7Position || position,
         }
         console.log('textInfo1 :', textInfo1);
@@ -377,10 +377,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
                                         selectTextOnFocus={this.state.selectText}
@@ -400,10 +400,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
@@ -423,10 +423,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 280)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
@@ -444,10 +444,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
@@ -465,10 +465,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
@@ -486,10 +486,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
@@ -507,10 +507,10 @@ export default class MakeInvitation extends Component {
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
-                                        maxLength={78}
+                                        maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 78)"
+                                        placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey0}
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />

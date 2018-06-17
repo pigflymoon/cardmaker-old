@@ -12,11 +12,31 @@ export function setMaker(url, text, position, textColor, font, textSize) {
     });
 }
 
+export function setTextMaker(textMarker) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(() => {
+            Marker.markText(textMarker)
+                .then((path) => {
+                    resolve(path)
+                });
+        }, 1000);
+    });
+}
 
 export function makerTask(value,textInfo) {
+    var textMarker= {
+        src: value,
+        text: textInfo.text,
+        position: textInfo.position,
+        color: textInfo.color,
+        fontName: textInfo.fontName,
+        fontSize: textInfo.fontSize,
+        scale: 1,
+        quality: 100
+    }
     return new Promise((resolve, reject) => {
         if (resolve) {
-            var nextValue = setMaker(value, textInfo.text, textInfo.position, textInfo.textColor, textInfo.font, textInfo.textSize)
+            var nextValue = setTextMaker(textMarker)
             console.log('value3 is######## ', nextValue)
             resolve(nextValue)
         } else {
