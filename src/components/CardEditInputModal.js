@@ -9,7 +9,7 @@ import {
     SlidersColorPicker,
 } from 'react-native-color';
 import {
-    Slider
+    Slider,
 } from 'react-native-elements';
 import tinycolor from 'tinycolor2';
 import {Dropdown} from 'react-native-material-dropdown';
@@ -17,6 +17,7 @@ import {Dropdown} from 'react-native-material-dropdown';
 import EditModalStyle from '../styles/EditModal';
 import cardStyle from '../styles/card';
 import colorPickerStyle from '../styles/colorPicker';
+import colors from '../styles/colors';
 
 import CardConfig from '../config/CardConfig';
 
@@ -46,6 +47,7 @@ export default class CardEditInputModal extends Component {
             modalVisible: false,
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
+            recentsFontFamily: ['AlNile-Bold', 'Baskerville-Bold', 'Marker Felt'],
             modalIndex: this.props.modalIndex,
             fontSize: 24,
         }
@@ -191,7 +193,43 @@ export default class CardEditInputModal extends Component {
                                 setFontFamily={true}
                                 onChangeText={this.onChangeFontFamily}
                             />
+                            <View style={{
+                                marginTop: 12,
+                                marginBottom: 24,
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                justifyContent: 'flex-start',
+                                flexWrap: 'wrap',
+                            }}>
+                                {(this.state.recentsFontFamily).map((swatch, index) => (
 
+                                    <TouchableOpacity
+                                        key={swatch}
+                                        style={[
+                                            {
+                                                flex: 1,
+                                                aspectRatio: 1,
+                                                maxHeight: 100,
+                                                maxWidth: 100,
+                                                padding: 5,
+                                                borderRadius: 3,
+                                                borderColor: colors.grey4,
+                                                borderWidth: 1,
+                                                marginRight: index < (this.state.recentsFontFamily).length - 1 ? 16 : 0
+                                            }
+                                        ]}
+                                        onPress={() => {
+                                            var stateName = `input${this.state.modalIndex}FontFamily`;
+                                            console.log('stateName is', stateName)
+                                            this.setState({
+                                                [stateName]: swatch
+                                            });
+                                        }
+                                        }
+                                    ><Text style={{color: colors.secondary2}}>{swatch}</Text></TouchableOpacity>
+
+                                ))}
+                            </View>
                             <Dropdown
                                 label={(this.state)[textPosition] || 'Text Position'}
                                 data={CardConfig.textPostion}
