@@ -15,7 +15,8 @@ import {
     ImageBackground,
     KeyboardAvoidingView,
     Alert,
-    Keyboard
+    Keyboard,
+    TextInput,
 } from 'react-native';
 import {
     Button,
@@ -289,7 +290,9 @@ export default class MakeInvitation extends Component {
         console.log('textInfo3 :', textInfo3);
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
+
             self.setState({
+                showIconPanel: false,
                 show: true,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
             })
@@ -305,7 +308,9 @@ export default class MakeInvitation extends Component {
 
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
-        this.setState({show: showEditPanel});
+        this.setState({
+            show: showEditPanel, showIconPanel: true,
+        });
     }
 
 
@@ -403,7 +408,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
                                         selectTextOnFocus={this.state.selectText}
                                     />
@@ -431,7 +436,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
                                 </View>
@@ -459,7 +464,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 280)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
                                 </View>
@@ -485,7 +490,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
                                 </View>
@@ -511,7 +516,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
                                 </View>
@@ -537,7 +542,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
                                 </View>
@@ -563,7 +568,7 @@ export default class MakeInvitation extends Component {
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
                                         placeholder="Please enter wish words(length less than 80)"
-                                        placeholderTextColor={colors.grey0}
+                                        placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />
                                 </View>
