@@ -207,8 +207,8 @@ export default class MakeInvitation extends Component {
 
     imageMarker = (url) => {
         var self = this;
-        var title = this.state.title;
-        var caption = this.state.caption;
+        // var title = this.state.title;
+        // var caption = this.state.caption;
 
         // title = this.insertEnter(title, 26)
         var textColor = colors.primary1;

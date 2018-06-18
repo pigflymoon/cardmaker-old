@@ -76,7 +76,7 @@ export default{
 
     },
     title: {
-        color: colors.primary1,
+        color: colors.secondary2,
     },
 
     headerRightIcon: {

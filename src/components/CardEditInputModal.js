@@ -10,6 +10,7 @@ import {
 } from 'react-native-color';
 import {
     Slider,
+    Button
 } from 'react-native-elements';
 import tinycolor from 'tinycolor2';
 import {Dropdown} from 'react-native-material-dropdown';
@@ -48,8 +49,11 @@ export default class CardEditInputModal extends Component {
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
+            textAlign: ['align-left', 'align-justify', 'align-right'],
             modalIndex: this.props.modalIndex,
             fontSize: 32,
+            buttonActiveColor: colors.grey4,
+            selectedItem: 1,
         }
     }
 
@@ -89,6 +93,16 @@ export default class CardEditInputModal extends Component {
             textPositionLabel: position,
         });
     }
+    getItemColor = (item) => {
+        console.log('item is ', item)
+        var selectedItem = this.state.selectedItem;
+        if ((selectedItem == item)) {
+            return colors.secondary2;
+        } else {
+            return 'transparent';
+        }
+    }
+
 
     componentWillReceiveProps(nextProps) {
         const {modalIndex} = nextProps;
@@ -233,6 +247,51 @@ export default class CardEditInputModal extends Component {
                                         }
                                         }
                                     ><Text style={{color: colors.secondary2}}>{swatch}</Text></TouchableOpacity>
+
+                                ))}
+                            </View>
+
+                            <Text style={cardStyle.title}>Text Align</Text>
+
+                            <View style={{
+                                marginTop: 12,
+                                marginBottom: 24,
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                justifyContent: 'flex-start',
+                                flexWrap: 'nowrap',
+                            }}>
+
+                                {(this.state.textAlign).map((direction, index) => (
+                                    <Button
+                                        title=""
+                                        icon={{
+                                            name: direction,
+                                            type: 'font-awesome',
+                                            color: colors.secondary2,
+                                            size: 24
+                                        }}
+                                        onPress={() => {
+                                            var stateName = `input${this.state.modalIndex}TextAlign`;
+                                            console.log('stateName is', stateName)
+                                            this.setState({
+                                                [stateName]: direction,
+                                                selectedItem: index,
+                                                buttonActiveColor: colors.secondary2
+                                            });
+                                        }
+                                        }
+                                        buttonStyle={{
+                                            padding: 0,
+                                            backgroundColor: 'transparent',
+                                            borderColor: this.getItemColor(index),
+                                            borderWidth: 1,
+                                        }}
+                                        containerViewStyle={{width: 60,}}
+
+                                        textStyle={{fontWeight: '700', color: colors.secondary2}}
+                                    />
+
 
                                 ))}
                             </View>
