@@ -157,7 +157,7 @@ export default class MakeInvitation extends Component {
         var stateName = `${input}Text`;
         console.log('input name is ', stateName)
 
-        this.setState({[stateName]: this.insertEnter(text, 52)});
+        this.setState({[stateName]: this.insertEnter(text, 280)});
     }
 
     insertEnter = (str, n) => {
@@ -169,15 +169,17 @@ export default class MakeInvitation extends Component {
 
 //re-trim if we are in the middle of a word
 
-        var len = str.length;//获取字符的长度 52
+        var len = str.length;//获取字符的长度 208
         var strTemp = '';
         if (len > n) {//如果字符的长度大于指定的长度
             // strTemp = str.substring(0, n);//那么截取指定长度的字符串
             // str = str.substring(n, len);//截取剩余的字符串
+            var pos = Math.min(trimmedString.length, trimmedString.lastIndexOf(" "));
 
-            strTemp = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
-            str = str.substr(n,Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+            strTemp = trimmedString.substring(0, pos)
+            str = str.substring(pos, n)
             //在截取的指定长度的字符串添加\n 标签实现换行并返回
+            console.log('return string is ', strTemp + '\n' + this.insertEnter(str, n));
             return strTemp + '\n' + this.insertEnter(str, n);
         } else {
             return str;
@@ -206,7 +208,7 @@ export default class MakeInvitation extends Component {
         var title = this.state.title;
         var caption = this.state.caption;
 
-        title = this.insertEnter(title, 26)
+        // title = this.insertEnter(title, 26)
         var textColor = colors.primary1;
         var position = this.state.textPosition;
         var font = this.state.fontFamily;
@@ -300,6 +302,12 @@ export default class MakeInvitation extends Component {
         let showPanel = (this.state.showIconPanel == true) ? false : true;
         this.setState({showIconPanel: showPanel});
     }
+
+    showEditPanel = () => {
+        let showEditPanel = (this.state.show == true) ? false : true;
+        this.setState({show: showEditPanel});
+    }
+
 
     renderEmptyStates = () => {
         return (
@@ -581,6 +589,11 @@ export default class MakeInvitation extends Component {
                 <View style={cardStyle.shareRightIcon}>
                     <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.showIconPanel()}
+                    />
+                </View>
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="edit" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={() => this.showEditPanel()}
                     />
                 </View>
                 <View style={cardStyle.shareRightIcon}>
