@@ -44,6 +44,7 @@ import {
 import {makerTask} from '../../utils/MakerTask';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class MakeInvitation extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ export default class MakeInvitation extends Component {
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: 'normal',
             modalIndex: 1,
             showIconPanel: true,
@@ -237,7 +238,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
             xPos: 30,
-            yPos: 220,
+            yPos: 180,
         }
 
         var textInfo3 = {
@@ -247,7 +248,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
             xPos: 30,
-            yPos: 320,
+            yPos: 240,
         }
         var textInfo4 = {
             text: this.state.input4Text || '',
@@ -256,7 +257,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
             xPos: 30,
-            yPos: 400,
+            yPos: 380,
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
@@ -265,7 +266,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
             xPos: 30,
-            yPos: 450,
+            yPos: 500,
         }
         var textInfo6 = {
             text: this.state.input6Text || '',
@@ -274,7 +275,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
             xPos: 30,
-            yPos: 500,
+            yPos: 540,
         }
         var textInfo7 = {
             text: this.state.input7Text || '',
@@ -283,7 +284,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input7FontFamily || font,
             // position: this.state.input7Position || position,
             xPos: 30,
-            yPos: 550
+            yPos: 580
         }
         console.log('textInfo1 :', textInfo1);
         console.log('textInfo2 :', textInfo2);
