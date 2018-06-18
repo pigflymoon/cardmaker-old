@@ -18,14 +18,23 @@ export default{
         flex: 1,
     },
     editCardContainer: {
-        width: SCREEN_WIDTH,
+        width: SCREEN_WIDTH - 20,
         flex: 1,
+        alignSelf: 'center',
         flexGrow: 8,
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
+        borderWidth: 1,
+        borderColor: colors.secondary2,
+        borderRadius: 25,
+
     },
     cardImage: {
         flex: 1,
         width: '100%',
+        // width: SCREEN_WIDTH - 30,
+        alignSelf: 'center',
+        justifyContent: 'center',
+
     },
     imageSize: IMAGE_SIZE,
     labelStyle: {

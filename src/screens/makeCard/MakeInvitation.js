@@ -160,18 +160,6 @@ export default class MakeInvitation extends Component {
         this.setState({[stateName]: this.insertEnter(text, 26)});
     }
 
-    handleOnScroll = event => {
-        this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y
-        });
-    };
-
-    handleScrollTo = p => {
-        console.log('#######p is :########', p)
-        if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-        }
-    };
     insertEnter = (str, n) => {
         var len = str.length;//获取字符的长度
         var strTemp = '';
@@ -364,13 +352,16 @@ export default class MakeInvitation extends Component {
                     >
                         <View
                             style={{
-                                width: SCREEN_WIDTH - 30,
-                                borderRadius: 10,
                                 paddingBottom: 32,
                                 alignItems: 'center',
                             }}>
 
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={[cardStyle.inputStyle]}
@@ -386,14 +377,19 @@ export default class MakeInvitation extends Component {
                                         selectTextOnFocus={this.state.selectText}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, selectText: true, modalIndex: 1})
                                     })}
 
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -408,7 +404,7 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 2})
 
@@ -416,7 +412,12 @@ export default class MakeInvitation extends Component {
 
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -431,13 +432,18 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 3})
                                     })}
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -452,13 +458,18 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 4})
                                     })}
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -473,13 +484,18 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 5})
                                     })}
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -494,13 +510,18 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 6})
                                     })}
                                 </View>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                            }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -515,7 +536,7 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1}}>
+                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
                                         this.setState({modalVisible: true, modalIndex: 7})
                                     })}

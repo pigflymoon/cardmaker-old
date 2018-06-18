@@ -47,7 +47,7 @@ export default class CardEditInputModal extends Component {
             modalVisible: false,
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
-            recentsFontFamily: ['AlNile-Bold', 'Baskerville-Bold', 'Marker Felt'],
+            recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
             modalIndex: this.props.modalIndex,
             fontSize: 24,
         }

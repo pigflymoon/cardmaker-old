@@ -23,8 +23,20 @@ export function setTextMaker(textMarker) {
     });
 }
 
-export function makerTask(value,textInfo) {
-    var textMarker= {
+// export function setTextMakerByXY(textMarker) {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(() => {
+//             Marker.addText(textMarker)
+//                 .then((path) => {
+//                     resolve(path)
+//                 })
+//
+//         })
+//     })
+// }
+
+export function makerTask(value, textInfo) {
+    var textMarker = {
         src: value,
         text: textInfo.text,
         position: textInfo.position,
@@ -34,9 +46,23 @@ export function makerTask(value,textInfo) {
         scale: 1,
         quality: 100
     }
+    var textMarkerXY = {
+        src: value,
+        text: `Doctor and Mrs. Ronald Kaleya \n
+        Mr. and Mrs. Barnett Rothenberg\n
+    invite you to share in their joy\n
+    at the marriage of their children`,
+        X: 30,
+        Y: 30,
+        color: '#FF0000',
+        fontName: 'Arial-BoldItalicMT',
+        fontSize: 44,
+        scale: 1,
+        quality: 100
+    }
     return new Promise((resolve, reject) => {
         if (resolve) {
-            var nextValue = setTextMaker(textMarker)
+            var nextValue = setTextMaker(textMarkerXY)
             console.log('value3 is######## ', nextValue)
             resolve(nextValue)
         } else {

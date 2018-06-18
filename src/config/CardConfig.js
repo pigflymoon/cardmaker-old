@@ -53,7 +53,7 @@ export default CardConfig = {
     }, {
         value: 'Courier'
     }, {
-        value: 'Marker Felt'
+        value: 'Didot-Italic'
     }, {
         value: 'Party LET'
     }, {
