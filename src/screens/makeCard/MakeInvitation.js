@@ -55,8 +55,8 @@ export default class MakeInvitation extends Component {
             signin: false,
             textPosition: 'bottomCenter',
             textColor: colors.primary1,
-            fontFamily: 'AmericanTypewriter-Bold',
-            fontSize: 48,
+            fontFamily: 'Didot-Italic',
+            fontSize: 32,
             fontWeight: 'normal',
             modalIndex: 1,
             showIconPanel: true,
@@ -157,15 +157,26 @@ export default class MakeInvitation extends Component {
         var stateName = `${input}Text`;
         console.log('input name is ', stateName)
 
-        this.setState({[stateName]: this.insertEnter(text, 26)});
+        this.setState({[stateName]: this.insertEnter(text, 52)});
     }
 
     insertEnter = (str, n) => {
-        var len = str.length;//获取字符的长度
+        // str = str.replace(/↵/g, "")
+
+
+//trim the string to the maximum length
+        var trimmedString = str.substr(0, n);
+
+//re-trim if we are in the middle of a word
+
+        var len = str.length;//获取字符的长度 52
         var strTemp = '';
         if (len > n) {//如果字符的长度大于指定的长度
-            strTemp = str.substring(0, n);//那么截取指定长度的字符串
-            str = str.substring(n, len);//截取剩余的字符串
+            // strTemp = str.substring(0, n);//那么截取指定长度的字符串
+            // str = str.substring(n, len);//截取剩余的字符串
+
+            strTemp = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+            str = str.substr(n,Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
             //在截取的指定长度的字符串添加\n 标签实现换行并返回
             return strTemp + '\n' + this.insertEnter(str, n);
         } else {
@@ -210,8 +221,9 @@ export default class MakeInvitation extends Component {
             color: this.state.input1Color || textColor,
             fontSize: this.state.input1FontSize || fontSize,
             fontName: this.state.input1FontFamily || font,
-            position: this.state.input1Position || position,
-
+            // position: this.state.input1Position || position,
+            xPos: 20,
+            yPos: 20,
 
         }
 
@@ -220,7 +232,9 @@ export default class MakeInvitation extends Component {
             color: this.state.input2Color || textColor,
             fontSize: this.state.input2FontSize || fontSize,
             fontName: this.state.input2FontFamily || font,
-            position: this.state.input2Position || position,
+            // position: this.state.input2Position || position,
+            xPos: 30,
+            yPos: 220,
         }
 
         var textInfo3 = {
@@ -228,40 +242,49 @@ export default class MakeInvitation extends Component {
             color: this.state.input3Color || textColor,
             fontSize: this.state.input3FontSize || fontSize,
             fontName: this.state.input3FontFamily || font,
-            position: this.state.input3Position || position,
+            // position: this.state.input3Position || position,
+            xPos: 30,
+            yPos: 320,
         }
         var textInfo4 = {
             text: this.state.input4Text || '',
             color: this.state.input4Color || textColor,
             fontSize: this.state.input4FontSize || fontSize,
             fontName: this.state.input4FontFamily || font,
-            position: this.state.input4Position || position,
+            // position: this.state.input4Position || position,
+            xPos: 30,
+            yPos: 400,
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
             color: this.state.input5Color || textColor,
             fontSize: this.state.input5FontSize || fontSize,
             fontName: this.state.input5FontFamily || font,
-            position: this.state.input5Position || position,
+            // position: this.state.input5Position || position,
+            xPos: 30,
+            yPos: 450,
         }
         var textInfo6 = {
             text: this.state.input6Text || '',
             color: this.state.input6Color || textColor,
             fontSize: this.state.input6FontSize || fontSize,
             fontName: this.state.input6FontFamily || font,
-            position: this.state.input6Position || position,
+            // position: this.state.input6Position || position,
+            xPos: 30,
+            yPos: 500,
         }
         var textInfo7 = {
             text: this.state.input7Text || '',
             color: this.state.input7Color || textColor,
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
-            position: this.state.input7Position || position,
+            // position: this.state.input7Position || position,
+            xPos: 30,
+            yPos: 550
         }
         console.log('textInfo1 :', textInfo1);
         console.log('textInfo2 :', textInfo2);
         console.log('textInfo3 :', textInfo3);
-
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({

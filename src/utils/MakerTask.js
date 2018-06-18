@@ -13,6 +13,7 @@ export function setMaker(url, text, position, textColor, font, textSize) {
 }
 
 export function setTextMaker(textMarker) {
+    console.log('textMarkder is ', textMarker)
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
             Marker.markText(textMarker)
@@ -44,21 +45,24 @@ export function makerTask(value, textInfo) {
         fontName: textInfo.fontName,
         fontSize: textInfo.fontSize,
         scale: 1,
-        quality: 100
+        quality: 100,
     }
     var textMarkerXY = {
         src: value,
-        text: `Doctor and Mrs. Ronald Kaleya \n
-        Mr. and Mrs. Barnett Rothenberg\n
-    invite you to share in their joy\n
-    at the marriage of their children`,
-        X: 30,
-        Y: 30,
-        color: '#FF0000',
-        fontName: 'Arial-BoldItalicMT',
-        fontSize: 44,
+        text: textInfo.text,
+        // text: 'Doctor and Mrs. Ronald Kaleya Mr. and Mrs. Barnett Rothenberg',//Doctor and Mrs. Ronald Kaleya Mr. and Mrs. Barnett Rothenberg
+        //     text: `Doctor and Mrs. Ronald Kaleya \n
+        //     Mr. and Mrs. Barnett Rothenberg\n
+        // invite you to share in their joy\n
+        // at the marriage of their children`,
+        color: textInfo.color,
+        fontName: textInfo.fontName,
+        fontSize: textInfo.fontSize,
         scale: 1,
-        quality: 100
+        quality: 100,
+        X: textInfo.xPos,
+        Y: textInfo.yPos,
+
     }
     return new Promise((resolve, reject) => {
         if (resolve) {

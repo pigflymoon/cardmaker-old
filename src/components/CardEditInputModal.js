@@ -49,7 +49,7 @@ export default class CardEditInputModal extends Component {
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
             modalIndex: this.props.modalIndex,
-            fontSize: 24,
+            fontSize: 32,
         }
     }
 
