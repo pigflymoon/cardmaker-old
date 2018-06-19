@@ -62,6 +62,8 @@ export function makerTask(value, textInfo) {
         quality: 100,
         X: textInfo.xPos,
         Y: textInfo.yPos,
+        alignment: textInfo.alignment,
+
 
     }
     return new Promise((resolve, reject) => {

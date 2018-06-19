@@ -242,6 +242,7 @@ export default class MakeInvitation extends Component {
             // position: this.state.input1Position || position,
             xPos: this.state.input1TextAlign || xPos,//30,
             yPos: 30,
+            alignment:2,
 
         }
 
@@ -253,7 +254,9 @@ export default class MakeInvitation extends Component {
             // position: this.state.input2Position || position,
             xPos: this.state.input2TextAlign || xPos,//30,
 
-            yPos: 224// 56*4,
+            yPos: 224,// 56*4,
+            alignment:2,
+
         }
 
         var textInfo3 = {
@@ -264,7 +267,9 @@ export default class MakeInvitation extends Component {
             // position: this.state.input3Position || position,
             xPos: this.state.input3TextAlign || xPos,//30,
 
-            yPos: 336// 56*6,
+            yPos: 336,// 56*6,
+            alignment:2,
+
         }
         var textInfo4 = {
             text: this.state.input4Text || '',
@@ -274,7 +279,11 @@ export default class MakeInvitation extends Component {
             // position: this.state.input4Position || position,
             xPos: this.state.input4TextAlign || xPos,//30,
 
-            yPos: 504// 56*9,
+
+            yPos: 504,
+            // 56*9,
+            alignment:2,
+
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
@@ -283,6 +292,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
             xPos: this.state.input5TextAlign || xPos,//30,
+            alignment:2,
 
             yPos: 728//56*13,
         }
@@ -293,6 +303,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
             xPos: this.state.input6TextAlign || xPos,//30,
+            alignment:2,
 
             yPos: 784// 56*14,
         }
@@ -302,6 +313,8 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
             // position: this.state.input7Position || position,
+            alignment:2,
+
             xPos: this.state.input7TextAlign || xPos,//30,
             yPos: 840//56*15
         }
@@ -420,7 +433,7 @@ export default class MakeInvitation extends Component {
                             }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={[cardStyle.inputStyle]}
+                                        inputStyle={[cardStyle.inputStyle,{textAlign: 'right'}]}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
