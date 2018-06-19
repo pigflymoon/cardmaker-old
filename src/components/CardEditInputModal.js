@@ -49,11 +49,12 @@ export default class CardEditInputModal extends Component {
             color: tinycolor('#70c1b3').toHsl(),
             recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
             recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
-            textAlign: ['align-left', 'align-justify', 'align-right'],
+            textAligns: ['align-left', 'align-justify', 'align-right'],
             modalIndex: this.props.modalIndex,
             fontSize: 32,
             buttonActiveColor: colors.grey4,
             selectedItem: 1,
+            textAlign: 'align-justify'
         }
     }
 
@@ -93,6 +94,15 @@ export default class CardEditInputModal extends Component {
             textPositionLabel: position,
         });
     }
+    onChangeTextAlign = (direction, index) => {
+        var stateName = `input${this.state.modalIndex}TextAlign`;
+        console.log('stateName is', stateName)
+        this.setState({
+            [stateName]: direction,
+            selectedItem: index,
+            buttonActiveColor: colors.secondary2
+        });
+    }
     getItemColor = (item) => {
         console.log('item is ', item)
         var selectedItem = this.state.selectedItem;
@@ -122,6 +132,8 @@ export default class CardEditInputModal extends Component {
         var fontSize = `input${modalIndex}FontSize`;
         var fontFamily = `input${modalIndex}FontFamily`;
         var textPosition = `input${modalIndex}Position`;
+        var textAlign = `input${modalIndex}TextAlign`;
+
         var textColor = `input${modalIndex}Color`;
         let fontsFamily = CardConfig.allfontFamily;
         const overlayTextColor = tinycolor(this.state.color).isDark()
@@ -141,7 +153,12 @@ export default class CardEditInputModal extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() =>
-                                onOk((this.state)[textColor], (this.state)[fontSize], (this.state)[fontFamily], (this.state)[textPosition])
+                                onOk((this.state)[textColor],
+                                    (this.state)[fontSize],
+                                    (this.state)[fontFamily],
+                                    (this.state[textAlign]),
+                                    {/*(this.state)[textPosition]*/}
+                                )
                             }
                         >
                             <Text style={EditModalStyle.headerButton}>{okLabel}</Text>
@@ -262,8 +279,10 @@ export default class CardEditInputModal extends Component {
                                 flexWrap: 'nowrap',
                             }}>
 
-                                {(this.state.textAlign).map((direction, index) => (
+                                {(this.state.textAligns).map((direction, index) => (
                                     <Button
+                                        key={index}
+
                                         title=""
                                         icon={{
                                             name: direction,
@@ -271,16 +290,7 @@ export default class CardEditInputModal extends Component {
                                             color: colors.secondary2,
                                             size: 24
                                         }}
-                                        onPress={() => {
-                                            var stateName = `input${this.state.modalIndex}TextAlign`;
-                                            console.log('stateName is', stateName)
-                                            this.setState({
-                                                [stateName]: direction,
-                                                selectedItem: index,
-                                                buttonActiveColor: colors.secondary2
-                                            });
-                                        }
-                                        }
+                                        onPress={() => this.onChangeTextAlign(direction, index)}
                                         buttonStyle={{
                                             padding: 0,
                                             backgroundColor: 'transparent',
@@ -288,18 +298,17 @@ export default class CardEditInputModal extends Component {
                                             borderWidth: 1,
                                         }}
                                         containerViewStyle={{width: 60,}}
-
                                         textStyle={{fontWeight: '700', color: colors.secondary2}}
                                     />
 
 
                                 ))}
                             </View>
-                            <Dropdown
-                                label={(this.state)[textPosition] || 'Text Position'}
-                                data={CardConfig.textPostion}
-                                onChangeText={this.onChangeTextPosition}
-                            />
+                            {/*<Dropdown*/}
+                            {/*label={(this.state)[textPosition] || 'Text Position'}*/}
+                            {/*data={CardConfig.textPostion}*/}
+                            {/*onChangeText={this.onChangeTextPosition}*/}
+                            {/*/>*/}
 
                         </View>
                     </View>

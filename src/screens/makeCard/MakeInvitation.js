@@ -65,6 +65,7 @@ export default class MakeInvitation extends Component {
             modalVisible: false,
             selectText: false,
             opacity: 1,
+            xPos: 20,
         }
     }
 
@@ -117,6 +118,16 @@ export default class MakeInvitation extends Component {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
             var isPaidUser = this.props.navigation.state.params.isPaidUser;
+            Image.getSize(makeCard.illustration, (width, height) => {
+                console.log('image width is ', width, 'height is ', height)
+                this.setState({
+                    imageWidth: width,
+                    imageHeight: height,
+                })
+            })
+            /**
+             * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
+             */
 
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
@@ -213,8 +224,11 @@ export default class MakeInvitation extends Component {
         // title = this.insertEnter(title, 26)
         var textColor = colors.primary1;
         var position = this.state.textPosition;
+        var xPos = this.state.xPos;
+
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
+        var imageHight = this.state.imageHeight;
         //
         var imageUrl = url;
         var textInfo1 = {
@@ -226,8 +240,8 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input1FontSize || fontSize,
             fontName: this.state.input1FontFamily || font,
             // position: this.state.input1Position || position,
-            xPos: 20,
-            yPos: 20,
+            xPos: this.state.input1TextAlign || xPos,//30,
+            yPos: 30,
 
         }
 
@@ -237,8 +251,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input2FontSize || fontSize,
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
-            xPos: 30,
-            yPos: 180,
+            xPos: this.state.input2TextAlign || xPos,//30,
+
+            yPos: 224// 56*4,
         }
 
         var textInfo3 = {
@@ -247,8 +262,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input3FontSize || fontSize,
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
-            xPos: 30,
-            yPos: 240,
+            xPos: this.state.input3TextAlign || xPos,//30,
+
+            yPos: 336// 56*6,
         }
         var textInfo4 = {
             text: this.state.input4Text || '',
@@ -256,8 +272,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input4FontSize || fontSize,
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
-            xPos: 30,
-            yPos: 380,
+            xPos: this.state.input4TextAlign || xPos,//30,
+
+            yPos: 504// 56*9,
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
@@ -265,8 +282,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input5FontSize || fontSize,
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
-            xPos: 30,
-            yPos: 500,
+            xPos: this.state.input5TextAlign || xPos,//30,
+
+            yPos: 728//56*13,
         }
         var textInfo6 = {
             text: this.state.input6Text || '',
@@ -274,8 +292,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input6FontSize || fontSize,
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
-            xPos: 30,
-            yPos: 540,
+            xPos: this.state.input6TextAlign || xPos,//30,
+
+            yPos: 784// 56*14,
         }
         var textInfo7 = {
             text: this.state.input7Text || '',
@@ -283,8 +302,8 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
             // position: this.state.input7Position || position,
-            xPos: 30,
-            yPos: 580
+            xPos: this.state.input7TextAlign || xPos,//30,
+            yPos: 840//56*15
         }
         console.log('textInfo1 :', textInfo1);
         console.log('textInfo2 :', textInfo2);
@@ -634,13 +653,26 @@ export default class MakeInvitation extends Component {
                     var fontSize = `input${this.state.modalIndex}FontSize`;
                     var fontFamily = `input${this.state.modalIndex}FontFamily`;
                     var textPosition = `input${this.state.modalIndex}Position`;
+                    var textAlign = `input${this.state.modalIndex}TextAlign`;
                     var textColor = `input${this.state.modalIndex}Color`;
+                    console.log('SCREEN_WIDTH is ', SCREEN_WIDTH)
+                    if (position == 'align-left') {//['align-left', 'align-justify', 'align-right'],
+                        position = 30;
 
+                    } else if (position == 'align-right') {
+                        position = (this.state.imageWidth ) * 0.5 +200;
+
+                    } else {
+                        position = (this.state.imageWidth ) * 0.5 - 200;
+                    }
+
+                    console.log('postion is ', position)
                     this.setState({
                         [fontSize]: size,
                         [fontFamily]: family,
                         [textColor]: color,
-                        [textPosition]: position,
+                        [textAlign]: position,
+                        // [textPosition]: position,
                         modalVisible: false,
 
                     });
