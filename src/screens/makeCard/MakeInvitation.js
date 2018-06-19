@@ -66,6 +66,7 @@ export default class MakeInvitation extends Component {
             selectText: false,
             opacity: 1,
             xPos: 20,
+            textAlign: 'align-justify'
         }
     }
 
@@ -225,6 +226,7 @@ export default class MakeInvitation extends Component {
         var textColor = colors.primary1;
         var position = this.state.textPosition;
         var xPos = this.state.xPos;
+        var textAlign = this.state.textAlign;
 
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
@@ -240,9 +242,9 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input1FontSize || fontSize,
             fontName: this.state.input1FontFamily || font,
             // position: this.state.input1Position || position,
-            xPos: this.state.input1TextAlign || xPos,//30,
+            xPos: xPos,//30,
             yPos: 30,
-            alignment:2,
+            alignment: this.state.input1TextAlign || textAlign,
 
         }
 
@@ -252,10 +254,10 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input2FontSize || fontSize,
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
-            xPos: this.state.input2TextAlign || xPos,//30,
+            xPos: xPos,//30,
 
             yPos: 224,// 56*4,
-            alignment:2,
+            alignment: this.state.input2TextAlign || textAlign,
 
         }
 
@@ -265,10 +267,10 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input3FontSize || fontSize,
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
-            xPos: this.state.input3TextAlign || xPos,//30,
+            xPos: xPos,//30,
 
             yPos: 336,// 56*6,
-            alignment:2,
+            alignment: this.state.input3TextAlign || textAlign,
 
         }
         var textInfo4 = {
@@ -277,12 +279,12 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input4FontSize || fontSize,
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
-            xPos: this.state.input4TextAlign || xPos,//30,
+            xPos: xPos,//30,
 
 
             yPos: 504,
             // 56*9,
-            alignment:2,
+            alignment: this.state.input4TextAlign || textAlign,
 
         }
         var textInfo5 = {
@@ -291,32 +293,29 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input5FontSize || fontSize,
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
-            xPos: this.state.input5TextAlign || xPos,//30,
-            alignment:2,
-
-            yPos: 728//56*13,
+            xPos: xPos,//30,
+            yPos: 728,//56*13,
+            alignment: this.state.input5TextAlign || textAlign,
         }
         var textInfo6 = {
             text: this.state.input6Text || '',
             color: this.state.input6Color || textColor,
             fontSize: this.state.input6FontSize || fontSize,
             fontName: this.state.input6FontFamily || font,
+            xPos: xPos,//30,
             // position: this.state.input6Position || position,
-            xPos: this.state.input6TextAlign || xPos,//30,
-            alignment:2,
-
-            yPos: 784// 56*14,
+            yPos: 784,// 56*14,
+            alignment: this.state.input6TextAlign || textAlign,
         }
         var textInfo7 = {
             text: this.state.input7Text || '',
             color: this.state.input7Color || textColor,
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
+            xPos: xPos,//30,
+            yPos: 840,//56*15
             // position: this.state.input7Position || position,
-            alignment:2,
-
-            xPos: this.state.input7TextAlign || xPos,//30,
-            yPos: 840//56*15
+            alignment: this.state.input7TextAlign || textAlign,
         }
         console.log('textInfo1 :', textInfo1);
         console.log('textInfo2 :', textInfo2);
@@ -433,7 +432,7 @@ export default class MakeInvitation extends Component {
                             }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        inputStyle={[cardStyle.inputStyle,{textAlign: 'right'}]}
+                                        inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
                                         multiline
                                         numberOfLines={4}
@@ -661,30 +660,20 @@ export default class MakeInvitation extends Component {
                 color={this.state.color}
 
                 onCancel={() => this.setState({modalVisible: false})}
-                onOk={(color, size, family, position) => {
-                    console.log('edit modal return values are!!', color, size, family, position)
+                onOk={(color, size, family, alignment) => {
+                    console.log('edit modal return values are!!', color, size, family, alignment)
                     var fontSize = `input${this.state.modalIndex}FontSize`;
                     var fontFamily = `input${this.state.modalIndex}FontFamily`;
                     var textPosition = `input${this.state.modalIndex}Position`;
                     var textAlign = `input${this.state.modalIndex}TextAlign`;
                     var textColor = `input${this.state.modalIndex}Color`;
                     console.log('SCREEN_WIDTH is ', SCREEN_WIDTH)
-                    if (position == 'align-left') {//['align-left', 'align-justify', 'align-right'],
-                        position = 30;
-
-                    } else if (position == 'align-right') {
-                        position = (this.state.imageWidth ) * 0.5 +200;
-
-                    } else {
-                        position = (this.state.imageWidth ) * 0.5 - 200;
-                    }
-
-                    console.log('postion is ', position)
+                    console.log('alignment is ', alignment)
                     this.setState({
                         [fontSize]: size,
                         [fontFamily]: family,
                         [textColor]: color,
-                        [textAlign]: position,
+                        [textAlign]: alignment,
                         // [textPosition]: position,
                         modalVisible: false,
 
