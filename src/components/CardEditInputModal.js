@@ -53,7 +53,6 @@ export default class CardEditInputModal extends Component {
             modalIndex: this.props.modalIndex,
             fontSize: 32,
             buttonActiveColor: colors.grey4,
-            selectedItem: 1,
             textAlign: 'align-justify'
         }
     }
@@ -99,14 +98,15 @@ export default class CardEditInputModal extends Component {
         console.log('stateName is', stateName)
         this.setState({
             [stateName]: direction,
-            selectedItem: index,
             buttonActiveColor: colors.secondary2
         });
     }
     getItemColor = (item) => {
         console.log('item is ', item)
-        var selectedItem = this.state.selectedItem;
-        if ((selectedItem == item)) {
+        var stateName = `input${this.state.modalIndex}TextAlign`;
+        var textAligns = ['align-left', 'align-justify', 'align-right']
+        var index = textAligns.indexOf((this.state)[stateName])
+        if (index == item) {
             return colors.secondary2;
         } else {
             return 'transparent';
@@ -170,18 +170,18 @@ export default class CardEditInputModal extends Component {
                         <View style={[cardStyle.container, cardStyle.wrapper]}>
 
                             <Text style={[colorPickerStyle.sectionText, {
-                                color: (this.state)[textColor],
+                                color: (this.state)[textColor] || colors.primary1,
                                 fontFamily: (this.state)[fontFamily]
                             }]}>Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
                                 style={[
                                     colorPickerStyle.colorPreview,
-                                    {backgroundColor: tinycolor((this.state)[textColor]).toHslString()}
+                                    {backgroundColor: tinycolor((this.state)[textColor] || colors.primary1).toHslString()}
                                 ]}
                             >
                                 <Text style={[colorPickerStyle.colorString, {color: overlayTextColor}]}>
-                                    {tinycolor((this.state)[textColor]).toHexString()}
+                                    {tinycolor((this.state)[textColor] || colors.primary1).toHexString()}
                                 </Text>
                             </TouchableOpacity>
 
@@ -222,7 +222,7 @@ export default class CardEditInputModal extends Component {
                                 onValueChange={this.onChangeFontSize}
                                 thumbStyle={cardStyle.thumb}
                             />
-                            <Text>Font Size: {(this.state)[fontSize]}</Text>
+                            <Text>Font Size: {(this.state)[fontSize] || this.state.fontSize}</Text>
 
                             <Dropdown
                                 label={(this.state)[fontFamily] || 'Font Family'}
@@ -230,6 +230,8 @@ export default class CardEditInputModal extends Component {
                                 setFontFamily={true}
                                 onChangeText={this.onChangeFontFamily}
                             />
+                            <Text style={cardStyle.title}>RECENTS:</Text>
+
                             <View style={{
                                 marginTop: 12,
                                 marginBottom: 24,
@@ -257,13 +259,16 @@ export default class CardEditInputModal extends Component {
                                         ]}
                                         onPress={() => {
                                             var stateName = `input${this.state.modalIndex}FontFamily`;
-                                            console.log('stateName is', stateName)
+                                            console.log('stateName is', stateName, 'swatch is ', swatch)
                                             this.setState({
                                                 [stateName]: swatch
                                             });
                                         }
                                         }
-                                    ><Text style={{color: colors.secondary2}}>{swatch}</Text></TouchableOpacity>
+                                    ><Text style={{
+                                        color: colors.secondary2,
+                                        fontFamily: swatch
+                                    }}>{swatch}</Text></TouchableOpacity>
 
                                 ))}
                             </View>

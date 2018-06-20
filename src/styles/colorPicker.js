@@ -1,6 +1,7 @@
 import {
     Platform
 } from 'react-native';
+import colors from '../styles/colors';
 
 export default{
     sectionText: {
@@ -42,7 +43,7 @@ export default{
         paddingVertical: 16,
         paddingHorizontal: 32,
         borderRadius: 3,
-        shadowColor: 'black',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 4,
         shadowOpacity: 0.25
