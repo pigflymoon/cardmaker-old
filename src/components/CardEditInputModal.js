@@ -22,32 +22,13 @@ import colors from '../styles/colors';
 
 import CardConfig from '../config/CardConfig';
 
-const modes = {
-    hex: {
-        getString: color => tinycolor(color).toHexString(),
-        label: 'HEX'
-    },
-    hsl: {
-        getString: color => tinycolor(color).toHslString(),
-        label: 'HSL'
-    },
-    hsv: {
-        getString: color => tinycolor(color).toHsvString(),
-        label: 'HSV'
-    },
-    rgb: {
-        getString: color => tinycolor(color).toRgbString(),
-        label: 'RGB'
-    }
-};
-
 export default class CardEditInputModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalVisible: false,
-            color: tinycolor('#70c1b3').toHsl(),
-            recents: ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd', '#ff1654'],
+            color: tinycolor('#2988BC').toHsl(),
+            recents: ['#2988BC', '#2F496E', '#ACBD78', '#ED8C72', '#211F30'],
             recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
             textAligns: ['align-left', 'align-justify', 'align-right'],
             modalIndex: this.props.modalIndex,
