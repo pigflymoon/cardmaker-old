@@ -43,9 +43,6 @@ import {
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-
 export default class MakeInvitation extends Component {
     constructor(props) {
         super(props)
