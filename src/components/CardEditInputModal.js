@@ -94,7 +94,6 @@ export default class CardEditInputModal extends Component {
         }
     }
 
-
     componentWillReceiveProps(nextProps) {
         const {modalIndex} = nextProps;
         this.setState({modalIndex: modalIndex})
@@ -149,10 +148,9 @@ export default class CardEditInputModal extends Component {
                     <View style={EditModalStyle.content}>
 
                         <View style={[cardStyle.container, cardStyle.wrapper]}>
-
                             <Text style={[colorPickerStyle.sectionText, {
                                 color: (this.state)[textColor] || colors.primary1,
-                                fontFamily: (this.state)[fontFamily]
+                                fontFamily: (this.state)[fontFamily]||'Didot-Italic'
                             }]}>Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
@@ -166,7 +164,6 @@ export default class CardEditInputModal extends Component {
                                 </Text>
                             </TouchableOpacity>
 
-
                             <SlidersColorPicker
                                 visible={this.state.modalVisible}
                                 color={this.state.color}
@@ -174,7 +171,6 @@ export default class CardEditInputModal extends Component {
                                 onCancel={() => this.setState({modalVisible: false})}
                                 onOk={colorHex => {
                                     var stateName = `input${modalIndex}Color`;
-
                                     this.setState({
                                         modalVisible: false,
                                         color: tinycolor(colorHex).toHsl(),
@@ -240,7 +236,6 @@ export default class CardEditInputModal extends Component {
                                         ]}
                                         onPress={() => {
                                             var stateName = `input${this.state.modalIndex}FontFamily`;
-                                            console.log('stateName is', stateName, 'swatch is ', swatch)
                                             this.setState({
                                                 [stateName]: swatch
                                             });
@@ -255,7 +250,6 @@ export default class CardEditInputModal extends Component {
                             </View>
 
                             <Text style={cardStyle.title}>Text Align</Text>
-
                             <View style={{
                                 marginTop: 12,
                                 marginBottom: 24,

@@ -51,11 +51,9 @@ export default class MakeInvitation extends Component {
         super(props)
         this.state = {
             makeCard: null,
-            title: '',
-            caption: '',
             checked: false,
             signin: false,
-            textPosition: 'bottomCenter',
+            // textPosition: 'bottomCenter',
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
             fontSize: 28,
@@ -119,16 +117,16 @@ export default class MakeInvitation extends Component {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
             var isPaidUser = this.props.navigation.state.params.isPaidUser;
-            Image.getSize(makeCard.illustration, (width, height) => {
-                console.log('image width is ', width, 'height is ', height)
-                this.setState({
-                    imageWidth: width,
-                    imageHeight: height,
-                })
-            })
-            /**
-             * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
-             */
+            // Image.getSize(makeCard.illustration, (width, height) => {
+            //     console.log('image width is ', width, 'height is ', height)
+            //     this.setState({
+            //         imageWidth: width,
+            //         imageHeight: height,
+            //     })
+            // })
+            // /**
+            //  * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
+            //  */
 
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
@@ -158,7 +156,7 @@ export default class MakeInvitation extends Component {
     }
 
     onShare = () => {
-        Utils.shareImage(this.state.imageUrl, this.state.title, this.state.caption)
+        Utils.shareImage(this.state.imageUrl, 'Invitation', 'Join the fun in celebrating')//to do
     }
     /**
      *
@@ -167,22 +165,14 @@ export default class MakeInvitation extends Component {
      */
 
     setWishwords = (text, input) => {
-        console.log('input is ', input)
         var stateName = `${input}Text`;
-        console.log('input name is ', stateName)
-
         this.setState({[stateName]: this.insertEnter(text, 280)});
     }
 
-    insertEnter = (str, n) => {
-        // str = str.replace(/↵/g, "")
-
-
-//trim the string to the maximum length
+    insertEnter = (str, n) => {//to test
+        //trim the string to the maximum length
         var trimmedString = str.substr(0, n);
-
-//re-trim if we are in the middle of a word
-
+        //re-trim if we are in the middle of a word
         var len = str.length;//获取字符的长度 208
         var strTemp = '';
         if (len > n) {//如果字符的长度大于指定的长度
@@ -219,18 +209,13 @@ export default class MakeInvitation extends Component {
 
     imageMarker = (url) => {
         var self = this;
-        // var title = this.state.title;
-        // var caption = this.state.caption;
-
-        // title = this.insertEnter(title, 26)
         var textColor = colors.primary1;
-        var position = this.state.textPosition;
+        // var position = this.state.textPosition;
         var xPos = this.state.xPos;
         var textAlign = this.state.textAlign;
 
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
-        var imageHight = this.state.imageHeight;
         //
         var imageUrl = url;
         var textInfo1 = {
@@ -255,7 +240,6 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
-
             yPos: 224,// 56*4,
             alignment: this.state.input2TextAlign || textAlign,
 
@@ -268,7 +252,6 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
             xPos: xPos,//30,
-
             yPos: 336,// 56*6,
             alignment: this.state.input3TextAlign || textAlign,
 
@@ -280,12 +263,8 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
             xPos: xPos,//30,
-
-
-            yPos: 504,
-            // 56*9,
+            yPos: 504, // 56*9,
             alignment: this.state.input4TextAlign || textAlign,
-
         }
         var textInfo5 = {
             text: this.state.input5Text || '',
@@ -302,8 +281,8 @@ export default class MakeInvitation extends Component {
             color: this.state.input6Color || textColor,
             fontSize: this.state.input6FontSize || fontSize,
             fontName: this.state.input6FontFamily || font,
-            xPos: xPos,//30,
             // position: this.state.input6Position || position,
+            xPos: xPos,//30,
             yPos: 784,// 56*14,
             alignment: this.state.input6TextAlign || textAlign,
         }
@@ -317,12 +296,8 @@ export default class MakeInvitation extends Component {
             // position: this.state.input7Position || position,
             alignment: this.state.input7TextAlign || textAlign,
         }
-        console.log('textInfo1 :', textInfo1);
-        console.log('textInfo2 :', textInfo2);
-        console.log('textInfo3 :', textInfo3);
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
-
             self.setState({
                 showIconPanel: false,
                 show: true,
@@ -344,7 +319,6 @@ export default class MakeInvitation extends Component {
             show: showEditPanel, showIconPanel: true,
         });
     }
-
 
     renderEmptyStates = () => {
         return (
@@ -616,7 +590,6 @@ export default class MakeInvitation extends Component {
 
                 </ScrollView>
             </View>
-
         )
     }
 
@@ -661,14 +634,12 @@ export default class MakeInvitation extends Component {
 
                 onCancel={() => this.setState({modalVisible: false})}
                 onOk={(color, size, family, alignment) => {
-                    console.log('edit modal return values are!!', color, size, family, alignment)
                     var fontSize = `input${this.state.modalIndex}FontSize`;
                     var fontFamily = `input${this.state.modalIndex}FontFamily`;
-                    var textPosition = `input${this.state.modalIndex}Position`;
+                    {/*var textPosition = `input${this.state.modalIndex}Position`;*/
+                    }
                     var textAlign = `input${this.state.modalIndex}TextAlign`;
                     var textColor = `input${this.state.modalIndex}Color`;
-                    console.log('SCREEN_WIDTH is ', SCREEN_WIDTH)
-                    console.log('alignment is ', alignment)
                     this.setState({
                         [fontSize]: size,
                         [fontFamily]: family,
@@ -686,11 +657,8 @@ export default class MakeInvitation extends Component {
             />
         )
     }
-    /**
-     *
-     * @returns {XML}
-     */
-    renderEditContainer = () => {//renderEditModal renderModal
+
+    renderEditContainer = () => {
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
             <View style={cardStyle.container}>
