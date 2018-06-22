@@ -17,6 +17,8 @@ import {
     Alert,
     Keyboard,
     TextInput,
+    LayoutAnimation,
+    UIManager,
 } from 'react-native';
 import {
     Button,
@@ -30,6 +32,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
+import whiteCanvas from '../../assets/images/whiteCanvas.jpg';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
@@ -42,7 +45,7 @@ import {
     renderAuthBox,
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
-
+import FoldView from 'react-native-foldview';
 
 export default class MakeCard extends Component {
     constructor(props) {
@@ -62,7 +65,8 @@ export default class MakeCard extends Component {
             selectText: false,
             opacity: 1,
             xPos: 20,
-            textAlign: 'align-justify'
+            textAlign: 'align-justify',
+            expanded: false,
         }
     }
 
@@ -125,11 +129,73 @@ export default class MakeCard extends Component {
             // /**
             //  * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
             //  */
+            // this.flip = this.flip.bind(this);
 
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
         }
+    }
+
+    handleAnimationStart = (duration, height) => {
+        const isExpanding = this.state.expanded;
+
+        const animationConfig = {
+            duration,
+            update: {
+                type: isExpanding ? LayoutAnimation.Types.easeOut : LayoutAnimation.Types.easeIn,
+                property: LayoutAnimation.Properties.height,
+            },
+        };
+
+        LayoutAnimation.configureNext(animationConfig);
+
+        this.setState({
+            height,
+        });
+    }
+
+    flip = () => {
+        this.setState({
+            expanded: !this.state.expanded,
+        });
+    }
+
+    renderFrontface = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
+
+        return (
+            <ImageBackground
+                source={{uri: imageUrl}}
+                style={cardStyle.cardImage}
+                imageStyle={{resizeMode: 'contain'}}
+            >
+                <View>
+                    <TouchableOpacity onPress={this.flip}>
+                        <Text>Test Front</Text>
+                    </TouchableOpacity>
+                </View>
+                {/*{this.renderEditInput()}*/}
+                {/*{this.renderEditModal()}*/}
+            </ImageBackground>
+        );
+    }
+
+    renderBackface = () => {
+        /**
+         * You can nest <FoldView>s here to achieve the folding effect shown in the GIF above.
+         * A reference implementation can be found in examples/Simple.
+         */
+        return (
+            <ImageBackground
+                source={whiteCanvas}
+                style={cardStyle.cardImage}
+                imageStyle={{resizeMode: 'contain'}}
+            >
+                {/*{this.renderEditInput()}*/}
+                {/*{this.renderEditModal()}*/}
+            </ImageBackground>
+        );
     }
 
     componentDidMount() {
@@ -215,7 +281,8 @@ export default class MakeCard extends Component {
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
         //
-        var imageUrl = url;
+        var imageUrl = whiteCanvas //url;
+
         var textInfo1 = {
             // font: font,
             // fontSize: fontSize,
@@ -403,6 +470,11 @@ export default class MakeCard extends Component {
                                 justifyContent: 'flex-start',
                             }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
+                                    <View>
+                                        <TouchableOpacity onPress={this.flip}>
+                                            <Text>Test Back</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                     <FormInput
                                         inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
@@ -690,7 +762,20 @@ export default class MakeCard extends Component {
         var renderCard = (!card && this.state.signin);
 
         if (renderCard) {
-            return this.renderEditContainer();
+            // return this.renderEditContainer();
+            return (
+                <FoldView
+                    expanded={this.state.expanded}
+                    renderBackface={this.renderBackface}
+                    renderFrontface={this.renderFrontface}
+                >
+                    <View>
+                        <TouchableOpacity onPress={this.flip}>
+                            <Text>Test </Text>
+                        </TouchableOpacity>
+                    </View>
+                </FoldView>
+            )
 
         } else if (this.state.signin) {
             return (
