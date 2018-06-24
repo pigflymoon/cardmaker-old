@@ -46,7 +46,21 @@ import {
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
 import FoldView from 'react-native-foldview';
+const ROW_HEIGHT = 300;
+// Enable LayoutAnimation on Android
+if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
+
+const Spacer = ({height}) => (
+    <View
+        pointerEvents="none"
+        style={{
+            height,
+        }}
+    />
+);
 export default class MakeCard extends Component {
     constructor(props) {
         super(props)
@@ -67,6 +81,7 @@ export default class MakeCard extends Component {
             xPos: 20,
             textAlign: 'align-justify',
             expanded: false,
+            height: ROW_HEIGHT,
         }
     }
 
@@ -130,6 +145,12 @@ export default class MakeCard extends Component {
             //  * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
             //  */
             // this.flip = this.flip.bind(this);
+            this.flip = this.flip.bind(this);
+            this.handleAnimationStart = this.handleAnimationStart.bind(this);
+            this.renderFrontface = this.renderFrontface.bind(this);
+            this.renderBackface = this.renderBackface.bind(this);
+            // this.handleAnimationStart = this.handleAnimationStart.bind(this);
+
 
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
@@ -137,9 +158,9 @@ export default class MakeCard extends Component {
         }
     }
 
-    handleAnimationStart = (duration, height) => {
+    handleAnimationStart(duration, height) {
         const isExpanding = this.state.expanded;
-
+        console.log('height is ,', height)
         const animationConfig = {
             duration,
             update: {
@@ -161,42 +182,6 @@ export default class MakeCard extends Component {
         });
     }
 
-    renderFrontface = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
-
-        return (
-            <ImageBackground
-                source={{uri: imageUrl}}
-                style={cardStyle.cardImage}
-                imageStyle={{resizeMode: 'contain'}}
-            >
-                <View>
-                    <TouchableOpacity onPress={this.flip}>
-                        <Text>Test Front</Text>
-                    </TouchableOpacity>
-                </View>
-                {/*{this.renderEditInput()}*/}
-                {/*{this.renderEditModal()}*/}
-            </ImageBackground>
-        );
-    }
-
-    renderBackface = () => {
-        /**
-         * You can nest <FoldView>s here to achieve the folding effect shown in the GIF above.
-         * A reference implementation can be found in examples/Simple.
-         */
-        return (
-            <ImageBackground
-                source={whiteCanvas}
-                style={cardStyle.cardImage}
-                imageStyle={{resizeMode: 'contain'}}
-            >
-                {/*{this.renderEditInput()}*/}
-                {/*{this.renderEditModal()}*/}
-            </ImageBackground>
-        );
-    }
 
     componentDidMount() {
         var self = this;
@@ -752,39 +737,78 @@ export default class MakeCard extends Component {
         )
     }
 
-    /**
-     * render
-     * @returns {*}
-     */
-    render() {
-        var navigation = this.props.navigation;
-        var card = Utils.isEmptyObject(this.state.makeCard)
-        var renderCard = (!card && this.state.signin);
 
-        if (renderCard) {
-            // return this.renderEditContainer();
-            return (
-                <FoldView
-                    expanded={this.state.expanded}
-                    renderBackface={this.renderBackface}
-                    renderFrontface={this.renderFrontface}
-                >
-                    <View>
-                        <TouchableOpacity onPress={this.flip}>
-                            <Text>Test </Text>
-                        </TouchableOpacity>
-                    </View>
-                </FoldView>
-            )
+    renderFrontface = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
 
-        } else if (this.state.signin) {
-            return (
-                <View style={layoutStyle.container}>
-                    {this.renderEmptyStates()}
+        return (
+            <ImageBackground
+                source={{uri: imageUrl}}
+                style={cardStyle.cardImage}
+                imageStyle={{resizeMode: 'contain'}}
+            >
+                <View>
+                    <TouchableOpacity onPress={this.flip}>
+                        <Text>Test Front</Text>
+                    </TouchableOpacity>
                 </View>
-            )
-        } else {
-            return renderAuthBox(this.state.isLoading, navigation)
-        }
+                {/*{this.renderEditInput()}*/}
+                {/*{this.renderEditModal()}*/}
+            </ImageBackground>
+        );
+    }
+
+    renderBackface = () => {
+        return (
+            <ImageBackground
+                source={whiteCanvas}
+                style={cardStyle.cardImage}
+                imageStyle={{resizeMode: 'contain'}}
+            >
+                {/*{this.renderEditInput()}*/}
+                {/*{this.renderEditModal()}*/}
+            </ImageBackground>
+            // <ProfileCard onPress={this.flip} />
+        );
+    }
+
+    render() {
+        const {height} = this.state;
+        // const { zIndex } = this.props;
+
+        const spacerHeight = height - ROW_HEIGHT;
+
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    zIndex: 100,
+                }}
+            >
+                <View
+                    style={{
+                        height: ROW_HEIGHT,//ROW_HEIGHT,
+                        margin: 10,
+                    }}
+                >
+                    <FoldView
+                        expanded={this.state.expanded}
+                        onAnimationStart={this.handleAnimationStart}
+                        perspective={1000}
+                        renderBackface={this.renderBackface}
+                        renderFrontface={this.renderFrontface}
+                    >
+                        <View>
+                            <TouchableOpacity onPress={this.flip}>
+                                <Text>Test </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </FoldView>
+
+                </View>
+
+                <Spacer height={spacerHeight}/>
+            </View>
+        );
     }
 }
