@@ -27,6 +27,8 @@ import {
     FormLabel,
     FormValidationMessage,
 } from 'react-native-elements';
+import FlipComponent from 'react-native-flip-component';
+
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
@@ -45,22 +47,8 @@ import {
     renderAuthBox,
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
-import FoldView from 'react-native-foldview';
-const ROW_HEIGHT = 300;
-// Enable LayoutAnimation on Android
-if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
-
-const Spacer = ({height}) => (
-    <View
-        pointerEvents="none"
-        style={{
-            height,
-        }}
-    />
-);
+const {height, width} = Dimensions.get('window');
 export default class MakeCard extends Component {
     constructor(props) {
         super(props)
@@ -80,8 +68,9 @@ export default class MakeCard extends Component {
             opacity: 1,
             xPos: 20,
             textAlign: 'align-justify',
-            expanded: false,
-            height: ROW_HEIGHT,
+            isFlipped: false,
+
+
         }
     }
 
@@ -134,54 +123,66 @@ export default class MakeCard extends Component {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
             var isPaidUser = this.props.navigation.state.params.isPaidUser;
-            // Image.getSize(makeCard.illustration, (width, height) => {
-            //     console.log('image width is ', width, 'height is ', height)
-            //     this.setState({
-            //         imageWidth: width,
-            //         imageHeight: height,
-            //     })
-            // })
-            // /**
-            //  * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
-            //  */
-            // this.flip = this.flip.bind(this);
-            this.flip = this.flip.bind(this);
-            this.handleAnimationStart = this.handleAnimationStart.bind(this);
-            this.renderFrontface = this.renderFrontface.bind(this);
-            this.renderBackface = this.renderBackface.bind(this);
-            // this.handleAnimationStart = this.handleAnimationStart.bind(this);
-
-
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
         }
     }
 
-    handleAnimationStart(duration, height) {
-        const isExpanding = this.state.expanded;
-        console.log('height is ,', height)
-        const animationConfig = {
-            duration,
-            update: {
-                type: isExpanding ? LayoutAnimation.Types.easeOut : LayoutAnimation.Types.easeIn,
-                property: LayoutAnimation.Properties.height,
-            },
-        };
-
-        LayoutAnimation.configureNext(animationConfig);
-
-        this.setState({
-            height,
-        });
-    }
-
     flip = () => {
         this.setState({
-            expanded: !this.state.expanded,
+            isFlipped: !this.state.isFlipped,
         });
     }
+    renderFrontView = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
+        console.log('imageUrl is ', imageUrl)
+        return (
+                <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
+            <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={cardStyle.cardImage}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    <TouchableOpacity
+                        onPress={this.flip}
+                        style={styles.button}
+                    >
+                        <Text style={styles.text}>Flip it over</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
+
+            </View>
+        )
+    }
+
+    renderBackView = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
+
+        return (
+
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+
+
+                <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={cardStyle.cardImage}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    <TouchableOpacity
+                        onPress={this.flip}
+                        style={styles.button}
+                    >
+                        <Text style={styles.text}>Flip it back</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
+
+
+            </View>
+        )
+
+    }
 
     componentDidMount() {
         var self = this;
@@ -455,11 +456,6 @@ export default class MakeCard extends Component {
                                 justifyContent: 'flex-start',
                             }}>
                                 <View style={{flex: 1, flexGrow: 6}}>
-                                    <View>
-                                        <TouchableOpacity onPress={this.flip}>
-                                            <Text>Test Back</Text>
-                                        </TouchableOpacity>
-                                    </View>
                                     <FormInput
                                         inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
@@ -738,77 +734,69 @@ export default class MakeCard extends Component {
     }
 
 
-    renderFrontface = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
-
-        return (
-            <ImageBackground
-                source={{uri: imageUrl}}
-                style={cardStyle.cardImage}
-                imageStyle={{resizeMode: 'contain'}}
-            >
-                <View>
-                    <TouchableOpacity onPress={this.flip}>
-                        <Text>Test Front</Text>
-                    </TouchableOpacity>
-                </View>
-                {/*{this.renderEditInput()}*/}
-                {/*{this.renderEditModal()}*/}
-            </ImageBackground>
-        );
-    }
-
-    renderBackface = () => {
-        return (
-            <ImageBackground
-                source={whiteCanvas}
-                style={cardStyle.cardImage}
-                imageStyle={{resizeMode: 'contain'}}
-            >
-                {/*{this.renderEditInput()}*/}
-                {/*{this.renderEditModal()}*/}
-            </ImageBackground>
-            // <ProfileCard onPress={this.flip} />
-        );
-    }
-
     render() {
-        const {height} = this.state;
-        // const { zIndex } = this.props;
+        var navigation = this.props.navigation;
+        var card = Utils.isEmptyObject(this.state.makeCard)
+        var renderCard = (!card && this.state.signin);
 
-        const spacerHeight = height - ROW_HEIGHT;
+        if (renderCard) {
+            return (
+                <FlipComponent
+                    isFlipped={this.state.isFlipped}
+                    frontView={
 
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    zIndex: 100,
-                }}
-            >
-                <View
-                    style={{
-                        height: ROW_HEIGHT,//ROW_HEIGHT,
-                        margin: 10,
-                    }}
-                >
-                    <FoldView
-                        expanded={this.state.expanded}
-                        onAnimationStart={this.handleAnimationStart}
-                        perspective={1000}
-                        renderBackface={this.renderBackface}
-                        renderFrontface={this.renderFrontface}
-                    >
-                        <View>
-                            <TouchableOpacity onPress={this.flip}>
-                                <Text>Test </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </FoldView>
+                        this.renderFrontView()
+                    }
+                    backView={
+                        this.renderBackView()
+                    }
+                    frontStyles={styles.frontStyles}
+                    backStyles={styles.backStyles}
+                    rotateDuration={1000}
+                />
+            )
 
+            // return this.renderEditContainer();
+
+        } else if (this.state.signin) {
+            return (
+                <View style={layoutStyle.container}>
+                    {this.renderEmptyStates()}
                 </View>
-
-                <Spacer height={spacerHeight}/>
-            </View>
-        );
+            )
+        } else {
+            return renderAuthBox(this.state.isLoading, navigation)
+        }
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    frontStyles: {
+        // backgroundColor: '#59687d',
+        justifyContent: 'center',
+        height,
+        // width,
+    },
+    backStyles: {
+        backgroundColor: '#2272f7',
+        justifyContent: 'center',
+        height,
+        // width,
+    },
+    button: {
+        backgroundColor: '#152c43',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 150,
+        height: 75,
+        alignSelf: 'center',
+    },
+    text: {
+        color: '#bddac8',
+    },
+});
