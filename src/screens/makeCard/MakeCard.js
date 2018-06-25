@@ -374,18 +374,9 @@ export default class MakeCard extends Component {
 
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                {this.state.show ?
-                    <ImageBackground
-                        source={{uri: this.state.imageUrl}}
-                        style={cardStyle.cardImage}
-                        imageStyle={{resizeMode: 'contain'}}
-                    >
-                        {this.renderIconPanel()}
 
-                        {this.renderEditModal()}
-                    </ImageBackground> :
                     <ImageBackground
-                        source={{uri: whiteCanvas}}
+                        source={{uri: imageUrl}}
                         style={cardStyle.cardImage}
                         imageStyle={{resizeMode: 'contain'}}
                     >
@@ -393,7 +384,7 @@ export default class MakeCard extends Component {
                         {this.renderEditInput()}
                         {this.renderEditModal()}
                     </ImageBackground>
-                }
+
 
 
             </View>
