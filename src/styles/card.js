@@ -224,7 +224,7 @@ export default{
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexGrow: 1,
-        backgroundColor: colors.white,
+        // backgroundColor: colors.grey2,
 
     },
     shareRightIcon: {

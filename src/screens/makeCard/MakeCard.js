@@ -145,7 +145,11 @@ export default class MakeCard extends Component {
                     style={cardStyle.cardImage}
                     imageStyle={{resizeMode: 'contain'}}
                 >
-
+                    <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
+                        {this.renderIcon("envelope-open", () => {
+                            this.flip()
+                        })}
+                    </View>
 
                 </ImageBackground>
             </View>
@@ -167,15 +171,13 @@ export default class MakeCard extends Component {
                     style={cardStyle.cardImage}
                     imageStyle={{resizeMode: 'contain'}}
                 >
-                    <TouchableOpacity
-                        onPress={this.flip}
-                        style={styles.button}
-                    >
-                        <Text style={styles.text}>Flip it back</Text>
-                    </TouchableOpacity>
+                    {this.renderIconPanel()}
+
                     {this.renderEditInput()}
                     {this.renderEditModal()}
                 </ImageBackground>
+
+
             </View>
 
         )
@@ -428,7 +430,7 @@ export default class MakeCard extends Component {
     renderEditInput = () => {
         return (
             <View
-                style={[cardStyle.container, this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}
+                style={[cardStyle.container, {flexGrow:4,},this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}
             >
                 <ScrollView style={cardStyle.container}
 
@@ -666,7 +668,11 @@ export default class MakeCard extends Component {
                           onPress={this.onShare}
                     />
                 </View>
-
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="book" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={this.flip}
+                    />
+                </View>
 
             </View>
         )
@@ -740,27 +746,20 @@ export default class MakeCard extends Component {
         if (renderCard) {
             return (
                 <View style={cardStyle.container}>
-                    <View style={[cardStyle.container, {
-                        justifyContent: 'center',
-                    }]}>
-                        {this.renderIconPanel()}
-                        <FlipComponent
-                            isFlipped={this.state.isFlipped}
-                            frontView={
-                                this.renderBackView()
-                            }
-                            backView={
-                                this.renderFrontView()
+                    <FlipComponent
+                        isFlipped={this.state.isFlipped}
+                        frontView={
 
-                            }
-                            frontStyles={styles.frontStyles}
-                            backStyles={styles.backStyles}
-                            rotateDuration={1000}
-                        />
-                    </View>
-
+                            this.renderFrontView()
+                        }
+                        backView={
+                            this.renderBackView()
+                        }
+                        frontStyles={styles.frontStyles}
+                        backStyles={styles.backStyles}
+                        rotateDuration={1000}
+                    />
                 </View>
-
             )
 
             // return this.renderEditContainer();
@@ -786,13 +785,13 @@ const styles = StyleSheet.create({
     frontStyles: {
         // backgroundColor: '#59687d',
         justifyContent: 'center',
-        height,
+        height: '100%',
         width: '100%',
     },
     backStyles: {
         // backgroundColor: '#2272f7',
         justifyContent: 'center',
-        height,
+        height: '100%',
         width: '100%',
     },
     button: {
