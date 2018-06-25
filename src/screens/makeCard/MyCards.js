@@ -44,13 +44,16 @@ export default class MyCards extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         var isPaidUser = navigation.state.params.isPaidUser;
+        const {category} = navigation.state.params;
+        const navigationCategory = (category == 'cards') ? 'MakeCard' : 'MakeInvitation';
+
         return ({
             headerRight: (
                 <TouchableOpacity style={{paddingRight: 5}}>
                     <Icon name={"edit"} type="font-awesome" size={28} color={colors.secondary2}
                           onPress={() => {
                               {
-                                  navigation.navigate('MakeCard', {//MakeCard MakeInvitation
+                                  navigation.navigate(navigationCategory, {//MakeCard MakeInvitation
                                       chooseCards: makeCard,
                                       signin: true,
                                       isPaidUser: isPaidUser

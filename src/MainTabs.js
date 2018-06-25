@@ -70,7 +70,7 @@ const MakeCardTab = StackNavigator({
     MyCards: {
         screen: MyCardsScreen,
         navigationOptions: {
-            title: 'My Cards',
+            title: 'My Favorites',
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
         }
