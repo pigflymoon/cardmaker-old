@@ -138,22 +138,19 @@ export default class MakeCard extends Component {
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         console.log('imageUrl is ', imageUrl)
         return (
-                <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
-            <ImageBackground
+                <ImageBackground
                     source={{uri: imageUrl}}
                     style={cardStyle.cardImage}
                     imageStyle={{resizeMode: 'contain'}}
                 >
-                    <TouchableOpacity
-                        onPress={this.flip}
-                        style={styles.button}
-                    >
-                        <Text style={styles.text}>Flip it over</Text>
-                    </TouchableOpacity>
-                </ImageBackground>
 
+
+                </ImageBackground>
             </View>
+
+
         )
     }
 
@@ -162,8 +159,8 @@ export default class MakeCard extends Component {
 
         return (
 
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
                 <ImageBackground
                     source={{uri: imageUrl}}
@@ -176,10 +173,11 @@ export default class MakeCard extends Component {
                     >
                         <Text style={styles.text}>Flip it back</Text>
                     </TouchableOpacity>
+                    {this.renderEditInput()}
+                    {this.renderEditModal()}
                 </ImageBackground>
-
-
             </View>
+
         )
 
     }
@@ -741,19 +739,28 @@ export default class MakeCard extends Component {
 
         if (renderCard) {
             return (
-                <FlipComponent
-                    isFlipped={this.state.isFlipped}
-                    frontView={
+                <View style={cardStyle.container}>
+                    <View style={[cardStyle.container, {
+                        justifyContent: 'center',
+                    }]}>
+                        {this.renderIconPanel()}
+                        <FlipComponent
+                            isFlipped={this.state.isFlipped}
+                            frontView={
+                                this.renderBackView()
+                            }
+                            backView={
+                                this.renderFrontView()
 
-                        this.renderFrontView()
-                    }
-                    backView={
-                        this.renderBackView()
-                    }
-                    frontStyles={styles.frontStyles}
-                    backStyles={styles.backStyles}
-                    rotateDuration={1000}
-                />
+                            }
+                            frontStyles={styles.frontStyles}
+                            backStyles={styles.backStyles}
+                            rotateDuration={1000}
+                        />
+                    </View>
+
+                </View>
+
             )
 
             // return this.renderEditContainer();
@@ -780,13 +787,13 @@ const styles = StyleSheet.create({
         // backgroundColor: '#59687d',
         justifyContent: 'center',
         height,
-        // width,
+        width: '100%',
     },
     backStyles: {
-        backgroundColor: '#2272f7',
+        // backgroundColor: '#2272f7',
         justifyContent: 'center',
         height,
-        // width,
+        width: '100%',
     },
     button: {
         backgroundColor: '#152c43',
