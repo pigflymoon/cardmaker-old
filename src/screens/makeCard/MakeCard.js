@@ -48,7 +48,6 @@ import {
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
 
-const {height, width} = Dimensions.get('window');
 export default class MakeCard extends Component {
     constructor(props) {
         super(props)
@@ -62,14 +61,14 @@ export default class MakeCard extends Component {
             fontSize: 28,
             fontWeight: 'normal',
             modalIndex: 1,
-            showIconPanel: true,
+            // showIconPanel: true,
             modalVisible: false,
             selectText: false,
             opacity: 1,
             xPos: 20,
             textAlign: 'align-justify',
             isFlipped: false,
-
+            show: false,
 
         }
     }
@@ -127,61 +126,6 @@ export default class MakeCard extends Component {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
         }
-    }
-
-    flip = () => {
-        this.setState({
-            isFlipped: !this.state.isFlipped,
-        });
-    }
-    renderFrontView = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
-        console.log('imageUrl is ', imageUrl)
-        return (
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-
-                <ImageBackground
-                    source={{uri: imageUrl}}
-                    style={cardStyle.cardImage}
-                    imageStyle={{resizeMode: 'contain'}}
-                >
-                    <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
-                        {this.renderIcon("envelope-open", () => {
-                            this.flip()
-                        })}
-                    </View>
-
-                </ImageBackground>
-            </View>
-
-
-        )
-    }
-
-    renderBackView = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
-
-        return (
-
-
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-
-                <ImageBackground
-                    source={{uri: imageUrl}}
-                    style={cardStyle.cardImage}
-                    imageStyle={{resizeMode: 'contain'}}
-                >
-                    {this.renderIconPanel()}
-
-                    {this.renderEditInput()}
-                    {this.renderEditModal()}
-                </ImageBackground>
-
-
-            </View>
-
-        )
-
     }
 
     componentDidMount() {
@@ -267,7 +211,9 @@ export default class MakeCard extends Component {
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
         //
-        var imageUrl = whiteCanvas //url;
+        // var url = 'file://src/assets/images/whiteCanvas.jpg';
+        console.log('url is ', whiteCanvas)
+        var imageUrl = url //url;
 
         var textInfo1 = {
             // font: font,
@@ -350,7 +296,7 @@ export default class MakeCard extends Component {
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
-                showIconPanel: false,
+                // showIconPanel: false,
                 show: true,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
             })
@@ -367,8 +313,89 @@ export default class MakeCard extends Component {
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
         this.setState({
-            show: showEditPanel, showIconPanel: true,
+            show: showEditPanel,
         });
+    }
+
+    flip = () => {
+        this.setState({
+            isFlipped: !this.state.isFlipped,
+        });
+    }
+
+    renderIcon = (name, onPress) => (
+        <Button
+            title=""
+            icon={{name: name, type: 'font-awesome', color: colors.secondary2, size: 24}}
+            onPress={onPress}
+            buttonStyle={{
+                padding: 0,
+                backgroundColor: 'transparent',
+                borderColor: 'transparent',
+                borderWidth: 0,
+            }}
+            containerViewStyle={{width: 60,}}
+
+            textStyle={{fontWeight: '700', color: colors.secondary2}}
+        />
+    )
+
+    renderFrontView = () => {
+        // var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
+        var imageUrl = (this.state.makeCard).illustration;
+
+        console.log('imageUrl is ', imageUrl)
+        return (
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+
+                <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={cardStyle.cardImage}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
+                        {this.renderIcon("envelope-open", () => {
+                            this.flip()
+                        })}
+                    </View>
+
+                </ImageBackground>
+            </View>
+
+
+        )
+    }
+
+    renderBackView = () => {
+
+        return (
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                {this.state.show ?
+                    <ImageBackground
+                        source={{uri:this.state.imageUrl}}
+                        style={cardStyle.cardImage}
+                        imageStyle={{resizeMode: 'contain'}}
+                    >
+                        {this.renderIconPanel()}
+
+                        {this.renderEditModal()}
+                    </ImageBackground> :
+                    <ImageBackground
+                        source={whiteCanvas}
+                        style={cardStyle.cardImage}
+                        imageStyle={{resizeMode: 'contain'}}
+                    >
+                        {this.renderIconPanel()}
+
+                        {this.renderEditInput()}
+                        {this.renderEditModal()}
+                    </ImageBackground>}
+
+
+            </View>
+
+        )
+
     }
 
     renderEmptyStates = () => {
@@ -406,22 +433,7 @@ export default class MakeCard extends Component {
             </View>
         );
     }
-    renderIcon = (name, onPress) => (
-        <Button
-            title=""
-            icon={{name: name, type: 'font-awesome', color: colors.secondary2, size: 24}}
-            onPress={onPress}
-            buttonStyle={{
-                padding: 0,
-                backgroundColor: 'transparent',
-                borderColor: 'transparent',
-                borderWidth: 0,
-            }}
-            containerViewStyle={{width: 60,}}
 
-            textStyle={{fontWeight: '700', color: colors.secondary2}}
-        />
-    )
     /**
      * Render Edit
      * @returns {XML}
@@ -430,7 +442,7 @@ export default class MakeCard extends Component {
     renderEditInput = () => {
         return (
             <View
-                style={[cardStyle.container, {flexGrow:4,},this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}
+                style={[cardStyle.container, {flexGrow: 4,}]}
             >
                 <ScrollView style={cardStyle.container}
 
@@ -648,15 +660,11 @@ export default class MakeCard extends Component {
         return (
             <View style={cardStyle.iconsContainer}>
                 <View style={cardStyle.shareRightIcon}>
-                    <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={() => this.showIconPanel()}
+                    <Icon name="book" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={this.flip}
                     />
                 </View>
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="edit" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={() => this.showEditPanel()}
-                    />
-                </View>
+
                 <View style={cardStyle.shareRightIcon}>
                     <Icon name="magic" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.imageMarker((this.state.makeCard).illustration)}
@@ -668,11 +676,7 @@ export default class MakeCard extends Component {
                           onPress={this.onShare}
                     />
                 </View>
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="book" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={this.flip}
-                    />
-                </View>
+
 
             </View>
         )
