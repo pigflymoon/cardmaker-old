@@ -34,7 +34,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
-import whiteCanvas from '../../assets/images/whiteCanvas.jpg';
+// import whiteCanvas from '../../assets/images/whiteCanvas.jpg';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
@@ -47,6 +47,7 @@ import {
     renderAuthBox,
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
+const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-dev.appspot.com/o/whiteCanvas.jpg?alt=media&token=60af85f1-9a13-4fc1-9bfa-d12134073d97';
 
 export default class MakeCard extends Component {
     constructor(props) {
@@ -61,7 +62,7 @@ export default class MakeCard extends Component {
             fontSize: 28,
             fontWeight: 'normal',
             modalIndex: 1,
-            // showIconPanel: true,
+            showIconPanel: true,
             modalVisible: false,
             selectText: false,
             opacity: 1,
@@ -213,7 +214,7 @@ export default class MakeCard extends Component {
         //
         // var url = 'file://src/assets/images/whiteCanvas.jpg';
         console.log('url is ', whiteCanvas)
-        var imageUrl = url //url;
+        var imageUrl = whiteCanvas //url;
 
         var textInfo1 = {
             // font: font,
@@ -312,6 +313,7 @@ export default class MakeCard extends Component {
 
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
+        console.log('showEditPanel is ',showEditPanel)
         this.setState({
             show: showEditPanel,
         });
@@ -367,12 +369,14 @@ export default class MakeCard extends Component {
     }
 
     renderBackView = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
+        console.log('show is ',this.state.show)
 
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
                 {this.state.show ?
                     <ImageBackground
-                        source={{uri:this.state.imageUrl}}
+                        source={{uri: this.state.imageUrl}}
                         style={cardStyle.cardImage}
                         imageStyle={{resizeMode: 'contain'}}
                     >
@@ -381,15 +385,15 @@ export default class MakeCard extends Component {
                         {this.renderEditModal()}
                     </ImageBackground> :
                     <ImageBackground
-                        source={whiteCanvas}
+                        source={{uri: whiteCanvas}}
                         style={cardStyle.cardImage}
                         imageStyle={{resizeMode: 'contain'}}
                     >
                         {this.renderIconPanel()}
-
                         {this.renderEditInput()}
                         {this.renderEditModal()}
-                    </ImageBackground>}
+                    </ImageBackground>
+                }
 
 
             </View>
@@ -442,7 +446,7 @@ export default class MakeCard extends Component {
     renderEditInput = () => {
         return (
             <View
-                style={[cardStyle.container, {flexGrow: 4,}]}
+                style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}, {flexGrow: 4,}]}
             >
                 <ScrollView style={cardStyle.container}
 
@@ -664,7 +668,11 @@ export default class MakeCard extends Component {
                           onPress={this.flip}
                     />
                 </View>
-
+                <View style={cardStyle.shareRightIcon}>
+                    <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
+                          onPress={this.showEditPanel}
+                    />
+                </View>
                 <View style={cardStyle.shareRightIcon}>
                     <Icon name="magic" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.imageMarker((this.state.makeCard).illustration)}
