@@ -218,6 +218,17 @@ export default{
 
     },
 //make card
+
+    frontStyles: {
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+    },
+    backStyles: {
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+    },
     iconsContainer: {
         flex: 1,
         flexDirection: 'row',

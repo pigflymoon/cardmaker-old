@@ -34,7 +34,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
-// import whiteCanvas from '../../assets/images/whiteCanvas.jpg';
 import cardStyle from '../../styles/card';
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
@@ -56,7 +55,6 @@ export default class MakeCard extends Component {
             makeCard: null,
             checked: false,
             signin: false,
-            // textPosition: 'bottomCenter',
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
             fontSize: 28,
@@ -161,7 +159,9 @@ export default class MakeCard extends Component {
 
     setWishwords = (text, input) => {
         var stateName = `${input}Text`;
-        this.setState({[stateName]: this.insertEnter(text, 280)});
+        var words = this.insertEnter(text, 200);
+        console.log('************words are************',words)
+        this.setState({[stateName]: words});
     }
 
     insertEnter = (str, n) => {//to test
@@ -238,7 +238,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
-            yPos: 224,// 56*4,
+            yPos: 160,
             alignment: this.state.input2TextAlign || textAlign,
 
         }
@@ -250,7 +250,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
             xPos: xPos,//30,
-            yPos: 336,// 56*6,
+            yPos: 290,
             alignment: this.state.input3TextAlign || textAlign,
 
         }
@@ -261,7 +261,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
             xPos: xPos,//30,
-            yPos: 504, // 56*9,
+            yPos: 420,
             alignment: this.state.input4TextAlign || textAlign,
         }
         var textInfo5 = {
@@ -271,7 +271,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
             xPos: xPos,//30,
-            yPos: 728,//56*13,
+            yPos: 550,
             alignment: this.state.input5TextAlign || textAlign,
         }
         var textInfo6 = {
@@ -281,7 +281,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
             xPos: xPos,//30,
-            yPos: 784,// 56*14,
+            yPos: 680,
             alignment: this.state.input6TextAlign || textAlign,
         }
         var textInfo7 = {
@@ -290,7 +290,7 @@ export default class MakeCard extends Component {
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
             xPos: xPos,//30,
-            yPos: 840,//56*15
+            yPos: 810,
             // position: this.state.input7Position || position,
             alignment: this.state.input7TextAlign || textAlign,
         }
@@ -303,17 +303,10 @@ export default class MakeCard extends Component {
             })
         });
     }
-    /**
-     * show Icon panel or not
-     */
-    showIconPanel = () => {
-        let showPanel = (this.state.showIconPanel == true) ? false : true;
-        this.setState({showIconPanel: showPanel});
-    }
 
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
-        console.log('showEditPanel is ',showEditPanel)
+        console.log('showEditPanel is ', showEditPanel)
         this.setState({
             show: showEditPanel,
         });
@@ -346,7 +339,6 @@ export default class MakeCard extends Component {
         // var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         var imageUrl = (this.state.makeCard).illustration;
 
-        console.log('imageUrl is ', imageUrl)
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
@@ -356,35 +348,29 @@ export default class MakeCard extends Component {
                     imageStyle={{resizeMode: 'contain'}}
                 >
                     <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
-                        {this.renderIcon("envelope-open", () => {
+                        {this.renderIcon("hand-o-right", () => {
                             this.flip()
                         })}
                     </View>
-
                 </ImageBackground>
             </View>
-
-
         )
     }
 
     renderBackView = () => {
         var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
-        console.log('show is ',this.state.show)
-
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
 
-                    <ImageBackground
-                        source={{uri: imageUrl}}
-                        style={cardStyle.cardImage}
-                        imageStyle={{resizeMode: 'contain'}}
-                    >
-                        {this.renderIconPanel()}
-                        {this.renderEditInput()}
-                        {this.renderEditModal()}
-                    </ImageBackground>
-
+                <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={cardStyle.cardImage}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    {this.renderIconPanel()}
+                    {this.renderEditInput()}
+                    {this.renderEditModal()}
+                </ImageBackground>
 
 
             </View>
@@ -471,7 +457,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
                                         selectTextOnFocus={this.state.selectText}
@@ -499,7 +485,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
@@ -527,7 +513,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 280)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
@@ -553,7 +539,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
@@ -579,7 +565,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
@@ -605,7 +591,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
@@ -631,7 +617,7 @@ export default class MakeCard extends Component {
                                         maxLength={280}
                                         containerRef="wishwordscontainerRef"
                                         textInputRef="wishwordsInputRef"
-                                        placeholder="Please enter wish words(length less than 80)"
+                                        placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />
@@ -655,7 +641,7 @@ export default class MakeCard extends Component {
         return (
             <View style={cardStyle.iconsContainer}>
                 <View style={cardStyle.shareRightIcon}>
-                    <Icon name="book" type="font-awesome" color={colors.secondary2} size={28}
+                    <Icon name="hand-o-left" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={this.flip}
                     />
                 </View>
@@ -675,8 +661,6 @@ export default class MakeCard extends Component {
                           onPress={this.onShare}
                     />
                 </View>
-
-
             </View>
         )
     }
@@ -716,31 +700,6 @@ export default class MakeCard extends Component {
         )
     }
 
-    renderEditContainer = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
-        return (
-            <View style={cardStyle.container}>
-                <View style={[cardStyle.container, {
-                    justifyContent: 'center',
-                }]}>
-                    {this.renderIconPanel()}
-                    <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                        <ImageBackground
-                            source={{uri: imageUrl}}
-                            style={cardStyle.cardImage}
-                            imageStyle={{resizeMode: 'contain'}}
-                        >
-                            {this.renderEditInput()}
-                            {this.renderEditModal()}
-                        </ImageBackground>
-                    </View>
-                </View>
-
-            </View>
-        )
-    }
-
-
     render() {
         var navigation = this.props.navigation;
         var card = Utils.isEmptyObject(this.state.makeCard)
@@ -752,21 +711,17 @@ export default class MakeCard extends Component {
                     <FlipComponent
                         isFlipped={this.state.isFlipped}
                         frontView={
-
                             this.renderFrontView()
                         }
                         backView={
                             this.renderBackView()
                         }
-                        frontStyles={styles.frontStyles}
-                        backStyles={styles.backStyles}
+                        frontStyles={cardStyle.frontStyles}
+                        backStyles={cardStyle.backStyles}
                         rotateDuration={1000}
                     />
                 </View>
             )
-
-            // return this.renderEditContainer();
-
         } else if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
@@ -778,34 +733,3 @@ export default class MakeCard extends Component {
         }
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    frontStyles: {
-        // backgroundColor: '#59687d',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-    },
-    backStyles: {
-        // backgroundColor: '#2272f7',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-    },
-    button: {
-        backgroundColor: '#152c43',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 150,
-        height: 75,
-        alignSelf: 'center',
-    },
-    text: {
-        color: '#bddac8',
-    },
-});
