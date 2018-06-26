@@ -153,7 +153,7 @@ export default class MakeInvitation extends Component {
     }
 
     onShare = () => {
-        Utils.shareImage(this.state.imageUrl, 'Invitation', 'Join the fun in celebrating')//to do
+        Utils.shareImage('invitation',this.state.imageUrl, 'Invitation', 'Join the fun in celebrating')//to do
     }
     /**
      *

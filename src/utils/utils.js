@@ -47,13 +47,13 @@ export default class Utils {
         })
     }
 
-    static shareImage = (imageUrl, message, caption) => {
+    static shareImage = (catergory, imageUrl, message, caption) => {
         if (imageUrl) {
             let shareImageBase64 = {
-                title: caption,
-                message: message,
-                url: imageUrl,
-                subject: caption //  for email
+                title: caption,//string
+                message: message,//string
+                url:imageUrl,// ['http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg', imageUrl],
+                subject: caption // string  for email
             };
             Share.open(shareImageBase64).catch(err => console.log(err));
         }
