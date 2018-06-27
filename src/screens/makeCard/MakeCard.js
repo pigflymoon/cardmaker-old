@@ -333,6 +333,9 @@ export default class MakeCard extends Component {
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
 
             //
+            console.log('############image bg is :',image)
+
+            console.log('############text bg is :',path)
             Marker.markImage({
                 src: image,
                 markerSrc: path, // icon uri
