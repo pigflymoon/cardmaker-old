@@ -24,6 +24,17 @@ export function setTextMaker(textMarker) {
     });
 }
 
+export function setImageMaker(imageMarker) {
+    console.log('imageMarker is ', imageMarker)
+    return new Promise(function (resolve, reject) {
+        setTimeout(() => {
+            Marker.markImage(imageMarker)
+                .then((path) => {
+                    resolve(path)
+                });
+        }, 1000);
+    });
+}
 // export function setTextMakerByXY(textMarker) {
 //     return new Promise(function (resolve, reject) {
 //         setTimeout(() => {
@@ -69,6 +80,32 @@ export function makerTask(value, textInfo) {
     return new Promise((resolve, reject) => {
         if (resolve) {
             var nextValue = setTextMaker(textMarkerXY)
+            console.log('value3 is######## ', nextValue)
+            resolve(nextValue)
+        } else {
+            throw new Error("throw Error @ task2");
+        }
+    });
+}
+export function makerImageTask(value, textInfo) {
+
+
+    const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-dev.appspot.com/o/whiteCanvas.jpg?alt=media&token=60af85f1-9a13-4fc1-9bfa-d12134073d97';
+
+    var imageMarkerXY = {
+        src: whiteCanvas,
+        markerSrc: value, // icon uri
+        X: 1920, // left
+        Y: 150, // top
+        scale: 1, // scale of bg
+        markerScale: 1, // scale of icon
+        quality: 100 // quality of image
+    }
+
+    //
+    return new Promise((resolve, reject) => {
+        if (resolve) {
+            var nextValue = setImageMaker(imageMarkerXY)
             console.log('value3 is######## ', nextValue)
             resolve(nextValue)
         } else {

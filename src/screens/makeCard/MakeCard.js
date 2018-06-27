@@ -45,7 +45,8 @@ import {
 import {
     renderAuthBox,
 } from '../../utils/authApi';
-import {makerTask} from '../../utils/MakerTask';
+ import {makerTask} from '../../utils/MakerTask';
+import Marker from "react-native-image-marker"
 const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-dev.appspot.com/o/whiteCanvas.jpg?alt=media&token=60af85f1-9a13-4fc1-9bfa-d12134073d97';
 
 export default class MakeCard extends Component {
@@ -149,7 +150,7 @@ export default class MakeCard extends Component {
     }
 
     onShare = () => {
-        Utils.shareImage('cards',this.state.imageUrl, 'Cards', 'Join the fun in celebrating')//to do
+        Utils.shareImage('cards', this.state.imageUrl, 'Cards', 'Join the fun in celebrating')//to do
     }
     /**
      *
@@ -160,7 +161,7 @@ export default class MakeCard extends Component {
     setWishwords = (text, input) => {
         var stateName = `${input}Text`;
         var words = this.insertEnter(text, 200);
-        console.log('************words are************',words)
+        console.log('************words are************', words)
         this.setState({[stateName]: words});
     }
 
@@ -203,6 +204,8 @@ export default class MakeCard extends Component {
     }
 
     imageMarker = (url) => {
+        var image = (this.state.makeCard).illustration;
+
         var self = this;
         var textColor = colors.primary1;
         // var position = this.state.textPosition;
@@ -295,13 +298,69 @@ export default class MakeCard extends Component {
             alignment: this.state.input7TextAlign || textAlign,
         }
 
-        this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
-            self.setState({
-                // showIconPanel: false,
-                show: true,
-                imageUrl: Platform.OS === 'android' ? 'file://' + path : path
+        //
+        /*
+        const iconUri = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-dev.appspot.com/o/freeImages%2Fcamellia_poster.jpeg?alt=media&token=35a714fe-765f-4ced-bb6e-8a5fdde44db8'
+        const backGroundUri = whiteCanvas
+        this.setState({
+            loading: true
+        })
+
+        Marker.markImage({
+            src: backGroundUri,
+            markerSrc: iconUri, // icon uri
+            X: 0, // left
+            0: 600, // top
+            scale: 2, // scale of bg
+            markerScale: 1, // scale of icon
+            quality: 100 // quality of image
+        }).then((path) => {
+            console.log('########mark image path is ', path)
+            this.setState({
+                uri: Platform.OS === 'android' ? 'file://' + path : path,
+                loading: false
             })
+        }).catch((err) => {
+            console.log(err, 'err')
+            this.setState({
+                loading: false,
+                err
+            })
+        })
+        */
+        //
+
+        this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
+
+            //
+            Marker.markImage({
+                src: image,
+                markerSrc: path, // icon uri
+                X: 480, // left
+                Y: 0, // top
+                scale: 0.5, // scale of bg
+                markerScale: 0.5, // scale of icon
+                quality: 100 // quality of image
+            }).then((resultPath) => {
+                console.log('########mark image path is ', resultPath)
+                // this.setState({
+                //     uri: Platform.OS === 'android' ? 'file://' + path : path,
+                //     loading: false
+                // })
+            }).catch((err) => {
+                console.log(err, 'err')
+
+            })
+            //
+
+            // self.setState({
+            //     // showIconPanel: false,
+            //     show: true,
+            //     imageUrl: Platform.OS === 'android' ? 'file://' + path : path
+            // })
         });
+
+
     }
 
     showEditPanel = () => {
