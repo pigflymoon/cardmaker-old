@@ -213,7 +213,6 @@ export default class CardsDeck extends Component {
             return Utils.renderOffline();
         }
         const {selectedIndex, category} = this.state
-        // const imageType = 'cards'
         const buttons = ['Cards', 'Invitations']
         if (this.state.signin) {
             return (

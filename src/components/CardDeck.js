@@ -293,21 +293,6 @@ export default class CardsDeck extends Component {
                     />
                 </View>
 
-                <View style={[cardStyle.footerIcon, {paddingLeft: 10}]}>
-
-                    <Icon
-                        containerStyle={{
-                            backgroundColor: 'rgba(255, 255, 255, .8)',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
-                        name='star'
-                        size={30}
-                        color={this.state.iconColor}
-                        onPress={this.saveToFavorite}
-                    />
-                </View>
             </View>
         );
     }
