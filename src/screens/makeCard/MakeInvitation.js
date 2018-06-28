@@ -10,6 +10,7 @@ import {
     KeyboardAvoidingView,
     Alert,
     TextInput,
+    ActivityIndicator,
 } from 'react-native';
 import {
     Button,
@@ -50,7 +51,8 @@ export default class MakeInvitation extends Component {
             show: false,
             opacity: 1,
             xPos: 20,
-            textAlign: 'align-justify'
+            textAlign: 'align-justify',
+            loading: false,
         }
     }
 
@@ -183,6 +185,7 @@ export default class MakeInvitation extends Component {
     }
 
     imageMarker = (url) => {
+        this.setState({loading: true});
         var self = this;
         var textColor = colors.primary1;
         // var position = this.state.textPosition;
@@ -275,6 +278,7 @@ export default class MakeInvitation extends Component {
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
                 show: true,
+                loading: false,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
             })
         });
@@ -347,7 +351,9 @@ export default class MakeInvitation extends Component {
         return (
             <View
                 style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}]}
-            >
+            > {this.state.loading ?
+                <ActivityIndicator size="large" color={colors.secondary2}/>
+                :
                 <ScrollView style={cardStyle.container}
 
                             showsHorizontalScrollIndicator={false}>
@@ -519,7 +525,7 @@ export default class MakeInvitation extends Component {
                         </View>
                     </KeyboardAvoidingView>
 
-                </ScrollView>
+                </ScrollView>}
             </View>
         )
     }
