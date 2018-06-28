@@ -1,33 +1,23 @@
 import React, {Component} from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
     Text,
     View,
-    Image,
-    FlatList,
     Dimensions,
     TouchableOpacity,
     Platform,
-    Picker,
-    Item,
     ScrollView,
     ImageBackground,
     KeyboardAvoidingView,
     Alert,
-    Keyboard,
     TextInput,
-    LayoutAnimation,
-    UIManager,
 } from 'react-native';
 import {
     Button,
     Icon,
     FormInput,
-    FormLabel,
-    FormValidationMessage,
 } from 'react-native-elements';
 import FlipComponent from 'react-native-flip-component';
+import Marker from "react-native-image-marker"
 
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -47,7 +37,7 @@ import {
     renderAuthBox,
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
-import Marker from "react-native-image-marker"
+
 const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-dev.appspot.com/o/whiteCanvas.jpg?alt=media&token=60af85f1-9a13-4fc1-9bfa-d12134073d97';
 
 export default class MakeCard extends Component {

@@ -1,30 +1,22 @@
 import React, {Component} from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
     Text,
     View,
-    Image,
-    FlatList,
     Dimensions,
     TouchableOpacity,
     Platform,
-    Picker,
-    Item,
     ScrollView,
     ImageBackground,
     KeyboardAvoidingView,
     Alert,
-    Keyboard,
     TextInput,
 } from 'react-native';
 import {
     Button,
     Icon,
     FormInput,
-    FormLabel,
-    FormValidationMessage,
 } from 'react-native-elements';
+
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
