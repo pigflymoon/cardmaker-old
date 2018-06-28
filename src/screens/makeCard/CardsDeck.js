@@ -1,19 +1,12 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
     Text,
     View,
-    Dimensions,
-    Alert,
     TouchableOpacity,
-    ImageBackground,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView,
     ScrollView,
 } from 'react-native';
 
-import {Button, Card, Icon, ButtonGroup} from 'react-native-elements';
+import {Icon, ButtonGroup} from 'react-native-elements';
 import {auth, db} from '../../config/FirebaseConfig';
 import  Utils from '../../utils/utils';
 
@@ -36,12 +29,7 @@ export default class CardsDeck extends Component {
 
         this.state = {
             signin: false,
-            showSignCard: true,
-            welcomeCard: false,
-            cardsData: [],
             selectedIndex: 0,
-            index: 0,
-            cardType: 'birthdayImages',
             imageType: 'cards/christmas',
             category: 'cards',
             selectedName: 'christmas',//default
@@ -122,8 +110,6 @@ export default class CardsDeck extends Component {
                     selectedName: selectedName,
                     selectedValue: selectedValue,
                     type: type,
-                    allImages: [],
-                    // cardsData: pages,
                     loading: false,
                     imageType: imageType
                 }
@@ -132,8 +118,6 @@ export default class CardsDeck extends Component {
     }
     //
     updateCategory = (selectedIndex) => {
-        // let showTypes = ['birthdayImages', 'holidayImages', 'weddingImages', 'otherImages'];
-        console.log('selectedIndex is ', selectedIndex)
         let imagesTypes = (selectedIndex == 0) ? 'cards' : 'invitations';
         category = imagesTypes;
         this.setState({selectedIndex: selectedIndex, category: imagesTypes});
@@ -171,7 +155,6 @@ export default class CardsDeck extends Component {
     }
 
     handleSavedCards = (likedCards) => {
-        console.log('saved cards :', likedCards)
         savedCards = likedCards;
     }
     updateUserType = (type) => {
@@ -233,7 +216,6 @@ export default class CardsDeck extends Component {
                     </ScrollView>
                     <CardDeck
                         imageType={this.state.imageType}
-                        cardType={this.state.cardType}
                         isPaidUser={this.state.isPaidUser}
                         onSavedCards={this.handleSavedCards}
                         onRefreshUser={this.updateUserType}/>
@@ -241,9 +223,7 @@ export default class CardsDeck extends Component {
             );
 
         } else {
-            {
-                return renderAuthBox(this.state.isLoading, navigation)
-            }
+            return renderAuthBox(this.state.isLoading, navigation)
         }
 
     }

@@ -29,12 +29,10 @@ export default class CardsDeck extends Component {
 
         this.state = {
             signin: false,
-            cardsData: [],
             imagesData: [],
             iconColor: colors.primary1,
         }
     }
-
 
     renderCard(card) {
         return (
@@ -72,9 +70,9 @@ export default class CardsDeck extends Component {
 
     onSwipeLeft = (card) => {
         this.setState({iconColor: colors.primary1})
-
         dislikedCards.push(card);
     }
+
     saveToFavorite = () => {
         let currentCard = this.swiper.onCurrentCard();
         if (currentCard) {
@@ -82,7 +80,6 @@ export default class CardsDeck extends Component {
             console.log('favorite is ', currentCard)
             favoriteCardNumber = favoriteCardNumber + 1;
             var cardUrl = currentCard.illustration;
-
 
             if (auth.currentUser != null && favoriteCardNumber <= favoriteCardCount) {
 
@@ -133,8 +130,8 @@ export default class CardsDeck extends Component {
         }
 
     }
+
     refreshImages = () => {
-        this.setState({cardsData: []});
         const {imageType, isPaidUser} = this.props;
         //
         var self = this;
@@ -179,8 +176,7 @@ export default class CardsDeck extends Component {
 
     componentDidMount() {
         var self = this;
-        const {imageType, cardType, isPaidUser} = this.props;
-        // this.getUserImages(cardType, isPaidUser);
+        const {imageType, isPaidUser} = this.props;
         this.fetchData(imageType, isPaidUser).then(function (images) {
             console.log('####card deck images are', images)
             self.setState({
@@ -193,7 +189,7 @@ export default class CardsDeck extends Component {
 
     componentWillReceiveProps(nextProps) {
         var self = this;
-        const {imageType, cardType, isPaidUser} = nextProps;
+        const {imageType, isPaidUser} = nextProps;
         if (imageType != this.props.imageType) {
             this.setState({iconColor: colors.primary1}, function () {
 
@@ -201,7 +197,6 @@ export default class CardsDeck extends Component {
                 console.log('imageType is ', imageType)
 
                 self.fetchData(imageType, isPaidUser).then(function (images) {
-                    console.log('######next props images are', images)
                     self.setState({
                         imagesData: images
                     });
@@ -214,7 +209,7 @@ export default class CardsDeck extends Component {
     }
 
     componentWillUnmount() {
-        this.setState({cardsData: [], imagesData: []});
+        this.setState({imagesData: []});
     }
 
     renderNoMoreCards() {
