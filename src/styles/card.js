@@ -108,6 +108,12 @@ export default{
         alignSelf: 'center',
         margin: 10,
     },
+    footerIconContainer: {
+        backgroundColor: 'rgba(255, 255, 255, .8)',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+    },
     //
     // imageListContainer: {
     //     flex: 1,

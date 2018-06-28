@@ -61,9 +61,7 @@ export default class CardsDeck extends Component {
     }
 
     handleSwipeRight = (card) => {
-        console.log('called')
         this.setState({iconColor: colors.primary1})
-
         likedCards.push(card);
         var savedCard = new Map(likedCards.map(obj => [obj.illustration, obj]));
         // To get the unique objects
@@ -219,7 +217,6 @@ export default class CardsDeck extends Component {
         this.setState({cardsData: [], imagesData: []});
     }
 
-
     renderNoMoreCards() {
         return (
             <Card
@@ -242,14 +239,8 @@ export default class CardsDeck extends Component {
         return (
             <View style={cardStyle.footer}>
                 <View style={cardStyle.footerIcon}>
-
                     <Icon
-                        containerStyle={{
-                            backgroundColor: 'rgba(255, 255, 255, .8)',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
+                        containerStyle={cardStyle.footerIconContainer}
                         name="replay"
                         size={30}
                         color={colors.primary3}
@@ -257,14 +248,8 @@ export default class CardsDeck extends Component {
                     />
                 </View>
                 <View style={cardStyle.footerIcon}>
-
                     <Icon
-                        containerStyle={{
-                            backgroundColor: 'rgba(255, 255, 255, .8)',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
+                        containerStyle={cardStyle.footerIconContainer}
                         name='close'
                         size={30}
                         color={colors.primary3}
@@ -275,19 +260,12 @@ export default class CardsDeck extends Component {
                     />
                 </View>
                 <View style={cardStyle.footerIcon}>
-
                     <Icon
-                        containerStyle={{
-                            backgroundColor: 'rgba(255, 255, 255, .8)',
-                            width: 50,
-                            height: 50,
-                            borderRadius: 25,
-                        }}
+                        containerStyle={cardStyle.footerIconContainer}
                         name='check'
                         size={30}
                         color={colors.primary3}
                         onPress={() => {
-                            console.log('swipe right?', this.swiper)
                             this.swiper.forceSwipe('right');
                         }}
                     />
