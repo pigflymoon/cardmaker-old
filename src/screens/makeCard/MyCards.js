@@ -6,13 +6,12 @@ import {
     ImageBackground,
     TouchableHighlight,
     TouchableOpacity,
-
 } from 'react-native';
 
 import GridView from 'react-native-super-grid';
 import {auth} from '../../config/FirebaseConfig';
 
-import {Icon, Card, Button} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import bg from '../../assets/images/noWifiBg.png';
@@ -31,7 +30,6 @@ export default class MyCards extends Component {
         super(props, context);
 
         this.state = {
-            makeCards: null,
             chooseCards: [],
             signin: false,
             selectedIndex: 0,
@@ -127,11 +125,9 @@ export default class MyCards extends Component {
         });
         makeCard = card;
         this.setState({
-            makeCards: card,
             selectedItem,
             selectedIndex: selectedIndex
         });
-
     }
 
     getItemColor = (item) => {
@@ -141,22 +137,6 @@ export default class MyCards extends Component {
         } else {
             return colors.grey4;
         }
-    }
-
-    renderHeader() {
-        return (
-            <View style={cardStyle.header}>
-                <View style={cardStyle.headerCenter}>
-                    <View style={cardStyle.titleContainer}>
-                        <Text style={cardStyle.title}>1. choose your card by just click it</Text>
-                    </View>
-                    <View style={cardStyle.titleContainer}>
-                        <Text style={cardStyle.title}>2. Then make your own card</Text>
-                    </View>
-                </View>
-
-            </View>
-        );
     }
 
     renderEmptyStates = () => {
@@ -183,10 +163,7 @@ export default class MyCards extends Component {
                                 size={28}
                                 style={{color: colors.secondary2, paddingRight: 20,}}
                                 onPress={() => {
-                                    {
-                                        this.props.navigation.goBack();
-                                    }
-
+                                    this.props.navigation.goBack();
                                 }}
                             />
                             <Text style={showInfo.greyText}>Start Swiping to choose. Enjoy!</Text>
@@ -232,9 +209,7 @@ export default class MyCards extends Component {
             )
         }
         if (!renderSign) {
-            {
-                return renderAuthBox(this.state.isLoading, navigation)
-            }
+            return renderAuthBox(this.state.isLoading, navigation)
         } else {
             return (
                 <View style={layoutStyle.container}>
