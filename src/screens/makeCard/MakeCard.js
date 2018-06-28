@@ -55,16 +55,12 @@ export default class MakeCard extends Component {
         super(props)
         this.state = {
             makeCard: null,
-            checked: false,
             signin: false,
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
-            fontSize: 28,
-            fontWeight: 'normal',
+            fontSize: 32,
             modalIndex: 1,
-            showIconPanel: true,
             modalVisible: false,
-            selectText: false,
             opacity: 1,
             xPos: 20,
             textAlign: 'align-justify',
@@ -214,18 +210,13 @@ export default class MakeCard extends Component {
         // var position = this.state.textPosition;
         var xPos = this.state.xPos;
         var textAlign = this.state.textAlign;
-
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
-        //
         // var url = 'file://src/assets/images/whiteCanvas.jpg';
         console.log('url is ', whiteCanvas)
         var imageUrl = whiteCanvas //url;
 
         var textInfo1 = {
-            // font: font,
-            // fontSize: fontSize,
-            // position: position,
             text: this.state.input1Text || '',
             color: this.state.input1Color || textColor,
             fontSize: this.state.input1FontSize || fontSize,
@@ -234,7 +225,6 @@ export default class MakeCard extends Component {
             xPos: xPos,//30,
             yPos: 30,
             alignment: this.state.input1TextAlign || textAlign,
-
         }
 
         var textInfo2 = {
@@ -246,7 +236,6 @@ export default class MakeCard extends Component {
             xPos: xPos,//30,
             yPos: 160,
             alignment: this.state.input2TextAlign || textAlign,
-
         }
 
         var textInfo3 = {
@@ -312,14 +301,12 @@ export default class MakeCard extends Component {
             }).then((resultPath) => {
                 console.log('########mark image path is ', resultPath)
                 self.setState({
-                    // showIconPanel: false,
                     show: true,
                     imageUrl: Platform.OS === 'android' ? 'file://' + path : path,
                     shareImageUrl: Platform.OS === 'android' ? 'file://' + resultPath : resultPath
                 })
             }).catch((err) => {
                 console.log(err, 'err')
-
             })
 
         });
@@ -329,7 +316,6 @@ export default class MakeCard extends Component {
 
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
-        console.log('showEditPanel is ', showEditPanel)
         this.setState({
             show: showEditPanel,
         });
@@ -353,18 +339,14 @@ export default class MakeCard extends Component {
                 borderWidth: 0,
             }}
             containerViewStyle={{width: 60,}}
-
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
     )
 
     renderFrontView = () => {
-        // var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         var imageUrl = (this.state.makeCard).illustration;
-
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-
                 <ImageBackground
                     source={{uri: imageUrl}}
                     style={cardStyle.cardImage}
@@ -384,7 +366,6 @@ export default class MakeCard extends Component {
         var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-
                 <ImageBackground
                     source={{uri: imageUrl}}
                     style={cardStyle.cardImage}
@@ -394,10 +375,7 @@ export default class MakeCard extends Component {
                     {this.renderEditInput()}
                     {this.renderEditModal()}
                 </ImageBackground>
-
-
             </View>
-
         )
 
     }
@@ -449,7 +427,6 @@ export default class MakeCard extends Component {
                 style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}, {flexGrow: 4,}]}
             >
                 <ScrollView style={cardStyle.container}
-
                             showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={{
                         alignItems: 'center',
@@ -464,13 +441,7 @@ export default class MakeCard extends Component {
                                 paddingBottom: 32,
                                 alignItems: 'center',
                             }}>
-
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={[cardStyle.inputStyle]}
@@ -483,22 +454,16 @@ export default class MakeCard extends Component {
                                         placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
-                                        selectTextOnFocus={this.state.selectText}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, selectText: true, modalIndex: 1})
+                                        this.setState({modalVisible: true, modalIndex: 1})
                                     })}
 
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -521,12 +486,7 @@ export default class MakeCard extends Component {
 
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -547,12 +507,7 @@ export default class MakeCard extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -573,12 +528,7 @@ export default class MakeCard extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -599,12 +549,7 @@ export default class MakeCard extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -625,12 +570,7 @@ export default class MakeCard extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}

@@ -223,6 +223,12 @@ export default{
         color: colors.secondary2,
 
     },
+    inputContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
 //make card
 
     frontStyles: {

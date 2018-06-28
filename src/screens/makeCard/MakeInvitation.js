@@ -48,17 +48,14 @@ export default class MakeInvitation extends Component {
         super(props)
         this.state = {
             makeCard: null,
-            checked: false,
             signin: false,
             // textPosition: 'bottomCenter',
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
-            fontSize: 28,
-            fontWeight: 'normal',
+            fontSize: 32,
             modalIndex: 1,
-            showIconPanel: true,
             modalVisible: false,
-            selectText: false,
+            show: false,
             opacity: 1,
             xPos: 20,
             textAlign: 'align-justify'
@@ -114,17 +111,6 @@ export default class MakeInvitation extends Component {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
             var isPaidUser = this.props.navigation.state.params.isPaidUser;
-            // Image.getSize(makeCard.illustration, (width, height) => {
-            //     console.log('image width is ', width, 'height is ', height)
-            //     this.setState({
-            //         imageWidth: width,
-            //         imageHeight: height,
-            //     })
-            // })
-            // /**
-            //  * Image.getSize(myUri, (width, height) => {this.setState({width, height})});
-            //  */
-
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
@@ -296,24 +282,16 @@ export default class MakeInvitation extends Component {
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
-                showIconPanel: false,
                 show: true,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
             })
         });
     }
-    /**
-     * show Icon panel or not
-     */
-    showIconPanel = () => {
-        let showPanel = (this.state.showIconPanel == true) ? false : true;
-        this.setState({showIconPanel: showPanel});
-    }
 
     showEditPanel = () => {
         let showEditPanel = (this.state.show == true) ? false : true;
         this.setState({
-            show: showEditPanel, showIconPanel: true,
+            show: showEditPanel,
         });
     }
 
@@ -376,7 +354,7 @@ export default class MakeInvitation extends Component {
     renderEditInput = () => {
         return (
             <View
-                style={[cardStyle.container, this.state.showIconPanel ? {opacity: 1} : {opacity: 0}]}
+                style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}]}
             >
                 <ScrollView style={cardStyle.container}
 
@@ -395,12 +373,7 @@ export default class MakeInvitation extends Component {
                                 alignItems: 'center',
                             }}>
 
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={[cardStyle.inputStyle]}
@@ -413,22 +386,16 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
-                                        selectTextOnFocus={this.state.selectText}
                                     />
                                 </View>
                                 <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                     {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, selectText: true, modalIndex: 1})
+                                        this.setState({modalVisible: true, modalIndex: 1})
                                     })}
 
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -451,12 +418,7 @@ export default class MakeInvitation extends Component {
 
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -477,12 +439,7 @@ export default class MakeInvitation extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -503,12 +460,7 @@ export default class MakeInvitation extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -529,12 +481,7 @@ export default class MakeInvitation extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -555,12 +502,7 @@ export default class MakeInvitation extends Component {
                                     })}
                                 </View>
                             </View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                            }}>
+                            <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
                                         inputStyle={cardStyle.inputStyle}
@@ -595,11 +537,6 @@ export default class MakeInvitation extends Component {
             <View style={cardStyle.iconsContainer}>
                 <View style={cardStyle.shareRightIcon}>
                     <Icon name="caret-down" type="font-awesome" color={colors.secondary2} size={28}
-                          onPress={() => this.showIconPanel()}
-                    />
-                </View>
-                <View style={cardStyle.shareRightIcon}>
-                    <Icon name="edit" type="font-awesome" color={colors.secondary2} size={28}
                           onPress={() => this.showEditPanel()}
                     />
                 </View>
@@ -614,14 +551,13 @@ export default class MakeInvitation extends Component {
                           onPress={this.onShare}
                     />
                 </View>
-
-
             </View>
         )
     }
     /**
      * Edit modal
      * @returns {XML}
+     * *var textPosition = `input${this.state.modalIndex}Position`; removed
      */
     renderEditModal = () => {
         return (
@@ -633,8 +569,6 @@ export default class MakeInvitation extends Component {
                 onOk={(color, size, family, alignment) => {
                     var fontSize = `input${this.state.modalIndex}FontSize`;
                     var fontFamily = `input${this.state.modalIndex}FontFamily`;
-                    {/*var textPosition = `input${this.state.modalIndex}Position`;*/
-                    }
                     var textAlign = `input${this.state.modalIndex}TextAlign`;
                     var textColor = `input${this.state.modalIndex}Color`;
                     this.setState({
@@ -644,7 +578,6 @@ export default class MakeInvitation extends Component {
                         [textAlign]: alignment,
                         // [textPosition]: position,
                         modalVisible: false,
-
                     });
 
                 }}
@@ -690,7 +623,6 @@ export default class MakeInvitation extends Component {
 
         if (renderCard) {
             return this.renderEditContainer();
-
         } else if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
