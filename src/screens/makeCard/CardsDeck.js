@@ -28,6 +28,7 @@ import CardDeck from '../../components/CardDeck';
 import ImageTypeTab from '../../components/ImageTypeTab';
 
 import CategoryConfig from '../../config/CategoryConfig';
+var savedCards = [], paidUser = false, category = 'cards';
 
 export default class CardsDeck extends Component {
     constructor(props, context) {
@@ -217,7 +218,6 @@ export default class CardsDeck extends Component {
         if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
-
                     <ScrollView style={{flex: 1, flexDirection: 'column', height: 220}}>
                         <ButtonGroup
                             onPress={this.updateCategory}
@@ -231,7 +231,6 @@ export default class CardsDeck extends Component {
                             {this.renderTabs(category)}
                         </View>
                     </ScrollView>
-
                     <CardDeck
                         imageType={this.state.imageType}
                         cardType={this.state.cardType}
@@ -239,8 +238,6 @@ export default class CardsDeck extends Component {
                         onSavedCards={this.handleSavedCards}
                         onRefreshUser={this.updateUserType}/>
                 </View>
-
-
             );
 
         } else {
@@ -252,5 +249,4 @@ export default class CardsDeck extends Component {
     }
 }
 
-var savedCards = [], paidUser = false, category = 'cards';
 
