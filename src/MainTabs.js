@@ -11,9 +11,7 @@ import ExploreScreen from './screens/explore/Explore';
 import ImagesGalleryScreen from './screens/explore/ImagesGallery';
 
 //Make card
-import MyCardsDeckScreen from './screens/makeCard/MyCardsDeck';
 import CardsDeckScreen from './screens/makeCard/CardsDeck';
-
 import MyCardsScreen from './screens/makeCard/MyCards';
 import MakeCardScreen from './screens/makeCard/MakeCard';
 import MakeInvitationScreen from './screens/makeCard/MakeInvitation';
@@ -57,13 +55,6 @@ const MakeCardTab = StackNavigator({
         screen: CardsDeckScreen,
         navigationOptions: ({navigation}) => ({
             title: 'Cards Deck',
-            headerLeft: null,
-        }),
-    },
-    MyCardsDeck: {
-        screen: MyCardsDeckScreen,
-        navigationOptions: ({navigation}) => ({
-            title: 'Cards',
             headerLeft: null,
         }),
     },
