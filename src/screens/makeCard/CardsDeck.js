@@ -120,7 +120,13 @@ export default class CardsDeck extends Component {
     updateCategory = (selectedIndex) => {
         let imagesTypes = (selectedIndex == 0) ? 'cards' : 'invitations';
         category = imagesTypes;
-        this.setState({selectedIndex: selectedIndex, category: imagesTypes});
+        this.setState({
+            selectedIndex: selectedIndex,
+            category: imagesTypes,
+            selectedName: '',//default
+            selectedValue: false,
+
+        });
     }
 
     componentDidMount() {
