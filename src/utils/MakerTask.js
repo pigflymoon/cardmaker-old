@@ -2,7 +2,6 @@ import Marker from 'react-native-image-marker';
 
 
 export function setMaker(url, text, position, textColor, font, textSize) {
-    console.log('font is ', font)
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
             Marker.addTextByPostion(url, text, position, textColor, font, textSize)
@@ -14,7 +13,6 @@ export function setMaker(url, text, position, textColor, font, textSize) {
 }
 
 export function setTextMaker(textMarker) {
-    console.log('textMarkder is ', textMarker)
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
             Marker.markText(textMarker)
@@ -26,7 +24,6 @@ export function setTextMaker(textMarker) {
 }
 
 export function setImageMaker(imageMarker) {
-    console.log('imageMarker is ', imageMarker)
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
             Marker.markImage(imageMarker)
@@ -65,7 +62,6 @@ export function makerTask(value, textInfo) {
         return new Promise((resolve, reject) => {
             if (resolve) {
                 var nextValue = setTextMaker(textMarkerXY)
-                console.log('value3 is######## ', nextValue)
                 resolve(nextValue)
             } else {
                 throw new Error("throw Error @ task2");

@@ -65,7 +65,6 @@ export default class CardsDeck extends Component {
     onHandleSelect = (selectedName, selectedValue, type, category) => {
         var self = this;
         var imageType;
-        console.log('fetch type  is ********', type)
         if (category == 'cards') {
             switch (type) {
                 case 'cards':

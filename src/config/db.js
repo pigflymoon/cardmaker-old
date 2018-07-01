@@ -24,7 +24,6 @@ export const saveFavoriteCard = (userid, username, cardId, cardUrl, cardName) =>
     return new Promise(function (resolve, reject) {
 
         db.ref(`favorite/${userid}/${cardId}`).once("value", snapshot => {
-            console.log('snapshot.value is ', snapshot.exists())
             if (snapshot.exists()) {
                 reject('Card already saved!')
             } else {

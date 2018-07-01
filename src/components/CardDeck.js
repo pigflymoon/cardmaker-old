@@ -77,7 +77,6 @@ export default class CardsDeck extends Component {
         let currentCard = this.swiper.onCurrentCard();
         if (currentCard) {
             this.setState({iconColor: colors.secondary2})
-            console.log('favorite is ', currentCard)
             favoriteCardNumber = favoriteCardNumber + 1;
             var cardUrl = currentCard.illustration;
 
@@ -85,7 +84,6 @@ export default class CardsDeck extends Component {
 
                 var userId = auth.currentUser.uid,
                     name = auth.currentUser.displayName;
-                console.log('userid,', userId, 'name is ', auth.currentUser, 'email is ', auth.currentUser.email)
                 db.ref(`favorite/${userId}`).once("value")
                     .then(function (snapshot) {
                         var savedCount = snapshot.numChildren(); // 1 ("name")
@@ -101,7 +99,6 @@ export default class CardsDeck extends Component {
 
                                 })
                                 .catch(error => {
-                                    console.log('Error', error)
                                     Alert.alert(
                                         'Oops!',
                                         `${error}`,
@@ -152,7 +149,6 @@ export default class CardsDeck extends Component {
 
 
     fetchData = (imageType, isPaidUser) => {
-        console.log('fetchUpdatedImages called', imageType)
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
@@ -178,7 +174,6 @@ export default class CardsDeck extends Component {
         var self = this;
         const {imageType, isPaidUser} = this.props;
         this.fetchData(imageType, isPaidUser).then(function (images) {
-            console.log('####card deck images are', images)
             self.setState({
                 imagesData: images
             });
@@ -194,8 +189,6 @@ export default class CardsDeck extends Component {
             this.setState({iconColor: colors.primary1}, function () {
 
                 likedCards = [];//cardtype is different ,clean the likedcards
-                console.log('imageType is ', imageType)
-
                 self.fetchData(imageType, isPaidUser).then(function (images) {
                     self.setState({
                         imagesData: images
@@ -249,7 +242,6 @@ export default class CardsDeck extends Component {
                         size={30}
                         color={colors.primary3}
                         onPress={() => {
-                            console.log('swipe left?', this.swiper)
                             this.swiper.forceSwipe('left');
                         }}
                     />

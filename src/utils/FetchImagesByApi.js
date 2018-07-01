@@ -20,9 +20,7 @@ export function getUpdatedImages(category = 'cards', count = 9) {
                             {
                                 id: key,
                                 title: downloadImages[key].name,
-                                // subtitle: downloadImages[key].Name,
                                 illustration: downloadImages[key].downloadUrl,
-
                             }
                         )
                     )
@@ -165,7 +163,6 @@ export function getFreeBirthdayImages() {
  * @returns {Promise}
  */
 export function getAllImages(cardType = 'birthdayImages') {
-
     var self = this;
     return new Promise(function (resolve, reject) {
         // some async operation here
@@ -294,7 +291,6 @@ export function getAllUploadImages() {
         // some async operation here
         setTimeout(function () {
             // resolve the promise with some value
-
             db.ref('uploadImages').limitToLast(8).on("value", function (snapshot) {
                 var downloadImages = snapshot.val();
                 if (downloadImages) {

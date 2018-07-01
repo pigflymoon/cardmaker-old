@@ -43,10 +43,7 @@ export default class CardEditInputModal extends Component {
      * @param size
      */
     onChangeFontSize = (size) => {
-        console.log('state is :', this.state)
         var stateName = `input${this.state.modalIndex}FontSize`;
-        console.log('stateName is', stateName)
-
 
         this.setState({
             [stateName]: size,
@@ -76,14 +73,12 @@ export default class CardEditInputModal extends Component {
     }
     onChangeTextAlign = (direction, index) => {
         var stateName = `input${this.state.modalIndex}TextAlign`;
-        console.log('stateName is', stateName)
         this.setState({
             [stateName]: direction,
             buttonActiveColor: colors.secondary2
         });
     }
     getItemColor = (item) => {
-        console.log('item is ', item)
         var stateName = `input${this.state.modalIndex}TextAlign`;
         var textAligns = ['align-left', 'align-justify', 'align-right']
         var index = textAligns.indexOf((this.state)[stateName])
@@ -108,7 +103,6 @@ export default class CardEditInputModal extends Component {
             cancelLabel,
             modalIndex
         } = this.props;
-        console.log('modalIndex is ', modalIndex)
         var fontSize = `input${modalIndex}FontSize`;
         var fontFamily = `input${modalIndex}FontFamily`;
         var textAlign = `input${modalIndex}TextAlign`;
@@ -145,11 +139,10 @@ export default class CardEditInputModal extends Component {
                     </View>
 
                     <View style={EditModalStyle.content}>
-
                         <View style={[cardStyle.container, cardStyle.wrapper]}>
                             <Text style={[colorPickerStyle.sectionText, {
                                 color: (this.state)[textColor] || colors.primary1,
-                                fontFamily: (this.state)[fontFamily]||'Didot-Italic'
+                                fontFamily: (this.state)[fontFamily] || 'Didot-Italic'
                             }]}>Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
@@ -199,7 +192,6 @@ export default class CardEditInputModal extends Component {
                                 thumbStyle={cardStyle.thumb}
                             />
                             <Text>Font Size: {(this.state)[fontSize] || this.state.fontSize}</Text>
-
                             <Dropdown
                                 label={(this.state)[fontFamily] || 'Font Family'}
                                 data={fontsFamily}
@@ -207,7 +199,6 @@ export default class CardEditInputModal extends Component {
                                 onChangeText={this.onChangeFontFamily}
                             />
                             <Text style={cardStyle.title}>RECENTS:</Text>
-
                             <View style={{
                                 marginTop: 12,
                                 marginBottom: 24,
@@ -217,7 +208,6 @@ export default class CardEditInputModal extends Component {
                                 flexWrap: 'wrap',
                             }}>
                                 {(this.state.recentsFontFamily).map((swatch, index) => (
-
                                     <TouchableOpacity
                                         key={swatch}
                                         style={[
@@ -244,7 +234,6 @@ export default class CardEditInputModal extends Component {
                                         color: colors.secondary2,
                                         fontFamily: swatch
                                     }}>{swatch}</Text></TouchableOpacity>
-
                                 ))}
                             </View>
 
@@ -257,7 +246,6 @@ export default class CardEditInputModal extends Component {
                                 justifyContent: 'flex-start',
                                 flexWrap: 'nowrap',
                             }}>
-
                                 {(this.state.textAligns).map((direction, index) => (
                                     <Button
                                         key={index}
@@ -279,16 +267,8 @@ export default class CardEditInputModal extends Component {
                                         containerViewStyle={{width: 60,}}
                                         textStyle={{fontWeight: '700', color: colors.secondary2}}
                                     />
-
-
                                 ))}
                             </View>
-                            {/*<Dropdown*/}
-                            {/*label={(this.state)[textPosition] || 'Text Position'}*/}
-                            {/*data={CardConfig.textPostion}*/}
-                            {/*onChangeText={this.onChangeTextPosition}*/}
-                            {/*/>*/}
-
                         </View>
                     </View>
                 </View>

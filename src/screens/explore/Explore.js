@@ -76,7 +76,6 @@ export default class Explore extends Component {
 
 
     fetchUpdatedImages = (catergory, showImagesNumber) => {
-        console.log('fetchUpdatedImages called')
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
@@ -113,7 +112,6 @@ export default class Explore extends Component {
 
     componentWillMount() {
         var self = this;
-        console.log('called!!!!!')
         VersionCheck.needUpdate()
             .then(async res => {
                 if (res.isNeeded) {
@@ -122,13 +120,10 @@ export default class Explore extends Component {
             });
 
         this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
-            console.log('results', results)
             let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
             self.setState({updatedcards: results, latestImages: latestImages,});
         })
         this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
-            console.log('results', results)
-            // let latestImages = results.slice(0, showLatestImagesNumber);
             self.setState({updatedinvitations: results});
         })
         this.setState({

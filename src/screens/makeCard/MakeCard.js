@@ -152,7 +152,6 @@ export default class MakeCard extends Component {
     setWishwords = (text, input) => {
         var stateName = `${input}Text`;
         var words = this.insertEnter(text, 200);
-        console.log('************words are************', words)
         this.setState({[stateName]: words});
     }
 
@@ -170,7 +169,6 @@ export default class MakeCard extends Component {
             strTemp = trimmedString.substring(0, pos)
             str = str.substring(pos, n)
             //在截取的指定长度的字符串添加\n 标签实现换行并返回
-            console.log('return string is ', strTemp + '\n' + this.insertEnter(str, n));
             return strTemp + '\n' + this.insertEnter(str, n);
         } else {
             return str;
@@ -205,8 +203,6 @@ export default class MakeCard extends Component {
         var textAlign = this.state.textAlign;
         var font = this.state.fontFamily;
         var fontSize = this.state.fontSize;
-        // var url = 'file://src/assets/images/whiteCanvas.jpg';
-        console.log('url is ', whiteCanvas)
         var imageUrl = whiteCanvas //url;
 
         var textInfo1 = {
@@ -283,7 +279,6 @@ export default class MakeCard extends Component {
             alignment: this.state.input7TextAlign || textAlign,
         }
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
-
             Marker.markImage({
                 src: image,
                 markerSrc: path, // icon uri

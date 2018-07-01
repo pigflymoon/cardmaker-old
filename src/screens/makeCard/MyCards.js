@@ -98,8 +98,6 @@ export default class MyCards extends Component {
     componentWillReceiveProps(nextProps) {
         // var chooseCards = nextProps.navigation.state.params.likedCards;
         const {likedCards, category} = nextProps.navigation.state.params;
-        console.log('likedcards are', likedCards, 'category is ', category)
-
         this.setState({
             chooseCards: likedCards,
             category: category,
