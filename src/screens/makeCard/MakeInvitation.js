@@ -350,10 +350,8 @@ export default class MakeInvitation extends Component {
     renderEditInput = () => {
         return (
             <View
-                style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}]}
-            > {this.state.loading ?
-                <ActivityIndicator size="large" color={colors.secondary2}/>
-                :
+                style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}, {flexGrow: 4,}]}
+            >
                 <ScrollView style={cardStyle.container}
 
                             showsHorizontalScrollIndicator={false}>
@@ -525,7 +523,7 @@ export default class MakeInvitation extends Component {
                         </View>
                     </KeyboardAvoidingView>
 
-                </ScrollView>}
+                </ScrollView>
             </View>
         )
     }
@@ -589,24 +587,27 @@ export default class MakeInvitation extends Component {
     renderEditContainer = () => {
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
-            <View style={cardStyle.container}>
-                <View style={[cardStyle.container, {
-                    justifyContent: 'center',
-                }]}>
-                    {this.renderIconPanel()}
-                    <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                        <ImageBackground
-                            source={{uri: imageUrl}}
-                            style={cardStyle.cardImage}
-                            imageStyle={{resizeMode: 'contain'}}
-                        >
-                            {this.renderEditInput()}
-                            {this.renderEditModal()}
-                        </ImageBackground>
-                    </View>
-                </View>
 
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                {this.state.loading ?
+                    <View style={[cardStyle.container, {
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                    }]}>
+                        <ActivityIndicator size="large" color={colors.secondary2}/>
+                    </View>
+                    : null}
+                <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={[cardStyle.cardImage,this.state.loading ? {opacity: 0} : {opacity: 1}]}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    {this.renderIconPanel()}
+                    {this.renderEditInput()}
+                    {this.renderEditModal()}
+                </ImageBackground>
             </View>
+
         )
     }
 

@@ -111,7 +111,6 @@ export default class CardEditInputModal extends Component {
         console.log('modalIndex is ', modalIndex)
         var fontSize = `input${modalIndex}FontSize`;
         var fontFamily = `input${modalIndex}FontFamily`;
-        var textPosition = `input${modalIndex}Position`;
         var textAlign = `input${modalIndex}TextAlign`;
 
         var textColor = `input${modalIndex}Color`;

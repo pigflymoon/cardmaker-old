@@ -361,9 +361,15 @@ export default class MakeCard extends Component {
         var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                {this.state.loading ?
+                    <View style={[cardStyle.container,{ alignSelf: 'center',
+                        justifyContent: 'center',}]}>
+                    <ActivityIndicator size="large" color={colors.secondary2}/>
+                    </View>
+                    :null}
                 <ImageBackground
                     source={{uri: imageUrl}}
-                    style={cardStyle.cardImage}
+                    style={[cardStyle.cardImage,this.state.loading ? {opacity: 0} : {opacity: 1}]}
                     imageStyle={{resizeMode: 'contain'}}
                 >
                     {this.renderIconPanel()}
@@ -421,9 +427,7 @@ export default class MakeCard extends Component {
             <View
                 style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}, {flexGrow: 4,}]}
             >
-                {this.state.loading ?
-                    <ActivityIndicator size="large" color={colors.secondary2}/>
-                    :
+
                     <ScrollView style={cardStyle.container}
                                 showsHorizontalScrollIndicator={false}>
                         <KeyboardAvoidingView contentContainerStyle={{
@@ -593,7 +597,7 @@ export default class MakeCard extends Component {
                             </View>
                         </KeyboardAvoidingView>
 
-                    </ScrollView>}
+                    </ScrollView>
 
 
             </View>
