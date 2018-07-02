@@ -418,20 +418,20 @@ export default class MakeCard extends Component {
 
     renderEditInput = () => {
         return (
-            <View
-                style={[cardStyle.container, this.state.show ? {opacity: 0} : {opacity: 1}, {flexGrow: 4,}]}
-            >
 
-                    <ScrollView style={cardStyle.container}
+                <KeyboardAvoidingView contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+
+                }}
+                                      enabled
+                                      style={{flex: 1, flexGrow: 4,}}
+                                          behavior="padding"
+                >
+
+                    <ScrollView style={[cardStyle.container,this.state.show ? {opacity: 0} : {opacity: 1}]}
                                 showsHorizontalScrollIndicator={false}>
-                        <KeyboardAvoidingView contentContainerStyle={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                                              enabled
-                                              behavior='position'
 
-                        >
                             <View
                                 style={{
                                     paddingBottom: 32,
@@ -589,12 +589,13 @@ export default class MakeCard extends Component {
                                 </View>
 
                             </View>
-                        </KeyboardAvoidingView>
+
 
                     </ScrollView>
 
+                </KeyboardAvoidingView>
 
-            </View>
+
         )
     }
 
