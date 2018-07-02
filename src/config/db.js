@@ -10,8 +10,6 @@ export const onceGetImages = () => {
         return snapshot;
     });
 }
-// db.ref('upImages').once('value');
-
 
 export const doCreateUser = (id, username, email) =>
     db.ref(`users/${id}`).set({
@@ -55,4 +53,3 @@ export const doCreateReceipt = (id, receipt) =>
         receipt_creation_date_pst: receipt.receipt_creation_date_pst,
         receipt_type: receipt.receipt_type,
     });
-

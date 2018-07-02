@@ -6,7 +6,8 @@ import {Card, Icon,} from 'react-native-elements';
 import SwipeDeck from '../components/SwipeDeck';
 import {
     getFreeImagesByImageType,
-    getAllImagesByImageType
+    getAllImagesByImageType,
+    getFreeUserImagesCount,
 } from '../utils/FetchImagesByApi';
 import {auth, db} from '../config/FirebaseConfig';
 import {saveFavoriteCard} from '../config/db';
@@ -149,15 +150,16 @@ export default class CardsDeck extends Component {
 
 
     fetchData = (imageType, isPaidUser) => {
+        var self = this;
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
                 if (!isPaidUser) {
-                    getFreeImagesByImageType(imageType, CategoryConfig.showFreeImagesNumber).then(function (images) {
+                    getFreeImagesByImageType(imageType, self.state.freeUserImageCount).then(function (images) {
                         resolve(images)
-
                     });
+
                 } else {
                     getAllImagesByImageType(imageType).then(function (images) {
                         resolve(images)
@@ -170,17 +172,29 @@ export default class CardsDeck extends Component {
         });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var self = this;
         const {imageType, isPaidUser} = this.props;
-        this.fetchData(imageType, isPaidUser).then(function (images) {
-            self.setState({
-                imagesData: images
+        if (isPaidUser) {
+            this.fetchData(imageType, isPaidUser).then(function (images) {
+                self.setState({
+                    imagesData: images
+                });
             });
-        })
+        } else {
+            getFreeUserImagesCount().then(count => {
+                self.setState({freeUserImageCount: count}, () => {
+                    self.fetchData(imageType, isPaidUser).then(function (images) {
+                        self.setState({
+                            imagesData: images
+                        });
+                    });
+                });
+            });
+        }
+
 
     }
-
 
     componentWillReceiveProps(nextProps) {
         var self = this;

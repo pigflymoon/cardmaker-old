@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import {db} from '../config/FirebaseConfig';
 import Utils from './utils';
+import CategoryConfig from '../config/CategoryConfig';
 
 export function getUpdatedImages(category = 'cards', count = 9) {
     var self = this;
@@ -95,4 +96,24 @@ export function getFreeImagesByImageType(imageType = 'cards/christmas', count = 
 
         }, 500);
     });
+}
+
+export function getFreeUserImagesCount() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+        // some async operation here
+        setTimeout(function () {
+            // resolve the promise with some value
+
+            db.ref('freeUser/imageCount').once('value', function (snapshot) {
+                let showFreeImagesCount = snapshot.val() || CategoryConfig.showFreeImagesNumber;
+                console.log('showFreeImagesCount is ', showFreeImagesCount)
+                resolve(showFreeImagesCount);
+
+            });
+
+
+        }, 500);
+    });
+
 }
