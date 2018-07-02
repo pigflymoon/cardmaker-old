@@ -36,7 +36,6 @@ import SliderEntry from '../../components/SliderEntry';
 import  logo from '../../assets/images/logo.png';
 
 import {
-    getFreeImages,
     getUpdatedImages
 } from '../../utils/FetchImagesByApi';
 import {

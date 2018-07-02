@@ -39,6 +39,7 @@ export default class ImagesGallery extends Component {
     }
 
     getImagesPaginationByKey = (imageType = 'cards') => {
+        console.log('imageType are ', imageType)
         if (!imageReferenceToOldestKey) {
             return db.ref().child(imageType)
                 .orderByKey()
@@ -46,6 +47,8 @@ export default class ImagesGallery extends Component {
                 .once('value')
                 .then((snapshot) => new Promise((resolve) => {
                         // changing to reverse chronological order (latest first)
+                        console.log('snapshot are', snapshot.val())
+
                         if (snapshot.val()) {
                             let arrayOfKeys = Object.keys(snapshot.val())
                                 .sort()
@@ -58,6 +61,9 @@ export default class ImagesGallery extends Component {
                             // storing reference
 
                             imageReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
+                            console.log('imageReferenceToOldestKey are', imageReferenceToOldestKey)
+
+                            console.log('results are', results)
                             resolve(results);
                         } else {
                             let results = [];
@@ -70,6 +76,9 @@ export default class ImagesGallery extends Component {
                 })
 
         } else {
+            console.log('imageType are ', imageType)
+            console.log('imageReferenceToOldestKey are ', imageReferenceToOldestKey)
+
             return db.ref().child(imageType)
                 .orderByKey()
                 .endAt(imageReferenceToOldestKey)
@@ -78,6 +87,8 @@ export default class ImagesGallery extends Component {
                 .then((snapshot) => new Promise((resolve) => {
                     // changing to reverse chronological order (latest first)
                     // & removing duplicate
+                    console.log('has key snapshot are', snapshot.val())
+
                     if (snapshot.val()) {
                         let arrayOfKeys = Object.keys(snapshot.val())
                             .sort()
@@ -110,6 +121,7 @@ export default class ImagesGallery extends Component {
                 self.getImagesPaginationByKey(imageType).then(function (allPages) {
                     var newPaidArr = [];
                     var images = self.state.allImages;
+                    console.log('allPages length', allPages.length)
                     if (allPages.length > 0) {
                         var arrToConvert = allPages;
                         lastImageKey = allPages[allPages.length - 1].id;
@@ -121,6 +133,8 @@ export default class ImagesGallery extends Component {
                             }
 
                             images = [...images, ...newPaidArr]
+                            console.log('newPaid Arr', newPaidArr);
+                            console.log('images are ', images)
                             self.setState({lastImageKey: lastImageKey})
                             resolve(images);
                         }
@@ -135,16 +149,19 @@ export default class ImagesGallery extends Component {
         }));
         return allPages;
     }
+
     handleScrollToEnd = (cardType) => {
         var self = this;
+        console.log('lodingFinished', this.state.lodingFinished)
         if (this.state.lodingFinished) {
             return false
         } else {
-
-
+            console.log('scroll to load',cardType)
             this.fetchData(cardType).then(function (pages) {
                 var images = self.state.cardsData;
                 images = [...images, ...pages]
+                console.log('scroll to load', images)
+
                 self.setState({cardsData: images, loading: false})
 
             })
@@ -202,7 +219,8 @@ export default class ImagesGallery extends Component {
                             type: type,
                             allImages: [],
                             cardsData: pages,
-                            loading: false
+                            loading: false,
+                            imageType:imageType,//save imageTpe category/type
                         });
                     })
             }
@@ -270,7 +288,7 @@ export default class ImagesGallery extends Component {
                             style={{flex: 1, flexGrow: 2,}}
                             data={this.state.cardsData}
                             keyExtractor={(item, index) => `${index}-image`}
-                            onEndReached={() => this.handleScrollToEnd(imageType)}
+                            onEndReached={() => this.handleScrollToEnd(this.state.imageType)}
                             onEndReachedThreshold={0}
                             shouldItemUpdate={(props, nextProps) => {
                                 return props.item !== nextProps.item
