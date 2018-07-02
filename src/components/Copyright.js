@@ -68,6 +68,18 @@ export default class Copyright extends Component {
             {
                 name: 'react-native-snap-carousel',
                 link: 'https://github.com/archriss/react-native-snap-carousel'
+            },
+            {
+                name: 'react-native-flip-component',
+                link: 'https://github.com/plmok61/react-native-flip-component'
+            },
+            {
+                name: 'react-native-color',
+                link: 'https://github.com/hectahertz/react-native-color'
+            },
+            {
+                name: 'react-native-version-check',
+                link: 'https://github.com/kimxogus/react-native-version-check'
             }
 
 
