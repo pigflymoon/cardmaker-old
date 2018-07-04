@@ -47,7 +47,6 @@ import CategoryConfig from '../../config/CategoryConfig';
 
 const downloadUrl = 'https://itunes.apple.com/us/app/cardmaker-app/id1318023993?mt=8';
 const words = [
-
     {
         width: '60%',
     },
