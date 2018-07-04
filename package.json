@@ -1,6 +1,6 @@
 {
   "name": "cardmaker",
-  "version": "0.1.0",
+  "version": "2.1.1",
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
@@ -25,8 +25,8 @@
     "autoresponsive-react-native": "^1.0.9",
     "axios": "^0.17.1",
     "firebase": "^5.1.0",
-    "react": "^16.2.0",
-    "react-native": "^0.55.4",
+    "react": "^16.4.1",
+    "react-native": "^0.56.0",
     "react-native-color": "0.0.10",
     "react-native-color-wheel": "git+https://github.com/pigflymoon/react-native-color-wheel.git",
     "react-native-elements": "^0.19.1",
