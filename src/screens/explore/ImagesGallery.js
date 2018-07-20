@@ -135,11 +135,12 @@ export default class ImagesGallery extends Component {
         return allPages;
     }
 
-    handleScrollToEnd = (cardType) => {
+    handleScrollToEnd = (cardType) => (e) => {
         var self = this;
         if (this.state.lodingFinished) {
             return false
         } else {
+            console.log('loading finished??')
             this.fetchData(cardType).then(function (pages) {
                 var images = self.state.cardsData;
                 images = [...images, ...pages]
@@ -200,7 +201,8 @@ export default class ImagesGallery extends Component {
                             allImages: [],
                             cardsData: pages,
                             loading: false,
-                            imageType:imageType,//save imageTpe category/type
+                            lodingFinished: false,
+                            imageType: imageType,//save imageTpe category/type
                         });
                     })
             }
@@ -253,6 +255,8 @@ export default class ImagesGallery extends Component {
         this.setState({cardsData: []});
     }
 
+    keyExtractor = (item) => item.id
+
     render() {
         const {imageType} = this.props.navigation.state.params;
         return (
@@ -267,8 +271,8 @@ export default class ImagesGallery extends Component {
                         ? <FlatList
                             style={{flex: 1, flexGrow: 2,}}
                             data={this.state.cardsData}
-                            keyExtractor={(item, index) => `${index}-image`}
-                            onEndReached={() => this.handleScrollToEnd(this.state.imageType)}
+                            keyExtractor={this.keyExtractor}
+                            onEndReached={this.handleScrollToEnd(this.state.imageType)}
                             onEndReachedThreshold={0}
                             shouldItemUpdate={(props, nextProps) => {
                                 return props.item !== nextProps.item

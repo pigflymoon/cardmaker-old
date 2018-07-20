@@ -88,7 +88,7 @@ export default class Explore extends Component {
         });
     }
 
-    navigateToShowAll = (imageType) => {
+    navigateToShowAll = (imageType) => (e) => {
         this.props.navigation.navigate('ImagesGallery', {
             imageType: imageType,
 
@@ -293,7 +293,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Cards'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('cards')}>
+                                <TouchableOpacity onPress={this.navigateToShowAll('cards')}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                         <Icon
@@ -309,7 +309,7 @@ export default class Explore extends Component {
 
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{'Invitations'}</Text>
-                                <TouchableOpacity onPress={() => this.navigateToShowAll('invitations')}>
+                                <TouchableOpacity onPress={this.navigateToShowAll('invitations')}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
                                         <Icon
