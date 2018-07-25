@@ -173,7 +173,7 @@ export default class CardsDeck extends Component {
                     <View style={{flex: 1,}} key={key}>
                         <Text style={{
                             justifyContent: 'center',
-                            paddingHorizontal: 30,
+                            textAlign: 'center',
                             paddingVertical: 10,
                         }}>{imagesType}</Text>
                         {imagesTypes[imagesType].map((type, index) => {

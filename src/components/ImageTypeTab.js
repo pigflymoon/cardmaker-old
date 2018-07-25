@@ -47,18 +47,16 @@ export default class ImageTypeTab extends Component {
                 title={imageType}
                 titleStyle={{color: colors.white,}}
                 fontSize={14}
-                buttonStyle={ (selectedName == imageType) &&
+                buttonStyle={[{
+                    borderRadius: 20,
+                    marginBottom: 10,
+                    paddingHorizontal:0,
+                }, (selectedName == imageType) &&
                 (selectedValue == true) ? {
                         backgroundColor: colors.secondary2,
-                        borderRadius: 30,
-                        marginBottom: 10,
-                        paddingHorizontal: 5,
                     } : {
-                        borderRadius: 30,
-                        paddingHorizontal: 5,
                         backgroundColor: colors.grey4,
-                        marginBottom: 10,
-                    }}
+                    }]}
                 onPress={() => {
                     this.updateChoice(category, imageType)
                 }}/>

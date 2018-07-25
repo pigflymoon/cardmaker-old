@@ -218,9 +218,10 @@ export default class ImagesGallery extends Component {
                     <View style={{flex: 1,}} key={key}>
                         <Text style={{
                             justifyContent: 'center',
-                            paddingHorizontal: 30,
+                            textAlign: 'center',
                             paddingVertical: 10,
                         }}>{imagesType}</Text>
+
                         {imagesTypes[imagesType].map((type, index) => {
                             return (
                                 <ImageTypeTab key={index}
@@ -231,6 +232,7 @@ export default class ImagesGallery extends Component {
                                               handleSelect={this.onHandleSelect}/>
                             )
                         })}
+
                     </View>
                 )
 
