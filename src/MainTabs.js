@@ -148,21 +148,6 @@ const SettingsTab = StackNavigator({
 
 const StacksInTabs = TabNavigator(
     {
-        ExploreTab: {
-            screen: ExploreTab,
-            navigationOptions: {
-                tabBarLabel: 'Explore',
-                tabBarIcon: ({tintColor, focused}) => (
-                    <Ionicons
-                        name={focused ? 'ios-images' : 'ios-images-outline'}
-                        size={26}
-                        style={{color: tintColor}}
-                    />
-                )
-            }
-
-        },
-
         MakeCardTab: {
             screen: MakeCardTab,
             navigationOptions: {
@@ -176,6 +161,21 @@ const StacksInTabs = TabNavigator(
                     />
                 ),
 
+            }
+
+        },
+
+        ExploreTab: {
+            screen: ExploreTab,
+            navigationOptions: {
+                tabBarLabel: 'Explore',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Ionicons
+                        name={focused ? 'ios-images' : 'ios-images-outline'}
+                        size={26}
+                        style={{color: tintColor}}
+                    />
+                )
             }
 
         },
