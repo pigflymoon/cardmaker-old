@@ -219,11 +219,14 @@ export default class CardsDeck extends Component {
                             {this.renderTabs(category)}
                         </View>
                     </ScrollView>
-                    <CardDeck
-                        imageType={this.state.imageType}
-                        isPaidUser={this.state.isPaidUser}
-                        onSavedCards={this.handleSavedCards}
-                        onRefreshUser={this.updateUserType}/>
+                    <View style={{flex: 1,}}>
+
+                        <CardDeck
+                            imageType={this.state.imageType}
+                            isPaidUser={this.state.isPaidUser}
+                            onSavedCards={this.handleSavedCards}
+                            onRefreshUser={this.updateUserType}/>
+                    </View>
                 </View>
             );
 

@@ -41,7 +41,7 @@ export default class CardsDeck extends Component {
                 key={card.id}
                 containerStyle={{
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 450,
+                    height: SCREEN_HEIGHT - 400,
                 }}
                 featuredTitle={`${card.title}`}
                 featuredTitleStyle={{
@@ -53,7 +53,7 @@ export default class CardsDeck extends Component {
                 image={{uri: card.illustration}}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 452,
+                    height: SCREEN_HEIGHT - 402,
                 }}
             />
         );
@@ -224,14 +224,14 @@ export default class CardsDeck extends Component {
             <Card
                 containerStyle={{
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 420,
+                    height: SCREEN_HEIGHT - 400,
                 }}
                 featuredTitle="No more cards"
                 featuredTitleStyle={{fontSize: 25}}
                 image={refreshMore}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 422
+                    height: SCREEN_HEIGHT - 402
                 }}
             />
         );
