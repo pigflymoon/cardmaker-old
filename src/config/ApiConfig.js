@@ -1,6 +1,6 @@
 export default Config = {
     share: {
-        url: 'http://quakechat.kiwiinfo.com/cardmakerapp-index.html'
+        url: 'http://cardmaker.kiwiinfo.com/'
     },
     products: {
         productIdentifier: 'com.lucy.cardmaker.productid'
