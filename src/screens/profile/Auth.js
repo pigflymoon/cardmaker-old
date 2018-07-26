@@ -76,9 +76,9 @@ export default class Auth extends Component {
 
     selectCategory = (selectedCategory) => {
         LayoutAnimation.easeInEaseOut();
-        console.log('ref is :', this.passwordInput);
-        this.emailInput.refs.emailInputRef.setNativeProps({ text: ' ' });
-        this.passwordInput.refs.passwordInputRef.setNativeProps({ text: ' ' });
+        // this._emailInput.setNativeProps({text: ''});
+        // this.emailInput.refs.emailInputRef.setNativeProps({ text: ' ' });
+        // this.passwordInput.refs.passwordInputRef.setNativeProps({ text: ' ' });
         this.setState({
             selectedCategory,
             isLoading: false,
@@ -86,12 +86,6 @@ export default class Auth extends Component {
             email: '',
             password: '',
         });
-
-
-        // this.refs.emailInput.refs.emailInputRef;
-        // this.emailInput.setNativeProps({ text: ' ' });
-
-
     }
 
     navigateToResetPassword = () => {
@@ -219,8 +213,6 @@ export default class Auth extends Component {
     }
 
     handleSignup = (e) => {
-        console.log('error message is ', this.state.errorMessage)
-
         e.preventDefault();
         //
         const {
@@ -359,10 +351,8 @@ export default class Auth extends Component {
                     </View>
                     <View style={authStyle.formContainer}>
                         <FormInput
-                            ref={ref => this.emailInput = ref}
+                            ref={component => this._emailInput = component}
                             clearButtonMode="always"
-                            containerRef="emailcontainerRef"
-                            textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
                             autoCapitalize="none"
                             onChangeText={(text) => this.setEmail(text)}
