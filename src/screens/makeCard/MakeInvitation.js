@@ -337,7 +337,7 @@ export default class MakeInvitation extends Component {
                 borderColor: 'transparent',
                 borderWidth: 0,
             }}
-            containerViewStyle={{width: 60,}}
+            containerViewStyle={{width: 40}}
 
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
@@ -384,12 +384,9 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 1})
-                                    })}
-
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 1})
+                                })}
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -406,13 +403,10 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 2})
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 2})
 
-                                    })}
-
-                                </View>
+                                })}
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -429,11 +423,9 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 3})
-                                    })}
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 3})
+                                })}
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -450,11 +442,10 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 4})
-                                    })}
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 4})
+                                })}
+
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -471,11 +462,9 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 5})
-                                    })}
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 5})
+                                })}
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -492,11 +481,9 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 6})
-                                    })}
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 6})
+                                })}
                             </View>
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
@@ -513,11 +500,9 @@ export default class MakeInvitation extends Component {
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
                                     />
                                 </View>
-                                <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                    {this.renderIcon("cog", () => {
-                                        this.setState({modalVisible: true, modalIndex: 7})
-                                    })}
-                                </View>
+                                {this.renderIcon("cog", () => {
+                                    this.setState({modalVisible: true, modalIndex: 7})
+                                })}
                             </View>
 
                         </View>
@@ -599,7 +584,7 @@ export default class MakeInvitation extends Component {
                     : null}
                 <ImageBackground
                     source={{uri: imageUrl}}
-                    style={[cardStyle.cardImage,this.state.loading ? {opacity: 0} : {opacity: 1}]}
+                    style={[cardStyle.cardImage, this.state.loading ? {opacity: 0} : {opacity: 1}]}
                     imageStyle={{resizeMode: 'contain'}}
                 >
                     {this.renderIconPanel()}

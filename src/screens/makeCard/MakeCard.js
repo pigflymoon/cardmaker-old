@@ -327,7 +327,7 @@ export default class MakeCard extends Component {
                 borderColor: 'transparent',
                 borderWidth: 0,
             }}
-            containerViewStyle={{width: 60,}}
+            containerViewStyle={{width: 40,}}
             textStyle={{fontWeight: '700', color: colors.secondary2}}
         />
     )
@@ -452,12 +452,12 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input1')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
+
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 1})
                                         })}
 
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -474,13 +474,12 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input2')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 2})
 
                                         })}
 
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -497,11 +496,10 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input3')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 3})
                                         })}
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -518,11 +516,11 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input4')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
+
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 4})
                                         })}
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -539,11 +537,10 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input5')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 5})
                                         })}
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -560,11 +557,10 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input6')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                        {this.renderIcon("cog", () => {
+                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 6})
                                         })}
-                                    </View>
+
                                 </View>
                                 <View style={cardStyle.inputContainer}>
                                     <View style={{flex: 1, flexGrow: 6}}>
@@ -581,11 +577,10 @@ export default class MakeCard extends Component {
                                             onChangeText={(text) => this.setWishwords(text, 'input7')}
                                         />
                                     </View>
-                                    <View style={{flex: 1, flexGrow: 1, marginRight: 10,}}>
-                                        {this.renderIcon("cog", () => {
+                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 7})
                                         })}
-                                    </View>
+
                                 </View>
 
                             </View>
