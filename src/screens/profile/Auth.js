@@ -76,17 +76,20 @@ export default class Auth extends Component {
 
     selectCategory = (selectedCategory) => {
         LayoutAnimation.easeInEaseOut();
+        console.log('ref is :', this.passwordInput);
+        this.emailInput.refs.emailInputRef.setNativeProps({ text: ' ' });
+        this.passwordInput.refs.passwordInputRef.setNativeProps({ text: ' ' });
         this.setState({
             selectedCategory,
             isLoading: false,
             errorMessage: '',
             email: '',
+            password: '',
         });
-        console.log('ref is :', this.emailInput);
-        this.emailInput.refs.emailInputRef.setNativeProps({ text: ' ' });
+
+
         // this.refs.emailInput.refs.emailInputRef;
         // this.emailInput.setNativeProps({ text: ' ' });
-        this.passwordInput.clearText();
 
 
     }
@@ -369,9 +372,7 @@ export default class Auth extends Component {
 
 
                         <FormInput
-                            ref={(input) => {
-                                this.passwordInput = input
-                            }}
+                            ref={ref => this.passwordInput = ref}
                             secureTextEntry
                             containerRef="passwordcontainerRef"
                             textInputRef="passwordInputRef"
