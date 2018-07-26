@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity,} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity} from 'react-native';
 
 import {Card, Icon,} from 'react-native-elements';
 
@@ -17,10 +17,8 @@ import layoutStyle from '../styles/layout';
 import cardStyle from '../styles/card';
 
 import refreshMore from '../assets/images/refreshMore.jpg';
-import CategoryConfig from '../config/CategoryConfig';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 var likedCards = [], dislikedCards = [], savedCards = [], favoriteCardCount = 10, favoriteCardNumber = 0;
 
@@ -41,7 +39,8 @@ export default class CardsDeck extends Component {
                 key={card.id}
                 containerStyle={{
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 400,
+                    height: 280,
+                    flex: 1,
                 }}
                 featuredTitle={`${card.title}`}
                 featuredTitleStyle={{
@@ -53,7 +52,8 @@ export default class CardsDeck extends Component {
                 image={{uri: card.illustration}}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 402,
+                    height: 280,
+
                 }}
             />
         );
@@ -208,8 +208,6 @@ export default class CardsDeck extends Component {
                         imagesData: images
                     });
                 })
-                // }
-
             })
         }
 
@@ -224,14 +222,14 @@ export default class CardsDeck extends Component {
             <Card
                 containerStyle={{
                     width: SCREEN_WIDTH * 0.92,
-                    height: SCREEN_HEIGHT - 400,
+                    height: 280,
                 }}
                 featuredTitle="No more cards"
                 featuredTitleStyle={{fontSize: 25}}
                 image={refreshMore}
                 imageStyle={{
                     width: SCREEN_WIDTH * 0.915,
-                    height: SCREEN_HEIGHT - 402
+                    height: 280
                 }}
             />
         );
@@ -271,7 +269,6 @@ export default class CardsDeck extends Component {
                         }}
                     />
                 </View>
-
             </View>
         );
     }
@@ -282,6 +279,7 @@ export default class CardsDeck extends Component {
                 flexGrow: 2,
                 flexDirection: 'column',
                 marginBottom: 10,
+
             }]}>
                 <View style={cardStyle.deck}>
                     <SwipeDeck

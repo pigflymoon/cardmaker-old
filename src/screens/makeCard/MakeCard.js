@@ -318,7 +318,7 @@ export default class MakeCard extends Component {
     renderIcon = (name, onPress) => (
         <Button
             title=""
-            icon={{name: name, type: 'font-awesome', color: colors.secondary2, size: 24}}
+            icon={{name: name, type: 'font-awesome', color: colors.secondary2, size: 26}}
             onPress={onPress}
             buttonStyle={{
                 padding: 0,

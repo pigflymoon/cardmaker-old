@@ -144,7 +144,7 @@ export default class SwipeDeck extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{flex:1}}>
                 {this.renderCards()}
             </View>
         );

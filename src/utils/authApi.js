@@ -30,7 +30,7 @@ export function renderAuthBox(isLoading = false, navigation) {
             >
                 <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
-                        <View style={authStyle.titleContainer}>
+                        <View style={[authStyle.titleContainer, {marginVertical: 20}]}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={authStyle.titleText}>Welcome to Cardmaker App</Text>
                             </View>

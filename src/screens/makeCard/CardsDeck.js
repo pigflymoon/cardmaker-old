@@ -206,7 +206,7 @@ export default class CardsDeck extends Component {
         if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
-                    <ScrollView style={{flex: 1, flexDirection: 'column', height: 220}}>
+                    <ScrollView style={{flex: 1, flexDirection: 'column', flexGrow:2,}}>
                         <ButtonGroup
                             onPress={this.updateCategory}
                             selectedIndex={selectedIndex}
@@ -219,7 +219,7 @@ export default class CardsDeck extends Component {
                             {this.renderTabs(category)}
                         </View>
                     </ScrollView>
-                    <View style={{flex: 1,}}>
+                    <View style={{flex: 1,flexGrow:3,}}>
 
                         <CardDeck
                             imageType={this.state.imageType}
