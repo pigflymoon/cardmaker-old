@@ -65,8 +65,8 @@ export default class Auth extends Component {
             welcomeCard: false,
             showSignBox: true,
             errorMessage: false,
-            validateEmailMessage: 'Please enter a valid email address',
-            validatePasswordMessage: 'Please enter at least 6 characters',
+            validateEmailInfo: 'Please enter a valid email address',
+            validatePasswordInfo: 'Please enter a valid password',
             validateNameMessage: 'Please enter a valid name',
 
         };
@@ -76,13 +76,17 @@ export default class Auth extends Component {
 
     selectCategory = (selectedCategory) => {
         LayoutAnimation.easeInEaseOut();
-
         this.setState({
             selectedCategory,
             isLoading: false,
             errorMessage: '',
             email: '',
         });
+        console.log('ref is :', this.emailInput);
+        this.emailInput.refs.emailInputRef.setNativeProps({ text: ' ' });
+        // this.refs.emailInput.refs.emailInputRef;
+        // this.emailInput.setNativeProps({ text: ' ' });
+        this.passwordInput.clearText();
 
 
     }
@@ -91,6 +95,7 @@ export default class Auth extends Component {
         this.props.navigation.navigate('ResetPassword', {});
     }
     handleSignin = (e) => {
+        console.log('error message is ', this.state.errorMessage)
         var self = this;
         e.preventDefault();
         const {
@@ -99,11 +104,18 @@ export default class Auth extends Component {
         } = this.state;
         if (!Utils.validateEmail(email)) {
             this.setState({
-                errorMessage: this.state.validateEmailMessage,
+                errorMessage: this.state.validateEmailInfo,
             });
             return false;
 
         }
+        if (!(password.length >= 6) || password == '') {
+            this.setState({
+                errorMessage: this.state.validatePasswordInfo,
+            });
+            return false;
+        }
+
         this.setState({isLoading: true});
 
         setTimeout(() => {
@@ -204,6 +216,8 @@ export default class Auth extends Component {
     }
 
     handleSignup = (e) => {
+        console.log('error message is ', this.state.errorMessage)
+
         e.preventDefault();
         //
         const {
@@ -211,17 +225,18 @@ export default class Auth extends Component {
             password,
             name,
         } = this.state;
+        console.log('email is ', email);
 
         if (!Utils.validateEmail(email)) {
             this.setState({
-                errorMessage: this.state.validateEmailMessage,
+                errorMessage: this.state.validateEmailInfo,
             });
             return false;
 
         }
-        if (!(password.length >= 6)) {
+        if (!(password.length >= 6) || password == '') {
             this.setState({
-                errorMessage: this.state.validatePasswordMessage,
+                errorMessage: this.state.validatePasswordInfo,
             });
             return false;
         }
@@ -309,8 +324,10 @@ export default class Auth extends Component {
             selectedCategory,
             isLoading,
         } = this.state;
+        console.log('error message in box ', this.state.errorMessage)
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
+        const isSignUpEmailInfo = isLoginPage ? 'Please enter your password...' : 'Please enter at least 6 characters';
         return (
             <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
@@ -339,43 +356,42 @@ export default class Auth extends Component {
                     </View>
                     <View style={authStyle.formContainer}>
                         <FormInput
-                            ref="email"
+                            ref={ref => this.emailInput = ref}
+                            clearButtonMode="always"
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
                             placeholder="Please enter your email..."
-                            autoCapitalize = "none"
+                            autoCapitalize="none"
                             onChangeText={(text) => this.setEmail(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
-                        <FormValidationMessage containerStyle={authStyle.validateContainer}
-                                               labelStyle={authStyle.validateLabel}>
-                            {this.state.validateEmailMessage}
-                        </FormValidationMessage>
+
 
                         <FormInput
-                            ref="password"
+                            ref={(input) => {
+                                this.passwordInput = input
+                            }}
                             secureTextEntry
                             containerRef="passwordcontainerRef"
                             textInputRef="passwordInputRef"
-                            placeholder="Please enter your password..."
-                            autoCapitalize = "none"
+                            placeholder={isSignUpEmailInfo}
+                            autoCapitalize="none"
                             onChangeText={(text) => this.setPassword(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}
                         />
 
-                        <FormValidationMessage containerStyle={authStyle.validateContainer}
-                                               labelStyle={authStyle.validateLabel}>
-                            {this.state.validatePasswordMessage}
-                        </FormValidationMessage>
+
                         {isSignUpPage &&
                         <FormInput
-                            ref="name"
+                            ref={(input) => {
+                                this.nameInput = input
+                            }}
                             containerRef="namecontainerRef"
                             textInputRef="nameInputRef"
                             placeholder="Please enter your name..."
-                            autoCapitalize = "none"
+                            autoCapitalize="none"
                             onChangeText={(text) => this.setName(text)}
                             inputStyle={authStyle.inputText}
                             containerStyle={authStyle.inputContainer}

@@ -48,7 +48,7 @@ export default{
         width: 200,
     },
     titleContainer: {
-        height: 100,
+        height: 50,
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },
@@ -56,8 +56,7 @@ export default{
         backgroundColor: colors.white,
         width: SCREEN_WIDTH - 30,
         borderRadius: 10,
-        paddingTop: 32,
-        paddingBottom: 32,
+        paddingVertical:20,
         alignItems: 'center',
     },
     loginText: {
@@ -70,21 +69,18 @@ export default{
         textAlign: 'center',
         color: 'white',
         fontSize: 24,
-        // fontFamily: 'light',
         backgroundColor: 'transparent',
         opacity: 0.54,
     },
     selectedCategoryText: {
         opacity: 1,
-        fontSize: 28,
+        fontSize: 22,
     },
     titleText: {
         color: colors.white,
-        fontSize: 22,
-        // fontFamily: 'georgia',
+        fontSize: 24,
     },
     helpContainer: {
-        // height: 64,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -97,7 +93,7 @@ export default{
     },
     inputContainer: {
         width: SCREEN_WIDTH - 60,
-        marginTop: 16,
+        marginTop: 10,
         borderBottomColor: 'rgba(0, 0, 0, 0.38)',
 
     },
