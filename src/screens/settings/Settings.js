@@ -37,7 +37,7 @@ export default class Settings extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            version: '2.1.0',
+            version: '2.1.1',
             isPro: 'Disabled',
             versionColor: colors.grey2,
             bgImage: graybg,
