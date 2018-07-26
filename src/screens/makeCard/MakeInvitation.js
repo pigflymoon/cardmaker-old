@@ -160,7 +160,6 @@ export default class MakeInvitation extends Component {
             strTemp = trimmedString.substring(0, pos)
             str = str.substring(pos, n)
             //在截取的指定长度的字符串添加\n 标签实现换行并返回
-            console.log('return string is ', strTemp + '\n' + this.insertEnter(str, n));
             return strTemp + '\n' + this.insertEnter(str, n);
         } else {
             return str;

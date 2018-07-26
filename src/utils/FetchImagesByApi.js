@@ -107,7 +107,6 @@ export function getFreeUserImagesCount() {
 
             db.ref('freeUser/imageCount').once('value', function (snapshot) {
                 let showFreeImagesCount = snapshot.val() || CategoryConfig.showFreeImagesNumber;
-                console.log('showFreeImagesCount is ', showFreeImagesCount)
                 resolve(showFreeImagesCount);
 
             });

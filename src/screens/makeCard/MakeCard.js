@@ -287,7 +287,6 @@ export default class MakeCard extends Component {
                 markerScale: 0.5, // scale of icon
                 quality: 100 // quality of image
             }).then((resultPath) => {
-                console.log('########mark image path is ', resultPath)
                 self.setState({
                     show: true,
                     loading: false,

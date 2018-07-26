@@ -140,7 +140,6 @@ export default class ImagesGallery extends Component {
         if (this.state.lodingFinished) {
             return false
         } else {
-            console.log('loading finished??')
             this.fetchData(cardType).then(function (pages) {
                 var images = self.state.cardsData;
                 images = [...images, ...pages]

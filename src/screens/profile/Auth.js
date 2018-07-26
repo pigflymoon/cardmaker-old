@@ -92,7 +92,6 @@ export default class Auth extends Component {
         this.props.navigation.navigate('ResetPassword', {});
     }
     handleSignin = (e) => {
-        console.log('error message is ', this.state.errorMessage)
         var self = this;
         e.preventDefault();
         const {
@@ -220,7 +219,6 @@ export default class Auth extends Component {
             password,
             name,
         } = this.state;
-        console.log('email is ', email);
 
         if (!Utils.validateEmail(email)) {
             this.setState({
@@ -319,7 +317,6 @@ export default class Auth extends Component {
             selectedCategory,
             isLoading,
         } = this.state;
-        console.log('error message in box ', this.state.errorMessage)
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
         const isSignUpEmailInfo = isLoginPage ? 'Please enter your password...' : 'Please enter at least 6 characters';
