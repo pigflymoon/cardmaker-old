@@ -1,5 +1,3 @@
-import colors from '../styles/colors';
-
 export default CardConfig = {
     textPostion: [{
         value: 'topLeft'
