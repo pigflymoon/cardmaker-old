@@ -92,7 +92,6 @@ export default class CardsDeck extends Component {
                             saveFavoriteCard(userId, name, currentCard.id, currentCard.illustration, currentCard.title)
                                 .then((data) => {
                                     if (data) {
-                                        console.log('data is ########', data)
                                         console.log('Saved successfully!')
                                     } else {
                                         console.log('Already exists!')

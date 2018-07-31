@@ -168,7 +168,6 @@ export default class Auth extends Component {
 
     registerUserAndWaitEmailVerification(email, password) {
         var self = this;
-        console.log('create user email ??', email)
         return new Promise(function (resolve, reject) {
             auth.createUserWithEmailAndPassword(email, password).then(function (userCredential) {
                 if (userCredential.user) {
