@@ -98,14 +98,14 @@ const ProfileTab = StackNavigator({
     ConfirmEmail: {
         screen: ConfirmEmailScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Confirm email',
+            title: 'Confirm Email',
             headerLeft: null,
         }),
     },
     ResetPassword: {
         screen: ResetPasswordScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Reset password',
+            title: 'Reset Password',
             headerTintColor: colors.secondary2,
         }),
     },

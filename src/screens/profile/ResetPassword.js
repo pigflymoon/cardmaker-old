@@ -17,6 +17,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 import {auth} from '../../config/FirebaseConfig';
+import  Utils from '../../utils/utils';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
@@ -53,9 +54,11 @@ export default class ResetPassword extends Component {
                 // Email sent.
                 self.setState({
                     isLoading: false,
-                    infoMessage: `Reset password sent to the emailAddress,please check your email ${emailAddress}`
+                }, () => {
+                    Utils.infoAlert('Email Sent', `Reset password sent to the email Address,\n please check your email ${emailAddress}`);
+                    self.props.navigation.navigate('Auth');
                 });
-                self.props.navigation.navigate('Auth');
+
             }, function (error) {
                 self.setState({
                     errorMessage: 'Error: ' + error,
@@ -84,10 +87,9 @@ export default class ResetPassword extends Component {
         return (
             <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
-                    <View style={authStyle.titleContainer}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={authStyle.titleText}>Cardmaker App</Text>
-                        </View>
+                    <View style={authStyle.resetPasswordTitleContainer}>
+                        <Text style={authStyle.subtitleText}>Not to worry. We got you!</Text>
+                        <Text style={authStyle.subtitleText}> Let's get you a new password.</Text>
                     </View>
                     <View style={authStyle.formContainer}>
                         <FormInput

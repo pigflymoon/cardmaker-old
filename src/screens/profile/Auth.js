@@ -168,19 +168,22 @@ export default class Auth extends Component {
 
     registerUserAndWaitEmailVerification(email, password) {
         var self = this;
-        console.log('create user email ??',email)
+        console.log('create user email ??', email)
         return new Promise(function (resolve, reject) {
-            auth.createUserWithEmailAndPassword(email, password).then(function (user) {
-                if (user) {
-                    console.log('create user ??',user," id is ",user.uid)
+            auth.createUserWithEmailAndPassword(email, password).then(function (userCredential) {
+                if (userCredential.user) {
                     // Create a user in your own accessible Firebase Database too
-                    var uid = user.user.uid;
-                    console.log('uid is ',uid)
+                    var uid = userCredential.user.uid;
                     doCreateUser(uid, self.state.name, email)
                         .then(() => {
-                        console.log('create user finished!')
-                            user.updateProfile({displayName: self.state.name});
-                            self.props.navigation.navigate('ConfirmEmail', {user: user, email: email});
+                            userCredential.user.updateProfile({displayName: self.state.name}).then(function () {
+                                self.props.navigation.navigate('ConfirmEmail', {
+                                    user: userCredential.user,
+                                    email: email
+                                });
+                            }, function (error) {
+                                console.log('Update Profile error', error)
+                            });
                         })
                         .catch(error => {
                             self.setState({
@@ -315,6 +318,7 @@ export default class Auth extends Component {
 
             }
         })
+
     }
 
     renderSignBox = () => {

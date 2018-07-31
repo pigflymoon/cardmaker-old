@@ -52,11 +52,16 @@ export default{
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },
+    resetPasswordTitleContainer: {
+        marginVertical: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+    },
     formContainer: {
         backgroundColor: colors.white,
         width: SCREEN_WIDTH - 30,
         borderRadius: 10,
-        paddingVertical:20,
+        paddingVertical: 20,
         alignItems: 'center',
     },
     loginText: {
@@ -80,6 +85,16 @@ export default{
         color: colors.white,
         fontSize: 24,
     },
+    infoTitle:{
+        color: colors.white,
+        fontSize: 22,
+        textAlign:'center',
+    },
+    subtitleText: {
+        color: colors.white,
+        fontSize: 18,
+        textAlign:'center',
+    },
     helpContainer: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -97,9 +112,9 @@ export default{
         borderBottomColor: 'rgba(0, 0, 0, 0.38)',
 
     },
-    inputText:{
+    inputText: {
         marginLeft: 20,
-        color:colors.grey1,
+        color: colors.grey1,
     },
     validateContainer: {
         marginTop: 5,
@@ -121,9 +136,9 @@ export default{
     noButtonText: {
         fontSize: 16,
     },
-    infoText:{
+    infoText: {
         marginBottom: 10,
-        color:colors.grey1,
+        color: colors.grey1,
 
     }
 }
