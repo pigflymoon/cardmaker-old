@@ -42,7 +42,7 @@ export function renderAuthBox(isLoading = false, navigation) {
 
                             <Button
                                 buttonStyle={authStyle.loginButton}
-                                containerViewStyle={{marginTop: 32, flex: 0}}
+                                containerViewStyle={authStyle.authButtonContainer}
                                 activeOpacity={0.8}
                                 title={'SIGN IN / SIGN UP'}
                                 onPress={() => navigateToAuth(navigation)}

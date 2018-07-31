@@ -128,7 +128,7 @@ export default class Auth extends Component {
                                 signin: true,
                                 welcomeCard: true,
                                 showSignBox: false,
-                                title: `Hi ${displayName}, Welcome to cardmaker!`,
+                                title: `Hi ${displayName}, Welcome to Cardmaker App!`,
                                 //
                             })
 
@@ -312,7 +312,7 @@ export default class Auth extends Component {
                     signin: true,
                     welcomeCard: true,
                     showSignBox: false,
-                    title: `Hi ${displayName}, Welcome to cardmaker!`,
+                    title: `Hi ${displayName}, Welcome to Cardmaker App!`,
                     //
                 })
 
@@ -435,7 +435,7 @@ export default class Auth extends Component {
                 containerStyle={[authStyle.formContainer]}
                 title={this.state.title}
                 image={bg1}>
-                <Text style={{marginBottom: 10}}>
+                <Text style={authStyle.infoText}>
                     Please pick your picture from libaray to make your card, have fun!
                 </Text>
                 <Button

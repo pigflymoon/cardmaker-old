@@ -61,7 +61,7 @@ export default{
         backgroundColor: colors.white,
         width: SCREEN_WIDTH - 30,
         borderRadius: 10,
-        paddingVertical: 20,
+        padding: 20,
         alignItems: 'center',
     },
     loginText: {
