@@ -475,7 +475,6 @@ export default class MakeCard extends Component {
                                     </View>
                                         {this.renderIcon("cog", () => {
                                             this.setState({modalVisible: true, modalIndex: 2})
-
                                         })}
 
 
