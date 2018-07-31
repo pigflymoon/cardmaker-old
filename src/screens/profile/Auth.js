@@ -436,7 +436,7 @@ export default class Auth extends Component {
                 title={this.state.title}
                 image={bg1}>
                 <Text style={authStyle.infoText}>
-                    Please pick your picture from libaray to make your card, have fun!
+                    Please pick your picture from library to make your card, have fun!
                 </Text>
                 <Button
                     buttonStyle={authStyle.loginButton}

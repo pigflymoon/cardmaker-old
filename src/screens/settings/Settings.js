@@ -96,7 +96,7 @@ export default class Settings extends Component {
                             isPro: 'Available',
                             unlock: true,
                             bgImage: probg,
-                            versionColor: colors.green,
+                            versionColor: colors.orange,
                         });
                     }
 
@@ -203,7 +203,7 @@ export default class Settings extends Component {
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'favorite', color: this.state.versionColor}}
+                        leftIcon={{name: 'wb-incandescent', color: this.state.versionColor}}
                         title={`PRO Version`}
                         titleStyle={this.titleStyle()}
                         rightTitle={this.state.isPro}
