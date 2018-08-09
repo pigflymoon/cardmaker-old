@@ -8,9 +8,11 @@ import {
     View,
     NetInfo,
 } from 'react-native';
-
+import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 import MainTabs from './src/MainTabs';
 import  Utils from './src/utils/utils';
+
+const tracker = new GoogleAnalyticsTracker("1:588144564200:ios:c2b8c2188ab5b13c");
 
 export default class App extends Component {
 
@@ -101,6 +103,9 @@ export default class App extends Component {
                     const currentScreen = this.getCurrentRouteName(currentState);
                     const prevScreen = this.getCurrentRouteName(prevState);
                     if (prevScreen !== currentScreen) {
+                        // the line below uses the Google Analytics tracker
+                        // change the tracker here to use other Mobile analytics SDK.
+                        tracker.trackScreenView(currentScreen);
                         this.setState({currentScreen: currentScreen})
                     }
                 }}
