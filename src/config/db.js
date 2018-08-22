@@ -16,7 +16,23 @@ export const doCreateUser = (id, username, email) =>
         username,
         email,
         role: {free_user: true, paid_user: false, admin: false}
+    }, function (error) {
+        if (error) {
+            // The write failed...
+            console.log('create user error')
+        } else {
+            console.log('create user successfully!!')
+            updateUserCount();
+        }
     });
+
+export const updateUserCount = () => db.ref('/user-count').once('value').then(function (snapshot) {
+    console.log("There are " + snapshot.numChildren() + " users");
+    return snapshot.numChildren() + 1;
+
+}).then(function (number) {
+    db.ref('/user-count').set({number})
+})
 
 export const saveFavoriteCard = (userid, username, cardId, cardUrl, cardName) => {
     return new Promise(function (resolve, reject) {
