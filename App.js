@@ -8,10 +8,12 @@ import {
     View,
     NetInfo,
 } from 'react-native';
+import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
+// Optional: Flow type
+import type {RemoteMessage} from 'react-native-firebase';
 import {GoogleAnalyticsTracker} from 'react-native-google-analytics-bridge';
 import MainTabs from './src/MainTabs';
 import  Utils from './src/utils/utils';
-import firebase from 'react-native-firebase';
 const tracker = new GoogleAnalyticsTracker("1:588144564200:ios:c2b8c2188ab5b13c");
 
 export default class App extends Component {
@@ -83,15 +85,15 @@ export default class App extends Component {
     componentDidMount() {
 //
 
-        firebase.messaging().hasPermission()
+        reactFirebase.messaging().hasPermission()
             .then(enabled => {
                 if (enabled) {
-                    firebase.messaging().getToken().then(token => {
+                    reactFirebase.messaging().getToken().then(token => {
                         console.log("LOG: ", token);
                     })
                     // user has permissions
                 } else {
-                    firebase.messaging().requestPermission()
+                    reactFirebase.messaging().requestPermission()
                         .then(() => {
                             alert("User Now Has Permission")
                         })
@@ -101,6 +103,32 @@ export default class App extends Component {
                         });
                 }
             });
+
+        this.notificationOpenedListener = reactFirebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
+            reactFirebase.notifications().setBadge(0);
+            console.log(' opened clean number')
+
+        });
+        //App Closed
+        this.getInitialNotificationListener = reactFirebase.notifications().getInitialNotification()
+            .then((notificationOpen: NotificationOpen) => {
+
+                if (notificationOpen) {
+                    // App was opened by a notification
+                    // Get the action triggered by the notification being opened
+                    reactFirebase.notifications().setBadge(0);
+
+                    const action = notificationOpen.action;
+                    // Get information about the notification that was opened
+                    const notification: Notification = notificationOpen.notification;
+
+                    console.log('App closed. notification opened:', notification, notification.body, 'title: ', notification.title)
+
+                } else {
+                    console.log('not opened')
+                }
+            });
+
         //
         NetInfo.addEventListener(
             'connectionChange',
@@ -110,6 +138,10 @@ export default class App extends Component {
 
     }
 
+    componentWillUnmount() {
+        this.getInitialNotificationListener();
+        this.notificationOpenedListener();
+    }
 
     render() {
         return (
