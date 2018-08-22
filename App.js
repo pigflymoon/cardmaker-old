@@ -8,10 +8,10 @@ import {
     View,
     NetInfo,
 } from 'react-native';
-import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
+import {GoogleAnalyticsTracker} from 'react-native-google-analytics-bridge';
 import MainTabs from './src/MainTabs';
 import  Utils from './src/utils/utils';
-
+import firebase from 'react-native-firebase';
 const tracker = new GoogleAnalyticsTracker("1:588144564200:ios:c2b8c2188ab5b13c");
 
 export default class App extends Component {
@@ -81,6 +81,27 @@ export default class App extends Component {
 
 
     componentDidMount() {
+//
+
+        firebase.messaging().hasPermission()
+            .then(enabled => {
+                if (enabled) {
+                    firebase.messaging().getToken().then(token => {
+                        console.log("LOG: ", token);
+                    })
+                    // user has permissions
+                } else {
+                    firebase.messaging().requestPermission()
+                        .then(() => {
+                            alert("User Now Has Permission")
+                        })
+                        .catch(error => {
+                            alert("Error", error)
+                            // User has rejected permissions
+                        });
+                }
+            });
+        //
         NetInfo.addEventListener(
             'connectionChange',
             this.handleConnectivityChange

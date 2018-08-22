@@ -16,6 +16,7 @@
 		062845B81F174AF585DB456D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB951BA715A746F193CA5BF4 /* Ionicons.ttf */; };
 		0776A55A2BBD4D19B023DAA7 /* libRNStoreReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 920C56E679754B9382217E5C /* libRNStoreReview.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		138047C56BD84ECAA08FA463 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB84586D5F384B599A2381A5 /* libRNFirebase.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -41,7 +42,6 @@
 		8D0580E0212CD9F30091A71F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0580DF212CD9F30091A71F /* libsqlite3.0.tbd */; };
 		8D5472712111A55D00988595 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D5472702111A55D00988595 /* GoogleService-Info.plist */; };
 		8DCC0F7C1FCCF682006F66FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCC0F7B1FCCF682006F66FB /* StoreKit.framework */; };
-		8DCC0F7E1FCCF684006F66FB /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCC0F7D1FCCF684006F66FB /* GameKit.framework */; };
 		8E2E0402C6D84E9BBEE693EA /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C940CF719C1C48F79F4CAA1A /* libRNShare.a */; };
 		902DFC8D9B284AB2B24257B9 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F977418C8B54C568BD2EC5F /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -236,6 +236,13 @@
 			remoteGlobalIDString = A79185C61C30694E001236A6;
 			remoteInfo = RCTGoogleAnalyticsBridge;
 		};
+		8D058185212D06860091A71F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DE97ABBEFA34AA29089575E /* RNFirebase.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFirebase;
+		};
 		8D0829BC2096DDD200217FBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E6E1DFB53974A1FBA21EBB7 /* RNVersionCheck.xcodeproj */;
@@ -407,6 +414,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		14766780AD3048CE852074AF /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		1A8832F32F324273B8431029 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		1DE97ABBEFA34AA29089575E /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		1F5059F5C6914504B940DB42 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../src/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		27B0BFB4F17A4B85813440BF /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		287553720A2E43A9A4EE370F /* libRNBackgroundTimer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBackgroundTimer.a; sourceTree = "<group>"; };
@@ -432,9 +440,9 @@
 		8D0580DB212CD9E50091A71F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8D0580DD212CD9EB0091A71F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8D0580DF212CD9F30091A71F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		8D058187212D069E0091A71F /* cardmaker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = cardmaker.entitlements; path = cardmaker/cardmaker.entitlements; sourceTree = "<group>"; };
 		8D5472702111A55D00988595 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DCC0F7B1FCCF682006F66FB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		8DCC0F7D1FCCF684006F66FB /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		8F977418C8B54C568BD2EC5F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		920C56E679754B9382217E5C /* libRNStoreReview.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNStoreReview.a; sourceTree = "<group>"; };
 		934A604A9B6C4E47AA22F3CF /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -443,6 +451,7 @@
 		A26DFB4BFB0E49C0913B647A /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Light.ttf"; path = "../src/assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; };
 		AB207906A9BB45AF87D78424 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		AB214280EBBA47CD8F5032A2 /* libRNVersionCheck.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVersionCheck.a; sourceTree = "<group>"; };
+		AB84586D5F384B599A2381A5 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		BB2B33469DFF4A12A65CC23D /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		BDCCC5F7474D4088B420CA07 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -479,7 +488,6 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				8DCC0F7E1FCCF684006F66FB /* GameKit.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				60794965C50A4F05B73FDB46 /* libRNVectorIcons.a in Frameworks */,
 				6700A2DD345E4C3694104C89 /* libRNFetchBlob.a in Frameworks */,
@@ -490,6 +498,7 @@
 				D670160B2B53407BBF7C8B29 /* libFastImage.a in Frameworks */,
 				B04B9D3AD7E141B1BD0E03CE /* libRNVersionCheck.a in Frameworks */,
 				01108558FC89A9FAFEB2D20E /* libPods-cardmaker.a in Frameworks */,
+				138047C56BD84ECAA08FA463 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +612,7 @@
 		13B07FAE1A68108700A75B9A /* cardmaker */ = {
 			isa = PBXGroup;
 			children = (
+				8D058187212D069E0091A71F /* cardmaker.entitlements */,
 				8D5472702111A55D00988595 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -680,6 +690,7 @@
 				CF414EC0606B4F1685E2C24A /* RCTImageMarker.xcodeproj */,
 				648004474DE643E0A89EAB84 /* FastImage.xcodeproj */,
 				4E6E1DFB53974A1FBA21EBB7 /* RNVersionCheck.xcodeproj */,
+				1DE97ABBEFA34AA29089575E /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -722,6 +733,14 @@
 			isa = PBXGroup;
 			children = (
 				8D0580D7212CD93B0091A71F /* libRCTGoogleAnalyticsBridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D058182212D06860091A71F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D058186212D06860091A71F /* libRNFirebase.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -790,7 +809,6 @@
 				8D0580DD212CD9EB0091A71F /* libz.tbd */,
 				8D0580DB212CD9E50091A71F /* SystemConfiguration.framework */,
 				8D0580D9212CD9D70091A71F /* CoreData.framework */,
-				8DCC0F7D1FCCF684006F66FB /* GameKit.framework */,
 				8DCC0F7B1FCCF682006F66FB /* StoreKit.framework */,
 				8BB8DA667AF3B1E50250999A /* libPods-cardmaker.a */,
 			);
@@ -809,6 +827,7 @@
 				E10D72393FF848EFB50F8D65 /* libRCTImageMarker.a */,
 				83346DCC839B4D39865568E1 /* libFastImage.a */,
 				AB214280EBBA47CD8F5032A2 /* libRNVersionCheck.a */,
+				AB84586D5F384B599A2381A5 /* libRNFirebase.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -851,8 +870,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				1BBF729B715DA7A0DC15560E /* [CP] Embed Pods Frameworks */,
-				67B7D02FCAF62876E34CDD3A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -876,10 +893,16 @@
 						DevelopmentTeam = TFYB97VTU3;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
-							com.apple.GameCenter = {
+							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -965,6 +988,10 @@
 				{
 					ProductGroup = 8DC340781FC50D4800FD7A41 /* Products */;
 					ProjectRef = BB2B33469DFF4A12A65CC23D /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 8D058182212D06860091A71F /* Products */;
+					ProjectRef = 1DE97ABBEFA34AA29089575E /* RNFirebase.xcodeproj */;
 				},
 				{
 					ProductGroup = 8DC340BB1FC6749600FD7A41 /* Products */;
@@ -1173,6 +1200,13 @@
 			remoteRef = 8D0580D6212CD93B0091A71F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8D058186212D06860091A71F /* libRNFirebase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFirebase.a;
+			remoteRef = 8D058185212D06860091A71F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8D0829BD2096DDD200217FBD /* libRNVersionCheck.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1361,49 +1395,22 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		1BBF729B715DA7A0DC15560E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cardmaker/Pods-cardmaker-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2F01F5E92ADBB16210EF5BFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-cardmaker-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		67B7D02FCAF62876E34CDD3A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cardmaker/Pods-cardmaker-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1439,6 +1446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = cardmaker/cardmaker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1455,11 +1463,13 @@
 					"$(SRCROOT)/../node_modules/react-native-image-marker/ios/RCTImageMarker",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 					"$(SRCROOT)/../node_modules/react-native-version-check/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = cardmaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
@@ -1473,7 +1483,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "7933089a-ec55-42c1-a382-5579851b386d";
+				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1486,6 +1496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = cardmaker/cardmaker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TFYB97VTU3;
@@ -1501,11 +1512,13 @@
 					"$(SRCROOT)/../node_modules/react-native-image-marker/ios/RCTImageMarker",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 					"$(SRCROOT)/../node_modules/react-native-version-check/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = cardmaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
 					"\"$(SRCROOT)/cardmaker\"",
@@ -1519,7 +1532,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "7933089a-ec55-42c1-a382-5579851b386d";
+				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
