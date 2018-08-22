@@ -21,13 +21,11 @@ export const doCreateUser = (id, username, email) =>
             // The write failed...
             console.log('create user error')
         } else {
-            console.log('create user successfully!!')
             updateUserCount();
         }
     });
 
 export const updateUserCount = () => db.ref('/user-count').once('value').then(function (snapshot) {
-    console.log("There are " + snapshot.numChildren() + " users");
     return snapshot.numChildren() + 1;
 
 }).then(function (number) {
