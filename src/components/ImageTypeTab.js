@@ -38,7 +38,7 @@ export default class ImageTypeTab extends Component {
 
     render() {
         const {category, imageType, selectedName, selectedValue} = this.props;
-        var imagesType1 = imageType.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+        var imagesType1 = imageType.replace(/([a-z])([A-Z])/g, '$1 $2');
         return (
             <Button
                 title={imagesType1}

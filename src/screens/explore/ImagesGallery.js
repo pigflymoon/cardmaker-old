@@ -211,7 +211,7 @@ export default class ImagesGallery extends Component {
                 renderTabBar={() => <ScrollableTabBar />}
             >
                 {Object.keys(imagesTypes).map((imagesType, key) => {
-                    var imagesType1 = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                    var imagesType1 = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
                     console.log('imagesType1 is ???', imagesType1);
                     return (
                         <ScrollView tabLabel={imagesType1} key={key} style={sliderTabStyle.tabView}>
