@@ -42,6 +42,7 @@ export default class ImageTypeTab extends Component {
 
     render() {
         const {category, imageType, selectedName, selectedValue} = this.props;
+        console.log('tab name is **********',imageType);
         return (
             <Button
                 title={imageType}
@@ -50,7 +51,7 @@ export default class ImageTypeTab extends Component {
                 buttonStyle={[{
                     borderRadius: 20,
                     marginBottom: 10,
-                    paddingHorizontal:0,
+                    paddingHorizontal:20,
                 }, (selectedName == imageType) &&
                 (selectedValue == true) ? {
                         backgroundColor: colors.secondary2,

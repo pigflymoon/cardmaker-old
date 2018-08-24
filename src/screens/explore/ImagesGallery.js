@@ -9,16 +9,22 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
+    ScrollView
 } from 'react-native';
 import {Card,} from 'react-native-elements';
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 import {db} from '../../config/FirebaseConfig';
 
 import ImageTypeTab from '../../components/ImageTypeTab';
 import layoutStyle from '../../styles/layout';
+import colors from '../../styles/colors';
+
 import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
+import sliderTabStyle from '../../styles/slideTab';
+
 import CategoryConfig from '../../config/CategoryConfig';
 let imageReferenceToOldestKey = '', lastImageKey = '';
 
@@ -38,9 +44,9 @@ export default class ImagesGallery extends Component {
         }
     }
 
-    getImagesPaginationByKey = (imageType = 'cards') => {
+    getImagesPaginationByKey = (category = 'cards') => {
         if (!imageReferenceToOldestKey) {
-            return db.ref().child(imageType)
+            return db.ref().child(category)
                 .orderByKey()
                 .limitToLast(5)
                 .once('value')
@@ -70,7 +76,7 @@ export default class ImagesGallery extends Component {
                 })
 
         } else {
-            return db.ref().child(imageType)
+            return db.ref().child(category)
                 .orderByKey()
                 .endAt(imageReferenceToOldestKey)
                 .limitToLast(5)
@@ -102,11 +108,11 @@ export default class ImagesGallery extends Component {
         }
 
     }
-    fetchData = async(imageType) => {
+    fetchData = async(category) => {
         var self = this;
         var allPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
-                self.getImagesPaginationByKey(imageType).then(function (allPages) {
+                self.getImagesPaginationByKey(category).then(function (allPages) {
                     var newPaidArr = [];
                     var images = self.state.allImages;
 
@@ -209,8 +215,53 @@ export default class ImagesGallery extends Component {
     }
     //
 
-    renderTabs = (imageType) => {
-        let imagesTypes = (imageType == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
+    renderScrollTabs = (category) => {
+        let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
+        console.log('imagesTypes', imagesTypes)
+        return(
+            <ScrollableTabView
+                initialPage={0}
+                tabBarInactiveTextColor={colors.secondary2}
+                tabBarActiveTextColor={colors.primary3}
+                tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
+                renderTabBar={() => <ScrollableTabBar />}
+            >
+                {Object.keys(imagesTypes).map((imagesType, key) => {
+                    return (
+                        <ScrollView tabLabel={imagesType}  key={key} style={sliderTabStyle.tabView}>
+                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+                                {this.renderTypeTabs(category, imagesTypes, imagesType)}
+                            </View>
+                        </ScrollView>
+                    )
+
+                })}
+            </ScrollableTabView>
+
+        )
+    }
+    renderTypeTabs = (category, imagesTypes, imagesType) => {
+        console.log('imagesTypes', imagesTypes);
+        return (
+            imagesTypes[imagesType].map((type, index) => {
+                console.log('type is ', type);
+                return (
+                    <ImageTypeTab key={index}
+                                  category={category}
+                                  imageType={type}
+                                  selectedName={this.state.selectedName}
+                                  selectedValue={this.state.selectedValue}
+                                  handleSelect={this.onHandleSelect}/>
+                )
+
+
+            })
+        )
+
+
+    }
+    renderTabs = (category) => {
+        let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
         return (
             Object.keys(imagesTypes).map((imagesType, key) => {
                 return (
@@ -224,7 +275,7 @@ export default class ImagesGallery extends Component {
                         {imagesTypes[imagesType].map((type, index) => {
                             return (
                                 <ImageTypeTab key={index}
-                                              category={imageType}
+                                              category={category}
                                               imageType={type}
                                               selectedName={this.state.selectedName}
                                               selectedValue={this.state.selectedValue}
@@ -241,8 +292,8 @@ export default class ImagesGallery extends Component {
     }
 
     componentWillMount() {
-        const {imageType} = this.props.navigation.state.params;
-        let type = (imageType == 'cards') ? 'cards/christmas' : 'invitations/christmas';
+        const {category} = this.props.navigation.state.params;
+        let type = (category == 'cards') ? 'cards/christmas' : 'invitations/christmas';
         var self = this;
 
         this.fetchData(type).then(function (pages) {
@@ -259,14 +310,11 @@ export default class ImagesGallery extends Component {
     keyExtractor = (item) => item.id
 
     render() {
-        const {imageType} = this.props.navigation.state.params;
+        const {category} = this.props.navigation.state.params;
         return (
             <View style={layoutStyle.container}>
-                <View style={{flex: 1, flexDirection: 'row',}}>
-                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
-                        {this.renderTabs(imageType)}
-                    </View>
-                </View>
+                {this.renderScrollTabs(category)}
+
                 {
                     this.state.cardsData.length > 0
                         ? <FlatList
@@ -309,7 +357,6 @@ export default class ImagesGallery extends Component {
 
                         </View>
                 }
-
 
             </View>
         );

@@ -88,9 +88,9 @@ export default class Explore extends Component {
         });
     }
 
-    navigateToShowAll = (imageType) => (e) => {
+    navigateToShowAll = (category) => (e) => {
         this.props.navigation.navigate('ImagesGallery', {
-            imageType: imageType,
+            category: category,
 
         });
     }
@@ -343,7 +343,8 @@ export default class Explore extends Component {
                             <View style={exploreStyle.bar}>
                                 <Animated.View style={[exploreStyle.showBanner, {opacity: bannerOpacity,}]}>
                                     <Text style={[exploreStyle.title]}>
-                                        It's Ok to want them all!</Text>
+                                        It's Ok to want them all!
+                                    </Text>
                                     <Icon
                                         raised
                                         name='key'
