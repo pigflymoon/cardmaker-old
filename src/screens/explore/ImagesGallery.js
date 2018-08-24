@@ -162,15 +162,7 @@ export default class ImagesGallery extends Component {
                 case 'cards':
                     imageType = 'updatedcards';
                     break;
-                case 'christmas' :
-                case 'newYear' :
-                case 'easter' :
-                case 'kids' :
-                case 'forHer' :
-                case 'forHim' :
-                case 'general' :
-                case 'birthday' :
-                case 'wedding' :
+                default:
                     imageType = `cards/${type}`;
                     break;
 
@@ -180,15 +172,7 @@ export default class ImagesGallery extends Component {
                 case 'invitations':
                     imageType = 'updatedinvitations';
                     break;
-                case 'christmas' :
-                case 'newYear' :
-                case 'easter' :
-                case 'kids' :
-                case 'women' :
-                case 'men' :
-                case 'invitation' :
-                case 'saveTheDate' :
-                case 'rsvp' :
+                default:
                     imageType = `invitations/${type}`;
                     break;
             }
@@ -198,18 +182,18 @@ export default class ImagesGallery extends Component {
         this.setState((prevState) => {
             if (prevState.type != type) {
                 imageReferenceToOldestKey = '',
-                    this.fetchData(imageType).then(function (pages) {
-                        self.setState({
-                            selectedName: selectedName,
-                            selectedValue: selectedValue,
-                            type: type,
-                            allImages: [],
-                            cardsData: pages,
-                            loading: false,
-                            lodingFinished: false,
-                            imageType: imageType,//save imageTpe category/type
-                        });
-                    })
+                this.fetchData(imageType).then(function (pages) {
+                    self.setState({
+                        selectedName: selectedName,
+                        selectedValue: selectedValue,
+                        type: type,
+                        allImages: [],
+                        cardsData: pages,
+                        loading: false,
+                        lodingFinished: false,
+                        imageType: imageType,//save imageTpe category/type
+                    });
+                })
             }
         })
     }
@@ -217,8 +201,7 @@ export default class ImagesGallery extends Component {
 
     renderScrollTabs = (category) => {
         let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
-        console.log('imagesTypes', imagesTypes)
-        return(
+        return (
             <ScrollableTabView
                 initialPage={0}
                 tabBarInactiveTextColor={colors.secondary2}
@@ -228,8 +211,9 @@ export default class ImagesGallery extends Component {
             >
                 {Object.keys(imagesTypes).map((imagesType, key) => {
                     return (
-                        <ScrollView tabLabel={imagesType}  key={key} style={sliderTabStyle.tabView}>
-                            <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
+                        <ScrollView tabLabel={imagesType} key={key} style={sliderTabStyle.tabView}>
+                            <View
+                                style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
                                 {this.renderTypeTabs(category, imagesTypes, imagesType)}
                             </View>
                         </ScrollView>
@@ -241,10 +225,8 @@ export default class ImagesGallery extends Component {
         )
     }
     renderTypeTabs = (category, imagesTypes, imagesType) => {
-        console.log('imagesTypes', imagesTypes);
         return (
             imagesTypes[imagesType].map((type, index) => {
-                console.log('type is ', type);
                 return (
                     <ImageTypeTab key={index}
                                   category={category}
@@ -311,6 +293,7 @@ export default class ImagesGallery extends Component {
 
     render() {
         const {category} = this.props.navigation.state.params;
+        console.log('cardsData is ', this.state.cardsData);
         return (
             <View style={layoutStyle.container}>
                 {this.renderScrollTabs(category)}

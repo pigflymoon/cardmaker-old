@@ -10,7 +10,9 @@ const cardsType = {
 const invitationsType = {
     holiday: ["christmas", "newYear", "easter"],
     birthday: ["kids", "women", "men"],
-    wedding: ["invitation", "saveTheDate", "rsvp"]
+    wedding: ["invitation", "saveTheDate", "rsvp"],
+    party:["anniversary","graduationParty","BBQParty"],
+    announcement:["birth","graduation"]
 }
 
 export default CategoryConfig = {

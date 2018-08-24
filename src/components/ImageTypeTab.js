@@ -19,10 +19,9 @@ export default class ImageTypeTab extends Component {
         var self = this;
 
         let showCardsType = ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding", "anniversary", "goodLuck", "teacherAppreciation", "graduation", "newBaby", "exam", "cheerUp", "friendship", "getWell", "loveRomance"];
-        let showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp"];
+        let showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp", "anniversary", "graduationParty", "BBQParty", "birth", "graduation"];
         let showTypes = (category == "cards") ? showCardsType : showInvitationsType;
 
-        // let showPosition = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp"];
 
         var selectedItem = showTypes.map(position => ({name: position, value: false}));
         var selectedIndex = 0;
@@ -42,7 +41,6 @@ export default class ImageTypeTab extends Component {
 
     render() {
         const {category, imageType, selectedName, selectedValue} = this.props;
-        console.log('tab name is **********', imageType);
         return (
             <Button
                 title={imageType}
