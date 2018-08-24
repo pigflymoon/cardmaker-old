@@ -105,7 +105,6 @@ export default class App extends Component {
 
 
     componentDidMount() {
-
         NetInfo.addEventListener(
             'connectionChange',
             this.handleConnectivityChange
@@ -158,6 +157,8 @@ export default class App extends Component {
     componentWillUnmount() {
         this.getInitialNotificationListener();
         this.notificationOpenedListener();
+        AppState.removeEventListener('change', this.handleAppStateChange);
+
     }
 
     render() {
