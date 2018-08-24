@@ -7,8 +7,8 @@ import {
     Text,
     View,
     NetInfo,
-    AsyncStorage,
     Linking,
+    AppState
 } from 'react-native';
 import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
 // Optional: Flow type
@@ -83,6 +83,26 @@ export default class App extends Component {
         NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChange);
     }
 
+    handleAppStateChange = (nextAppState) => {
+        if (nextAppState != null && nextAppState === 'active') {
+
+            //如果是true ，表示从后台进入了前台 ，请求数据，刷新页面。或者做其他的逻辑
+            if (this.flage) {
+                //这里的逻辑表示 ，第一次进入前台的时候 ，不会进入这个判断语句中。
+                // 因为初始化的时候是false ，当进入后台的时候 ，flag才是true ，
+                // 当第二次进入前台的时候 ，这里就是true ，就走进来了。
+                reactFirebase.notifications().setBadge(0);
+
+            }
+            this.flage = false;
+
+        } else if (nextAppState != null && nextAppState === 'background') {
+            this.flage = true;
+
+        }
+
+    }
+
 
     componentDidMount() {
 
@@ -91,6 +111,7 @@ export default class App extends Component {
             this.handleConnectivityChange
         );
         var self = this;
+
         reactFirebase.messaging().hasPermission()
             .then(enabled => {
                 if (enabled) {
@@ -127,6 +148,8 @@ export default class App extends Component {
                         });
                 }
             });
+        AppState.addEventListener('change', this.handleAppStateChange);
+
 
     }
 
