@@ -12,11 +12,14 @@ import {
     Alert,
     TouchableHighlight,
     Image,
-    ImageBackground
+    ImageBackground,
+    AsyncStorage
 } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 import {List, ListItem,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
+import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
+import type {RemoteMessage} from 'react-native-firebase';
 
 import {auth, db} from '../../config/FirebaseConfig';
 import probg from '../../assets/images/bg.jpg';
@@ -42,6 +45,8 @@ export default class Settings extends Component {
             versionColor: colors.grey2,
             bgImage: graybg,
             unlock: false,
+            isNotified: true,
+            isSilent: true,
         };
     }
 
@@ -151,6 +156,21 @@ export default class Settings extends Component {
 
     }
 
+    linkToNotification = () => {
+        Linking.canOpenURL('app-settings:').then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle settings url');
+            } else {
+                return Linking.openURL('app-settings:');
+            }
+        }).catch(err => console.error('An error occurred', err));
+        //
+
+
+    }
+
+
+
     componentWillMount() {
 
         VersionCheck.getLatestVersion({
@@ -228,6 +248,15 @@ export default class Settings extends Component {
                         onPress={() => this.onShare()}
                         hideChevron
                     />
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        leftIcon={{name: 'notifications', color: colors.orange}}
+                        title={`Notifications`}
+                        switchOnTintColor={colors.primary1}
+                        switchButton
+                        onPress={this.linkToNotification}
+                    />
+
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
