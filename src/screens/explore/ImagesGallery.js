@@ -182,18 +182,18 @@ export default class ImagesGallery extends Component {
         this.setState((prevState) => {
             if (prevState.type != type) {
                 imageReferenceToOldestKey = '',
-                this.fetchData(imageType).then(function (pages) {
-                    self.setState({
-                        selectedName: selectedName,
-                        selectedValue: selectedValue,
-                        type: type,
-                        allImages: [],
-                        cardsData: pages,
-                        loading: false,
-                        lodingFinished: false,
-                        imageType: imageType,//save imageTpe category/type
-                    });
-                })
+                    this.fetchData(imageType).then(function (pages) {
+                        self.setState({
+                            selectedName: selectedName,
+                            selectedValue: selectedValue,
+                            type: type,
+                            allImages: [],
+                            cardsData: pages,
+                            loading: false,
+                            lodingFinished: false,
+                            imageType: imageType,//save imageTpe category/type
+                        });
+                    })
             }
         })
     }
@@ -204,14 +204,17 @@ export default class ImagesGallery extends Component {
         return (
             <ScrollableTabView
                 initialPage={0}
+                tabBarTextStyle={{textTransform:'capitalize',}}
                 tabBarInactiveTextColor={colors.secondary2}
                 tabBarActiveTextColor={colors.primary3}
                 tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
                 renderTabBar={() => <ScrollableTabBar />}
             >
                 {Object.keys(imagesTypes).map((imagesType, key) => {
+                    var imagesType1 = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+                    console.log('imagesType1 is ???', imagesType1);
                     return (
-                        <ScrollView tabLabel={imagesType} key={key} style={sliderTabStyle.tabView}>
+                        <ScrollView tabLabel={imagesType1} key={key} style={sliderTabStyle.tabView}>
                             <View
                                 style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
                                 {this.renderTypeTabs(category, imagesTypes, imagesType)}

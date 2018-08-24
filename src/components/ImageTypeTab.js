@@ -41,10 +41,11 @@ export default class ImageTypeTab extends Component {
 
     render() {
         const {category, imageType, selectedName, selectedValue} = this.props;
+        var imagesType1 = imageType.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
         return (
             <Button
-                title={imageType}
-                titleStyle={{color: colors.white,}}
+                title={imagesType1}
+                textStyle={{color: colors.white,textTransform:'capitalize',}}
                 fontSize={14}
                 buttonStyle={[{
                     borderRadius: 20,
