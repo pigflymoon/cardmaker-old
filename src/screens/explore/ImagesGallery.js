@@ -229,7 +229,7 @@ export default class ImagesGallery extends Component {
                 {Object.keys(imagesTypes).map((imagesType, key) => {
                     return (
                         <ScrollView tabLabel={imagesType}  key={key} style={sliderTabStyle.tabView}>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+                            <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
                                 {this.renderTypeTabs(category, imagesTypes, imagesType)}
                             </View>
                         </ScrollView>

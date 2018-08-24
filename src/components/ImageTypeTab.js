@@ -18,7 +18,7 @@ export default class ImageTypeTab extends Component {
     updateChoice = (category, type) => {
         var self = this;
 
-        let showCardsType = ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding"];
+        let showCardsType = ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding", "anniversary", "goodLuck", "teacherAppreciation", "graduation", "newBaby", "exam", "cheerUp", "friendship", "getWell", "loveRomance"];
         let showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp"];
         let showTypes = (category == "cards") ? showCardsType : showInvitationsType;
 
@@ -42,7 +42,7 @@ export default class ImageTypeTab extends Component {
 
     render() {
         const {category, imageType, selectedName, selectedValue} = this.props;
-        console.log('tab name is **********',imageType);
+        console.log('tab name is **********', imageType);
         return (
             <Button
                 title={imageType}
@@ -51,7 +51,7 @@ export default class ImageTypeTab extends Component {
                 buttonStyle={[{
                     borderRadius: 20,
                     marginBottom: 10,
-                    paddingHorizontal:20,
+                    paddingHorizontal:12,
                 }, (selectedName == imageType) &&
                 (selectedValue == true) ? {
                         backgroundColor: colors.secondary2,
