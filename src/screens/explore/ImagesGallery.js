@@ -211,10 +211,9 @@ export default class ImagesGallery extends Component {
                 renderTabBar={() => <ScrollableTabBar />}
             >
                 {Object.keys(imagesTypes).map((imagesType, key) => {
-                    var imagesType1 = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    console.log('imagesType1 is ???', imagesType1);
+                    var imagesTypeLabel = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
                     return (
-                        <ScrollView tabLabel={imagesType1} key={key} style={sliderTabStyle.tabView}>
+                        <ScrollView tabLabel={imagesTypeLabel} key={key} style={sliderTabStyle.tabView}>
                             <View
                                 style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
                                 {this.renderTypeTabs(category, imagesTypes, imagesType)}
@@ -296,18 +295,21 @@ export default class ImagesGallery extends Component {
 
     render() {
         const {category} = this.props.navigation.state.params;
-        console.log('cardsData is ', this.state.cardsData);
+        const {
+            cardsData,
+            imageType
+        }= this.state;
         return (
             <View style={layoutStyle.container}>
                 {this.renderScrollTabs(category)}
 
                 {
-                    this.state.cardsData.length > 0
+                    cardsData.length > 0
                         ? <FlatList
                             style={{flex: 1, flexGrow: 2,}}
-                            data={this.state.cardsData}
+                            data={cardsData}
                             keyExtractor={this.keyExtractor}
-                            onEndReached={this.handleScrollToEnd(this.state.imageType)}
+                            onEndReached={this.handleScrollToEnd(imageType)}
                             onEndReachedThreshold={0}
                             shouldItemUpdate={(props, nextProps) => {
                                 return props.item !== nextProps.item
