@@ -12,20 +12,17 @@ import {
     ScrollView
 } from 'react-native';
 import {Card,} from 'react-native-elements';
-import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 import {db} from '../../config/FirebaseConfig';
 
-import ImageTypeTab from '../../components/ImageTypeTab';
 import layoutStyle from '../../styles/layout';
-import colors from '../../styles/colors';
 
 import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
-import sliderTabStyle from '../../styles/slideTab';
 
-import CategoryConfig from '../../config/CategoryConfig';
+import ScrollTabs from '../../components/ScrollTabs';
+
 let imageReferenceToOldestKey = '', lastImageKey = '';
 
 export default class ImagesGallery extends Component {
@@ -153,127 +150,27 @@ export default class ImagesGallery extends Component {
             })
         }
     };
-    //
-    onHandleSelect = (selectedName, selectedValue, type, category) => {
+
+    onSelectedTab = (selectedName, selectedValue, type, loading, imageType) => {
         var self = this;
-        var imageType;
-        if (category == 'cards') {
-            switch (type) {
-                case 'cards':
-                    imageType = 'updatedcards';
-                    break;
-                default:
-                    imageType = `cards/${type}`;
-                    break;
 
-            }
-        } else {//
-            switch (type) {
-                case 'invitations':
-                    imageType = 'updatedinvitations';
-                    break;
-                default:
-                    imageType = `invitations/${type}`;
-                    break;
-            }
-        }
+        imageReferenceToOldestKey = '',
+            this.fetchData(imageType).then(function (pages) {
+                self.setState({
+                    selectedName: selectedName,
+                    selectedValue: selectedValue,
+                    type: type,
+                    allImages: [],
+                    cardsData: pages,
+                    loading: loading,
+                    lodingFinished: false,
+                    imageType: imageType,//save imageTpe category/type
+                });
+            })
 
-
-        this.setState((prevState) => {
-            if (prevState.type != type) {
-                imageReferenceToOldestKey = '',
-                    this.fetchData(imageType).then(function (pages) {
-                        self.setState({
-                            selectedName: selectedName,
-                            selectedValue: selectedValue,
-                            type: type,
-                            allImages: [],
-                            cardsData: pages,
-                            loading: false,
-                            lodingFinished: false,
-                            imageType: imageType,//save imageTpe category/type
-                        });
-                    })
-            }
-        })
     }
     //
 
-    renderScrollTabs = (category) => {
-        let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
-        return (
-            <ScrollableTabView
-                initialPage={0}
-                tabBarTextStyle={{textTransform:'capitalize',}}
-                tabBarInactiveTextColor={colors.secondary2}
-                tabBarActiveTextColor={colors.primary3}
-                tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
-                renderTabBar={() => <ScrollableTabBar />}
-            >
-                {Object.keys(imagesTypes).map((imagesType, key) => {
-                    var imagesTypeLabel = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
-                    return (
-                        <ScrollView tabLabel={imagesTypeLabel} key={key} style={sliderTabStyle.tabView}>
-                            <View
-                                style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
-                                {this.renderTypeTabs(category, imagesTypes, imagesType)}
-                            </View>
-                        </ScrollView>
-                    )
-
-                })}
-            </ScrollableTabView>
-
-        )
-    }
-    renderTypeTabs = (category, imagesTypes, imagesType) => {
-        return (
-            imagesTypes[imagesType].map((type, index) => {
-                return (
-                    <ImageTypeTab key={index}
-                                  category={category}
-                                  imageType={type}
-                                  selectedName={this.state.selectedName}
-                                  selectedValue={this.state.selectedValue}
-                                  handleSelect={this.onHandleSelect}/>
-                )
-
-
-            })
-        )
-
-
-    }
-    renderTabs = (category) => {
-        let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
-        return (
-            Object.keys(imagesTypes).map((imagesType, key) => {
-                return (
-                    <View style={{flex: 1,}} key={key}>
-                        <Text style={{
-                            justifyContent: 'center',
-                            textAlign: 'center',
-                            paddingVertical: 10,
-                        }}>{imagesType}</Text>
-
-                        {imagesTypes[imagesType].map((type, index) => {
-                            return (
-                                <ImageTypeTab key={index}
-                                              category={category}
-                                              imageType={type}
-                                              selectedName={this.state.selectedName}
-                                              selectedValue={this.state.selectedValue}
-                                              handleSelect={this.onHandleSelect}/>
-                            )
-                        })}
-
-                    </View>
-                )
-
-            })
-        )
-
-    }
 
     componentWillMount() {
         const {category} = this.props.navigation.state.params;
@@ -301,7 +198,7 @@ export default class ImagesGallery extends Component {
         }= this.state;
         return (
             <View style={layoutStyle.container}>
-                {this.renderScrollTabs(category)}
+                <ScrollTabs category={category} selectedTab={this.onSelectedTab}/>
 
                 {
                     cardsData.length > 0

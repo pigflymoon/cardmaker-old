@@ -18,9 +18,8 @@ import {
 } from '../../utils/authApi';
 
 import CardDeck from '../../components/CardDeck';
-import ImageTypeTab from '../../components/ImageTypeTab';
+import ScrollTabs from '../../components/ScrollTabs';
 
-import CategoryConfig from '../../config/CategoryConfig';
 var savedCards = [], paidUser = false, category = 'cards';
 
 export default class CardsDeck extends Component {
@@ -62,60 +61,6 @@ export default class CardsDeck extends Component {
 
     };
 
-    onHandleSelect = (selectedName, selectedValue, type, category) => {
-        var self = this;
-        var imageType;
-        if (category == 'cards') {
-            switch (type) {
-                case 'cards':
-                    imageType = 'updatedcards';
-                    break;
-                case 'christmas' :
-                case 'newYear' :
-                case 'easter' :
-                case 'kids' :
-                case 'forHer' :
-                case 'forHim' :
-                case 'general' :
-                case 'birthday' :
-                case 'wedding' :
-                    imageType = `cards/${type}`;
-                    break;
-
-            }
-        } else {//
-            switch (type) {
-                case 'invitations':
-                    imageType = 'updatedinvitations';
-                    break;
-                case 'christmas' :
-                case 'newYear' :
-                case 'easter' :
-                case 'kids' :
-                case 'women' :
-                case 'men' :
-                case 'invitation' :
-                case 'saveTheDate' :
-                case 'rsvp' :
-                    imageType = `invitations/${type}`;
-                    break;
-            }
-        }
-
-
-        this.setState((prevState) => {
-            if (prevState.type != type) {
-                return {
-                    selectedName: selectedName,
-                    selectedValue: selectedValue,
-                    type: type,
-                    loading: false,
-                    imageType: imageType
-                }
-            }
-        })
-    }
-    //
     updateCategory = (selectedIndex) => {
         let imagesTypes = (selectedIndex == 0) ? 'cards' : 'invitations';
         category = imagesTypes;
@@ -165,33 +110,16 @@ export default class CardsDeck extends Component {
     updateUserType = (type) => {
         paidUser = type;
     }
-    renderTabs = (imageType) => {
-        let imagesTypes = (imageType == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
-        return (
-            Object.keys(imagesTypes).map((imagesType, key) => {
-                return (
-                    <View style={{flex: 1,}} key={key}>
-                        <Text style={{
-                            justifyContent: 'center',
-                            textAlign: 'center',
-                            paddingVertical: 10,
-                        }}>{imagesType}</Text>
-                        {imagesTypes[imagesType].map((type, index) => {
-                            return (
-                                <ImageTypeTab key={index}
-                                              category={imageType}
-                                              imageType={type}
-                                              selectedName={this.state.selectedName}
-                                              selectedValue={this.state.selectedValue}
-                                              handleSelect={this.onHandleSelect}/>
-                            )
-                        })}
-                    </View>
-                )
+    //
 
-            })
-        )
-
+    onSelectedTab = (selectedName, selectedValue, type, loading, imageType) => {
+        this.setState({
+            selectedName: selectedName,
+            selectedValue: selectedValue,
+            type: type,
+            loading: loading,
+            imageType: imageType
+        })
     }
 
     render() {
@@ -215,9 +143,9 @@ export default class CardsDeck extends Component {
                             selectedButtonStyle={{backgroundColor: colors.secondary2}}
                             selectedTextStyle={{color: colors.white}}
                         />
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
-                            {this.renderTabs(category)}
-                        </View>
+
+                        <ScrollTabs category={category} selectedTab={this.onSelectedTab}/>
+
                     </ScrollView>
                     <View style={{flex: 1,flexGrow:3,}}>
 
