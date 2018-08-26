@@ -12,11 +12,11 @@ const invitationsType = {
     birthday: ["kids", "women", "men"],
     wedding: ["invitation", "saveTheDate", "rsvp"],
     party: ["anniversary", "graduationParty", "bbqParty"],
-    announcement: ["birth", "graduation"]
+    announcement: ["birth", "graduationAnnouncement"]
 }
 
 const showCardsType = ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding", "anniversary", "goodLuck", "teacherAppreciation", "graduation", "newBaby", "exam", "cheerUp", "friendship", "getWell", "loveRomance"];
-const showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp", "anniversary", "graduationParty", "BBQParty", "birth", "graduation"];
+const showInvitationsType = ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp", "anniversary", "graduationParty", "bbqParty", "birth", "graduationAnnouncement"];
 
 export default CategoryConfig = {
     cards: cardsType,
