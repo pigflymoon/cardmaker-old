@@ -64,7 +64,6 @@ export default class ScrollTab extends Component {
     }
 
     renderTypeTabs = (category, imagesTypes, imagesType) => {
-        console.log('type tabs is called', category, imagesTypes, imagesType);
         return (
             imagesTypes[imagesType].map((type, index) => {
                 return (

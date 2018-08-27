@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
     Text,
     View,
-    Dimensions,
     ActivityIndicator,
     FlatList,
-    TouchableOpacity,
-    Image,
     ImageBackground,
     ScrollView
 } from 'react-native';
 import {Card,} from 'react-native-elements';
+import ScrollTabs from '../../components/ScrollTabs';
 
 import {db} from '../../config/FirebaseConfig';
 
@@ -21,7 +18,6 @@ import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
 
-import ScrollTabs from '../../components/ScrollTabs';
 
 let imageReferenceToOldestKey = '', lastImageKey = '';
 
@@ -105,6 +101,7 @@ export default class ImagesGallery extends Component {
         }
 
     }
+
     fetchData = async(category) => {
         var self = this;
         var allPages = await (new Promise(function (resolve, reject) {
@@ -195,11 +192,10 @@ export default class ImagesGallery extends Component {
         const {
             cardsData,
             imageType
-        }= this.state;
+        } = this.state;
         return (
             <View style={layoutStyle.container}>
                 <ScrollTabs category={category} selectedTab={this.onSelectedTab}/>
-
                 {
                     cardsData.length > 0
                         ? <FlatList
@@ -228,7 +224,6 @@ export default class ImagesGallery extends Component {
                             }
 
                         /> : <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center',}}>
-
                             <ImageBackground
                                 source={bg1}
                                 style={{
@@ -239,10 +234,8 @@ export default class ImagesGallery extends Component {
                             >
                                 <View style={showInfo.container}><Text style={showInfo.text}>Meow. Coming soon! </Text></View>
                             </ImageBackground >
-
                         </View>
                 }
-
             </View>
         );
     }
