@@ -28,23 +28,16 @@ export default class ScrollTab extends Component {
         var self = this;
         var imageType;
         if (category == 'cards') {
-            switch (type) {
-                case 'cards':
-                    imageType = 'updatedcards';
-                    break;
-                default:
-                    imageType = `cards/${type}`;
-                    break;
-
+            if (type == 'cards') {
+                imageType = 'updatedcards';
+            } else {
+                imageType = `cards/${type}`;
             }
-        } else {//
-            switch (type) {
-                case 'invitations':
-                    imageType = 'updatedinvitations';
-                    break;
-                default:
-                    imageType = `invitations/${type}`;
-                    break;
+        } else {
+            if (type == 'invitations') {
+                imageType = 'updatedinvitations';
+            } else {
+                imageType = `invitations/${type}`;
             }
         }
         this.setState((prevState) => {
@@ -59,7 +52,6 @@ export default class ScrollTab extends Component {
                 }
             }
         })
-
 
     }
 
@@ -84,7 +76,7 @@ export default class ScrollTab extends Component {
         return (
             <ScrollableTabView
                 initialPage={0}
-                tabBarTextStyle={{textTransform:'capitalize',}}
+                tabBarTextStyle={{textTransform:'capitalize'}}
                 tabBarInactiveTextColor={colors.secondary2}
                 tabBarActiveTextColor={colors.primary3}
                 tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
@@ -94,8 +86,7 @@ export default class ScrollTab extends Component {
                     var imagesTypeLabel = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
                     return (
                         <ScrollView tabLabel={imagesTypeLabel} key={key} style={sliderTabStyle.tabView}>
-                            <View
-                                style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start',}}>
+                            <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start'}}>
                                 {this.renderTypeTabs(category, imagesTypes, imagesType)}
                             </View>
                         </ScrollView>
@@ -103,7 +94,6 @@ export default class ScrollTab extends Component {
 
                 })}
             </ScrollableTabView>
-
         )
     }
 }

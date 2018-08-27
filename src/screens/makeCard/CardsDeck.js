@@ -129,12 +129,12 @@ export default class CardsDeck extends Component {
         if (!isConnected) {
             return Utils.renderOffline();
         }
-        const {selectedIndex, category} = this.state
-        const buttons = ['Cards', 'Invitations']
+        const {selectedIndex, category} = this.state;
+        const buttons = ['Cards', 'Invitations'];
         if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>
-                    <ScrollView style={{flex: 1, flexDirection: 'column', flexGrow:2,}}>
+                    <ScrollView style={{flex: 1, flexDirection: 'column', flexGrow:2}}>
                         <ButtonGroup
                             onPress={this.updateCategory}
                             selectedIndex={selectedIndex}
@@ -147,7 +147,7 @@ export default class CardsDeck extends Component {
                         <ScrollTabs category={category} selectedTab={this.onSelectedTab}/>
 
                     </ScrollView>
-                    <View style={{flex: 1,flexGrow:3,}}>
+                    <View style={{flex: 1,flexGrow:3}}>
 
                         <CardDeck
                             imageType={this.state.imageType}
