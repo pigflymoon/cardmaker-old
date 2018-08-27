@@ -3,12 +3,9 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
     TouchableOpacity,
-    TouchableHighlight,
     ImageBackground,
     ScrollView,
-    Dimensions,
     Linking,
     Alert,
     Animated,
@@ -23,11 +20,10 @@ import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
 import Placeholder from 'rn-placeholder';
 
+import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
 import carouselStyle from '../../styles/carousel';
 import exploreStyle from '../../styles/explore';
-
-import colors from '../../styles/colors';
 
 import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import {HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT} from '../../styles/explore';
@@ -69,7 +65,6 @@ export default class Explore extends Component {
             updatedinvitations: [],
         };
         this.maskImage = logo;
-
     }
 
 
@@ -91,7 +86,6 @@ export default class Explore extends Component {
     navigateToShowAll = (category) => (e) => {
         this.props.navigation.navigate('ImagesGallery', {
             category: category,
-
         });
     }
 
@@ -135,17 +129,13 @@ export default class Explore extends Component {
 
     componentDidMount() {
         this.resetAnimation();
-
     }
 
     componentWillUnmount() {
         this.setState({
             updatedcards: [],
             updatedinvitations: [],
-
         })
-
-
     }
 
     resetAnimation() {
@@ -282,7 +272,6 @@ export default class Explore extends Component {
                 >
                     <ScrollView
                         style={carouselStyle.scrollView}
-
                         directionalLockEnabled={true}
                         scrollEventThrottle={16}
                         onScroll={Animated.event(
@@ -321,9 +310,7 @@ export default class Explore extends Component {
                             </View>
                             {this.renderCarousel(updatedinvitations, (!contentIsLoading))}
                         </View>
-
                     </ScrollView>
-
 
                     <Animated.View style={[exploreStyle.header, {height: headerHeight}]}>
                         <Animated.View
@@ -356,7 +343,6 @@ export default class Explore extends Component {
                             </View>
                         </Animated.View>
                     </Animated.View>
-
                 </Loader>
             </View>
         );
