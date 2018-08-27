@@ -40,7 +40,7 @@ export default{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
     },
 
     subtitle: {
@@ -57,6 +57,7 @@ export default{
         overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
+        height: 275,
         paddingVertical: 10 // for custom animation
     },
     paginationContainer: {

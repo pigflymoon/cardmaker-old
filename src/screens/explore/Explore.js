@@ -178,7 +178,7 @@ export default class Explore extends Component {
     }
 
     renderCarousel = (data, isLoaded) => {
-        const heightStyle = {height: 150};
+        const heightStyle = {height: 300};
 
         return (
             <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
