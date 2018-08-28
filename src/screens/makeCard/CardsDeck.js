@@ -143,12 +143,9 @@ export default class CardsDeck extends Component {
                             selectedButtonStyle={{backgroundColor: colors.secondary2}}
                             selectedTextStyle={{color: colors.white}}
                         />
-
                         <ScrollTabs category={category} selectedTab={this.onSelectedTab}/>
-
                     </ScrollView>
                     <View style={{flex: 1,flexGrow:3}}>
-
                         <CardDeck
                             imageType={this.state.imageType}
                             isPaidUser={this.state.isPaidUser}

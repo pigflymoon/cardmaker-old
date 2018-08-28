@@ -111,34 +111,38 @@ export default class SwipeDeck extends Component {
     }
 
     renderCards() {
-        if (this.state.index >= this.props.data.length) {
+        if (this.props.data.length < 1) {
+            return this.props.renderNoCards();
+        } else if (this.state.index >= this.props.data.length) {
             return this.props.renderNoMoreCards();
-        }
-        return this.props.data
-            .map((item, i) => {
-                if (i < this.state.index) {
-                    return null;
-                } else if (i === this.state.index) {
+        } else {
+            return this.props.data
+                .map((item, i) => {
+                    if (i < this.state.index) {
+                        return null;
+                    } else if (i === this.state.index) {
+                        return (
+                            <Animated.View
+                                key={item.id}
+                                style={[this.getCardStyle(), styles.cardStyle]}
+                                {...this.state.panResponder.panHandlers}
+                            >
+                                {this.props.renderCard(item)}
+                            </Animated.View>
+                        );
+                    }
+
                     return (
                         <Animated.View
                             key={item.id}
-                            style={[this.getCardStyle(), styles.cardStyle]}
-                            {...this.state.panResponder.panHandlers}
+                            style={[styles.cardStyle, {zIndex: 0}]}
                         >
                             {this.props.renderCard(item)}
                         </Animated.View>
                     );
-                }
+                }).reverse();
+        }
 
-                return (
-                    <Animated.View
-                        key={item.id}
-                        style={[styles.cardStyle, {zIndex: 0}]}
-                    >
-                        {this.props.renderCard(item)}
-                    </Animated.View>
-                );
-            }).reverse();
 
     }
 

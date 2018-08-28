@@ -16,6 +16,7 @@ import colors from '../styles/colors';
 import layoutStyle from '../styles/layout';
 import cardStyle from '../styles/card';
 
+import bg1 from '../assets/images/bg.jpg';
 import refreshMore from '../assets/images/refreshMore.jpg';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -216,6 +217,25 @@ export default class CardsDeck extends Component {
         this.setState({imagesData: []});
     }
 
+    renderNoCards = () => {
+        return (
+            <Card
+                containerStyle={{
+                    width: SCREEN_WIDTH * 0.92,
+                    height: 280,
+                }}
+                featuredTitle="Meow. Coming soon!"
+                featuredTitleStyle={{fontSize: 25}}
+                image={bg1}
+                imageStyle={{
+                    width: SCREEN_WIDTH * 0.915,
+                    height: 280
+                }}
+            />
+
+        );
+    }
+
     renderNoMoreCards() {
         return (
             <Card
@@ -287,6 +307,7 @@ export default class CardsDeck extends Component {
                         }}
                         data={this.state.imagesData}
                         renderCard={this.renderCard}
+                        renderNoCards={this.renderNoCards}
                         renderNoMoreCards={this.renderNoMoreCards}
                         onSwipeRight={this.handleSwipeRight}
                         onSwipeLeft={this.onSwipeLeft}
