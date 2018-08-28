@@ -229,7 +229,7 @@ export default class ImagesGallery extends Component {
                                 style={{
                                     flex: 1,
                                     width: null,
-                                    height: 400,
+                                    height: 325,
                                 }}
                             >
                                 <View style={showInfo.container}><Text style={showInfo.text}>Meow. Coming soon! </Text></View>

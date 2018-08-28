@@ -80,7 +80,7 @@ export default class ScrollTab extends Component {
                 tabBarInactiveTextColor={colors.secondary2}
                 tabBarActiveTextColor={colors.primary3}
                 tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
-                renderTabBar={() => <ScrollableTabBar />}
+                renderTabBar={() => <ScrollableTabBar style={{height:35}} tabStyle={{height:34}} />}
             >
                 {Object.keys(imagesTypes).map((imagesType, key) => {
                     var imagesTypeLabel = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
