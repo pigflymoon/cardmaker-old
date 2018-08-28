@@ -19,7 +19,7 @@ import {
     FormValidationMessage,
 } from 'react-native-elements';
 
-import {auth,} from '../../config/FirebaseConfig';
+import {auth, db} from '../../config/FirebaseConfig';
 import {doCreateUser} from '../../config/db';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
@@ -305,7 +305,6 @@ export default class Auth extends Component {
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
-
                 self.setState({
                     user: user,
                     signin: true,

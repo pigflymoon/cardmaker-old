@@ -162,13 +162,6 @@ export default class ConfirmEmail extends Component {
                         underlayColor='transparent'
                         onPress={this.navigateToResetPassword}
                     />
-                    <Button
-                        title={'Sign up'}
-                        textStyle={authStyle.noButtonText}
-                        buttonStyle={authStyle.noButtonContainer}
-                        underlayColor='transparent'
-                        onPress={this.navigateToSignup}
-                    />
                 </View>
             </ScrollView>
         )

@@ -26,10 +26,12 @@ export const doCreateUser = (id, username, email) =>
     });
 
 export const updateUserCount = () => db.ref('/user-count').once('value').then(function (snapshot) {
-    return snapshot.numChildren() + 1;
+    if (snapshot.val()) {
+        return snapshot.val().number + 1;
+    }
 
 }).then(function (number) {
-    db.ref('/user-count').set({number})
+    db.ref('/user-count/number').set(number)
 })
 
 export const saveFavoriteCard = (userid, username, cardId, cardUrl, cardName) => {
