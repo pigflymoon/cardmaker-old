@@ -172,7 +172,6 @@ export default class Settings extends Component {
 
 
     componentWillMount() {
-
         VersionCheck.getLatestVersion({
             provider: 'appStore'  // for iOS
         })

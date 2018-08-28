@@ -8,7 +8,9 @@ import {
     View,
     NetInfo,
     Linking,
-    AppState
+    AppState,
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
 // Optional: Flow type
@@ -103,55 +105,78 @@ export default class App extends Component {
 
     }
 
+    showAlert = () => {
+        Alert.alert(
+            "DON'T MISS OUT",
+            "Allow notifications and receive FREE cards!",
+            [
+                {text: 'OK', onPress: () => this.requestNotifications()}, // open store if update is needed.
+            ])
+    }
+    requestNotifications = () => {
+        var self = this;
+        reactFirebase.messaging().requestPermission()
+            .then(() => {
+                // alert("User Now Has Permission")
+                self.notificationOpenedListener = reactFirebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
+                    reactFirebase.notifications().setBadge(0);
+
+                });
+                //App Closed
+                self.getInitialNotificationListener = reactFirebase.notifications().getInitialNotification()
+                    .then((notificationOpen: NotificationOpen) => {
+                        if (notificationOpen) {
+                            // App was opened by a notification
+                            // Get the action triggered by the notification being opened
+                            reactFirebase.notifications().setBadge(0);
+
+                        } else {
+                            console.log('not opened')
+                        }
+                    });
+            })
+            .catch(error => {
+                // alert("Error", error)
+                console.log('user reject permissons');
+                // User has rejected permissions
+            });
+    }
+
+    firstOpen = () => {
+        var self = this;
+        AsyncStorage.getItem('isFirst', (error, result) => {
+            if (result == 'false') {
+                console.log('Not first time open');
+            } else {
+                //save
+                AsyncStorage.setItem('isFirst', 'false', (error) => {
+                    reactFirebase.messaging().hasPermission()
+                        .then(enabled => {
+                            if (enabled) {
+                                reactFirebase.messaging().getToken().then(token => {
+                                    console.log("LOG: ", token);
+                                })
+                                // user has permissions
+                            } else {
+                                self.showAlert();
+                            }
+                        });
+                });
+
+            }
+        });
+
+    }
 
     componentDidMount() {
         NetInfo.addEventListener(
             'connectionChange',
             this.handleConnectivityChange
         );
-        var self = this;
 
-        reactFirebase.messaging().hasPermission()
-            .then(enabled => {
-                if (enabled) {
-                    console.log('enabled!!!', enabled);//1
-                    reactFirebase.messaging().getToken().then(token => {
-                        console.log("LOG: ", token);
-                    })
-                    // user has permissions
-                } else {
-                    console.log('enabled????', enabled);//0
-                    reactFirebase.messaging().requestPermission()
-                        .then(() => {
-                            // alert("User Now Has Permission")
-                            self.notificationOpenedListener = reactFirebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
-                                reactFirebase.notifications().setBadge(0);
-
-                            });
-                            //App Closed
-                            self.getInitialNotificationListener = reactFirebase.notifications().getInitialNotification()
-                                .then((notificationOpen: NotificationOpen) => {
-                                    if (notificationOpen) {
-                                        // App was opened by a notification
-                                        // Get the action triggered by the notification being opened
-                                        reactFirebase.notifications().setBadge(0);
-
-                                    } else {
-                                        console.log('not opened')
-                                    }
-                                });
-                        })
-                        .catch(error => {
-                            alert("Error", error)
-                            // User has rejected permissions
-                        });
-                }
-            });
+        this.firstOpen();
         AppState.addEventListener('change', this.handleAppStateChange);
-
-
     }
-
 
 
     componentWillUnmount() {
