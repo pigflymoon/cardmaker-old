@@ -40,8 +40,8 @@
 		8D0580DC212CD9E50091A71F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0580DB212CD9E50091A71F /* SystemConfiguration.framework */; };
 		8D0580DE212CD9EB0091A71F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0580DD212CD9EB0091A71F /* libz.tbd */; };
 		8D0580E0212CD9F30091A71F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0580DF212CD9F30091A71F /* libsqlite3.0.tbd */; };
-		8D5472712111A55D00988595 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D5472702111A55D00988595 /* GoogleService-Info.plist */; };
 		8DCC0F7C1FCCF682006F66FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCC0F7B1FCCF682006F66FB /* StoreKit.framework */; };
+		8DE9EF7B21350ACE0021CD74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DE9EF7A21350ACD0021CD74 /* GoogleService-Info.plist */; };
 		8E2E0402C6D84E9BBEE693EA /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C940CF719C1C48F79F4CAA1A /* libRNShare.a */; };
 		902DFC8D9B284AB2B24257B9 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F977418C8B54C568BD2EC5F /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -441,8 +441,8 @@
 		8D0580DD212CD9EB0091A71F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8D0580DF212CD9F30091A71F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		8D058187212D069E0091A71F /* cardmaker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = cardmaker.entitlements; path = cardmaker/cardmaker.entitlements; sourceTree = "<group>"; };
-		8D5472702111A55D00988595 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DCC0F7B1FCCF682006F66FB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8DE9EF7A21350ACD0021CD74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../pplfly/project/cardmaker/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F977418C8B54C568BD2EC5F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		920C56E679754B9382217E5C /* libRNStoreReview.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNStoreReview.a; sourceTree = "<group>"; };
 		934A604A9B6C4E47AA22F3CF /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -612,8 +612,8 @@
 		13B07FAE1A68108700A75B9A /* cardmaker */ = {
 			isa = PBXGroup;
 			children = (
+				8DE9EF7A21350ACD0021CD74 /* GoogleService-Info.plist */,
 				8D058187212D069E0091A71F /* cardmaker.entitlements */,
-				8D5472702111A55D00988595 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1374,7 +1374,7 @@
 				F1909AB8181C4BD495138CBB /* MaterialIcons.ttf in Resources */,
 				2DF1EDAB1D3041FCB55BE203 /* SimpleLineIcons.ttf in Resources */,
 				902DFC8D9B284AB2B24257B9 /* Zocial.ttf in Resources */,
-				8D5472712111A55D00988595 /* GoogleService-Info.plist in Resources */,
+				8DE9EF7B21350ACE0021CD74 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,8 +1483,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE = "03606bba-0299-4913-b759-bfda27a97719";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1532,8 +1532,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE = "03606bba-0299-4913-b759-bfda27a97719";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
