@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1.0.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>custom message</string>
+	<key>NSLocationUsageDescription</key>
+	<string>custom message</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>custom message</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>custom for user save image</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
