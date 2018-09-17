@@ -21,14 +21,21 @@ import * as StoreReview from 'react-native-store-review';
 import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
 import type {RemoteMessage} from 'react-native-firebase';
 
+
+import LanguageRespository from '../../utils/LanguageRespository';
+import DeviceInfo from 'react-native-device-info'
+
 import {auth, db} from '../../config/FirebaseConfig';
 import probg from '../../assets/images/bg.jpg';
 import graybg from '../../assets/images/bg-grey.jpg';
 
 import {
-    onRestore,
-    upDateRole
+onRestore,
+upDateRole
 } from '../../utils/AppPay';
+
+
+import { I18n } from '../../config/language/I18n'
 
 import Config from '../../config/ApiConfig';
 import Utils from '../../utils/utils';
@@ -47,6 +54,7 @@ export default class Settings extends Component {
             unlock: false,
             isNotified: true,
             isSilent: true,
+            localeLanguage: null,
         };
     }
 
@@ -170,7 +178,6 @@ export default class Settings extends Component {
     }
 
 
-
     componentWillMount() {
         VersionCheck.getLatestVersion({
             provider: 'appStore'  // for iOS
@@ -178,11 +185,38 @@ export default class Settings extends Component {
             .then(latestVersion => {
                 this.setState({version: latestVersion})
             });
+
+        let locale = DeviceInfo.getDeviceLocale();
+
+        new LanguageRespository().saveLocalRepository('localLanguage',locale, (error) => {
+            if(error){
+                alert(error);
+            }
+        });
     }
 
     componentDidMount() {
         this.getUserRole();
     }
+
+    refreshLanguage = (index) => {
+        switch (index) {
+            case 0:
+                I18n.locale = 'en-US';
+                break;
+            case 1:
+                I18n.locale = 'zh-Hans-US';
+                break;
+            case 2:
+                I18n.locale = DeviceInfo.getDeviceLocale();
+                break;
+        }
+
+        this.setState({
+            localeLanguage: I18n.locale
+        });
+
+    };
 
     render() {
         return (
@@ -247,15 +281,15 @@ export default class Settings extends Component {
                         onPress={() => this.onShare()}
                         hideChevron
                     />
+
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'notifications', color: colors.orange}}
-                        title={`Notifications`}
+                        title={I18n.t('changeToChinese')}
                         switchOnTintColor={colors.primary1}
                         switchButton
-                        onPress={this.linkToNotification}
+                        onPress={this.refreshLanguage(1)}
                     />
-
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
