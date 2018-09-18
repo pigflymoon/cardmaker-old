@@ -244,7 +244,6 @@ export default class Settings extends Component {
                                 switched={this.state.unlock}
                             />
                         </List>
-
                     </ImageBackground>
                 </View>
                 <List containerStyle={listStyle.listContainer}>
@@ -264,7 +263,6 @@ export default class Settings extends Component {
                         rightTitleStyle={this.titleStyle()}
                         hideChevron
                     />
-
                 </List>
                 <List containerStyle={listStyle.listContainer}>
                     <ListItem
@@ -298,14 +296,12 @@ export default class Settings extends Component {
                         switchButton
                         onPress={()=>this.refreshLanguage(1)}
                     />
-
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
                         title={`About`}
                         onPress={() => this.onAbout()}
                         chevronColor={colors.grey5}
-
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
