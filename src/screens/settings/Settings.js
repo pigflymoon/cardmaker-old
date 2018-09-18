@@ -30,12 +30,12 @@ import probg from '../../assets/images/bg.jpg';
 import graybg from '../../assets/images/bg-grey.jpg';
 
 import {
-onRestore,
-upDateRole
+    onRestore,
+    upDateRole
 } from '../../utils/AppPay';
 
 
-import { I18n } from '../../config/language/I18n'
+import {I18n} from '../../config/language/I18n'
 
 import Config from '../../config/ApiConfig';
 import Utils from '../../utils/utils';
@@ -188,8 +188,9 @@ export default class Settings extends Component {
 
         let locale = DeviceInfo.getDeviceLocale();
 
-        new LanguageRespository().saveLocalRepository('localLanguage',locale, (error) => {
-            if(error){
+        console.log('locale is :', locale);
+        new LanguageRespository().saveLocalRepository('localLanguage', locale, (error) => {
+            if (error) {
                 alert(error);
             }
         });
@@ -281,15 +282,23 @@ export default class Settings extends Component {
                         onPress={() => this.onShare()}
                         hideChevron
                     />
-
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        leftIcon={{name: 'notifications', color: colors.orange}}
+                        title={`Notifications`}
+                        switchOnTintColor={colors.primary1}
+                        switchButton
+                        onPress={this.linkToNotification}
+                    />
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'notifications', color: colors.orange}}
                         title={I18n.t('changeToChinese')}
                         switchOnTintColor={colors.primary1}
                         switchButton
-                        onPress={this.refreshLanguage(1)}
+                        onPress={()=>this.refreshLanguage(1)}
                     />
+
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
