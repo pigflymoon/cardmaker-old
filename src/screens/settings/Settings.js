@@ -223,6 +223,7 @@ export default class Settings extends Component {
         return (
             <ScrollView>
                 <View>
+
                     <ImageBackground
                         source={this.state.bgImage}
                         style={{

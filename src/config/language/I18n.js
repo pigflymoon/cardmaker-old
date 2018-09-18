@@ -19,7 +19,7 @@ I18n.localeLanguage = () => {
 
     new LanguageRespository().fetchLocalRepository('localLanguage')
         .then((res)=>{
-
+            console.log('res is ',res);
             I18n.locale = res;
 
         })

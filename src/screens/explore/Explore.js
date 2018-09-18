@@ -19,6 +19,7 @@ import VersionCheck from 'react-native-version-check';
 import Carousel from 'react-native-snap-carousel';
 import Loader from 'react-native-mask-loader';
 import Placeholder from 'rn-placeholder';
+import {I18n} from '../../config/language/I18n';
 
 import colors from '../../styles/colors';
 import layoutStyle from '../../styles/layout';
@@ -279,12 +280,12 @@ export default class Explore extends Component {
                         )}
                     >
                         <View style={[layoutStyle.container, exploreStyle.scrollViewContent]}>
-
                             <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Cards'}</Text>
+                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.cardsTitleChangeToEnglish')}
+                                </Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('cards')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllChangeToEnglish')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -297,10 +298,10 @@ export default class Explore extends Component {
                         <View style={layoutStyle.container}>
 
                             <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{'Invitations'}</Text>
+                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.invitationsChangeToEnglish')}</Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('invitations')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{'Browse All'}</Text>
+                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllChangeToEnglish')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -323,7 +324,7 @@ export default class Explore extends Component {
                                 color: colors.white,
                                 fontSize: 18,
                                 paddingHorizontal: 10
-                            }}>New</Text>
+                            }}>{I18n.t('exploreTab.newTitleChangeToEnglish')}</Text>
                             {this.renderBanner(this.state.latestImages, (!this.state.contentIsLoading))}
                         </Animated.View>
                         <Animated.View>
