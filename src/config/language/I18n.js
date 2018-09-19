@@ -15,6 +15,7 @@ I18n.translations = {
     zh,
 };
 
+
 I18n.localeLanguage = () => {
 
     new LanguageRespository().fetchLocalRepository('localLanguage')

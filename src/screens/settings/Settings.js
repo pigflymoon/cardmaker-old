@@ -13,8 +13,10 @@ import {
     TouchableHighlight,
     Image,
     ImageBackground,
-    AsyncStorage
+    AsyncStorage,
+    I18nManager
 } from 'react-native';
+
 import VersionCheck from 'react-native-version-check';
 import {List, ListItem,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
@@ -191,6 +193,12 @@ export default class Settings extends Component {
         let locale = DeviceInfo.getDeviceLocale();
 
         console.log('locale is :', locale);
+
+// Is it a RTL language?
+        const isRTL = locale.indexOf('he') === 0 || locale.indexOf('ar') === 0;
+
+// Allow RTL alignment in RTL languages
+        I18nManager.allowRTL(isRTL);
         new LanguageRespository().saveLocalRepository('localLanguage', locale, (error) => {
             if (error) {
                 alert(error);
@@ -223,6 +231,12 @@ export default class Settings extends Component {
 
     onChangeLanguage = (lan) => {
         console.log('lan is ', lan);
+//         const isRTL = lan.indexOf('he') === 0 || lan.indexOf('Arabic') === 0;
+//
+// // Allow RTL alignment in RTL languages
+//         I18nManager.allowRTL(isRTL);
+
+        lan = lan.match(/\(([^()]*)\)/g).pop();
         switch (lan) {
             case 'English':
                 I18n.locale = 'en';

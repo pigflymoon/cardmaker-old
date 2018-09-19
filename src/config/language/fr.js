@@ -12,7 +12,6 @@ export default {
     changeToArabic:'change to Arabic',
 
     changeToSystem:'change to System',
-
     tabs:{
         exploreChangeToEnglish:'Explore',
         makeCardChangeToEnglish:'Make Card',
