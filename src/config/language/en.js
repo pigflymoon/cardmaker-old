@@ -16,4 +16,5 @@ export default {
         invitationsChangeToEnglish:'Invitations',
         browseAllChangeToEnglish:'Browse All'
     }
+
 }

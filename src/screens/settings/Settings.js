@@ -20,6 +20,7 @@ import {List, ListItem,} from 'react-native-elements';
 import * as StoreReview from 'react-native-store-review';
 import reactFirebase, {Notification, NotificationOpen} from 'react-native-firebase';
 import type {RemoteMessage} from 'react-native-firebase';
+import {Dropdown} from 'react-native-material-dropdown';
 
 
 import LanguageRespository from '../../utils/LanguageRespository';
@@ -38,6 +39,7 @@ import {
 import {I18n} from '../../config/language/I18n'
 
 import Config from '../../config/ApiConfig';
+import LanConfig from '../../config/language/config';
 import Utils from '../../utils/utils';
 
 import colors from '../../styles/colors';
@@ -219,6 +221,25 @@ export default class Settings extends Component {
 
     };
 
+    onChangeLanguage = (lan) => {
+        console.log('lan is ', lan);
+        switch (lan) {
+            case 'English':
+                I18n.locale = 'en';
+                break;
+            case 'Chinese-simplified':
+                I18n.locale = 'zh-Hans-US';
+                break;
+            case 'Chinese-traditional':
+                I18n.locale = 'zh-Hans-US';
+                break;
+            default:
+                I18n.locale = DeviceInfo.getDeviceLocale();
+
+        }
+
+    }
+
     render() {
         return (
             <ScrollView>
@@ -297,6 +318,7 @@ export default class Settings extends Component {
                         switchButton
                         onPress={()=>this.refreshLanguage(1)}
                     />
+
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
@@ -311,7 +333,14 @@ export default class Settings extends Component {
                         title={`Version`}
                         subtitle={this.state.version}
                     />
+                    <Dropdown
+                        containerStyle={{paddingHorizontal:10}}
+                        label={'Language Setting'}
+                        data={LanConfig.lan}
+                        onChangeText={this.onChangeLanguage}
+                    />
                 </List>
+
             </ScrollView>
         )
     }
