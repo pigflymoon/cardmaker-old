@@ -31,18 +31,19 @@ import UnLockModalScreen from './screens/settings/UnLockModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from './styles/colors';
 
-
+import {I18n} from './config/language/I18n';
+//`${I18n.t('tabs.')}`
 const ExploreTab = StackNavigator({
     Explore: {
         screen: ExploreScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Explore',
+            title: `${I18n.t('screens.exploreTranslation')}`,
         }),
     },
     ImagesGallery: {
         screen: ImagesGalleryScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Images Gallery',
+            title: `${I18n.t('screens.imagesGalleryTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
             // headerBackTitleStyle: {color: colors.secondary2},
@@ -54,43 +55,47 @@ const MakeCardTab = StackNavigator({
     CardsDeck: {
         screen: CardsDeckScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Cards Deck',
+            title: `${I18n.t('screens.cardsDeckTranslation')}`,
             headerLeft: null,
         }),
     },
     MyCards: {
         screen: MyCardsScreen,
-        navigationOptions: {
-            title: 'My Favorites',
+        navigationOptions: ({navigation}) => ({
+            title: `${I18n.t('screens.myFavoritesTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
-        }
+        })
 
     },
     MakeCard: {
         screen: MakeCardScreen,
-        navigationOptions: {
-            title: 'Make Card',
+        navigationOptions: ({navigation}) => ({
+            title: `${I18n.t('tabs.makeCardTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
-        }
+        })
 
     },
     MakeInvitation: {
         screen: MakeInvitationScreen,
-        navigationOptions: {
-            title: 'Make Invitation',
+        navigationOptions:({navigation}) => ( {
+            title: `${I18n.t('screens.makeInvitationTranslation')}`,
             headerTintColor: colors.secondary2,
-            headerTitleStyle: {color: colors.black},
-        }
+            headerTitleStyle: {
+                color: colors.black
+            }
+            ,
+        })
 
-    },
+    }
+    ,
 })
 const ProfileTab = StackNavigator({
     Auth: {
         screen: AuthScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Welcome',
+            title: `${I18n.t('screens.welcomeTranslation')}`,
             // headerBackTitle: 'Back',
             headerLeft: null,
         }),
@@ -98,21 +103,21 @@ const ProfileTab = StackNavigator({
     ConfirmEmail: {
         screen: ConfirmEmailScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Confirm Email',
+            title: `${I18n.t('screens.confirmEmailTranslation')}`,
             headerLeft: null,
         }),
     },
     ResetPassword: {
         screen: ResetPasswordScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Reset Password',
+            title: `${I18n.t('screens.resetPasswordTranslation')}`,
             headerTintColor: colors.secondary2,
         }),
     },
     Terms: {
         screen: TermsScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Terms of Use',
+            title:`${I18n.t('screens.termsTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
 
@@ -121,7 +126,7 @@ const ProfileTab = StackNavigator({
     Policy: {
         screen: PolicyScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Privacy Policy',
+            title: `${I18n.t('screens.policyTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
         }),
@@ -132,17 +137,17 @@ const ProfileTab = StackNavigator({
 const SettingsTab = StackNavigator({
     Settings: {
         screen: SettingsScreen,
-        navigationOptions: {
-            title: 'Settings',
-        },
+        navigationOptions:({navigation}) => ( {
+            title: `${I18n.t('tabs.settingsTranslation')}`,
+        }),
     },
     About: {
         screen: AboutScreen,
-        navigationOptions: {
-            title: 'About',
+        navigationOptions:({navigation}) => ( {
+            title:`${I18n.t('screens.aboutTranslation')}`,
             headerTintColor: colors.secondary2,
             headerTitleStyle: {color: colors.black},
-        }
+        })
     },
 });
 
@@ -150,8 +155,8 @@ const StacksInTabs = TabNavigator(
     {
         ExploreTab: {
             screen: ExploreTab,
-            navigationOptions: {
-                tabBarLabel: 'Explore',
+            navigationOptions:({navigation}) => ( {
+                tabBarLabel: `${I18n.t('tabs.exploreTranslation')}`,
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-images' : 'ios-images-outline'}
@@ -159,14 +164,14 @@ const StacksInTabs = TabNavigator(
                         style={{color: tintColor}}
                     />
                 )
-            }
+            })
 
         },
 
         MakeCardTab: {
             screen: MakeCardTab,
-            navigationOptions: {
-                tabBarLabel: 'Make Card',
+            navigationOptions: ({navigation}) => ({
+                tabBarLabel: `${I18n.t('tabs.makeCardTranslation')}`,
                 headerTintColor: colors.secondary2,
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
@@ -176,14 +181,14 @@ const StacksInTabs = TabNavigator(
                     />
                 ),
 
-            }
+            })
 
         },
 
         ProfileTab: {
             screen: ProfileTab,
-            navigationOptions: {
-                tabBarLabel: 'Profile',
+            navigationOptions:({navigation}) => ( {
+                tabBarLabel: `${I18n.t('tabs.profileTranslation')}`,
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-person' : 'ios-person-outline'}
@@ -191,13 +196,13 @@ const StacksInTabs = TabNavigator(
                         style={{color: tintColor}}
                     />
                 )
-            }
+            })
 
         },
         SettingsTab: {
             screen: SettingsTab,
-            navigationOptions: {
-                tabBarLabel: 'Settings',
+            navigationOptions:({navigation}) => ( {
+                tabBarLabel: `${I18n.t('tabs.settingsTranslation')}`,
                 tabBarIcon: ({tintColor, focused}) => (
                     <Ionicons
                         name={focused ? 'ios-settings' : 'ios-settings-outline'}
@@ -205,7 +210,7 @@ const StacksInTabs = TabNavigator(
                         style={{color: tintColor}}
                     />
                 ),
-            },
+            }),
         },
 
     },

@@ -5,10 +5,10 @@ export default {
     changeToChinese: 'change to Chinese',
     changeToSystem: 'change to System',
     tabs: {
-        exploreChangeToEnglish: 'Explore',
-        makeCardChangeToEnglish: 'Make Card',
-        profileChangeToEnglish: 'Profile',
-        settingsChangeToEnglish: 'Settings'
+        exploreTranslation: 'Explore',
+        makeCardTranslation: 'Make Card',
+        profileTranslation: 'Profile',
+        settingsTranslation: 'Settings'
     },
     exploreTab: {
         newTitleTranslation: 'Nuevo',

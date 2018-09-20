@@ -345,15 +345,6 @@ export default class Settings extends Component {
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
-                        leftIcon={{name: 'notifications', color: colors.orange}}
-                        title={I18n.t('changeToChinese')}
-                        switchOnTintColor={colors.primary1}
-                        switchButton
-                        onPress={()=>this.refreshLanguage(1)}
-                    />
-
-                    <ListItem
-                        containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
                         title={`About`}
                         onPress={() => this.onAbout()}
