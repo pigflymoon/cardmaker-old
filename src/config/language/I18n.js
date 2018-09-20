@@ -9,7 +9,9 @@ import zhTraditional from './zhTraditional';
 import ja from './ja';
 import es from './es';
 import fr from './fr';
-
+import de from './de';
+import pt from './pt';
+import ko from './ko';
 I18n.defaultLocale = 'en';
 
 I18n.fallbacks = true;
@@ -21,7 +23,9 @@ I18n.translations = {
     ja,
     es,
     fr,
-
+    de,
+    pt,
+    ko
 };
 
 

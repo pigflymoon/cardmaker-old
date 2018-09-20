@@ -19,10 +19,10 @@ export default {
         settingsChangeToEnglish:'Settings'
     },
     exploreTab:{
-        newTitleTranslation:'New',
-        cardsTitleTranslation:'Cards',
-        invitationsTranslation:'Invitations',
-        browseAllTranslation:'Browse All'
+        newTitleTranslation:'Neu',
+        cardsTitleTranslation:'Karten',
+        invitationsTranslation:'Einladungen',
+        browseAllTranslation:'Alle Ansehen'
     }
 
 }
