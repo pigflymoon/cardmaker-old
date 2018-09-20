@@ -14,16 +14,16 @@ export default {
     changeToSystem:'change to System',
 
     tabs:{
-        exploreChangeToEnglish:'Explore',
-        makeCardChangeToEnglish:'Make Card',
-        profileChangeToEnglish:'Profile',
-        settingsChangeToEnglish:'Settings'
+        exploreTranslation:'Explore',
+        makeCardTranslation:'Make Card',
+        profileTranslation:'Profile',
+        settingsTranslation:'Settings'
     },
     exploreTab:{
-        newTitleChangeToEnglish:'New',
-        cardsTitleChangeToEnglish:'Cards',
-        invitationsChangeToEnglish:'Invitations',
-        browseAllChangeToEnglish:'Browse All'
+        newTitleTranslation:'New',
+        cardsTitleTranslation:'Cards',
+        invitationsTranslation:'Invitations',
+        browseAllTranslation:'Browse All'
     }
 
 }

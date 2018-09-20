@@ -17,15 +17,15 @@ export default {
     changeToChinese:'切换到中文',
     changeToSystem:'切换到系统语言',
     tabs:{
-        exploreTranslation:'首页',
-        makeCardTranslation:'制作卡片',
+        exploreTranslation:'首頁',
+        makeCardTranslation:'製作卡片',
         profileTranslation:'我的',
-        settingsTranslation:'设置'
+        settingsTranslation:'設置'
     },
     exploreTab:{
-        newTitleTranslation:'新卡速递',
-        cardsTitleTranslation:'贺卡',
-        invitationsTranslation:'邀请卡',
+        newTitleTranslation:'新卡速遞',
+        cardsTitleTranslation:'賀卡',
+        invitationsTranslation:'邀請卡',
         browseAllTranslation:'全部'
     }
 

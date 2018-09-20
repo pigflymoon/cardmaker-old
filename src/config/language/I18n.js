@@ -1,10 +1,14 @@
-import I18n,{ getLanguages } from 'react-native-i18n'
-import DeviceInfo from 'react-native-device-info'
-import LanguageRespository from '../../utils/LanguageRespository'
-import en from './en'
-import zh from './zh'
+import I18n, {getLanguages} from 'react-native-i18n';
+import DeviceInfo from 'react-native-device-info';
+import LanguageRespository from '../../utils/LanguageRespository';
+import en from './en';
+// import zh from './zh'
 
-
+import zhSimple from './zhSimple';
+import zhTraditional from './zhTraditional';
+import ja from './ja';
+import es from './es';
+import fr from './fr';
 
 I18n.defaultLocale = 'en';
 
@@ -12,19 +16,24 @@ I18n.fallbacks = true;
 
 I18n.translations = {
     en,
-    zh,
+    zhSimple,
+    zhTraditional,
+    ja,
+    es,
+    fr,
+
 };
 
 
 I18n.localeLanguage = () => {
 
     new LanguageRespository().fetchLocalRepository('localLanguage')
-        .then((res)=>{
-            console.log('res is ',res);
+        .then((res) => {
+            console.log('res is ', res);
             I18n.locale = res;
 
         })
-        .catch((error)=>{
+        .catch((error) => {
 
             I18n.locale = DeviceInfo.getDeviceLocale();
 
@@ -35,5 +44,5 @@ I18n.localeLanguage = () => {
 };
 
 
-export { I18n, getLanguages };
+export {I18n, getLanguages};
 

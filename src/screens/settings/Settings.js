@@ -236,16 +236,35 @@ export default class Settings extends Component {
 // // Allow RTL alignment in RTL languages
 //         I18nManager.allowRTL(isRTL);
 
-        lan = lan.match(/\(([^()]*)\)/g).pop();
+        lan = lan.match(/\((.*)\)/).pop();
+        console.log('lan is ',lan);
         switch (lan) {
             case 'English':
                 I18n.locale = 'en';
                 break;
             case 'Chinese-simplified':
-                I18n.locale = 'zh-Hans-US';
+                I18n.locale = 'zhSimple';
                 break;
             case 'Chinese-traditional':
-                I18n.locale = 'zh-Hans-US';
+                I18n.locale = 'zhTraditional';
+                break;
+            case 'Japanese':
+                I18n.locale ='ja';
+                break;
+            case 'Spanish':
+                I18n.locale ='es';
+                break;
+            case 'French':
+                I18n.locale ='fr';
+                break;
+            case 'German':
+                I18n.locale ='de';
+                break;
+            case 'Portuguese':
+                I18n.locale ='pt';
+                break;
+            case 'Korean':
+                I18n.locale ='ko';
                 break;
             default:
                 I18n.locale = DeviceInfo.getDeviceLocale();

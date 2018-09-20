@@ -281,11 +281,11 @@ export default class Explore extends Component {
                     >
                         <View style={[layoutStyle.container, exploreStyle.scrollViewContent]}>
                             <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.cardsTitleChangeToEnglish')}
+                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.cardsTitleTranslation')}
                                 </Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('cards')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllChangeToEnglish')}</Text>
+                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -298,10 +298,10 @@ export default class Explore extends Component {
                         <View style={layoutStyle.container}>
 
                             <View style={carouselStyle.container}>
-                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.invitationsChangeToEnglish')}</Text>
+                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.invitationsTranslation')}</Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('invitations')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllChangeToEnglish')}</Text>
+                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -324,7 +324,7 @@ export default class Explore extends Component {
                                 color: colors.white,
                                 fontSize: 18,
                                 paddingHorizontal: 10
-                            }}>{I18n.t('exploreTab.newTitleChangeToEnglish')}</Text>
+                            }}>{I18n.t('exploreTab.newTitleTranslation')}</Text>
                             {this.renderBanner(this.state.latestImages, (!this.state.contentIsLoading))}
                         </Animated.View>
                         <Animated.View>
