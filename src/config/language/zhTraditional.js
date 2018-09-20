@@ -22,6 +22,20 @@ export default {
         profileTranslation:'我的',
         settingsTranslation:'設置'
     },
+    screens:{
+        exploreTranslation:'',
+        imagesGalleryTranslation:'',
+        cardsDeckTranslation:'',
+        myFavoritesTranslation:'',
+        makeCardTranslation:'',
+        makeInvitationTranslation:'',
+        welcomeTranslation:'',
+        confirmEmailTranslation:'',
+        resetPasswordTranslation:'',
+        termsTranslation:'',
+        policyTranslation:'',
+        aboutTranslation:'',
+    },
     exploreTab:{
         newTitleTranslation:'新卡速遞',
         cardsTitleTranslation:'賀卡',

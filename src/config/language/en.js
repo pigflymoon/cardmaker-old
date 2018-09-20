@@ -19,6 +19,20 @@ export default {
         profileTranslation:'Profile',
         settingsTranslation:'Settings'
     },
+    screens:{
+        exploreTranslation:'Explore',
+        imagesGalleryTranslation:'Image Gallery',
+        cardsDeckTranslation:'Cards Deck',
+        myFavoritesTranslation:'My Favorites',
+        makeCardTranslation:'Make Card',
+        makeInvitationTranslation:'Make Invitations',
+        welcomeTranslation:'Welcome',
+        confirmEmailTranslation:'Confirm Email',
+        resetPasswordTranslation:'Reset Password',
+        termsTranslation:'Terms of Use',
+        policyTranslation:'Privacy Policy',
+        aboutTranslation:'About',
+    },
     exploreTab:{
         newTitleTranslation:'New',
         cardsTitleTranslation:'Cards',

@@ -10,6 +10,20 @@ export default {
         profileTranslation: 'Profile',
         settingsTranslation: 'Settings'
     },
+    screens:{
+        exploreTranslation:'',
+        imagesGalleryTranslation:'',
+        cardsDeckTranslation:'',
+        myFavoritesTranslation:'',
+        makeCardTranslation:'',
+        makeInvitationTranslation:'',
+        welcomeTranslation:'',
+        confirmEmailTranslation:'',
+        resetPasswordTranslation:'',
+        termsTranslation:'',
+        policyTranslation:'',
+        aboutTranslation:'',
+    },
     exploreTab: {
         newTitleTranslation: 'Nuevo',
         cardsTitleTranslation: 'Tarjetas',
