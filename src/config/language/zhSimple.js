@@ -25,7 +25,7 @@ export default {
     screens:{
         exploreTranslation:'首页',
         imagesGalleryTranslation:'图库',
-        cardsDeckTranslation:'滑一滑',
+        cardsDeckTranslation:'刷一刷',
         myFavoritesTranslation:'我喜欢的卡片',
         makeCardTranslation:'制作卡片',
         makeInvitationTranslation:'制作邀请函',
