@@ -37,6 +37,17 @@ export default {
         cardsTitleTranslation:'Cartes',
         invitationsTranslation:'Invitations',
         browseAllTranslation:'Voir plus'
+    },
+    settingsTab:{
+        unlockProVersionTranslation:'',
+        restorePurchaseTraslation:'',
+        proVersionTranslation:'',
+        rateTranslation:'',
+        tellFriendTranslation:'',
+        notificationTranslation:'',
+        aboutTranslation:'',
+        versionTranslation:'',
+        languageSettingTranslation:''
     }
 
 }

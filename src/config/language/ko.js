@@ -37,6 +37,17 @@ export default {
         cardsTitleTranslation:'카드',
         invitationsTranslation:'초대장',
         browseAllTranslation:'더보기'
+    },
+    settingsTab:{
+        unlockProVersionTranslation:'',
+        restorePurchaseTraslation:'',
+        proVersionTranslation:'',
+        rateTranslation:'',
+        tellFriendTranslation:'',
+        notificationTranslation:'',
+        aboutTranslation:'',
+        versionTranslation:'',
+        languageSettingTranslation:''
     }
 
 }

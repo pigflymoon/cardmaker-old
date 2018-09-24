@@ -37,6 +37,17 @@ export default {
         cardsTitleTranslation:'Postais',
         invitationsTranslation:'Convites',
         browseAllTranslation:'Veja todos'
+    },
+    settingsTab:{
+        unlockProVersionTranslation:'',
+        restorePurchaseTraslation:'',
+        proVersionTranslation:'',
+        rateTranslation:'',
+        tellFriendTranslation:'',
+        notificationTranslation:'',
+        aboutTranslation:'',
+        versionTranslation:'',
+        languageSettingTranslation:''
     }
 
 }

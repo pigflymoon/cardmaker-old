@@ -37,6 +37,17 @@ export default {
         cardsTitleTranslation:'グリーティングカード',
         invitationsTranslation:'招待状',
         browseAllTranslation:'すべてをブラウズ'
+    },
+    settingsTab:{
+        unlockProVersionTranslation:'',
+        restorePurchaseTraslation:'',
+        proVersionTranslation:'',
+        rateTranslation:'',
+        tellFriendTranslation:'',
+        notificationTranslation:'',
+        aboutTranslation:'',
+        versionTranslation:'',
+        languageSettingTranslation:''
     }
 
 }

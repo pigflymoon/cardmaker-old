@@ -42,6 +42,17 @@ export default {
         cardsTitleTranslation:'贺卡',
         invitationsTranslation:'邀请卡',
         browseAllTranslation:'全部'
+    },
+    settingsTab:{
+        unlockProVersionTranslation:'解锁版本',
+        restorePurchaseTraslation:'恢复购买',
+        proVersionTranslation:'付费版本',
+        rateTranslation:'给App Store上评分',
+        tellFriendTranslation:'分享给朋友',
+        notificationTranslation:'通知',
+        aboutTranslation:'关于',
+        versionTranslation:'版本',
+        languageSettingTranslation:'语言设置'
     }
 
 }
