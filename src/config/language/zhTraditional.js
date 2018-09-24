@@ -52,6 +52,11 @@ export default {
         aboutTranslation:'關於',
         versionTranslation:'版本',
         languageSettingTranslation:'語言設置'
+    },
+    profileTab:{
+        titleTranslation:'',
+        descriptionTranslation:'',
+        signoutTransplation:''
     }
 
 }

@@ -53,6 +53,20 @@ export default {
         aboutTranslation:'关于',
         versionTranslation:'版本',
         languageSettingTranslation:'语言设置'
+    },
+    profileTab:{
+       titleTranslation:'',
+        descriptionTranslation:'',
+        signoutTransplation:''
+    },
+    unlockModal:{
+        titleTranslation:'',
+        description1Translation:'',
+        description2Translation:'',
+        description3Translation:'',
+        description4Translation:'',
+        unlockDescriptionTranslation:'',
+        restoreTranslation:''
     }
 
 }

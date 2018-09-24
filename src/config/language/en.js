@@ -49,6 +49,11 @@ export default {
         aboutTranslation:'',
         versionTranslation:'',
         languageSettingTranslation:''
+    },
+    profileTab:{
+        titleTranslation:'',
+        descriptionTranslation:'',
+        signoutTransplation:''
     }
 
 }
