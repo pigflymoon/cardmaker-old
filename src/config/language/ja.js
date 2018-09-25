@@ -39,15 +39,20 @@ export default {
         browseAllTranslation:'すべてをブラウズ'
     },
     settingsTab:{
-        unlockProVersionTranslation:'',
-        restorePurchaseTraslation:'',
-        proVersionTranslation:'',
-        rateTranslation:'',
-        tellFriendTranslation:'',
-        notificationTranslation:'',
-        aboutTranslation:'',
-        versionTranslation:'',
-        languageSettingTranslation:''
+        unlockProVersionTranslation:'プロバージョンのロックを解除',
+        restorePurchaseTraslation:'購入商品を復元する',
+        proVersionTranslation:'PROバージョン',
+        rateTranslation:'App Storeでのレート',
+        tellFriendTranslation:'友達と共有する',
+        notificationTranslation:'通知',
+        aboutTranslation:'について',
+        versionTranslation:'バージョン',
+        languageSettingTranslation:'言語設定'
+    },
+    profileTab:{
+        titleTranslation:'カードメーカーアプリに歓迎',
+        descriptionTranslation:'あなたのカードを作るためにあなたの写真を図書館から選んで、楽しい時間を過ごしてください',
+        signoutTransplation:'サインアウト'
     }
 
 }

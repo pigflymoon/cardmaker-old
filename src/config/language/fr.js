@@ -39,15 +39,20 @@ export default {
         browseAllTranslation:'Voir plus'
     },
     settingsTab:{
-        unlockProVersionTranslation:'',
-        restorePurchaseTraslation:'',
-        proVersionTranslation:'',
-        rateTranslation:'',
-        tellFriendTranslation:'',
-        notificationTranslation:'',
-        aboutTranslation:'',
-        versionTranslation:'',
-        languageSettingTranslation:''
+        unlockProVersionTranslation:'Débloquer la version Pro',
+        restorePurchaseTraslation:'Restaurer l\'achat',
+        proVersionTranslation:'Version PRO',
+        rateTranslation:'Rate dans l\'App Store',
+        tellFriendTranslation:'partager avec des amis',
+        notificationTranslation:'Les notifications',
+        aboutTranslation:'Propos d’App',
+        versionTranslation:'Version',
+        languageSettingTranslation:'Paramètres de langue'
+    },
+    profileTab:{
+        titleTranslation:'Bienvenue sur l\'application Card Maker!',
+        descriptionTranslation:'S\'il vous plaît choisir votre photo de la bibliothèque pour faire votre carte, amusez-vous!',
+        signoutTransplation:'Connectez - Out'
     }
 
 }

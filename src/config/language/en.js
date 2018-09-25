@@ -40,20 +40,20 @@ export default {
         browseAllTranslation:'Browse All'
     },
     settingsTab:{
-        unlockProVersionTranslation:'',
-        restorePurchaseTraslation:'',
-        proVersionTranslation:'',
-        rateTranslation:'',
-        tellFriendTranslation:'',
-        notificationTranslation:'',
-        aboutTranslation:'',
-        versionTranslation:'',
-        languageSettingTranslation:''
+        unlockProVersionTranslation:'Unlock Pro Version',
+        restorePurchaseTraslation:'Restore Purchase',
+        proVersionTranslation:'PRO Version',
+        rateTranslation:'Rate on the App Store',
+        tellFriendTranslation:'Tell a friend',
+        notificationTranslation:'Notifications',
+        aboutTranslation:'About',
+        versionTranslation:'Version',
+        languageSettingTranslation:'Language Setting'
     },
     profileTab:{
-        titleTranslation:'',
-        descriptionTranslation:'',
-        signoutTransplation:''
+        titleTranslation:'Welcome to Cardmaker App!',
+        descriptionTranslation:'Please pick your picture from library to make your card, have fun!',
+        signoutTransplation:'SIGN OUT'
     }
 
 }

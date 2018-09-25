@@ -30,7 +30,7 @@ export default {
         resetPasswordTranslation:'암호를 재설정',
         termsTranslation:'이용약관',
         policyTranslation:'개인정보처리방침',
-        aboutTranslation:'',
+        aboutTranslation:'앱에 대해',
     },
     exploreTab:{
         newTitleTranslation:'새로운',
@@ -39,15 +39,20 @@ export default {
         browseAllTranslation:'더보기'
     },
     settingsTab:{
-        unlockProVersionTranslation:'',
-        restorePurchaseTraslation:'',
-        proVersionTranslation:'',
-        rateTranslation:'',
-        tellFriendTranslation:'',
-        notificationTranslation:'',
-        aboutTranslation:'',
-        versionTranslation:'',
-        languageSettingTranslation:''
+        unlockProVersionTranslation:'프로 버전 잠금 해제',
+        restorePurchaseTraslation:'구매 복원',
+        proVersionTranslation:'프로 버전',
+        rateTranslation:'App Store에서의 평가',
+        tellFriendTranslation:'친구와 공유하다',
+        notificationTranslation:'알림',
+        aboutTranslation:'앱에 대해',
+        versionTranslation:'앱 버전',
+        languageSettingTranslation:'언어 설정'
+    },
+    profileTab:{
+        titleTranslation:'Cardmaker App에 오신 것을 환영합니다!',
+        descriptionTranslation:'카드를 만들기 위해 도서관에서 사진을 골라 골라보십시오!',
+        signoutTransplation:'로그 아웃'
     }
 
 }

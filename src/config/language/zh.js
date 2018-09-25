@@ -41,6 +41,20 @@ export default {
         cardsTitleTranslation:'贺卡',
         invitationsTranslation:'邀请卡',
         browseAllTranslation:'全部'
+    },
+    unlockModal:{
+        tipTranslation:'',
+        description1Translation:'',
+        description2Translation:'',
+        description3Translation:'',
+        titleTransltion:'',
+        unlockDescriptionTranslation:'',
+        restoreTranslation:''
+    },
+    profileTab:{
+        titleTranslation:'',
+        descriptionTranslation:'',
+        signoutTransplation:''
     }
 
 }

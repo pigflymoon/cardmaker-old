@@ -31,15 +31,20 @@ export default {
         browseAllTranslation: 'Explorar todo'
     },
     settingsTab:{
-        unlockProVersionTranslation:'',
-        restorePurchaseTraslation:'',
-        proVersionTranslation:'',
-        rateTranslation:'',
-        tellFriendTranslation:'',
-        notificationTranslation:'',
-        aboutTranslation:'',
-        versionTranslation:'',
-        languageSettingTranslation:''
+        unlockProVersionTranslation:'Desbloquear la versión Pro',
+        restorePurchaseTraslation:'Restaurar compra',
+        proVersionTranslation:'Versión Pro',
+        rateTranslation:'Califica en el App Store',
+        tellFriendTranslation:'Comparte con un amigo',
+        notificationTranslation:'Notificaciones',
+        aboutTranslation:'Acerca de Aplicación',
+        versionTranslation:'Versión',
+        languageSettingTranslation:'Configuración de idioma'
+    },
+    profileTab:{
+        titleTranslation:'Bienvenido a la aplicación Cardmaker',
+        descriptionTranslation:'Por favor, elija su imagen de la biblioteca para hacer su tarjeta, ¡diviértase!',
+        signoutTransplation:'Cerrar sesión'
     }
 
 }

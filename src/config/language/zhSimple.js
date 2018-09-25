@@ -55,18 +55,18 @@ export default {
         languageSettingTranslation:'语言设置'
     },
     profileTab:{
-       titleTranslation:'',
-        descriptionTranslation:'',
-        signoutTransplation:''
+       titleTranslation:'欢迎来到-卡片制作',
+       descriptionTranslation:'请从图库里挑选图片模板,制作属于自己的卡片!玩的开心哦！',
+       signoutTransplation:'退出登录'
     },
     unlockModal:{
-        titleTranslation:'',
-        description1Translation:'',
-        description2Translation:'',
-        description3Translation:'',
-        description4Translation:'',
-        unlockDescriptionTranslation:'',
-        restoreTranslation:''
+        tipTranslation:'想拥有更多画作，这很正常！',
+        description1Translation:'获得源源不断更新的各种画作',
+        description2Translation:'给你的文字涂上最独特的色彩',
+        description3Translation:'用独特的字体制作属于自己的卡片',
+        titleTransltion:'付费版本',
+        unlockDescriptionTranslation:'解锁',
+        restoreTranslation:'恢复购买'
     }
 
 }
