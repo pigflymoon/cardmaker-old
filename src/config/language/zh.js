@@ -75,6 +75,54 @@ export default {
     },
     showCardsType: ["christmas", "newYear", "easter", "kids", "forHer", "forHim", "general", "birthday", "wedding", "anniversary", "goodLuck", "teacherAppreciation", "graduation", "newBaby", "exam", "cheerUp", "friendship", "getWell", "loveRomance"],
     showInvitationsType : ["christmas", "newYear", "easter", "kids", "women", "men", "invitation", "saveTheDate", "rsvp", "anniversary", "graduationParty", "bbqParty", "birth", "graduationAnnouncement"],
+    cards: {
+        holiday: {
+            title: '',
+            types: [{"christmas": ""}, {"newYear": ""}, {"easter": ""}],
+        },
+        birthday: {
+            title: '',
+            types: [{"kids": ""}, {"forHer": ""}, {"forHim": ""}]
+        },
+        thankyou: {
+            title: '',
+            types: [{"general": ""}, {"birthday": ""}, {"wedding": ""}]
+        },
+        occasions: {
+            title: '',
+            types: [{"anniversary": ""}, {"goodLuck": ""}, {"teacherAppreciation": ""}]
+        },
+        congratulations: {
+            title: '',
+            types: [{"graduation": ""}, {"newBaby": ""}, {"exam": ""}]
+        },
+        thoughtsFeelings: {
+            title: '',
+            types: [{"cheerUp": ""}, {"friendship": ""}, {"getWell": ""}, {"loveRomance": ""}]
+        }
+    },
+    invitations: {
+        holiday: {
+            title: '',
+            types: [{"christmas": ""}, {"newYear": ""}, {"easter": ""}],
+        },
+        birthday: {
+            title: '',
+            types: [{"kids": ""}, {"women": ""}, {"men": ""}],
 
+        },
+        wedding: {
+            title: '',
+            types: [{"invitation": ""}, {"saveTheDate": ""}, {"rsvp": ""}],
+        },
+        party: {
+            title: '',
+            types: [{"anniversary": ""}, {"graduationParty": ""}, {"bbqParty": ""}],
+        },
+        announcement: {
+            title: '',
+            types: [{"birth": ""}, {"graduationAnnouncement": ""}],
+        },
+    }
 
 }
