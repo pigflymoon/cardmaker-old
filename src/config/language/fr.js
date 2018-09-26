@@ -53,6 +53,55 @@ export default {
         titleTranslation:'Bienvenue sur l\'application Card Maker!',
         descriptionTranslation:'S\'il vous plaît choisir votre photo de la bibliothèque pour faire votre carte, amusez-vous!',
         signoutTransplation:'Connectez - Out'
+    },
+    cards: {
+        holiday: {
+            title: 'vacances',
+            types: [{"christmas": "Noël"}, {"newYear": "nouvel An"}, {"easter": "Pâques"}],
+        },
+        birthday: {
+            title: 'anniversaire',
+            types: [{"kids": "des gamins"}, {"forHer": "pour elle"}, {"forHim": "pour lui"}]
+        },
+        thankyou: {
+            title: 'Je vous remerci',
+            types: [{"general": "général"}, {"birthday": "anniversaire"}, {"wedding": "mariage"}]
+        },
+        occasions: {
+            title: 'les événement',
+            types: [{"anniversary": "anniversaire"}, {"goodLuck": "anniversaire"}, {"teacherAppreciation": "Appréciation du professeur"}]
+        },
+        congratulations: {
+            title: 'toutes nos félicitations',
+            types: [{"graduation": "l\'obtention du diplôme"}, {"newBaby": "nouveau bébé"}, {"exam": "examen"}]
+        },
+        thoughtsFeelings: {
+            title: 'pensées et sentiments',
+            types: [{"cheerUp": "courage"}, {"friendship": "relation amicale"}, {"getWell": "se rétablir"}, {"loveRomance": "amour et romance"}]
+        }
+    },
+    invitations: {
+        holiday: {
+            title: 'vacances',
+            types: [{"christmas": "Noël"}, {"newYear": "nouvel An"}, {"easter": "Pâques"}],
+        },
+        birthday: {
+            title: 'anniversaire',
+            types: [{"kids": "des gamins"}, {"women": "femmes"}, {"men": "Hommes"}],
+
+        },
+        wedding: {
+            title: 'mariage',
+            types: [{"invitation": "invitation"}, {"saveTheDate": "Réserve cette date"}, {"rsvp": "RSVP"}],
+        },
+        party: {
+            title: 'fête',
+            types: [{"anniversary": "anniversaire"}, {"graduationParty": "remise de diplôme"}, {"bbqParty": "BBQ Party"}],
+        },
+        announcement: {
+            title: 'annonce',
+            types: [{"birth": "naissance"}, {"graduationAnnouncement": "Annonce de remise des diplômes"}],
+        },
     }
 
 }
