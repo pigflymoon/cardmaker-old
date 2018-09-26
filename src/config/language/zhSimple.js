@@ -68,38 +68,60 @@ export default {
         unlockDescriptionTranslation: '解锁',
         restoreTranslation: '恢复购买'
     },
-    // cardsType: {
-    //     '节日': ["圣诞节", "新年", "复活节"],
-    //     '生日': ["孩子", "给她", "给他"],
-    //     '感谢': ["常规", "生日", "婚礼"],
-    //     '场合': ["纪念日", "好运", "教师节"],
-    //     '祝贺': ["毕业", "婴儿", "考试"],
-    //     '思念及感情': ["鼓励", "友谊", "健康", "爱情浪漫"]
-    // },
+
     cards: {
         holiday: {
-            types: ["圣诞节", "新年", "复活节"], title: '节日'
+            title: '节日',
+            types: [{"christmas": "圣诞节"}, {"newYear": "新年"}, {"easter": "复活节"}],
+
         },
         birthday: {
-            types: ["孩子", "给她", "给他"],
-            title: '生日'
+            title: '生日',
+            types: [{"kids": "孩子"}, {"forHer": "给她"}, {"forHim": "给他"}]
         },
         thankyou: {
-            types: ["常规", "生日", "婚礼"],
-            title: '感谢'
+            title: '感谢',
+            types: [{"general": "常规"}, {"birthday": "生日"}, {"wedding": "婚礼"}]
         },
         occasions: {
-            types: ["纪念日", "好运", "教师节"],
-            title: '场合'
+            title: '场合',
+            types: [{"anniversary": "纪念日"}, {"goodLuck": "好运"}, {"teacherAppreciation": "教师节"}]
         },
         congratulations: {
-            types: ["毕业", "婴儿", "考试"],
-            title: '祝贺'
+            title: '祝贺',
+            types: [{"graduation": "毕业"}, {"newBaby": "婴儿"}, {"exam": "考试"}]
         },
         thoughtsFeelings: {
-            types: ["鼓励", "友谊", "健康", "爱情浪漫"],
-            title: '思念及感情'
+            title: '思念及感情',
+            types: [{"cheerUp": "鼓励"}, {"friendship": "友谊"}, {"getWell": "健康"}, {"loveRomance": "爱情浪漫"}]
         }
+    },
+    invitations:{
+        holiday: {
+            title: '节日',
+            types: [{"christmas": "圣诞节"}, {"newYear": "新年"}, {"easter": "复活节"}],
+
+        },
+        birthday: {
+            title: '生日',
+            types: [{"kids": "孩子"}, {"women": "女人"}, {"men": "男人"}],
+
+        },
+        wedding: {
+            title: '婚礼',
+            types: [{"invitation": "邀请"}, {"saveTheDate": "婚礼通知函"}, {"rsvp": "请帖回复"}],
+
+        },
+        party: {
+            title: '聚会',
+            types: [{"anniversary": "纪念日"}, {"graduationParty": "毕业聚会"}, {"bbqParty": "BBQ聚会"}],
+
+        },
+        announcement: {
+            title: '通知和消息',
+            types: [{"birth": "出生通知"}, {"graduationAnnouncement": "毕业通知"}],
+
+        },
     },
 
     cardsTypeTitle: {
