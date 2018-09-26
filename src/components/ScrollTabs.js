@@ -6,8 +6,7 @@ import {
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import ImageTypeTab from '../components/ImageTypeTab';
 
-import CategoryConfig from '../config/CategoryConfig';
-import CategoryI18Config from '../config/language/CategoryI18Config';
+import {I18n} from '../config/language/I18n';
 
 import colors from '../styles/colors';
 import sliderTabStyle from '../styles/slideTab';
@@ -78,7 +77,8 @@ export default class ScrollTab extends Component {
 
     render() {
         const {category} = this.props;
-        let imagesTypes = (category == 'cards') ? CategoryI18Config.cards : CategoryI18Config.invitations;
+        {I18n.t('cards')}
+        let imagesTypes = (category == 'cards') ? I18n.t('cards') : I18n.t('invitations');
 
         return (
             <ScrollableTabView
@@ -92,10 +92,6 @@ export default class ScrollTab extends Component {
                 {Object.keys(imagesTypes).map((key, index) => {
                     let item = imagesTypes[key];
                     let title = item.title;
-                    {/*let imagesDataTypes = item.dataTypes;*/}
-
-                    console.log('item is ', item);
-                    console.log('title is ', title);
                     return (
                         <ScrollView tabLabel={title} key={index} style={sliderTabStyle.tabView}>
                             <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start'}}>

@@ -66,6 +66,55 @@ export default {
         titleTransltion:'付費版本',
         unlockDescriptionTranslation:'解鎖',
         restoreTranslation:'恢復購買'
+    },
+    cards: {
+        holiday: {
+            title: '節日',
+            types: [{"christmas": "聖誕節"}, {"newYear": "新年"}, {"easter": "復活節"}],
+        },
+        birthday: {
+            title: '生日',
+            types: [{"kids": "孩子"}, {"forHer": "給她"}, {"forHim": "給他"}]
+        },
+        thankyou: {
+            title: '感謝',
+            types: [{"general": "常規"}, {"birthday": "生日"}, {"wedding": "婚禮"}]
+        },
+        occasions: {
+            title: '場合',
+            types: [{"anniversary": "紀念日"}, {"goodLuck": "好運"}, {"teacherAppreciation": "教師節"}]
+        },
+        congratulations: {
+            title: '祝賀',
+            types: [{"graduation": "畢業"}, {"newBaby": "嬰兒"}, {"exam": "考試"}]
+        },
+        thoughtsFeelings: {
+            title: '思念及感情',
+            types: [{"cheerUp": "鼓勵"}, {"friendship": "友誼"}, {"getWell": "健康"}, {"loveRomance": "愛情浪漫"}]
+        }
+    },
+    invitations: {
+        holiday: {
+            title: '節日',
+            types: [{"christmas": "聖誕節"}, {"newYear": "新年"}, {"easter": "復活節"}],
+        },
+        birthday: {
+            title: '生日',
+            types: [{"kids": "孩子"}, {"women": "女人"}, {"men": "男人"}],
+
+        },
+        wedding: {
+            title: '婚禮',
+            types: [{"invitation": "邀請"}, {"saveTheDate": "婚禮請帖"}, {"rsvp": "請帖回复"}],
+        },
+        party: {
+            title: '聚會',
+            types: [{"anniversary": "紀念日"}, {"graduationParty": "畢業聚會"}, {"bbqParty": "BBQ聚會"}],
+        },
+        announcement: {
+            title: '通知和消息',
+            types: [{"birth": "出生通知"}, {"graduationAnnouncement": "畢業通知"}],
+        },
     }
 
 }

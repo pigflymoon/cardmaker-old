@@ -73,7 +73,6 @@ export default {
         holiday: {
             title: '节日',
             types: [{"christmas": "圣诞节"}, {"newYear": "新年"}, {"easter": "复活节"}],
-
         },
         birthday: {
             title: '生日',
@@ -96,11 +95,10 @@ export default {
             types: [{"cheerUp": "鼓励"}, {"friendship": "友谊"}, {"getWell": "健康"}, {"loveRomance": "爱情浪漫"}]
         }
     },
-    invitations:{
+    invitations: {
         holiday: {
             title: '节日',
             types: [{"christmas": "圣诞节"}, {"newYear": "新年"}, {"easter": "复活节"}],
-
         },
         birthday: {
             title: '生日',
@@ -110,52 +108,14 @@ export default {
         wedding: {
             title: '婚礼',
             types: [{"invitation": "邀请"}, {"saveTheDate": "婚礼通知函"}, {"rsvp": "请帖回复"}],
-
         },
         party: {
             title: '聚会',
             types: [{"anniversary": "纪念日"}, {"graduationParty": "毕业聚会"}, {"bbqParty": "BBQ聚会"}],
-
         },
         announcement: {
             title: '通知和消息',
             types: [{"birth": "出生通知"}, {"graduationAnnouncement": "毕业通知"}],
-
         },
-    },
-
-    cardsTypeTitle: {
-        holiday: '节日',
-        birthday: '生日',
-        thankyou: '感谢',
-        occasions: '场合',
-        congratulations: '祝贺',
-        thoughtsFeelings: '思念及感情'
-    },
-    invitationsTypeTitle: {
-        holiday: '节日',
-        birthday: '生日',
-        wedding: '婚礼',
-        party: '聚会',
-        announcement: '通知和消息'
-    },
-    cardsType: {
-        holiday: ["圣诞节", "新年", "复活节"],
-        birthday: ["孩子", "给她", "给他"],
-        thankYou: ["常规", "生日", "婚礼"],
-        occasions: ["纪念日", "好运", "教师节"],
-        congratulations: ["毕业", "婴儿", "考试"],
-        thoughtsFeelings: ["鼓励", "友谊", "健康", "爱情浪漫"]
-    },
-    invitationsType: {
-        holiday: ["圣诞节", "新年", "复活节"],
-        birthday: ["孩子", "女人", "男人"],
-        wedding: ["邀请", "婚礼通知函", "请帖回复"],
-        party: ["纪念日", "毕业聚会", "BBQ聚会"],
-        announcement: ["出生通知", "毕业通知"]
-    },
-    showCardsType: ["圣诞节", "新年", "复活节", "孩子", "给她", "给他", "常规", "生日", "婚礼", "纪念日", "好运", "教师节", "毕业", "婴儿", "考试", "鼓励", "友谊", "健康", "爱情浪漫"],
-    showInvitationsType: ["圣诞节", "新年", "复活节", "孩子", "女人", "男人", "邀请", "婚礼通知函", "请帖回复", "纪念日", "毕业聚会", "BBQ聚会", "出生通知", "毕业通知"],
-
-
+    }
 }
