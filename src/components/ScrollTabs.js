@@ -77,7 +77,7 @@ export default class ScrollTab extends Component {
 
     render() {
         const {category} = this.props;
-        {I18n.t('cards')}
+
         let imagesTypes = (category == 'cards') ? I18n.t('cards') : I18n.t('invitations');
 
         return (
