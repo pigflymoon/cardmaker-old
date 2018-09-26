@@ -6,7 +6,9 @@ import {
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import ImageTypeTab from '../components/ImageTypeTab';
 
-import CategoryConfig from '../config/CategoryConfig';
+// import CategoryConfig from '../config/CategoryConfig';
+import CategoryI18Config from '../config/language/CategoryI18Config';
+
 import colors from '../styles/colors';
 import sliderTabStyle from '../styles/slideTab';
 
@@ -56,8 +58,11 @@ export default class ScrollTab extends Component {
     }
 
     renderTypeTabs = (category, imagesTypes, imagesType) => {
+        console.log('imagesType', imagesType);
+        var imagesType = imagesType.types;
         return (
-            imagesTypes[imagesType].map((type, index) => {
+            imagesType.map((type, index) => {
+
                 return (
                     <ImageTypeTab key={index}
                                   category={category}
@@ -72,7 +77,8 @@ export default class ScrollTab extends Component {
 
     render() {
         const {category} = this.props;
-        let imagesTypes = (category == 'cards') ? CategoryConfig.cards : CategoryConfig.invitations;
+        let imagesTypes = (category == 'cards') ? CategoryI18Config.cards : CategoryI18Config.invitations;
+        console.log('imagesTypes is', imagesTypes);
         return (
             <ScrollableTabView
                 initialPage={0}
@@ -82,16 +88,18 @@ export default class ScrollTab extends Component {
                 tabBarUnderlineStyle={{backgroundColor:colors.primary3}}
                 renderTabBar={() => <ScrollableTabBar style={{height:35}} tabStyle={{height:34}} />}
             >
-                {Object.keys(imagesTypes).map((imagesType, key) => {
-                    var imagesTypeLabel = imagesType.replace(/([a-z])([A-Z])/g, '$1 $2');
+                {Object.keys(imagesTypes).map((key, index) => {
+                    let item = imagesTypes[key];
+                    let title = item.title
+                    console.log('item is ', item);
+                    console.log('title is ', title);
                     return (
-                        <ScrollView tabLabel={imagesTypeLabel} key={key} style={sliderTabStyle.tabView}>
+                        <ScrollView tabLabel={title} key={index} style={sliderTabStyle.tabView}>
                             <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap',justifyContent: 'flex-start'}}>
-                                {this.renderTypeTabs(category, imagesTypes, imagesType)}
+                                {this.renderTypeTabs(category, imagesTypes, item)}
                             </View>
                         </ScrollView>
                     )
-
                 })}
             </ScrollableTabView>
         )
