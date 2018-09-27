@@ -53,6 +53,55 @@ export default {
         titleTranslation:'Cardmaker App에 오신 것을 환영합니다!',
         descriptionTranslation:'카드를 만들기 위해 도서관에서 사진을 골라 골라보십시오!',
         signoutTransplation:'로그 아웃'
+    },
+    cards: {
+        holiday: {
+            title: '휴일',
+            types: [{"christmas": "크리스마스"}, {"newYear": "새해"}, {"easter": "부활절"}],
+        },
+        birthday: {
+            title: '생일',
+            types: [{"kids": "아이들"}, {"forHer": "그녀를 위하여"}, {"forHim": "그를 위해"}]
+        },
+        thankyou: {
+            title: '고맙습니다',
+            types: [{"general": "일반"}, {"birthday": "생일"}, {"wedding": "혼례"}]
+        },
+        occasions: {
+            title: '용무',
+            types: [{"anniversary": "기념일"}, {"goodLuck": "행운을 빕니다"}, {"teacherAppreciation": "교사 감사"}]
+        },
+        congratulations: {
+            title: '축하해.',
+            types: [{"graduation": "눈금"}, {"newBaby": "신생아"}, {"exam": "시험"}]
+        },
+        thoughtsFeelings: {
+            title: '생각 감정',
+            types: [{"cheerUp": "힘내"}, {"friendship": "우정"}, {"getWell": "좋아지다"}, {"loveRomance": "사랑 로맨스"}]
+        }
+    },
+    invitations: {
+        holiday: {
+            title: '휴일',
+            types: [{"christmas": "크리스마스"}, {"newYear": "새해"}, {"easter": "부활절"}],
+        },
+        birthday: {
+            title: '생일',
+            types: [{"kids": "아이들"}, {"women": "여자들"}, {"men": "남자"}],
+
+        },
+        wedding: {
+            title: '혼례',
+            types: [{"invitation": "초대"}, {"saveTheDate": "날짜 저장"}, {"rsvp": "RSVP"}],
+        },
+        party: {
+            title: '파티',
+            types: [{"anniversary": "기념일"}, {"graduationParty": "졸업 파티"}, {"bbqParty": "바베큐 파티"}],
+        },
+        announcement: {
+            title: '발표',
+            types: [{"birth": "출생"}, {"graduationAnnouncement": "졸업 발표"}],
+        },
     }
 
 }

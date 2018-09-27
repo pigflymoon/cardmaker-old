@@ -53,6 +53,55 @@ export default {
         titleTranslation:'Bem-vindo ao aplicativo Card Maker!',
         descriptionTranslation:'Por favor, escolha a sua foto da biblioteca para fazer o seu cartão, divirta-se!',
         signoutTransplation:'SAIR'
+    },
+    cards: {
+        holiday: {
+            title: 'feriado',
+            types: [{"christmas": "Natal"}, {"newYear": "ano Novo"}, {"easter": "Páscoa"}],
+        },
+        birthday: {
+            title: 'aniversário',
+            types: [{"kids": "crianças"}, {"forHer": "para ela"}, {"forHim": "para ele"}]
+        },
+        thankyou: {
+            title: 'obrigado',
+            types: [{"general": "geral"}, {"birthday": "aniversário"}, {"wedding": "Casamento"}]
+        },
+        occasions: {
+            title: 'ocasiões',
+            types: [{"anniversary": "aniversário"}, {"goodLuck": "boa sorte"}, {"teacherAppreciation": "valorização do professor"}]
+        },
+        congratulations: {
+            title: 'Parabéns',
+            types: [{"graduation": "graduação"}, {"newBaby": "novo bebê"}, {"exam": "exame"}]
+        },
+        thoughtsFeelings: {
+            title: 'pensamentos e sentimentos',
+            types: [{"cheerUp": "anime-se"}, {"friendship": "amizade"}, {"getWell": "fica bem"}, {"loveRomance": "amor romance"}]
+        }
+    },
+    invitations: {
+        holiday: {
+            title: 'feriado',
+            types: [{"christmas": "Natal"}, {"newYear": "ano Novo"}, {"easter": "Páscoa"}],
+        },
+        birthday: {
+            title: 'aniversário',
+            types: [{"kids": "crianças"}, {"women": "mulheres"}, {"men": "homens"}],
+
+        },
+        wedding: {
+            title: 'Casamento',
+            types: [{"invitation": "convite"}, {"saveTheDate": "Reserve a data"}, {"rsvp": "Responda Por Favor"}],
+        },
+        party: {
+            title: 'festa',
+            types: [{"anniversary": "aniversário"}, {"graduationParty": "festa de graduação"}, {"bbqParty": "Festa churrasco"}],
+        },
+        announcement: {
+            title: 'anúncio',
+            types: [{"birth": "nascimento"}, {"graduationAnnouncement": "anúncio da graduação"}],
+        },
     }
 
 }
