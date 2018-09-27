@@ -53,7 +53,9 @@ export default {
     profileTab: {
         titleTranslation: 'Welcome to Cardmaker App!',
         descriptionTranslation: 'Please pick your picture from library to make your card, have fun!',
-        signoutTransplation: 'SIGN OUT'
+        signoutTranslation: 'SIGN OUT',
+        signinTranslation:'SIGN IN',
+        signupTranslation:'SIGN UP'
     },
     cards: {
         holiday: {

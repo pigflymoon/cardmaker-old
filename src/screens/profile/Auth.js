@@ -30,6 +30,7 @@ import layoutStyle from '../../styles/layout';
 import bg1 from '../../assets/images/bg.jpg';
 import  Utils from '../../utils/utils';
 
+import {I18n} from '../../config/language/I18n';
 
 // Enable LayoutAnimation on Android
 UIManager.setLayoutAnimationEnabledExperimental
@@ -122,13 +123,14 @@ export default class Auth extends Component {
                     auth.onAuthStateChanged(function (user) {
                         if (user) {
                             var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+                            var title  = `Hi ${displayName}, ${I18n.t('profileTab.titleTranslation')}`
                             self.setState({
                                 isLoading: false,
                                 user: user,
                                 signin: true,
                                 welcomeCard: true,
                                 showSignBox: false,
-                                title: `Hi ${displayName}, Welcome to Cardmaker App!`,
+                                title: title,
                                 //
                             })
 
@@ -305,12 +307,14 @@ export default class Auth extends Component {
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 var displayName = user.displayName ? user.displayName : (user.email).split("@")[0];
+                var title  = `Hi ${displayName}, ${I18n.t('profileTab.titleTranslation')}`
+
                 self.setState({
                     user: user,
                     signin: true,
                     welcomeCard: true,
                     showSignBox: false,
-                    title: `Hi ${displayName}, Welcome to Cardmaker App!`,
+                    title: title,
                     //
                 })
 
@@ -434,13 +438,13 @@ export default class Auth extends Component {
                 title={this.state.title}
                 image={bg1}>
                 <Text style={authStyle.infoText}>
-                    Please pick your picture from library to make your card, have fun!
+                    {I18n.t('profileTab.descriptionTranslation')}
                 </Text>
                 <Button
                     buttonStyle={authStyle.loginButton}
                     containerViewStyle={authStyle.authButtonContainer}
                     activeOpacity={0.8}
-                    title={'SIGN OUT'}
+                    title={I18n.t('profileTab.signoutTranslation')}
                     onPress={ this.handleSignout}
                     textStyle={authStyle.loginTextButton}
                     loading={isLoading}
