@@ -28,7 +28,8 @@ export default {
         newTitleTranslation: 'Nuevo',
         cardsTitleTranslation: 'Tarjetas',
         invitationsTranslation: 'Invitaciones',
-        browseAllTranslation: 'Explorar todo'
+        browseAllTranslation: 'Explorar todo',
+        tipTranslation: 'Está bien querer los a todos!',
     },
     settingsTab:{
         unlockProVersionTranslation:'Desbloquear la versión Pro',
@@ -44,7 +45,22 @@ export default {
     profileTab:{
         titleTranslation:'Bienvenido a la aplicación Cardmaker',
         descriptionTranslation:'Por favor, elija su imagen de la biblioteca para hacer su tarjeta, ¡diviértase!',
-        signoutTransplation:'Cerrar sesión'
+        signoutTranslation:'Cerrar sesión',
+        signinTranslation:'REGISTRARSE',
+        signupTranslation:'REGÍSTRATE',
+        forgotpasswordTranslation:'Se te olvidó tu contraseña?',
+        enterEmailTranranslation:'Por favor introduzca su correo electrónico...',
+        enterPasswordTranslation:'Por favor, introduzca su contraseña...',
+        enternameTranslation:'Por favor, escriba su nombre...',
+        enterSixCharactersTranslation:'Por favor ingrese al menos 6 caracteres'
+    },
+    unlockModal: {
+        description1Translation: 'Obtenga todo tipo de ilustraciones con nuevas ilustraciones siempre en camino',
+        description2Translation: 'Crea un color único para tu texto',
+        description3Translation: 'Haga su propia tarjeta con la popular familia de fuentes',
+        titleTransltion: 'Versión Pro',
+        unlockDescriptionTranslation: 'Desbloquear la versión Pro',
+        restoreTranslation: 'Restaurar compra'
     },
     cards: {
         holiday: {

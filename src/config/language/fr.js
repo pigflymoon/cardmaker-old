@@ -36,7 +36,9 @@ export default {
         newTitleTranslation:'Nouveau',
         cardsTitleTranslation:'Cartes',
         invitationsTranslation:'Invitations',
-        browseAllTranslation:'Voir plus'
+        browseAllTranslation:'Voir plus',
+        tipTranslation: 'C\'est bon de tous les vouloir!',
+
     },
     settingsTab:{
         unlockProVersionTranslation:'Débloquer la version Pro',
@@ -52,7 +54,22 @@ export default {
     profileTab:{
         titleTranslation:'Bienvenue sur l\'application Card Maker!',
         descriptionTranslation:'S\'il vous plaît choisir votre photo de la bibliothèque pour faire votre carte, amusez-vous!',
-        signoutTransplation:'Connectez - Out'
+        signoutTranslation:'Connectez - Out',
+        signinTranslation:'SE CONNECTER',
+        signupTranslation:'S\'INSCRIRE',
+        forgotpasswordTranslation:'mot de passe oublié?',
+        enterEmailTranranslation:'S\'il vous plaît entrer votre email ...',
+        enterPasswordTranslation:'S\'il vous plait entrez votre mot de passe...',
+        enternameTranslation:'S\'il vous plaît entrez votre nom...',
+        enterSixCharactersTranslation:'Veuillez entrer au moins 6 caractères'
+    },
+    unlockModal: {
+        description1Translation: 'Obtenez tous les types d\'illustrations avec de nouvelle',
+        description2Translation: 'Créez une couleur unique pour votre texte',
+        description3Translation: 'Faites votre propre carte avec la famille de polices populaire',
+        titleTransltion: 'Version PRO',
+        unlockDescriptionTranslation: 'Débloquer la version Pro',
+        restoreTranslation: 'Restaurer l\'achat'
     },
     cards: {
         holiday: {

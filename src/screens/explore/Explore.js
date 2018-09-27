@@ -331,7 +331,7 @@ export default class Explore extends Component {
                             <View style={exploreStyle.bar}>
                                 <Animated.View style={[exploreStyle.showBanner, {opacity: bannerOpacity,}]}>
                                     <Text style={[exploreStyle.title]}>
-                                        It's Ok to want them all!
+                                        {I18n.t('exploreTab.tipTranslation')}
                                     </Text>
                                     <Icon
                                         raised

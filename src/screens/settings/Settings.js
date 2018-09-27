@@ -290,7 +290,7 @@ export default class Settings extends Component {
                                 containerStyle={{borderBottomWidth: 0,}}
                                 hideChevron
                                 leftIcon={{name: 'vpn-key', color: colors.green}}
-                                title={`Unlock Pro Version`}
+                                title={I18n.t('settingsTab.unlockProVersionTranslation')}
                                 titleStyle={{color: colors.green, fontWeight: 'bold'}}
                                 switchOnTintColor={colors.green}
                                 switchTintColor={colors.green}
@@ -305,14 +305,14 @@ export default class Settings extends Component {
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'refresh', color: colors.green}}
-                        title={`Restore Purchase`}
+                        title={I18n.t('settingsTab.restorePurchaseTraslation')}
                         onPress={this.restorePurchase}
                         hideChevron
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'wb-incandescent', color: this.state.versionColor}}
-                        title={`PRO Version`}
+                        title={I18n.t('settingsTab.proVersionTranslation')}
                         titleStyle={this.titleStyle()}
                         rightTitle={this.state.isPro}
                         rightTitleStyle={this.titleStyle()}
@@ -323,7 +323,7 @@ export default class Settings extends Component {
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'favorite', color: colors.red}}
-                        title={`Rate on the App Store`}
+                        title={I18n.t('settingsTab.rateTranslation')}
                         onPress={() => this.onRate()}
                         hideChevron
 
@@ -331,14 +331,14 @@ export default class Settings extends Component {
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'chat', color: colors.secondary2}}
-                        title={`Tell a friend`}
+                        title={I18n.t('settingsTab.tellFriendTranslation')}
                         onPress={() => this.onShare()}
                         hideChevron
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'notifications', color: colors.orange}}
-                        title={`Notifications`}
+                        title={I18n.t('settingsTab.notificationTranslation')}
                         switchOnTintColor={colors.primary1}
                         switchButton
                         onPress={this.linkToNotification}
@@ -346,7 +346,7 @@ export default class Settings extends Component {
                     <ListItem
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'info', color: colors.tealBlue}}
-                        title={`About`}
+                        title={I18n.t('settingsTab.aboutTranslation')}
                         onPress={() => this.onAbout()}
                         chevronColor={colors.grey5}
                     />
@@ -354,12 +354,12 @@ export default class Settings extends Component {
                         containerStyle={listStyle.listItem}
                         leftIcon={{name: 'perm-device-information', color: colors.purple}}
                         hideChevron
-                        title={`Version`}
+                        title={I18n.t('settingsTab.versionTranslation')}
                         subtitle={this.state.version}
                     />
                     <Dropdown
                         containerStyle={{paddingHorizontal:10}}
-                        label={'Language Setting'}
+                        label={I18n.t('settingsTab.languageSettingTranslation')}
                         data={LanConfig.lan}
                         onChangeText={this.onChangeLanguage}
                     />

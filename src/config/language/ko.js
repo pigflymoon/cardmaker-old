@@ -36,7 +36,9 @@ export default {
         newTitleTranslation:'새로운',
         cardsTitleTranslation:'카드',
         invitationsTranslation:'초대장',
-        browseAllTranslation:'더보기'
+        browseAllTranslation:'더보기',
+        tipTranslation: '그들 모두를 원한다면 괜찮아!',
+
     },
     settingsTab:{
         unlockProVersionTranslation:'프로 버전 잠금 해제',
@@ -52,7 +54,23 @@ export default {
     profileTab:{
         titleTranslation:'Cardmaker App에 오신 것을 환영합니다!',
         descriptionTranslation:'카드를 만들기 위해 도서관에서 사진을 골라 골라보십시오!',
-        signoutTransplation:'로그 아웃'
+        signoutTranslation:'로그 아웃',
+        signinTranslation:'로그인',
+        signupTranslation:'가입하기',
+        forgotpasswordTranslation:'비밀번호를 잊으 셨나요?',
+        enterEmailTranranslation:'이메일을 입력하십시오 ...',
+        enterPasswordTranslation:'암호를 입력하십시오 ..',
+        enternameTranslation:'당신의 이름을 입력하세요...',
+        enterSixCharactersTranslation:'6 자 이상 입력하십시오.'
+
+    },
+    unlockModal: {
+        description1Translation: '항상 새로운 일러스트레이션으로 모든 유형의 일러스트를 얻으십시오',
+        description2Translation: '텍스트에 고유 한 색 만들기',
+        description3Translation: '유명한 글꼴 모음으로 나만의 카드 만들기',
+        titleTransltion: '프로 버전',
+        unlockDescriptionTranslation: '프로 버전 잠금 해제',
+        restoreTranslation: '구매 복원'
     },
     cards: {
         holiday: {

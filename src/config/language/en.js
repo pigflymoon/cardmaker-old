@@ -37,7 +37,8 @@ export default {
         newTitleTranslation: 'New',
         cardsTitleTranslation: 'Cards',
         invitationsTranslation: 'Invitations',
-        browseAllTranslation: 'Browse All'
+        browseAllTranslation: 'Browse All',
+        tipTranslation: 'It\'s Ok to want them all!',
     },
     settingsTab: {
         unlockProVersionTranslation: 'Unlock Pro Version',
@@ -55,7 +56,21 @@ export default {
         descriptionTranslation: 'Please pick your picture from library to make your card, have fun!',
         signoutTranslation: 'SIGN OUT',
         signinTranslation:'SIGN IN',
-        signupTranslation:'SIGN UP'
+        signupTranslation:'SIGN UP',
+        forgotpasswordTranslation:'Forgot password?',
+        enterEmailTranranslation:'Please enter your email...',
+        enterPasswordTranslation:'Please enter your password...',
+        enternameTranslation:'Please enter your name...',
+        enterSixCharactersTranslation:'Please enter at least 6 characters'
+
+    },
+    unlockModal: {
+        description1Translation: 'Get all types of illustration with new illustrations always on the way',
+        description2Translation: 'Create unique color for your text',
+        description3Translation: 'Make your own card with popular font family',
+        titleTransltion: 'PRO Version',
+        unlockDescriptionTranslation: 'Unlock PRO',
+        restoreTranslation: 'Restore Purchase'
     },
     cards: {
         holiday: {

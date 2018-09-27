@@ -22,6 +22,7 @@ import {sliderWidth, itemWidth} from '../../styles/sliderEntry';
 import unlockModalStyle from '../../styles/unlockModal';
 import colors from '../../styles/colors';
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
+import {I18n} from '../../config/language/I18n';
 
 
 import layoutStyle from '../../styles/layout';
@@ -29,16 +30,16 @@ const SLIDER_1_FIRST_ITEM = 0;
 
 export const ENTRIES1 = [
     {
-        title: 'Get all types of illustration with new illustrations always on the way',
-        illustration:'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner1.jpg?alt=media&token=77f65b50-0664-4f39-a3c7-bf580c96e5eb'
+        title: I18n.t('unlockModal.description1Translation'),
+        illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner1.jpg?alt=media&token=77f65b50-0664-4f39-a3c7-bf580c96e5eb'
     },
     {
-        title: 'Create unique color for your text',
+        title: I18n.t('unlockModal.description2Translation'),
         illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner2.jpg?alt=media&token=18df4d9f-6c1a-44fe-8d18-ce2a7a1a232d'
     },
     {
-        title: 'Make your own card with popular font family',
-        illustration:'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
+        title: I18n.t('unlockModal.description3Translation'),
+        illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
     },
 
 ];
@@ -62,6 +63,29 @@ export  default class UnLockModal extends Component {
                 resizeStyle={true}
             />
         );
+    }
+
+    componentWillMount() {
+        this.setState({descriptions: ENTRIES1})
+    }
+
+    componentDidMount() {
+        var descriptions = [
+            {
+                title: I18n.t('unlockModal.description1Translation'),
+                illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner1.jpg?alt=media&token=77f65b50-0664-4f39-a3c7-bf580c96e5eb'
+            },
+            {
+                title: I18n.t('unlockModal.description2Translation'),
+                illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner2.jpg?alt=media&token=18df4d9f-6c1a-44fe-8d18-ce2a7a1a232d'
+            },
+            {
+                title: I18n.t('unlockModal.description3Translation'),
+                illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
+            },
+
+        ];
+        this.setState({descriptions: descriptions})
     }
 
     unlockProVersion = () => {
@@ -110,14 +134,14 @@ export  default class UnLockModal extends Component {
     }
 
     renderSlide = () => {
-        const {slider1ActiveSlide} = this.state;
+        const {slider1ActiveSlide, descriptions} = this.state;
 
         return (
             <View style={unlockModalStyle.exampleContainer}>
-                <Text style={unlockModalStyle.title}>{`PRO Version`}</Text>
+                <Text style={unlockModalStyle.title}>{I18n.t('unlockModal.titleTransltion')}</Text>
                 <Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={descriptions}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
@@ -185,7 +209,7 @@ export  default class UnLockModal extends Component {
                             buttonStyle={unlockModalStyle.button}
                             containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
-                            title={'Unlock PRO ($2.99)'}
+                            title={I18n.t('unlockModal.unlockDescriptionTranslation')+'($2.99)'}
                             onPress={ this.unlockProVersion}
                             textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}
@@ -195,7 +219,7 @@ export  default class UnLockModal extends Component {
                             buttonStyle={[unlockModalStyle.button, unlockModalStyle.restoreButton]}
                             containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
-                            title={'Restore Purchase'}
+                            title={I18n.t('unlockModal.restoreTranslation')}
                             onPress={ this.restorePurchase}
                             textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}

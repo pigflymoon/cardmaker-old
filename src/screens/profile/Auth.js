@@ -330,7 +330,7 @@ export default class Auth extends Component {
         } = this.state;
         const isLoginPage = selectedCategory === 0;
         const isSignUpPage = selectedCategory === 1;
-        const isSignUpEmailInfo = isLoginPage ? 'Please enter your password...' : 'Please enter at least 6 characters';
+        const isSignUpEmailInfo = isLoginPage ? I18n.t('profileTab.enterPasswordTranslation') : I18n.t('profileTab.enterSixCharactersTranslation');
         return (
             <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
@@ -343,13 +343,13 @@ export default class Auth extends Component {
                         <Button
                             onPress={() => this.selectCategory(0)}
                             buttonStyle={authStyle.tabButton}
-                            title="Login"
+                            title={I18n.t('profileTab.signinTranslation')}
                             textStyle={[authStyle.categoryText, isLoginPage && authStyle.selectedCategoryText]}
                         />
                         <Button
                             onPress={() => this.selectCategory(1)}
                             buttonStyle={authStyle.tabButton}
-                            title="Sign up"
+                            title={I18n.t('profileTab.signupTranslation')}
                             textStyle={[authStyle.categoryText, isSignUpPage && authStyle.selectedCategoryText]}
                         />
                     </View>
@@ -361,7 +361,7 @@ export default class Auth extends Component {
                         <FormInput
                             ref={component => this._emailInput = component}
                             clearButtonMode="always"
-                            placeholder="Please enter your email..."
+                            placeholder={I18n.t('profileTab.enterEmailTranranslation')}
                             autoCapitalize="none"
                             onChangeText={(text) => this.setEmail(text)}
                             inputStyle={authStyle.inputText}
@@ -389,7 +389,7 @@ export default class Auth extends Component {
                             }}
                             containerRef="namecontainerRef"
                             textInputRef="nameInputRef"
-                            placeholder="Please enter your name..."
+                            placeholder={I18n.t('profileTab.enternameTranslation')}
                             autoCapitalize="none"
                             onChangeText={(text) => this.setName(text)}
                             inputStyle={authStyle.inputText}
@@ -407,7 +407,7 @@ export default class Auth extends Component {
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}
                             activeOpacity={0.8}
-                            title={isLoginPage ? 'SIGN IN' : 'SIGN UP'}
+                            title={isLoginPage ? I18n.t('profileTab.signinTranslation'): I18n.t('profileTab.signupTranslation')}
                             onPress={isLoginPage ? this.handleSignin : this.handleSignup}
                             textStyle={authStyle.loginTextButton}
                             loading={isLoading}
@@ -417,7 +417,7 @@ export default class Auth extends Component {
                 </KeyboardAvoidingView>
                 <View style={authStyle.helpContainer}>
                     <Button
-                        title={'Forgot password?'}
+                        title= {I18n.t('profileTab.forgotpasswordTranslation')}
                         textStyle={authStyle.noButtonText}
                         buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'

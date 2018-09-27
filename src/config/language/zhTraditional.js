@@ -40,7 +40,8 @@ export default {
         newTitleTranslation: '新卡速遞',
         cardsTitleTranslation: '賀卡',
         invitationsTranslation: '邀請卡',
-        browseAllTranslation: '全部'
+        browseAllTranslation: '全部',
+        tipTranslation:'想擁有更多畫作，這很正常!',
     },
     settingsTab:{
         unlockProVersionTranslation:'解鎖版本',
@@ -56,10 +57,16 @@ export default {
     profileTab:{
         titleTranslation:'歡迎來到-卡片製作',
         descriptionTranslation:'請從圖庫裡挑選圖片模板,製作屬於自己的卡片!玩的開心哦',
-        signoutTransplation:'退出登錄'
+        signoutTranslation:'退出登錄',
+        signinTranslation:'登錄',
+        signupTranslation:'註冊',
+        forgotpasswordTranslation:'忘記密碼?',
+        enterEmailTranranslation:'請輸入郵箱地址',
+        enterPasswordTranslation:'請輸入密碼',
+        enternameTranslation:'請輸入暱稱',
+        enterSixCharactersTranslation:'請至少輸入6個字符'
     },
     unlockModal:{
-        tipTranslation:'想擁有更多畫作，這很正常!',
         description1Translation:'獲得源源不斷更新的各種畫作',
         description2Translation:'給你的文字塗上最獨特的色彩',
         description3Translation:'用獨特的字體製作屬於自己的卡片',

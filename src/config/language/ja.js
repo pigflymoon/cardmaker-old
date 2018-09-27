@@ -36,7 +36,8 @@ export default {
         newTitleTranslation:'新しい',
         cardsTitleTranslation:'グリーティングカード',
         invitationsTranslation:'招待状',
-        browseAllTranslation:'すべてをブラウズ'
+        browseAllTranslation:'すべてをブラウズ',
+        tipTranslation: 'それらをすべて欲しいのはOKです',
     },
     settingsTab:{
         unlockProVersionTranslation:'プロバージョンのロックを解除',
@@ -52,7 +53,23 @@ export default {
     profileTab:{
         titleTranslation:'カードメーカーアプリに歓迎',
         descriptionTranslation:'あなたのカードを作るためにあなたの写真を図書館から選んで、楽しい時間を過ごしてください',
-        signoutTransplation:'サインアウト'
+        signoutTranslation:'サインアウト',
+        signinTranslation:'ログイン',
+        signupTranslation:'サインアップ',
+        forgotpasswordTranslation:' パスワードを忘れた?',
+        enterEmailTranranslation:'あなたのメールアドレスを入力してください',
+        enterPasswordTranslation:'あなたのパスワードを入力してください...',
+        enternameTranslation:'あなたの名前を入力してください...',
+        enterSixCharactersTranslation:'6文字以上を入力してください'
+
+    },
+    unlockModal: {
+        description1Translation: '常に新しいイラストを使ってあらゆる種類のイラストを手に入れよう',
+        description2Translation: 'あなたのテキストのユニークな色を作成する',
+        description3Translation: '人気のあるフォントファミリで自分のカードを作る',
+        titleTransltion: 'PROバージョン',
+        unlockDescriptionTranslation: 'PROのロックを解除する',
+        restoreTranslation: '購入商品を復元する'
     },
     cards: {
         holiday: {
