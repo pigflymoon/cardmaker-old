@@ -61,7 +61,16 @@ export default {
         enterEmailTranranslation:'이메일을 입력하십시오 ...',
         enterPasswordTranslation:'암호를 입력하십시오 ..',
         enternameTranslation:'당신의 이름을 입력하세요...',
-        enterSixCharactersTranslation:'6 자 이상 입력하십시오.'
+        enterSixCharactersTranslation:'6 자 이상 입력하십시오.',
+        confirmTranslation:'확인',
+        resetpasswordTranslation:'암호를 재설정',
+        resetpasswordSubTitle1Translation:'걱정 마세요. 우리가 잡았어!',
+        resetpasswordSubTitle2Translation:'새로운 암호를 알려 드리겠습니다.',
+        haveaccountTranslation:'계정이 없으십니까?',
+        emailsentTranslation:'보낸 이메일',
+        emailsentInfoTranslation:'이메일 주소로 보낸 비밀번호 재설정, 이메일을 확인하십시오.',
+        emailerrorTranslation:'유효한 이메일 주소를 입력하세요'
+
 
     },
     unlockModal: {

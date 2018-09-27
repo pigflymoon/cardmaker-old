@@ -61,7 +61,16 @@ export default {
         enterEmailTranranslation:'Bitte geben Sie ihre E-Mail-Adresse ein...',
         enterPasswordTranslation:'Bitte geben Sie Ihr Passwort ein...',
         enternameTranslation:'Bitte geben Sie Ihren Namen ein...',
-        enterSixCharactersTranslation:'Bitte geben Sie mindestens 6 Zeichen ein'
+        enterSixCharactersTranslation:'Bitte geben Sie mindestens 6 Zeichen ein',
+        confirmTranslation:'BESTÄTIGEN',
+        resetpasswordTranslation:'PASSWORT ZURÜCKSETZEN',
+        resetpasswordSubTitle1Translation:'Keine Sorgen machen. Wir haben dich!',
+        resetpasswordSubTitle2Translation:'Lass uns dir ein neues Passwort geben.',
+        haveaccountTranslation:'Haben Sie kein Konto?',
+        emailsentTranslation:'E-Mail gesendet',
+        emailsentInfoTranslation:'Passwort zurücksetzen an die E-Mail-Adresse gesendet, bitte überprüfen Sie Ihre E-Mail',
+        emailerrorTranslation:'Bitte geben Sie eine gültige E-Mail-Adresse ein'
+
 
     },
     unlockModal: {

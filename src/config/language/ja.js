@@ -60,7 +60,16 @@ export default {
         enterEmailTranranslation:'あなたのメールアドレスを入力してください',
         enterPasswordTranslation:'あなたのパスワードを入力してください...',
         enternameTranslation:'あなたの名前を入力してください...',
-        enterSixCharactersTranslation:'6文字以上を入力してください'
+        enterSixCharactersTranslation:'6文字以上を入力してください',
+        confirmTranslation:'確認',
+        resetpasswordTranslation:'パスワードを再設定する',
+        resetpasswordSubTitle1Translation:'心配無用。つかまえた！',
+        resetpasswordSubTitle2Translation:'新しいパスワードを取得しましょう。',
+        haveaccountTranslation:'アカウントを持っていないのですか？',
+        emailsentTranslation:'送信されたメール',
+        emailsentInfoTranslation:'メールアドレスに送信されたパスワードをリセットします。\ nあなたのメールアドレスを確認してください',
+        emailerrorTranslation:'有効なメールアドレスを入力してください'
+
 
     },
     unlockModal: {

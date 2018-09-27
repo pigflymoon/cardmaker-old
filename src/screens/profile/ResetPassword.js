@@ -18,6 +18,7 @@ import {
 } from 'react-native-elements';
 import {auth} from '../../config/FirebaseConfig';
 import  Utils from '../../utils/utils';
+import {I18n} from '../../config/language/I18n';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
@@ -55,7 +56,7 @@ export default class ResetPassword extends Component {
                 self.setState({
                     isLoading: false,
                 }, () => {
-                    Utils.infoAlert('Email Sent', `Reset password sent to the email Address,\n please check your email ${emailAddress}`);
+                    Utils.infoAlert(`${I18n.t('profileTab.emailsentTranslation')}`, `${I18n.t('profileTab.emailsentInfoTranslation')} ${emailAddress}`);
                     self.props.navigation.navigate('Auth');
                 });
 
@@ -88,15 +89,15 @@ export default class ResetPassword extends Component {
             <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                 <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                     <View style={authStyle.resetPasswordTitleContainer}>
-                        <Text style={authStyle.subtitleText}>Not to worry. We got you!</Text>
-                        <Text style={authStyle.subtitleText}> Let's get you a new password.</Text>
+                        <Text style={authStyle.subtitleText}>{I18n.t('profileTab.resetpasswordSubTitle1Translation')}</Text>
+                        <Text style={authStyle.subtitleText}>{I18n.t('profileTab.resetpasswordSubTitle2Translation')}</Text>
                     </View>
                     <View style={authStyle.formContainer}>
                         <FormInput
                             ref="email"
                             containerRef="emailcontainerRef"
                             textInputRef="emailInputRef"
-                            placeholder="Please enter your email..."
+                            placeholder={I18n.t('profileTab.enterEmailTranranslation')}
                             autoCapitalize="none"
                             onChangeText={(text) => this.setEmail(text)}
                             inputStyle={authStyle.inputText}
@@ -113,7 +114,7 @@ export default class ResetPassword extends Component {
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}
                             activeOpacity={0.8}
-                            title={'RESET PASSWORD'}
+                            title={I18n.t('profileTab.resetpasswordTranslation')}
                             onPress={ this.handleResetPassword}
                             textStyle={authStyle.loginTextButton}
                             loading={isLoading}
@@ -123,7 +124,7 @@ export default class ResetPassword extends Component {
                 </KeyboardAvoidingView>
                 <View style={authStyle.helpContainer}>
                     <Button
-                        title={'Do not have an account?'}
+                        title={I18n.t('profileTab.haveaccountTranslation')}
                         textStyle={authStyle.noButtonText}
                         buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'

@@ -65,7 +65,16 @@ export default {
         enterEmailTranranslation:'请输入邮箱地址',
         enterPasswordTranslation:'请输入密码',
         enternameTranslation:'请输入昵称',
-        enterSixCharactersTranslation:'请至少输入6个字符'
+        enterSixCharactersTranslation:'请至少输入6个字符',
+        confirmTranslation:'确认',
+        resetpasswordTranslation:'重设密码',
+        resetpasswordSubTitle1Translation:'别着急，我们来帮你！',
+        resetpasswordSubTitle2Translation:'重设一个新密码',
+        haveaccountTranslation:'已经有了账号吗',
+        emailsentTranslation:'邮件已发送',
+        emailsentInfoTranslation:'邮件已经发送到指定的邮箱，请查阅',
+        emailerrorTranslation:'请输入一个有效的邮箱地址'
+
     },
     unlockModal: {
         description1Translation: '获得源源不断更新的各种画作',

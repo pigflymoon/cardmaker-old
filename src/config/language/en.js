@@ -61,7 +61,16 @@ export default {
         enterEmailTranranslation:'Please enter your email...',
         enterPasswordTranslation:'Please enter your password...',
         enternameTranslation:'Please enter your name...',
-        enterSixCharactersTranslation:'Please enter at least 6 characters'
+        enterSixCharactersTranslation:'Please enter at least 6 characters',
+        confirmTranslation:'CONFIRM',
+        resetpasswordTranslation:'RESET PASSWORD',
+        resetpasswordSubTitle1Translation:'Not to worry. We got you!',
+        resetpasswordSubTitle2Translation:'Let\'s get you a new password.',
+        haveaccountTranslation:'Do not have an account?',
+        emailsentTranslation:'Email Sent',
+        emailsentInfoTranslation:'Reset password sent to the email Address,\n please check your email',
+        emailerrorTranslation:'Please enter a valid email address'
+
 
     },
     unlockModal: {

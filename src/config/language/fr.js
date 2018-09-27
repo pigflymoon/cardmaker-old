@@ -61,7 +61,16 @@ export default {
         enterEmailTranranslation:'S\'il vous plaît entrer votre email ...',
         enterPasswordTranslation:'S\'il vous plait entrez votre mot de passe...',
         enternameTranslation:'S\'il vous plaît entrez votre nom...',
-        enterSixCharactersTranslation:'Veuillez entrer au moins 6 caractères'
+        enterSixCharactersTranslation:'Veuillez entrer au moins 6 caractères',
+        confirmTranslation:'CONFIRMER',
+        resetpasswordTranslation:'RÉINITIALISER LE MOT DE PASSE',
+        resetpasswordSubTitle1Translation:'Ne pas s\'inquiéter. Nous vous avons!',
+        resetpasswordSubTitle2Translation:'Nous allons vous donner un nouveau mot de passe.',
+        haveaccountTranslation:'Vous n\'avez pas de compte?',
+        emailsentTranslation:'Email envoyé',
+        emailsentInfoTranslation:'Réinitialiser le mot de passe envoyé à l\'adresse email, s\'il vous plaît vérifier votre email',
+        emailerrorTranslation:'S\'il vous plaît, mettez une adresse email valide'
+
     },
     unlockModal: {
         description1Translation: 'Obtenez tous les types d\'illustrations avec de nouvelle',

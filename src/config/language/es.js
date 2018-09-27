@@ -52,7 +52,16 @@ export default {
         enterEmailTranranslation:'Por favor introduzca su correo electrónico...',
         enterPasswordTranslation:'Por favor, introduzca su contraseña...',
         enternameTranslation:'Por favor, escriba su nombre...',
-        enterSixCharactersTranslation:'Por favor ingrese al menos 6 caracteres'
+        enterSixCharactersTranslation:'Por favor ingrese al menos 6 caracteres',
+        confirmTranslation:'CONFIRMAR',
+        resetpasswordTranslation:'RESTABLECER LA CONTRASEÑA',
+        resetpasswordSubTitle1Translation:'No es para preocuparse. ¡Te tenemos!',
+        resetpasswordSubTitle2Translation:'Vamos a obtener una nueva contraseña.',
+        haveaccountTranslation:'No tiene una cuenta?',
+        emailsentTranslation:'Email enviado',
+        emailsentInfoTranslation:'Restablecer la contraseña enviada a la dirección de correo electrónico, verifique su correo electrónico',
+        emailerrorTranslation:'Por favor, introduce una dirección de correo electrónico válida'
+
     },
     unlockModal: {
         description1Translation: 'Obtenga todo tipo de ilustraciones con nuevas ilustraciones siempre en camino',

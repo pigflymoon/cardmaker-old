@@ -18,6 +18,7 @@ import {
 } from 'react-native-elements';
 
 import {auth,} from '../../config/FirebaseConfig';
+import {I18n} from '../../config/language/I18n';
 
 import BG_IMAGE from '../../assets/images/gradient-bg.png';
 import authStyle from '../../styles/authLayout';
@@ -146,7 +147,7 @@ export default class ConfirmEmail extends Component {
                             buttonStyle={authStyle.loginButton}
                             containerViewStyle={{marginTop: 32, flex: 0}}
                             activeOpacity={0.8}
-                            title={'CONFIRM'}
+                            title={I18n.t('profileTab.confirmTranslation')}
                             onPress={ this.handleConfirmEmail}
                             textStyle={authStyle.loginTextButton}
                             loading={isLoading}
@@ -156,7 +157,7 @@ export default class ConfirmEmail extends Component {
                 </KeyboardAvoidingView>
                 <View style={authStyle.helpContainer}>
                     <Button
-                        title={'Forgot password?'}
+                        title={I18n.t('profileTab.forgotpasswordTranslation')}
                         textStyle={authStyle.noButtonText}
                         buttonStyle={authStyle.noButtonContainer}
                         underlayColor='transparent'

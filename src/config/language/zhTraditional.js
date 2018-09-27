@@ -64,7 +64,15 @@ export default {
         enterEmailTranranslation:'請輸入郵箱地址',
         enterPasswordTranslation:'請輸入密碼',
         enternameTranslation:'請輸入暱稱',
-        enterSixCharactersTranslation:'請至少輸入6個字符'
+        enterSixCharactersTranslation:'請至少輸入6個字符',
+        confirmTranslation:'確認',
+        resetpasswordTranslation:'重設密碼',
+        resetpasswordSubTitle1Translation:'別著急，我們來幫你！',
+        resetpasswordSubTitle2Translation:'重設一個新密碼',
+        haveaccountTranslation:'已經有賬號了嗎？',
+        emailsentTranslation:'郵件已發送',
+        emailsentInfoTranslation:'郵件已經發送到指定的郵箱，請查閱',
+        emailerrorTranslation:'請輸入一個有效的郵箱地址'
     },
     unlockModal:{
         description1Translation:'獲得源源不斷更新的各種畫作',
