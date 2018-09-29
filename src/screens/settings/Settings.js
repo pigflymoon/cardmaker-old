@@ -310,7 +310,6 @@ export default class Settings extends Component {
                         title={I18n.t('settingsTab.rateTranslation')}
                         onPress={() => this.onRate()}
                         hideChevron
-
                     />
                     <ListItem
                         containerStyle={listStyle.listItem}
