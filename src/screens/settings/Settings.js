@@ -216,7 +216,6 @@ export default class Settings extends Component {
 
     onChangeLanguage = (lan) => {
         lan = lan.match(/\((.*)\)/).pop();
-        console.log('lan is ',lan);
         switch (lan) {
             case 'English':
                 I18n.locale = 'en';

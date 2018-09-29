@@ -32,9 +32,7 @@ I18n.translations = {
 I18n.localeLanguage = () => {
     new LanguageRespository().fetchLocalRepository('localLanguage')
         .then((res) => {
-            console.log('res is ', res);
             I18n.locale = res;
-
         })
         .catch((error) => {
             I18n.locale = DeviceInfo.getDeviceLocale();
