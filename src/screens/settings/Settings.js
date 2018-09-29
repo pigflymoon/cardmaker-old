@@ -38,7 +38,7 @@ import {
 } from '../../utils/AppPay';
 
 
-import {I18n} from '../../config/language/I18n'
+import {I18n} from '../../config/language/I18n';
 
 import Config from '../../config/ApiConfig';
 import LanConfig from '../../config/language/config';
@@ -189,21 +189,6 @@ export default class Settings extends Component {
             .then(latestVersion => {
                 this.setState({version: latestVersion})
             });
-
-        let locale = DeviceInfo.getDeviceLocale();
-
-        console.log('locale is :', locale);
-
-// Is it a RTL language?
-        const isRTL = locale.indexOf('he') === 0 || locale.indexOf('ar') === 0;
-
-// Allow RTL alignment in RTL languages
-        I18nManager.allowRTL(isRTL);
-        new LanguageRespository().saveLocalRepository('localLanguage', locale, (error) => {
-            if (error) {
-                alert(error);
-            }
-        });
     }
 
     componentDidMount() {
@@ -230,12 +215,6 @@ export default class Settings extends Component {
     };
 
     onChangeLanguage = (lan) => {
-        console.log('lan is ', lan);
-//         const isRTL = lan.indexOf('he') === 0 || lan.indexOf('Arabic') === 0;
-//
-// // Allow RTL alignment in RTL languages
-//         I18nManager.allowRTL(isRTL);
-
         lan = lan.match(/\((.*)\)/).pop();
         console.log('lan is ',lan);
         switch (lan) {
@@ -268,9 +247,15 @@ export default class Settings extends Component {
                 break;
             default:
                 I18n.locale = DeviceInfo.getDeviceLocale();
-
         }
-
+        this.setState({
+            localeLanguage: I18n.locale
+        });
+        new LanguageRespository().saveLocalRepository('localLanguage', I18n.locale, (error) => {
+            if (error) {
+                alert(error);
+            }
+        });
     }
 
     render() {
