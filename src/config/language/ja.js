@@ -52,6 +52,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'カードメーカーアプリに歓迎',
+        signinmakecardTranslation:'サインインしてカードを作成する画像を選択してください',
         descriptionTranslation:'あなたのカードを作るためにあなたの写真を図書館から選んで、楽しい時間を過ごしてください',
         signoutTranslation:'サインアウト',
         signinTranslation:'ログイン',

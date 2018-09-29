@@ -53,10 +53,11 @@ export default {
     },
     profileTab:{
         titleTranslation:'Willkommen bei Cardmaker App',
+        signinmakecardTranslation:'Bitte loggen Sie sich ein und wählen Sie das Bild, um die Karte zu erstellen',
         descriptionTranslation:'Bitte wählen Sie Ihr Bild aus der Bibliothek, um Ihre Karte zu erstellen, viel Spaß!',
         signoutTranslation:'AUSLOGGEN',
         signinTranslation:'ANMELDEN',
-        signupTranslation:'registrieren',
+        signupTranslation:'REGISTRIEREN',
         forgotpasswordTranslation:'Passwort vergessen?',
         enterEmailTranranslation:'Bitte geben Sie ihre E-Mail-Adresse ein...',
         enterPasswordTranslation:'Bitte geben Sie Ihr Passwort ein...',

@@ -56,6 +56,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'歡迎來到-卡片製作',
+        signinmakecardTranslation:'請登錄然後選擇圖片來製作卡片哦',
         descriptionTranslation:'請從圖庫裡挑選圖片模板,製作屬於自己的卡片!玩的開心哦',
         signoutTranslation:'退出登錄',
         signinTranslation:'登錄',

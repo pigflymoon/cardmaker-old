@@ -45,10 +45,9 @@ export default{
         backgroundColor: colors.secondary2,
         borderRadius: 5,
         height: 50,
-        width: 200,
+        // width: 200,
     },
     titleContainer: {
-        height: 50,
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },
@@ -82,6 +81,7 @@ export default{
         fontSize: 22,
     },
     titleText: {
+        flexWrap: 'wrap',
         color: colors.white,
         fontSize: 24,
     },
@@ -137,6 +137,7 @@ export default{
         fontSize: 16,
     },
     infoText: {
+        flexWrap: 'wrap',
         marginBottom: 10,
         color: colors.grey1,
 

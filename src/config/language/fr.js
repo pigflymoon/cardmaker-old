@@ -25,7 +25,7 @@ export default {
         myFavoritesTranslation:'Mes Favoris',
         makeCardTranslation:'Faire Carte',
         makeInvitationTranslation:'Faire des Invitations',
-        welcomeTranslation:'Bienvenue',
+        welcomeTranslation:'Bonjour',
         confirmEmailTranslation:'Confirmez votre E-mail',
         resetPasswordTranslation:'Réinitialiser votre mot de Passe',
         termsTranslation:'Conditions d’utilisation',
@@ -53,6 +53,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'Bienvenue sur l\'application Card Maker!',
+        signinmakecardTranslation:'euillez vous connecter puis choisir l\'image pour faire la carte',
         descriptionTranslation:'S\'il vous plaît choisir votre photo de la bibliothèque pour faire votre carte, amusez-vous!',
         signoutTranslation:'Connectez - Out',
         signinTranslation:'SE CONNECTER',

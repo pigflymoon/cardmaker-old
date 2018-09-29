@@ -53,6 +53,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'Cardmaker App에 오신 것을 환영합니다!',
+        signinmakecardTranslation:'로그인하여 카드를 만들 사진을 선택하십시오.',
         descriptionTranslation:'카드를 만들기 위해 도서관에서 사진을 골라 골라보십시오!',
         signoutTranslation:'로그 아웃',
         signinTranslation:'로그인',
@@ -99,7 +100,7 @@ export default {
             types: [{"anniversary": "기념일"}, {"goodLuck": "행운을 빕니다"}, {"teacherAppreciation": "교사 감사"}]
         },
         congratulations: {
-            title: '축하해.',
+            title: '축하해',
             types: [{"graduation": "눈금"}, {"newBaby": "신생아"}, {"exam": "시험"}]
         },
         thoughtsFeelings: {

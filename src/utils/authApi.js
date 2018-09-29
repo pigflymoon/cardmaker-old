@@ -16,6 +16,7 @@ import {
 import layoutStyle from '../styles/layout';
 import BG_IMAGE from '../assets/images/gradient-bg.png';
 import authStyle from '../styles/authLayout';
+import {I18n} from '../config/language/I18n';
 
 
 export function navigateToAuth(navigation) {
@@ -31,20 +32,20 @@ export function renderAuthBox(isLoading = false, navigation) {
                 <ScrollView style={authStyle.container} showsHorizontalScrollIndicator={false}>
                     <KeyboardAvoidingView contentContainerStyle={authStyle.loginContainer} behavior='position'>
                         <View style={[authStyle.titleContainer, {marginVertical: 20}]}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={authStyle.titleText}>Welcome to Cardmaker App</Text>
+                            <View style={{flexDirection: 'row' }}>
+                                <Text style={authStyle.titleText}>{I18n.t('profileTab.titleTranslation')}</Text>
                             </View>
                         </View>
                         <View style={authStyle.formContainer}>
                             <Text style={authStyle.infoText}>
-                                Please sign in then choose picture to make card
+                                {I18n.t('profileTab.signinmakecardTranslation')}
                             </Text>
 
                             <Button
                                 buttonStyle={authStyle.loginButton}
                                 containerViewStyle={authStyle.authButtonContainer}
                                 activeOpacity={0.8}
-                                title={'SIGN IN / SIGN UP'}
+                                title={`${I18n.t('profileTab.signinTranslation')} /${I18n.t('profileTab.signupTranslation')}`}
                                 onPress={() => navigateToAuth(navigation)}
                                 textStyle={authStyle.loginTextButton}
                                 loading={isLoading}

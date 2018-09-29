@@ -53,6 +53,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'Bem-vindo ao aplicativo Card Maker!',
+        signinmakecardTranslation:'Por favor, faça o login e escolha a foto para fazer o cartão',
         descriptionTranslation:'Por favor, escolha a sua foto da biblioteca para fazer o seu cartão, divirta-se!',
         signoutTranslation:'SAIR',
         signinTranslation:'ASSINAR EM',

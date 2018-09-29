@@ -44,6 +44,7 @@ export default {
     },
     profileTab:{
         titleTranslation:'Bienvenido a la aplicación Cardmaker',
+        signinmakecardTranslation:'Por favor, inicie sesión y luego elija la imagen para hacer la tarjeta',
         descriptionTranslation:'Por favor, elija su imagen de la biblioteca para hacer su tarjeta, ¡diviértase!',
         signoutTranslation:'Cerrar sesión',
         signinTranslation:'REGISTRARSE',
