@@ -195,25 +195,6 @@ export default class Settings extends Component {
         this.getUserRole();
     }
 
-    refreshLanguage = (index) => {
-        switch (index) {
-            case 0:
-                I18n.locale = 'en-US';
-                break;
-            case 1:
-                I18n.locale = 'zh-Hans-US';
-                break;
-            case 2:
-                I18n.locale = DeviceInfo.getDeviceLocale();
-                break;
-        }
-
-        this.setState({
-            localeLanguage: I18n.locale
-        });
-
-    };
-
     onChangeLanguage = (lan) => {
         lan = lan.match(/\((.*)\)/).pop();
         switch (lan) {
