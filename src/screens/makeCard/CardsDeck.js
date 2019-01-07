@@ -20,7 +20,7 @@ import {
 import CardDeck from '../../components/CardDeck';
 import ScrollTabs from '../../components/ScrollTabs';
 
-var savedCards = [], paidUser = false, category = 'cards';
+var savedCards = [], paidUser = false, category = 'cards', selectedName = 'christmas';
 
 export default class CardsDeck extends Component {
     constructor(props, context) {
@@ -39,7 +39,7 @@ export default class CardsDeck extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         const params = navigation.state.params || {};
-
+        console.log('selectedName is :', selectedName);
         if (params.signin) {
             return ({
                 headerRight: (
@@ -105,6 +105,7 @@ export default class CardsDeck extends Component {
     }
 
     handleSavedCards = (likedCards) => {
+        selectedName = this.state.selectedName;
         savedCards = likedCards;
     }
     updateUserType = (type) => {
@@ -113,6 +114,7 @@ export default class CardsDeck extends Component {
     //
 
     onSelectedTab = (selectedName, selectedValue, type, loading, imageType) => {
+
         this.setState({
             selectedName: selectedName,
             selectedValue: selectedValue,
