@@ -113,6 +113,8 @@ export default CardConfig = {
     }, {
         value: 'BradleyHandITCTT-Bold'
     }, {
+        value: 'Carrington'
+    }, {
         value: 'Chalkboard SE'
     }, {
         value: 'ChalkboardSE-Bold'
@@ -133,9 +135,13 @@ export default CardConfig = {
     }, {
         value: 'Didot-Italic'
     }, {
+        value: 'Dynalight-Regular'
+    }, {
         value: 'EuphemiaUCAS-Bold'
     }, {
         value: 'Farah'
+    }, {
+        value: 'freebooterscript'
     }, {
         value: 'Futura'
     }, {
@@ -149,6 +155,8 @@ export default CardConfig = {
     }, {
         value: 'GillSans-Italic'
     }, {
+        value: 'GreatVibes-Regular'
+    }, {
         value: 'GujaratiSangamMN-Bold'
     }, {
         value: 'Helvetica'
@@ -158,6 +166,10 @@ export default CardConfig = {
         value: 'HelveticaNeue-Bold'
     }, {
         value: 'HelveticaNeue-Italic'
+    }, {
+        value: 'LobsterTwo-BoldItalic'
+    }, {
+        value: 'LobsterTwo-Italic'
     }, {
         value: 'Marker Felt'
     }, {
@@ -179,7 +191,11 @@ export default CardConfig = {
     }, {
         value: 'PartyLetPlain'
     }, {
+        value: 'Sail-Regular'
+    }, {
         value: 'Savoye LET'
+    }, , {
+        value: 'Sevillana-Regular'
     }, {
         value: 'SnellRoundhand-Bold'
     }, {

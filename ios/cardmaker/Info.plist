@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key></key>
-	<string></string>
+	<key/>
+	<string/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -58,6 +58,14 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Dynalight-Regular.otf</string>
+		<string>Carrington.ttf</string>
+		<string>freebooterscript.ttf</string>
+		<string>GreatVibes-Regular.otf</string>
+		<string>LobsterTwo-BoldItalic.otf</string>
+		<string>LobsterTwo-Italic.otf</string>
+		<string>Sail-Regular.otf</string>
+		<string>Sevillana-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

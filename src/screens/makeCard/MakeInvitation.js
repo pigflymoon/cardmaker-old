@@ -45,7 +45,7 @@ export default class MakeInvitation extends Component {
             // textPosition: 'bottomCenter',
             textColor: colors.primary1,
             fontFamily: 'Didot-Italic',
-            fontSize: 32,
+            fontSize: 50,
             modalIndex: 1,
             modalVisible: false,
             show: false,
@@ -205,7 +205,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input1FontFamily || font,
             // position: this.state.input1Position || position,
             xPos: xPos,//30,
-            yPos: 30,
+            yPos: 450,
             alignment: this.state.input1TextAlign || textAlign,
 
         }
@@ -217,7 +217,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input2FontFamily || font,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
-            yPos: 224,// 56*4,
+            yPos: 820,// 56*4,
             alignment: this.state.input2TextAlign || textAlign,
 
         }
@@ -229,7 +229,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input3FontFamily || font,
             // position: this.state.input3Position || position,
             xPos: xPos,//30,
-            yPos: 336,// 56*6,
+            yPos: 1240,// 56*6,
             alignment: this.state.input3TextAlign || textAlign,
 
         }
@@ -240,7 +240,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input4FontFamily || font,
             // position: this.state.input4Position || position,
             xPos: xPos,//30,
-            yPos: 504, // 56*9,
+            yPos: 1380, // 56*9,
             alignment: this.state.input4TextAlign || textAlign,
         }
         var textInfo5 = {
@@ -250,7 +250,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input5FontFamily || font,
             // position: this.state.input5Position || position,
             xPos: xPos,//30,
-            yPos: 728,//56*13,
+            yPos: 1530,//56*13,
             alignment: this.state.input5TextAlign || textAlign,
         }
         var textInfo6 = {
@@ -260,7 +260,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
             xPos: xPos,//30,
-            yPos: 784,// 56*14,
+            yPos: 1670,// 56*14,
             alignment: this.state.input6TextAlign || textAlign,
         }
         var textInfo7 = {
@@ -269,7 +269,7 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
             xPos: xPos,//30,
-            yPos: 840,//56*15
+            yPos: 1830,//56*15
             // position: this.state.input7Position || position,
             alignment: this.state.input7TextAlign || textAlign,
         }
@@ -572,25 +572,32 @@ export default class MakeInvitation extends Component {
         var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
         return (
 
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                {this.state.loading ?
-                    <View style={[cardStyle.container, {
+            <View style={cardStyle.container}>
+                <View style={[cardStyle.container,{flexGrow:1}]}>
+                    {this.renderIconPanel()}
+                </View>
+                <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+
+                    {this.state.loading ?
+                        <View style={[cardStyle.container, {
                         alignSelf: 'center',
                         justifyContent: 'center',
                     }]}>
-                        <ActivityIndicator size="large" color={colors.secondary2}/>
-                    </View>
-                    : null}
-                <ImageBackground
-                    source={{uri: imageUrl}}
-                    style={[cardStyle.cardImage, this.state.loading ? {opacity: 0} : {opacity: 1}]}
-                    imageStyle={{resizeMode: 'contain'}}
-                >
-                    {this.renderIconPanel()}
-                    {this.renderEditInput()}
-                    {this.renderEditModal()}
-                </ImageBackground>
+                            <ActivityIndicator size="large" color={colors.secondary2}/>
+                        </View>
+                        : null}
+                    <ImageBackground
+                        source={{uri: imageUrl}}
+                        style={[cardStyle.cardImage, this.state.loading ? {opacity: 0} : {opacity: 1}]}
+                        imageStyle={{resizeMode: 'contain'}}
+                    >
+
+                        {this.renderEditInput()}
+                        {this.renderEditModal()}
+                    </ImageBackground>
+                </View>
             </View>
+
 
         )
     }

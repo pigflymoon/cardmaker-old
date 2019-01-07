@@ -32,7 +32,7 @@ export default class CardEditInputModal extends Component {
             recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
             textAligns: ['align-left', 'align-justify', 'align-right'],
             modalIndex: this.props.modalIndex,
-            fontSize: 32,
+            fontSize: 50,
             buttonActiveColor: colors.grey4,
             textAlign: 'align-justify'
         }

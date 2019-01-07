@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -52,6 +51,15 @@
 		D670160B2B53407BBF7C8B29 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83346DCC839B4D39865568E1 /* libFastImage.a */; };
 		EEBDA23D7841431D9A833345 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB207906A9BB45AF87D78424 /* Octicons.ttf */; };
 		F1909AB8181C4BD495138CBB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A8832F32F324273B8431029 /* MaterialIcons.ttf */; };
+		82037B0725E34F18A770B888 /* Dynalight-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F078F4C3325B4368BF8E1971 /* Dynalight-Regular.otf */; };
+		3E9A953334A54118B3C82AA8 /* Carrington.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96C3AFD018B04A04A1884571 /* Carrington.ttf */; };
+		83964239FBD147FA8A99512F /* freebooterscript.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6EDFAA59840D440E97BE51E4 /* freebooterscript.ttf */; };
+		AD9D3596D8E046ECAA60D43F /* GreatVibes-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E8D77E27CA5740E8B5C833DC /* GreatVibes-Regular.otf */; };
+		9B6C6C094622494DAFA7572E /* LobsterTwo-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5CC2A6D2A56474C93475140 /* LobsterTwo-BoldItalic.otf */; };
+		DBE2DECB7B9B4E0BA86FF32D /* LobsterTwo-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 742E0A1E78D54058A574439B /* LobsterTwo-Italic.otf */; };
+		168667461C0D4C05AB4B31DA /* RechtmanPlain.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2647119919644C8A842453AF /* RechtmanPlain.ttf */; };
+		507BF4F98BCC48889C6278B3 /* Sail-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 67D27CA910F24B009491157A /* Sail-Regular.otf */; };
+		7C8DBD7A0CDA41FA821C93D1 /* Sevillana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74541E8B69AA417FB89D05AC /* Sevillana-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -480,6 +488,15 @@
 		D69F67AB8C0F44978F448F56 /* Georgia.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Georgia.ttf; path = ../src/assets/fonts/Georgia.ttf; sourceTree = "<group>"; };
 		E10D72393FF848EFB50F8D65 /* libRCTImageMarker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageMarker.a; sourceTree = "<group>"; };
 		E302583D26C44C748B235A2F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		F078F4C3325B4368BF8E1971 /* Dynalight-Regular.otf */ = {isa = PBXFileReference; name = "Dynalight-Regular.otf"; path = "../assets/fonts/Dynalight-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		96C3AFD018B04A04A1884571 /* Carrington.ttf */ = {isa = PBXFileReference; name = "Carrington.ttf"; path = "../assets/fonts/Carrington.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6EDFAA59840D440E97BE51E4 /* freebooterscript.ttf */ = {isa = PBXFileReference; name = "freebooterscript.ttf"; path = "../assets/fonts/freebooterscript.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E8D77E27CA5740E8B5C833DC /* GreatVibes-Regular.otf */ = {isa = PBXFileReference; name = "GreatVibes-Regular.otf"; path = "../assets/fonts/GreatVibes-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F5CC2A6D2A56474C93475140 /* LobsterTwo-BoldItalic.otf */ = {isa = PBXFileReference; name = "LobsterTwo-BoldItalic.otf"; path = "../assets/fonts/LobsterTwo-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		742E0A1E78D54058A574439B /* LobsterTwo-Italic.otf */ = {isa = PBXFileReference; name = "LobsterTwo-Italic.otf"; path = "../assets/fonts/LobsterTwo-Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2647119919644C8A842453AF /* RechtmanPlain.ttf */ = {isa = PBXFileReference; name = "RechtmanPlain.ttf"; path = "../assets/fonts/RechtmanPlain.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		67D27CA910F24B009491157A /* Sail-Regular.otf */ = {isa = PBXFileReference; name = "Sail-Regular.otf"; path = "../assets/fonts/Sail-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		74541E8B69AA417FB89D05AC /* Sevillana-Regular.ttf */ = {isa = PBXFileReference; name = "Sevillana-Regular.ttf"; path = "../assets/fonts/Sevillana-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -603,6 +620,15 @@
 				CB706E81806B45499A6C90BE /* Ubuntu-Bold.ttf */,
 				9EB94F57366145999C68E51B /* Ubuntu-Light-Italic.ttf */,
 				A26DFB4BFB0E49C0913B647A /* Ubuntu-Light.ttf */,
+				F078F4C3325B4368BF8E1971 /* Dynalight-Regular.otf */,
+				96C3AFD018B04A04A1884571 /* Carrington.ttf */,
+				6EDFAA59840D440E97BE51E4 /* freebooterscript.ttf */,
+				E8D77E27CA5740E8B5C833DC /* GreatVibes-Regular.otf */,
+				F5CC2A6D2A56474C93475140 /* LobsterTwo-BoldItalic.otf */,
+				742E0A1E78D54058A574439B /* LobsterTwo-Italic.otf */,
+				2647119919644C8A842453AF /* RechtmanPlain.ttf */,
+				67D27CA910F24B009491157A /* Sail-Regular.otf */,
+				74541E8B69AA417FB89D05AC /* Sevillana-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1421,6 +1447,15 @@
 				2DF1EDAB1D3041FCB55BE203 /* SimpleLineIcons.ttf in Resources */,
 				902DFC8D9B284AB2B24257B9 /* Zocial.ttf in Resources */,
 				8DE9EF7B21350ACE0021CD74 /* GoogleService-Info.plist in Resources */,
+				82037B0725E34F18A770B888 /* Dynalight-Regular.otf in Resources */,
+				3E9A953334A54118B3C82AA8 /* Carrington.ttf in Resources */,
+				83964239FBD147FA8A99512F /* freebooterscript.ttf in Resources */,
+				AD9D3596D8E046ECAA60D43F /* GreatVibes-Regular.otf in Resources */,
+				9B6C6C094622494DAFA7572E /* LobsterTwo-BoldItalic.otf in Resources */,
+				DBE2DECB7B9B4E0BA86FF32D /* LobsterTwo-Italic.otf in Resources */,
+				168667461C0D4C05AB4B31DA /* RechtmanPlain.ttf in Resources */,
+				507BF4F98BCC48889C6278B3 /* Sail-Regular.otf in Resources */,
+				7C8DBD7A0CDA41FA821C93D1 /* Sevillana-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1530,7 +1565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
+				PROVISIONING_PROFILE = "55bd63ca-efae-4b93-98e3-44f427ccebf4";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1579,7 +1614,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
-				PROVISIONING_PROFILE = "ee1bf4eb-1daa-42c7-b419-9a08c22f2d8c";
+				PROVISIONING_PROFILE = "55bd63ca-efae-4b93-98e3-44f427ccebf4";
 				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

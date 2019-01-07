@@ -25,7 +25,7 @@ export default{
         backgroundColor: colors.white,
         borderWidth: 1,
         borderColor: colors.secondary2,
-        borderRadius: 25,
+        // borderRadius: 25,
     },
     cardImage: {
         flex: 1,
@@ -33,6 +33,7 @@ export default{
         // width: SCREEN_WIDTH - 30,
         alignSelf: 'center',
         justifyContent: 'center',
+
     },
 
     labelStyle: {
