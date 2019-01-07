@@ -35,17 +35,18 @@ import {
     renderAuthBox,
 } from '../../utils/authApi';
 import {makerTask} from '../../utils/MakerTask';
-
+import CardConfig from '../../config/CardConfig';
 export default class MakeInvitation extends Component {
     constructor(props) {
         super(props)
         this.state = {
             makeCard: null,
             signin: false,
-            // textPosition: 'bottomCenter',
-            textColor: colors.primary1,
-            fontFamily: 'Didot-Italic',
-            fontSize: 50,
+            textColor: colors.gold,
+            fontFamily: 'Al Nile',
+            importantFontFamily: 'GreatVibes-Regular',
+            fontSize: 40,
+            importantFontSize: 85,
             modalIndex: 1,
             modalVisible: false,
             show: false,
@@ -53,6 +54,7 @@ export default class MakeInvitation extends Component {
             xPos: 20,
             textAlign: 'align-justify',
             loading: false,
+
         }
     }
 
@@ -103,10 +105,32 @@ export default class MakeInvitation extends Component {
     componentWillMount() {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
-            var signin = this.props.navigation.state.params.signin;
-            var isPaidUser = this.props.navigation.state.params.isPaidUser;
+            // var signin = this.props.navigation.state.params.signin;
+            // var isPaidUser = this.props.navigation.state.params.isPaidUser;
+            const {isPaidUser, signin, hasTemplate} = this.props.navigation.state.params;
+            console.log('hasTemplate :', hasTemplate);
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
+
+            }
+            if (hasTemplate) {
+
+                this.setState({
+                    defaultText1Value: CardConfig.defaultText1Value,
+                    defaultText2Value: CardConfig.defaultText2Value,
+                    defaultText3Value: CardConfig.defaultText3Value,
+                    defaultText4Value: CardConfig.defaultText4Value,
+                    defaultText5Value: CardConfig.defaultText5Value,
+                    defaultText6Value: CardConfig.defaultText6Value,
+                    input1Text: CardConfig.defaultText1Value,
+                    input2Text: CardConfig.defaultText2Value,
+                    input3Text: CardConfig.defaultText3Value,
+                    input4Text: CardConfig.defaultText4Value,
+                    input5Text: CardConfig.defaultText5Value,
+                    input6Text: CardConfig.defaultText6Value,
+
+
+                });
             }
         }
     }
@@ -124,8 +148,46 @@ export default class MakeInvitation extends Component {
 
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
-        var isPaidUser = nextProps.navigation.state.params.isPaidUser;
+        // var isPaidUser = nextProps.navigation.state.params.isPaidUser;
+        const {isPaidUser, hasTemplate} = nextProps.navigation.state.params;
+
         this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
+        if (hasTemplate) {
+
+            this.setState({
+                defaultText1Value: CardConfig.defaultText1Value,
+                defaultText2Value: CardConfig.defaultText2Value,
+                defaultText3Value: CardConfig.defaultText3Value,
+                defaultText4Value: CardConfig.defaultText4Value,
+                defaultText5Value: CardConfig.defaultText5Value,
+                defaultText6Value: CardConfig.defaultText6Value,
+                input1Text: CardConfig.defaultText1Value,
+                input2Text: CardConfig.defaultText2Value,
+                input3Text: CardConfig.defaultText3Value,
+                input4Text: CardConfig.defaultText4Value,
+                input5Text: CardConfig.defaultText5Value,
+                input6Text: CardConfig.defaultText6Value,
+
+
+            });
+        } else {
+            this.setState({
+                defaultText1Value: '',
+                defaultText2Value: '',
+                defaultText3Value: '',
+                defaultText4Value: '',
+                defaultText5Value: '',
+                defaultText6Value: '',
+                input1Text: '',
+                input2Text: '',
+                input3Text: '',
+                input4Text: '',
+                input5Text: '',
+                input6Text: '',
+
+
+            });
+        }
     }
 
     componentWillUnmount() {
@@ -186,12 +248,13 @@ export default class MakeInvitation extends Component {
     imageMarker = (url) => {
         this.setState({loading: true});
         var self = this;
-        var textColor = colors.primary1;
+        var textColor = colors.gold;
         // var position = this.state.textPosition;
         var xPos = this.state.xPos;
         var textAlign = this.state.textAlign;
 
         var font = this.state.fontFamily;
+        var importantFontFamily = this.state.importantFontFamily;
         var fontSize = this.state.fontSize;
         //
         var imageUrl = url;
@@ -213,8 +276,8 @@ export default class MakeInvitation extends Component {
         var textInfo2 = {
             text: this.state.input2Text || '',
             color: this.state.input2Color || textColor,
-            fontSize: this.state.input2FontSize || fontSize,
-            fontName: this.state.input2FontFamily || font,
+            fontSize: this.state.input2FontSize || this.state.importantFontSize,
+            fontName: this.state.input2FontFamily || importantFontFamily,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
             yPos: 820,// 56*4,
@@ -246,8 +309,8 @@ export default class MakeInvitation extends Component {
         var textInfo5 = {
             text: this.state.input5Text || '',
             color: this.state.input5Color || textColor,
-            fontSize: this.state.input5FontSize || fontSize,
-            fontName: this.state.input5FontFamily || font,
+            fontSize: this.state.input5FontSize || this.state.importantFontSize,
+            fontName: this.state.input5FontFamily || importantFontFamily,
             // position: this.state.input5Position || position,
             xPos: xPos,//30,
             yPos: 1530,//56*13,
@@ -371,6 +434,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText1Value}
                                         inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
                                         multiline
@@ -390,6 +454,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText2Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -410,6 +475,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText3Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -429,6 +495,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText4Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -449,6 +516,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText5Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -468,6 +536,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText6Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -487,6 +556,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
+                                        value={this.state.defaultText7Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline

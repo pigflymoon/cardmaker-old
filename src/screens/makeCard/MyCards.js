@@ -41,9 +41,10 @@ export default class MyCards extends Component {
 
     //right  header
     static navigationOptions = ({navigation}) => {
-        var isPaidUser = navigation.state.params.isPaidUser;
-        const {category} = navigation.state.params;
+        // var isPaidUser = navigation.state.params.isPaidUser;
+        const {isPaidUser,category, selectedName} = navigation.state.params;
         const navigationCategory = (category == 'cards') ? 'MakeCard' : 'MakeInvitation';
+        const hasTemplate = (selectedName == 'invitation');
 
         return ({
             headerRight: (
@@ -54,7 +55,8 @@ export default class MyCards extends Component {
                                   navigation.navigate(navigationCategory, {//MakeCard MakeInvitation
                                       chooseCards: makeCard,
                                       signin: true,
-                                      isPaidUser: isPaidUser
+                                      isPaidUser: isPaidUser,
+                                      hasTemplate: hasTemplate
                                   });
                               }
 

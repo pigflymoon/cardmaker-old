@@ -48,7 +48,8 @@ export default class CardsDeck extends Component {
                               onPress={() => navigation.navigate('MyCards', {
                                   likedCards: savedCards,
                                   isPaidUser: paidUser,
-                                  category: category
+                                  category: category,
+                                  selectedName: selectedName,
                               })}/>
                     </TouchableOpacity>
                 )

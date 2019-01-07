@@ -23,6 +23,7 @@ export default {
     grey4: '#bdc6cf',
     grey5: '#e1e8ee',
     grey6: '#F1F1F1',
+    gold:'#D8AA49',
     dkGreyBg: '#232323',
     greyOutline: '#bbb',
     searchBg: '#303337',

@@ -237,7 +237,13 @@ export default CardConfig = {
         value: 'blue',
     }, {
         value: 'pink'
-    },
-    ]
+    }],
+    defaultText1Value:'WITH GREAT PLEASURE',
+    defaultText2Value:'Name and Name',
+    defaultText3Value:'INVITE YOU TO JOIN THEM',
+    defaultText4Value:'AT THE CELEBRATION OF THEIR MARRIAGE',
+    defaultText5Value:'May 10, 2019 . 3 PM',
+    defaultText6Value:'FAITH AVENUE, NY',
+
 
 };
