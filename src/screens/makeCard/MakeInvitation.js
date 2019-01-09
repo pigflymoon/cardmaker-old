@@ -51,7 +51,8 @@ export default class MakeInvitation extends Component {
             modalVisible: false,
             show: false,
             opacity: 1,
-            xPos: 20,
+            xPos: CardConfig.defaultTextPosition.xPos,
+
             textAlign: 'align-justify',
             loading: false,
 
@@ -107,31 +108,107 @@ export default class MakeInvitation extends Component {
             var makeCard = this.props.navigation.state.params.chooseCards;
             // var signin = this.props.navigation.state.params.signin;
             // var isPaidUser = this.props.navigation.state.params.isPaidUser;
-            const {isPaidUser, signin, hasTemplate} = this.props.navigation.state.params;
-            console.log('hasTemplate :', hasTemplate);
+            const {isPaidUser, signin, templateType} = this.props.navigation.state.params;
+            console.log('templateType :', templateType);
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
 
             }
-            if (hasTemplate) {
+            switch (templateType) {
+                case 'invitation':
+                    this.setState({
+                        defaultText1Value: CardConfig.invitationTemplate.weddingTextValue.defaultText1Value,
+                        defaultText2Value: CardConfig.invitationTemplate.weddingTextValue.defaultText2Value,
+                        defaultText3Value: CardConfig.invitationTemplate.weddingTextValue.defaultText3Value,
+                        defaultText4Value: CardConfig.invitationTemplate.weddingTextValue.defaultText4Value,
+                        defaultText5Value: CardConfig.invitationTemplate.weddingTextValue.defaultText5Value,
+                        defaultText6Value: CardConfig.invitationTemplate.weddingTextValue.defaultText6Value,
+                        input1Text: CardConfig.invitationTemplate.weddingTextValue.defaultText1Value,
+                        input2Text: CardConfig.invitationTemplate.weddingTextValue.defaultText2Value,
+                        input3Text: CardConfig.invitationTemplate.weddingTextValue.defaultText3Value,
+                        input4Text: CardConfig.invitationTemplate.weddingTextValue.defaultText4Value,
+                        input5Text: CardConfig.invitationTemplate.weddingTextValue.defaultText5Value,
+                        input6Text: CardConfig.invitationTemplate.weddingTextValue.defaultText6Value,
+                        yPos1: CardConfig.invitationTemplate.textPosition.yPos1,
+                        yPos2: CardConfig.invitationTemplate.textPosition.yPos2,
+                        yPos3: CardConfig.invitationTemplate.textPosition.yPos3,
+                        yPos4: CardConfig.invitationTemplate.textPosition.yPos4,
+                        yPos5: CardConfig.invitationTemplate.textPosition.yPos5,
+                        yPos6: CardConfig.invitationTemplate.textPosition.yPos6,
+                        yPos7: CardConfig.invitationTemplate.textPosition.yPos7
+                    });
+                    break;
+                case 'saveTheDate'   :
+                    this.setState({
+                        defaultText1Value: CardConfig.saveDateTemplate.textValue.defaultText1Value,
+                        defaultText2Value: CardConfig.saveDateTemplate.textValue.defaultText2Value,
+                        defaultText3Value: CardConfig.saveDateTemplate.textValue.defaultText3Value,
+                        defaultText4Value: CardConfig.saveDateTemplate.textValue.defaultText4Value,
+                        defaultText5Value: CardConfig.saveDateTemplate.textValue.defaultText5Value,
+                        defaultText6Value: CardConfig.saveDateTemplate.textValue.defaultText6Value,
+                        input1Text: CardConfig.saveDateTemplate.textValue.defaultText1Value,
+                        input2Text: CardConfig.saveDateTemplate.textValue.defaultText2Value,
+                        input3Text: CardConfig.saveDateTemplate.textValue.defaultText3Value,
+                        input4Text: CardConfig.saveDateTemplate.textValue.defaultText4Value,
+                        input5Text: CardConfig.saveDateTemplate.textValue.defaultText5Value,
+                        input6Text: CardConfig.saveDateTemplate.textValue.defaultText6Value,
+                        yPos1: CardConfig.saveDateTemplate.textPosition.yPos1,
+                        yPos2: CardConfig.saveDateTemplate.textPosition.yPos2,
+                        yPos3: CardConfig.saveDateTemplate.textPosition.yPos3,
+                        yPos4: CardConfig.saveDateTemplate.textPosition.yPos4,
+                        yPos5: CardConfig.saveDateTemplate.textPosition.yPos5,
+                        yPos6: CardConfig.saveDateTemplate.textPosition.yPos6,
+                        yPos7: CardConfig.saveDateTemplate.textPosition.yPos7,
 
-                this.setState({
-                    defaultText1Value: CardConfig.defaultText1Value,
-                    defaultText2Value: CardConfig.defaultText2Value,
-                    defaultText3Value: CardConfig.defaultText3Value,
-                    defaultText4Value: CardConfig.defaultText4Value,
-                    defaultText5Value: CardConfig.defaultText5Value,
-                    defaultText6Value: CardConfig.defaultText6Value,
-                    input1Text: CardConfig.defaultText1Value,
-                    input2Text: CardConfig.defaultText2Value,
-                    input3Text: CardConfig.defaultText3Value,
-                    input4Text: CardConfig.defaultText4Value,
-                    input5Text: CardConfig.defaultText5Value,
-                    input6Text: CardConfig.defaultText6Value,
-
-
-                });
+                    });
+                    break;
+                case 'rsvp':
+                    this.setState({
+                        defaultText1Value: CardConfig.rsvpTemplate.textValue.defaultText1Value,
+                        defaultText2Value: CardConfig.rsvpTemplate.textValue.defaultText2Value,
+                        defaultText3Value: CardConfig.rsvpTemplate.textValue.defaultText3Value,
+                        defaultText4Value: CardConfig.rsvpTemplate.textValue.defaultText4Value,
+                        defaultText5Value: CardConfig.rsvpTemplate.textValue.defaultText5Value,
+                        defaultText6Value: CardConfig.rsvpTemplate.textValue.defaultText6Value,
+                        input1Text: CardConfig.rsvpTemplate.textValue.defaultText1Value,
+                        input2Text: CardConfig.rsvpTemplate.textValue.defaultText2Value,
+                        input3Text: CardConfig.rsvpTemplate.textValue.defaultText3Value,
+                        input4Text: CardConfig.rsvpTemplate.textValue.defaultText4Value,
+                        input5Text: CardConfig.rsvpTemplate.textValue.defaultText5Value,
+                        input6Text: CardConfig.rsvpTemplate.textValue.defaultText6Value,
+                        yPos1: CardConfig.rsvpTemplate.textPosition.yPos1,
+                        yPos2: CardConfig.rsvpTemplate.textPosition.yPos2,
+                        yPos3: CardConfig.rsvpTemplate.textPosition.yPos3,
+                        yPos4: CardConfig.rsvpTemplate.textPosition.yPos4,
+                        yPos5: CardConfig.rsvpTemplate.textPosition.yPos5,
+                        yPos6: CardConfig.rsvpTemplate.textPosition.yPos6,
+                        yPos7: CardConfig.rsvpTemplate.textPosition.yPos7,
+                    });
+                    break;
+                default:
+                    this.setState({
+                        defaultText1Value: '',
+                        defaultText2Value: '',
+                        defaultText3Value: '',
+                        defaultText4Value: '',
+                        defaultText5Value: '',
+                        defaultText6Value: '',
+                        input1Text: '',
+                        input2Text: '',
+                        input3Text: '',
+                        input4Text: '',
+                        input5Text: '',
+                        input6Text: '',
+                        yPos1: CardConfig.defaultTextPosition.yPos1,
+                        yPos2: CardConfig.defaultTextPosition.yPos2,
+                        yPos3: CardConfig.defaultTextPosition.yPos3,
+                        yPos4: CardConfig.defaultTextPosition.yPos4,
+                        yPos5: CardConfig.defaultTextPosition.yPos5,
+                        yPos6: CardConfig.defaultTextPosition.yPos6,
+                        yPos7: CardConfig.defaultTextPosition.yPos7,
+                    });
             }
+
         }
     }
 
@@ -149,45 +226,165 @@ export default class MakeInvitation extends Component {
     componentWillReceiveProps(nextProps) {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         // var isPaidUser = nextProps.navigation.state.params.isPaidUser;
-        const {isPaidUser, hasTemplate} = nextProps.navigation.state.params;
+        const {isPaidUser, templateType} = nextProps.navigation.state.params;
 
         this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
-        if (hasTemplate) {
+        switch (templateType) {
+            case 'invitation':
+                this.setState({
+                    defaultText1Value: CardConfig.invitationTemplate.weddingTextValue.defaultText1Value,
+                    defaultText2Value: CardConfig.invitationTemplate.weddingTextValue.defaultText2Value,
+                    defaultText3Value: CardConfig.invitationTemplate.weddingTextValue.defaultText3Value,
+                    defaultText4Value: CardConfig.invitationTemplate.weddingTextValue.defaultText4Value,
+                    defaultText5Value: CardConfig.invitationTemplate.weddingTextValue.defaultText5Value,
+                    defaultText6Value: CardConfig.invitationTemplate.weddingTextValue.defaultText6Value,
+                    input1Text: CardConfig.invitationTemplate.weddingTextValue.defaultText1Value,
+                    input2Text: CardConfig.invitationTemplate.weddingTextValue.defaultText2Value,
+                    input3Text: CardConfig.invitationTemplate.weddingTextValue.defaultText3Value,
+                    input4Text: CardConfig.invitationTemplate.weddingTextValue.defaultText4Value,
+                    input5Text: CardConfig.invitationTemplate.weddingTextValue.defaultText5Value,
+                    input6Text: CardConfig.invitationTemplate.weddingTextValue.defaultText6Value,
+                    yPos1: CardConfig.invitationTemplate.textPosition.yPos1,
+                    yPos2: CardConfig.invitationTemplate.textPosition.yPos2,
+                    yPos3: CardConfig.invitationTemplate.textPosition.yPos3,
+                    yPos4: CardConfig.invitationTemplate.textPosition.yPos4,
+                    yPos5: CardConfig.invitationTemplate.textPosition.yPos5,
+                    yPos6: CardConfig.invitationTemplate.textPosition.yPos6,
+                    yPos7: CardConfig.invitationTemplate.textPosition.yPos7,
+                    input1FontSize: CardConfig.invitationTemplate.textSize.input1FontSize,
+                    input2FontSize: CardConfig.invitationTemplate.textSize.input2FontSize,
+                    input3FontSize: CardConfig.invitationTemplate.textSize.input3FontSize,
+                    input4FontSize: CardConfig.invitationTemplate.textSize.input4FontSize,
+                    input5FontSize: CardConfig.invitationTemplate.textSize.input5FontSize,
+                    input6FontSize: CardConfig.invitationTemplate.textSize.input6FontSize,
+                    input7FontSize: CardConfig.invitationTemplate.textSize.input7FontSize,
+                    input1FontFamily: CardConfig.invitationTemplate.textFontFamily.input1FontFamily,
+                    input2FontFamily: CardConfig.invitationTemplate.textFontFamily.input2FontFamily,
+                    input3FontFamily: CardConfig.invitationTemplate.textFontFamily.input3FontFamily,
+                    input4FontFamily: CardConfig.invitationTemplate.textFontFamily.input4FontFamily,
+                    input5FontFamily: CardConfig.invitationTemplate.textFontFamily.input5FontFamily,
+                    input6FontFamily: CardConfig.invitationTemplate.textFontFamily.input6FontFamily,
+                    input7FontFamily: CardConfig.invitationTemplate.textFontFamily.input7FontFamily,
 
-            this.setState({
-                defaultText1Value: CardConfig.defaultText1Value,
-                defaultText2Value: CardConfig.defaultText2Value,
-                defaultText3Value: CardConfig.defaultText3Value,
-                defaultText4Value: CardConfig.defaultText4Value,
-                defaultText5Value: CardConfig.defaultText5Value,
-                defaultText6Value: CardConfig.defaultText6Value,
-                input1Text: CardConfig.defaultText1Value,
-                input2Text: CardConfig.defaultText2Value,
-                input3Text: CardConfig.defaultText3Value,
-                input4Text: CardConfig.defaultText4Value,
-                input5Text: CardConfig.defaultText5Value,
-                input6Text: CardConfig.defaultText6Value,
+                });
+                break;
+            case 'saveTheDate'   :
+                this.setState({
+                    defaultText1Value: CardConfig.saveDateTemplate.textValue.defaultText1Value,
+                    defaultText2Value: CardConfig.saveDateTemplate.textValue.defaultText2Value,
+                    defaultText3Value: CardConfig.saveDateTemplate.textValue.defaultText3Value,
+                    defaultText4Value: CardConfig.saveDateTemplate.textValue.defaultText4Value,
+                    defaultText5Value: CardConfig.saveDateTemplate.textValue.defaultText5Value,
+                    defaultText6Value: CardConfig.saveDateTemplate.textValue.defaultText6Value,
+                    input1Text: CardConfig.saveDateTemplate.textValue.defaultText1Value,
+                    input2Text: CardConfig.saveDateTemplate.textValue.defaultText2Value,
+                    input3Text: CardConfig.saveDateTemplate.textValue.defaultText3Value,
+                    input4Text: CardConfig.saveDateTemplate.textValue.defaultText4Value,
+                    input5Text: CardConfig.saveDateTemplate.textValue.defaultText5Value,
+                    input6Text: CardConfig.saveDateTemplate.textValue.defaultText6Value,
+                    yPos1: CardConfig.saveDateTemplate.textPosition.yPos1,
+                    yPos2: CardConfig.saveDateTemplate.textPosition.yPos2,
+                    yPos3: CardConfig.saveDateTemplate.textPosition.yPos3,
+                    yPos4: CardConfig.saveDateTemplate.textPosition.yPos4,
+                    yPos5: CardConfig.saveDateTemplate.textPosition.yPos5,
+                    yPos6: CardConfig.saveDateTemplate.textPosition.yPos6,
+                    yPos7: CardConfig.saveDateTemplate.textPosition.yPos7,
+                    input1FontSize: CardConfig.saveDateTemplate.textSize.input1FontSize,
+                    input2FontSize: CardConfig.saveDateTemplate.textSize.input2FontSize,
+                    input3FontSize: CardConfig.saveDateTemplate.textSize.input3FontSize,
+                    input4FontSize: CardConfig.saveDateTemplate.textSize.input4FontSize,
+                    input5FontSize: CardConfig.saveDateTemplate.textSize.input5FontSize,
+                    input6FontSize: CardConfig.saveDateTemplate.textSize.input6FontSize,
+                    input7FontSize: CardConfig.saveDateTemplate.textSize.input7FontSize,
 
+                    input1FontFamily: CardConfig.saveDateTemplate.textFontFamily.input1FontFamily,
+                    input2FontFamily: CardConfig.saveDateTemplate.textFontFamily.input2FontFamily,
+                    input3FontFamily: CardConfig.saveDateTemplate.textFontFamily.input3FontFamily,
+                    input4FontFamily: CardConfig.saveDateTemplate.textFontFamily.input4FontFamily,
+                    input5FontFamily: CardConfig.saveDateTemplate.textFontFamily.input5FontFamily,
+                    input6FontFamily: CardConfig.saveDateTemplate.textFontFamily.input6FontFamily,
+                    input7FontFamily: CardConfig.saveDateTemplate.textFontFamily.input7FontFamily,
 
-            });
-        } else {
-            this.setState({
-                defaultText1Value: '',
-                defaultText2Value: '',
-                defaultText3Value: '',
-                defaultText4Value: '',
-                defaultText5Value: '',
-                defaultText6Value: '',
-                input1Text: '',
-                input2Text: '',
-                input3Text: '',
-                input4Text: '',
-                input5Text: '',
-                input6Text: '',
+                });
+                break;
+            case 'rsvp':
+                this.setState({
+                    defaultText1Value: CardConfig.rsvpTemplate.textValue.defaultText1Value,
+                    defaultText2Value: CardConfig.rsvpTemplate.textValue.defaultText2Value,
+                    defaultText3Value: CardConfig.rsvpTemplate.textValue.defaultText3Value,
+                    defaultText4Value: CardConfig.rsvpTemplate.textValue.defaultText4Value,
+                    defaultText5Value: CardConfig.rsvpTemplate.textValue.defaultText5Value,
+                    defaultText6Value: CardConfig.rsvpTemplate.textValue.defaultText6Value,
+                    input1Text: CardConfig.rsvpTemplate.textValue.defaultText1Value,
+                    input2Text: CardConfig.rsvpTemplate.textValue.defaultText2Value,
+                    input3Text: CardConfig.rsvpTemplate.textValue.defaultText3Value,
+                    input4Text: CardConfig.rsvpTemplate.textValue.defaultText4Value,
+                    input5Text: CardConfig.rsvpTemplate.textValue.defaultText5Value,
+                    input6Text: CardConfig.rsvpTemplate.textValue.defaultText6Value,
+                    yPos1: CardConfig.rsvpTemplate.textPosition.yPos1,
+                    yPos2: CardConfig.rsvpTemplate.textPosition.yPos2,
+                    yPos3: CardConfig.rsvpTemplate.textPosition.yPos3,
+                    yPos4: CardConfig.rsvpTemplate.textPosition.yPos4,
+                    yPos5: CardConfig.rsvpTemplate.textPosition.yPos5,
+                    yPos6: CardConfig.rsvpTemplate.textPosition.yPos6,
+                    yPos7: CardConfig.rsvpTemplate.textPosition.yPos7,
+                    input1FontSize: CardConfig.rsvpTemplate.textSize.input1FontSize,
+                    input2FontSize: CardConfig.rsvpTemplate.textSize.input2FontSize,
+                    input3FontSize: CardConfig.rsvpTemplate.textSize.input3FontSize,
+                    input4FontSize: CardConfig.rsvpTemplate.textSize.input4FontSize,
+                    input5FontSize: CardConfig.rsvpTemplate.textSize.input5FontSize,
+                    input6FontSize: CardConfig.rsvpTemplate.textSize.input6FontSize,
+                    input7FontSize: CardConfig.rsvpTemplate.textSize.input7FontSize,
 
+                    input1FontFamily: CardConfig.rsvpTemplate.textFontFamily.input1FontFamily,
+                    input2FontFamily: CardConfig.rsvpTemplate.textFontFamily.input2FontFamily,
+                    input3FontFamily: CardConfig.rsvpTemplate.textFontFamily.input3FontFamily,
+                    input4FontFamily: CardConfig.rsvpTemplate.textFontFamily.input4FontFamily,
+                    input5FontFamily: CardConfig.rsvpTemplate.textFontFamily.input5FontFamily,
+                    input6FontFamily: CardConfig.rsvpTemplate.textFontFamily.input6FontFamily,
+                    input7FontFamily: CardConfig.rsvpTemplate.textFontFamily.input7FontFamily,
+                });
+                break;
+            default:
+                this.setState({
+                    defaultText1Value: '',
+                    defaultText2Value: '',
+                    defaultText3Value: '',
+                    defaultText4Value: '',
+                    defaultText5Value: '',
+                    defaultText6Value: '',
+                    input1Text: '',
+                    input2Text: '',
+                    input3Text: '',
+                    input4Text: '',
+                    input5Text: '',
+                    input6Text: '',
+                    yPos1: CardConfig.defaultTextPosition.yPos1,
+                    yPos2: CardConfig.defaultTextPosition.yPos2,
+                    yPos3: CardConfig.defaultTextPosition.yPos3,
+                    yPos4: CardConfig.defaultTextPosition.yPos4,
+                    yPos5: CardConfig.defaultTextPosition.yPos5,
+                    yPos6: CardConfig.defaultTextPosition.yPos6,
+                    yPos7: CardConfig.defaultTextPosition.yPos7,
+                    input1FontSize: CardConfig.defaultTextSize,
+                    input2FontSize: CardConfig.defaultTextSize,
+                    input3FontSize: CardConfig.defaultTextSize,
+                    input4FontSize: CardConfig.defaultTextSize,
+                    input5FontSize: CardConfig.defaultTextSize,
+                    input6FontSize: CardConfig.defaultTextSize,
+                    input7FontSize: CardConfig.defaultTextSize,
 
-            });
+                    input1FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input2FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input3FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input4FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input5FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input6FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                    input7FontFamily: CardConfig.defultFontFamily.inputFontFamily
+
+                });
         }
+
     }
 
     componentWillUnmount() {
@@ -264,8 +461,8 @@ export default class MakeInvitation extends Component {
             // position: position,
             text: this.state.input1Text || '',
             color: this.state.input1Color || textColor,
-            fontSize: this.state.input1FontSize || fontSize,
-            fontName: this.state.input1FontFamily || font,
+            fontSize: this.state.input1FontSize,
+            fontName: this.state.input1FontFamily,
             // position: this.state.input1Position || position,
             xPos: xPos,//30,
             yPos: 450,
@@ -276,8 +473,8 @@ export default class MakeInvitation extends Component {
         var textInfo2 = {
             text: this.state.input2Text || '',
             color: this.state.input2Color || textColor,
-            fontSize: this.state.input2FontSize || this.state.importantFontSize,
-            fontName: this.state.input2FontFamily || importantFontFamily,
+            fontSize: this.state.input2FontSize,
+            fontName: this.state.input2FontFamily,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
             yPos: 820,// 56*4,
@@ -288,8 +485,8 @@ export default class MakeInvitation extends Component {
         var textInfo3 = {
             text: this.state.input3Text || '',
             color: this.state.input3Color || textColor,
-            fontSize: this.state.input3FontSize || fontSize,
-            fontName: this.state.input3FontFamily || font,
+            fontSize: this.state.input3FontSize,
+            fontName: this.state.input3FontFamily,
             // position: this.state.input3Position || position,
             xPos: xPos,//30,
             yPos: 1240,// 56*6,
@@ -299,8 +496,8 @@ export default class MakeInvitation extends Component {
         var textInfo4 = {
             text: this.state.input4Text || '',
             color: this.state.input4Color || textColor,
-            fontSize: this.state.input4FontSize || fontSize,
-            fontName: this.state.input4FontFamily || font,
+            fontSize: this.state.input4FontSize,
+            fontName: this.state.input4FontFamily,
             // position: this.state.input4Position || position,
             xPos: xPos,//30,
             yPos: 1380, // 56*9,
@@ -309,8 +506,8 @@ export default class MakeInvitation extends Component {
         var textInfo5 = {
             text: this.state.input5Text || '',
             color: this.state.input5Color || textColor,
-            fontSize: this.state.input5FontSize || this.state.importantFontSize,
-            fontName: this.state.input5FontFamily || importantFontFamily,
+            fontSize: this.state.input5FontSize,
+            fontName: this.state.input5FontFamily,
             // position: this.state.input5Position || position,
             xPos: xPos,//30,
             yPos: 1530,//56*13,
@@ -319,8 +516,8 @@ export default class MakeInvitation extends Component {
         var textInfo6 = {
             text: this.state.input6Text || '',
             color: this.state.input6Color || textColor,
-            fontSize: this.state.input6FontSize || fontSize,
-            fontName: this.state.input6FontFamily || font,
+            fontSize: this.state.input6FontSize,
+            fontName: this.state.input6FontFamily,
             // position: this.state.input6Position || position,
             xPos: xPos,//30,
             yPos: 1670,// 56*14,
@@ -329,8 +526,8 @@ export default class MakeInvitation extends Component {
         var textInfo7 = {
             text: this.state.input7Text || '',
             color: this.state.input7Color || textColor,
-            fontSize: this.state.input7FontSize || fontSize,
-            fontName: this.state.input7FontFamily || font,
+            fontSize: this.state.input7FontSize,
+            fontName: this.state.input7FontFamily,
             xPos: xPos,//30,
             yPos: 1830,//56*15
             // position: this.state.input7Position || position,

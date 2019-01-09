@@ -238,12 +238,143 @@ export default CardConfig = {
     }, {
         value: 'pink'
     }],
-    defaultText1Value:'WITH GREAT PLEASURE',
-    defaultText2Value:'Name and Name',
-    defaultText3Value:'INVITE YOU TO JOIN THEM',
-    defaultText4Value:'AT THE CELEBRATION OF THEIR MARRIAGE',
-    defaultText5Value:'May 10, 2019 . 3 PM',
-    defaultText6Value:'FAITH AVENUE, NY',
+    defaultTextPosition: {
+        xPos: 20,
+        yPos1: 30,
+        yPos2: 224,
+        yPos3: 336,
+        yPos4: 504,
+        yPos5: 728,
+        yPos6: 784,
+        yPos7: 840,
+    },
+    defaultTextSize: {
+        inputFontSize: 40
+    },
+    defultFontFamily: {
+        inputFontFamily: 'Al Nile',
+
+    },
+
+    invitationTemplate: {
+        weddingTextValue: {
+            defaultText1Value: 'WITH GREAT PLEASURE',
+            defaultText2Value: 'Name and Name',
+            defaultText3Value: 'INVITE YOU TO JOIN THEM',
+            defaultText4Value: 'AT THE CELEBRATION OF THEIR MARRIAGE',
+            defaultText5Value: 'May 10, 2019 . 3 PM',
+            defaultText6Value: 'FAITH AVENUE, NY',
+        },
+        textSize: {
+            input1FontSize: 40,
+            input2FontSize: 85,
+            input3FontSize: 40,
+            input4FontSize: 40,
+            input5FontSize: 85,
+            input6FontSize: 40,
+            input7FontSize: 40,
+        },
+        textPosition: {
+            yPos1: 450,
+            yPos2: 820,
+            yPos3: 1240,
+            yPos4: 1380,
+            yPos5: 1530,
+            yPos6: 1670,
+            yPos7: 1830
+        },
+        textFontFamily: {
+            input1FontFamily: 'Al Nile',
+            input2FontFamily: 'GreatVibes-Regular',
+            input3FontFamily: 'Al Nile',
+            input4FontFamily: 'Al Nile',
+            input5FontFamily: 'GreatVibes-Regular',
+            input6FontFamily: 'Al Nile',
+            input7FontFamily: 'Al Nile',
+        },
+    },
+    saveDateTemplate: {
+        textValue: {
+            defaultText1Value: 'save the date',
+            defaultText2Value: 'FOR THE WEDDING OF',
+            defaultText3Value: 'name1 & name2',
+            defaultText4Value: 'SEPTEMBER 20, 2019',
+            defaultText5Value: 'DENVER,COLORODO',
+            defaultText6Value: 'formal invitation to follow',
+        },
+        textSize: {
+            input1FontSize: 120,
+            input2FontSize: 40,
+            input3FontSize: 100,
+            input4FontSize: 50,
+            input5FontSize: 40,
+            input6FontSize: 70,
+            input7FontSize: 40,
+        },
+        textFontFamily: {
+            input1FontFamily: 'GreatVibes-Regular',
+            input2FontFamily: 'Al Nile',
+            input3FontFamily: 'GreatVibes-Regular',
+            input4FontFamily: 'Al Nile',
+            input5FontFamily: 'Al Nile',
+            input6FontFamily: 'GreatVibes-Regular',
+            input7FontFamily: 'Al Nile',
+        },
+        importantFontSize: 85,
+        importantFontFamily: 'GreatVibes-Regular',
+        textPosition: {
+            yPos1: 250,
+            yPos2: 1010,
+            yPos3: 1070,
+            yPos4: 1320,
+            yPos5: 1520,
+            yPos6: 1600,
+            yPos7: 1680,
+
+        }
+
+    },
+    rsvpTemplate: {
+        textValue: {
+            defaultText1Value: 'kindly reply',
+            defaultText2Value: 'PLEASE RESPOND BY DATE',
+            defaultText3Value: 'M_____________________',
+            defaultText4Value: '\u25EF ACCEPTS WITH PLEASURE',
+            defaultText5Value: '\u25EF DECLINES WITH REGRET',
+            defaultText6Value: 'NUMBER OF GUESTS ATTENDING',
+        },
+        textSize: {
+            input1FontSize: 85,
+            input2FontSize: 50,
+            input3FontSize: 70,
+            input4FontSize: 40,
+            input5FontSize: 40,
+            input6FontSize: 40,
+            input7FontSize: 40,
+        },
+        importantFontSize: 85,
+        importantFontFamily: 'GreatVibes-Regular',
+        textPosition: {
+            yPos1: 400,
+            yPos2: 550,
+            yPos3: 670,
+            yPos4: 750,
+            yPos5: 840,
+            yPos6: 920,
+            yPos7: 990,
+
+        },
+        textFontFamily: {
+            input1FontFamily: 'GreatVibes-Regular',
+            input2FontFamily: 'Al Nile',
+            input3FontFamily: 'Al Nile',
+            input4FontFamily: 'Al Nile',
+            input5FontFamily: 'Al Nile',
+            input6FontFamily: 'Al Nile',
+            input7FontFamily: 'Al Nile',
+        }
+
+    },
 
 
 };
