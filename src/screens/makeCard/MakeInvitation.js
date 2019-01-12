@@ -52,7 +52,7 @@ export default class MakeInvitation extends Component {
             show: false,
             opacity: 1,
             xPos: CardConfig.defaultTextPosition.xPos,
-
+            bgColor: colors.white,
             textAlign: 'align-justify',
             loading: false,
 
@@ -207,6 +207,7 @@ export default class MakeInvitation extends Component {
                         yPos6: CardConfig.defaultTextPosition.yPos6,
                         yPos7: CardConfig.defaultTextPosition.yPos7,
                     });
+                    break;
             }
 
         }
@@ -366,13 +367,13 @@ export default class MakeInvitation extends Component {
                     yPos5: CardConfig.defaultTextPosition.yPos5,
                     yPos6: CardConfig.defaultTextPosition.yPos6,
                     yPos7: CardConfig.defaultTextPosition.yPos7,
-                    input1FontSize: CardConfig.defaultTextSize,
-                    input2FontSize: CardConfig.defaultTextSize,
-                    input3FontSize: CardConfig.defaultTextSize,
-                    input4FontSize: CardConfig.defaultTextSize,
-                    input5FontSize: CardConfig.defaultTextSize,
-                    input6FontSize: CardConfig.defaultTextSize,
-                    input7FontSize: CardConfig.defaultTextSize,
+                    input1FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input2FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input3FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input4FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input5FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input6FontSize: CardConfig.defaultTextSize.inputFontSize,
+                    input7FontSize: CardConfig.defaultTextSize.inputFontSize,
 
                     input1FontFamily: CardConfig.defultFontFamily.inputFontFamily,
                     input2FontFamily: CardConfig.defultFontFamily.inputFontFamily,
@@ -383,6 +384,7 @@ export default class MakeInvitation extends Component {
                     input7FontFamily: CardConfig.defultFontFamily.inputFontFamily
 
                 });
+                break;
         }
 
     }
@@ -465,7 +467,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input1FontFamily,
             // position: this.state.input1Position || position,
             xPos: xPos,//30,
-            yPos: 450,
+            yPos: this.state.yPos1,
             alignment: this.state.input1TextAlign || textAlign,
 
         }
@@ -477,7 +479,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input2FontFamily,
             // position: this.state.input2Position || position,
             xPos: xPos,//30,
-            yPos: 820,// 56*4,
+            yPos: this.state.yPos2,// 56*4,
             alignment: this.state.input2TextAlign || textAlign,
 
         }
@@ -489,7 +491,7 @@ export default class MakeInvitation extends Component {
             fontName: this.state.input3FontFamily,
             // position: this.state.input3Position || position,
             xPos: xPos,//30,
-            yPos: 1240,// 56*6,
+            yPos: this.state.yPos3,// 56*6,
             alignment: this.state.input3TextAlign || textAlign,
 
         }
@@ -498,9 +500,8 @@ export default class MakeInvitation extends Component {
             color: this.state.input4Color || textColor,
             fontSize: this.state.input4FontSize,
             fontName: this.state.input4FontFamily,
-            // position: this.state.input4Position || position,
             xPos: xPos,//30,
-            yPos: 1380, // 56*9,
+            yPos: this.state.yPos4,
             alignment: this.state.input4TextAlign || textAlign,
         }
         var textInfo5 = {
@@ -508,9 +509,8 @@ export default class MakeInvitation extends Component {
             color: this.state.input5Color || textColor,
             fontSize: this.state.input5FontSize,
             fontName: this.state.input5FontFamily,
-            // position: this.state.input5Position || position,
             xPos: xPos,//30,
-            yPos: 1530,//56*13,
+            yPos: this.state.yPos5,//56*13,
             alignment: this.state.input5TextAlign || textAlign,
         }
         var textInfo6 = {
@@ -518,9 +518,8 @@ export default class MakeInvitation extends Component {
             color: this.state.input6Color || textColor,
             fontSize: this.state.input6FontSize,
             fontName: this.state.input6FontFamily,
-            // position: this.state.input6Position || position,
             xPos: xPos,//30,
-            yPos: 1670,// 56*14,
+            yPos: this.state.yPos6,// 56*14,
             alignment: this.state.input6TextAlign || textAlign,
         }
         var textInfo7 = {
@@ -529,8 +528,7 @@ export default class MakeInvitation extends Component {
             fontSize: this.state.input7FontSize,
             fontName: this.state.input7FontFamily,
             xPos: xPos,//30,
-            yPos: 1830,//56*15
-            // position: this.state.input7Position || position,
+            yPos: this.state.yPos7,//56*15
             alignment: this.state.input7TextAlign || textAlign,
         }
 
@@ -538,6 +536,7 @@ export default class MakeInvitation extends Component {
             self.setState({
                 show: true,
                 loading: false,
+                bgColor: colors.pink,
                 imageUrl: Platform.OS === 'android' ? 'file://' + path : path
             })
         });
@@ -843,7 +842,7 @@ export default class MakeInvitation extends Component {
                 <View style={[cardStyle.container,{flexGrow:1}]}>
                     {this.renderIconPanel()}
                 </View>
-                <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                <View style={[cardStyle.container, cardStyle.editCardContainer,{backgroundColor:this.state.bgColor}]}>
 
                     {this.state.loading ?
                         <View style={[cardStyle.container, {

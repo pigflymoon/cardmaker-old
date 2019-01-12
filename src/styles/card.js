@@ -22,14 +22,10 @@ export default{
         flex: 1,
         alignSelf: 'center',
         flexGrow: 8,
-        backgroundColor: colors.white,
-        borderWidth: 1,
-        borderColor: colors.secondary2,
-        // borderRadius: 25,
     },
     cardImage: {
         flex: 1,
-        width: '100%',
+        width: '90%',
         // width: SCREEN_WIDTH - 30,
         alignSelf: 'center',
         justifyContent: 'center',
@@ -119,7 +115,7 @@ export default{
         fontSize: 12,
         paddingTop: 0,
         marginBottom: 2,
-        color: colors.secondary2,
+        color: colors.grey0,
 
     },
     inputContainer: {
