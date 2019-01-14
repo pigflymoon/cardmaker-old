@@ -324,12 +324,12 @@ export default CardConfig = {
         importantFontFamily: 'GreatVibes-Regular',
         textPosition: {
             yPos1: 250,
-            yPos2: 1010,
-            yPos3: 1070,
-            yPos4: 1320,
-            yPos5: 1520,
-            yPos6: 1600,
-            yPos7: 1680,
+            yPos2: 500,
+            yPos3: 700,
+            yPos4: 900,
+            yPos5: 1000,
+            yPos6: 1100,
+            yPos7: 1200,
 
         }
 
