@@ -188,7 +188,7 @@ export default class MyCards extends Component {
                                         underlayColor={colors.secondary2}>
                         <View
                             style={[cardStyle.itemContainer, {backgroundColor: this.getItemColor(item)}]}>
-                            <ImageBackground source={{uri: item.illustration}} style={cardStyle.imageContainer}>
+                            <ImageBackground  resizeMode= 'contain' source={{uri: item.illustration}} style={cardStyle.imageContainer}>
                                 <Text style={cardStyle.itemName}>{item.title}</Text>
                             </ImageBackground>
                         </View>

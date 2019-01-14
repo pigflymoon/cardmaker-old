@@ -220,7 +220,6 @@ export default class ImagesGallery extends Component {
                                     imageStyle={exploreStyle.cardImage}
                                     containerStyle={exploreStyle.cardContainer}
                                 />
-
                             }
 
                         /> : <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center',}}>

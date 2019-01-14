@@ -69,7 +69,4 @@ export default{
         borderRadius: 4,
         marginHorizontal: 8
     },
-    resizeModeContain:{
-        resizeMode: 'contain',
-    },
 }

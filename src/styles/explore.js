@@ -12,8 +12,6 @@ export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 export default {
     cardContainer: {
-        // borderRadius: 5,
-        // width: IMAGE_SIZE,
         paddingTop: 20,
     },
     cardImage: {
@@ -21,7 +19,6 @@ export default {
         alignSelf: 'center',
         height: IMAGE_SIZE,
         width: IMAGE_SIZE,
-
     },
     imageWrapper: {
         borderRadius: 5,
@@ -68,7 +65,7 @@ export default {
         alignItems: 'center',
 
     },
-    imageList:{
+    imageList: {
         width: (SCREEN_WIDTH - 28) / 2,
         height: (SCREEN_WIDTH - 28) / 2 * 1.2,//parseInt(Math.random() * 20 + 12) * 10,
         backgroundColor: colors.secondary2,

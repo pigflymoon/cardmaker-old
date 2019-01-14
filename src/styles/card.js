@@ -90,6 +90,7 @@ export default{
         height: 140,
         justifyContent: 'flex-start',
         paddingRight: 15,
+        backgroundColor:'white',
     },
     //my card grid cards
     gridView: {
@@ -103,6 +104,7 @@ export default{
         padding: 5,
         height: 150,
     },
+
     itemName: {
         fontSize: 16,
         color: colors.primary1,
