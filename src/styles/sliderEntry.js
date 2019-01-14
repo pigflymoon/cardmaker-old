@@ -42,7 +42,7 @@ export default{
     imageContainer: {
         flex: 1,
         marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
-        backgroundColor: colors.grey6,
+        backgroundColor: colors.white,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius
     },
@@ -53,6 +53,13 @@ export default{
     image: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: 'center',
+        borderRadius: IS_IOS ? entryBorderRadius : 0,
+        borderTopLeftRadius: entryBorderRadius,
+        borderTopRightRadius: entryBorderRadius
+    },
+    containImage:{
+        ...StyleSheet.absoluteFillObject,
+        resizeMode: 'contain',
         borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius

@@ -164,11 +164,11 @@ export default class Explore extends Component {
 
     }
 
-    renderItem = ({item, index}) => {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0}/>;
+    renderItem = (resizeMode) => ({item, index}) => {
+        return <SliderEntry resizeStyle={resizeMode} data={item} even={(index + 1) % 2 === 0}/>;
     }
 
-    renderCarousel = (data, isLoaded) => {
+    renderCarousel = (data, isLoaded, resizeStyle) => {
         const heightStyle = {height: 300};
 
         return (
@@ -176,7 +176,7 @@ export default class Explore extends Component {
                 <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
                     <Carousel
                         data={data}
-                        renderItem={this.renderItem}
+                        renderItem={this.renderItem(resizeStyle)}
                         sliderWidth={sliderWidth}
                         itemWidth={itemWidth}
                         inactiveSlideScale={0.95}
@@ -285,7 +285,8 @@ export default class Explore extends Component {
                                 </Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('cards')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
+                                        <Text
+                                            style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -293,7 +294,7 @@ export default class Explore extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {this.renderCarousel(updatedcards, (!contentIsLoading))}
+                            {this.renderCarousel(updatedcards, (!contentIsLoading), false)}
                         </View>
                         <View style={layoutStyle.container}>
 
@@ -301,7 +302,8 @@ export default class Explore extends Component {
                                 <Text style={carouselStyle.title}>{I18n.t('exploreTab.invitationsTranslation')}</Text>
                                 <TouchableOpacity onPress={this.navigateToShowAll('invitations')}>
                                     <View style={carouselStyle.subtitleContainer}>
-                                        <Text style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
+                                        <Text
+                                            style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
                                         <Icon
                                             name='chevron-right'
                                             color={colors.secondary2}
@@ -309,7 +311,7 @@ export default class Explore extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {this.renderCarousel(updatedinvitations, (!contentIsLoading))}
+                            {this.renderCarousel(updatedinvitations, (!contentIsLoading), true)}
                         </View>
                     </ScrollView>
 

@@ -68,5 +68,8 @@ export default{
         height: 8,
         borderRadius: 4,
         marginHorizontal: 8
-    }
+    },
+    resizeModeContain:{
+        resizeMode: 'contain',
+    },
 }
