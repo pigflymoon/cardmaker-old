@@ -238,6 +238,16 @@ export default CardConfig = {
     }, {
         value: 'pink'
     }],
+    defaultCardTextPosition: {
+        xPos: 20,
+        yPos1: 30,
+        yPos2: 160,
+        yPos3: 290,
+        yPos4: 420,
+        yPos5: 550,
+        yPos6: 680,
+        yPos7: 810,
+    },
     defaultTextPosition: {
         xPos: 20,
         yPos1: 30,

@@ -44,7 +44,6 @@ export default class MakeInvitation extends Component {
             signin: false,
             textColor: colors.gold,
             fontFamily: 'Al Nile',
-            importantFontFamily: 'GreatVibes-Regular',
             fontSize: 40,
             importantFontSize: 85,
             modalIndex: 1,
@@ -206,6 +205,21 @@ export default class MakeInvitation extends Component {
                         yPos5: CardConfig.defaultTextPosition.yPos5,
                         yPos6: CardConfig.defaultTextPosition.yPos6,
                         yPos7: CardConfig.defaultTextPosition.yPos7,
+                        input1FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input2FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input3FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input4FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input5FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input6FontSize: CardConfig.defaultTextSize.inputFontSize,
+                        input7FontSize: CardConfig.defaultTextSize.inputFontSize,
+
+                        input1FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input2FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input3FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input4FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input5FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input6FontFamily: CardConfig.defultFontFamily.inputFontFamily,
+                        input7FontFamily: CardConfig.defultFontFamily.inputFontFamily
                     });
                     break;
             }
@@ -225,6 +239,7 @@ export default class MakeInvitation extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('will receive props ----make invitation');
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         // var isPaidUser = nextProps.navigation.state.params.isPaidUser;
         const {isPaidUser, templateType} = nextProps.navigation.state.params;
@@ -448,24 +463,17 @@ export default class MakeInvitation extends Component {
         this.setState({loading: true});
         var self = this;
         var textColor = colors.gold;
-        // var position = this.state.textPosition;
+        var font = this.state.fontFamily;
+        var fontSize = this.state.fontSize;
+
         var xPos = this.state.xPos;
         var textAlign = this.state.textAlign;
-
-        var font = this.state.fontFamily;
-        var importantFontFamily = this.state.importantFontFamily;
-        var fontSize = this.state.fontSize;
-        //
         var imageUrl = url;
         var textInfo1 = {
-            // font: font,
-            // fontSize: fontSize,
-            // position: position,
             text: this.state.input1Text || '',
             color: this.state.input1Color || textColor,
-            fontSize: this.state.input1FontSize,
-            fontName: this.state.input1FontFamily,
-            // position: this.state.input1Position || position,
+            fontSize: this.state.input1FontSize || fontSize,
+            fontName: this.state.input1FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos1,
             alignment: this.state.input1TextAlign || textAlign,
@@ -475,9 +483,8 @@ export default class MakeInvitation extends Component {
         var textInfo2 = {
             text: this.state.input2Text || '',
             color: this.state.input2Color || textColor,
-            fontSize: this.state.input2FontSize,
-            fontName: this.state.input2FontFamily,
-            // position: this.state.input2Position || position,
+            fontSize: this.state.input2FontSize || fontSize,
+            fontName: this.state.input2FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos2,// 56*4,
             alignment: this.state.input2TextAlign || textAlign,
@@ -487,9 +494,8 @@ export default class MakeInvitation extends Component {
         var textInfo3 = {
             text: this.state.input3Text || '',
             color: this.state.input3Color || textColor,
-            fontSize: this.state.input3FontSize,
-            fontName: this.state.input3FontFamily,
-            // position: this.state.input3Position || position,
+            fontSize: this.state.input3FontSize || fontSize,
+            fontName: this.state.input3FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos3,// 56*6,
             alignment: this.state.input3TextAlign || textAlign,
@@ -498,8 +504,8 @@ export default class MakeInvitation extends Component {
         var textInfo4 = {
             text: this.state.input4Text || '',
             color: this.state.input4Color || textColor,
-            fontSize: this.state.input4FontSize,
-            fontName: this.state.input4FontFamily,
+            fontSize: this.state.input4FontSize || fontSize,
+            fontName: this.state.input4FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos4,
             alignment: this.state.input4TextAlign || textAlign,
@@ -507,8 +513,8 @@ export default class MakeInvitation extends Component {
         var textInfo5 = {
             text: this.state.input5Text || '',
             color: this.state.input5Color || textColor,
-            fontSize: this.state.input5FontSize,
-            fontName: this.state.input5FontFamily,
+            fontSize: this.state.input5FontSize || fontSize,
+            fontName: this.state.input5FontFamily || fontSize,
             xPos: xPos,//30,
             yPos: this.state.yPos5,//56*13,
             alignment: this.state.input5TextAlign || textAlign,
@@ -516,8 +522,8 @@ export default class MakeInvitation extends Component {
         var textInfo6 = {
             text: this.state.input6Text || '',
             color: this.state.input6Color || textColor,
-            fontSize: this.state.input6FontSize,
-            fontName: this.state.input6FontFamily,
+            fontSize: this.state.input6FontSize || fontSize,
+            fontName: this.state.input6FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos6,// 56*14,
             alignment: this.state.input6TextAlign || textAlign,
@@ -525,12 +531,13 @@ export default class MakeInvitation extends Component {
         var textInfo7 = {
             text: this.state.input7Text || '',
             color: this.state.input7Color || textColor,
-            fontSize: this.state.input7FontSize,
-            fontName: this.state.input7FontFamily,
+            fontSize: this.state.input7FontSize || fontSize,
+            fontName: this.state.input7FontFamily || font,
             xPos: xPos,//30,
             yPos: this.state.yPos7,//56*15
             alignment: this.state.input7TextAlign || textAlign,
         }
+        console.log('textInfo1: ', textInfo1);
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
