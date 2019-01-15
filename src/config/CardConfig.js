@@ -276,7 +276,7 @@ export default CardConfig = {
             defaultText6Value: 'FAITH AVENUE, NY',
         },
         textSize: {
-            input1FontSize: 40,
+            input1FontSize: 50,
             input2FontSize: 85,
             input3FontSize: 40,
             input4FontSize: 40,
@@ -285,7 +285,7 @@ export default CardConfig = {
             input7FontSize: 40,
         },
         textPosition: {
-            yPos1: 450,
+            yPos1: 600,
             yPos2: 820,
             yPos3: 1240,
             yPos4: 1380,

@@ -36,7 +36,6 @@ I18n.localeLanguage = () => {
         })
         .catch((error) => {
             I18n.locale = DeviceInfo.getDeviceLocale();
-            console.log('local is ',I18n.locale);
         });
 
     return I18n.locale;

@@ -108,7 +108,6 @@ export default class MakeInvitation extends Component {
             // var signin = this.props.navigation.state.params.signin;
             // var isPaidUser = this.props.navigation.state.params.isPaidUser;
             const {isPaidUser, signin, templateType} = this.props.navigation.state.params;
-            console.log('templateType :', templateType);
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
 
@@ -239,7 +238,6 @@ export default class MakeInvitation extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('will receive props ----make invitation');
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         // var isPaidUser = nextProps.navigation.state.params.isPaidUser;
         const {isPaidUser, templateType} = nextProps.navigation.state.params;
@@ -537,7 +535,6 @@ export default class MakeInvitation extends Component {
             yPos: this.state.yPos7,//56*15
             alignment: this.state.input7TextAlign || textAlign,
         }
-        console.log('textInfo1: ', textInfo1);
 
         this.writeImage(imageUrl, textInfo1, textInfo2, textInfo3, textInfo4, textInfo5, textInfo6, textInfo7).then((path) => {
             self.setState({
