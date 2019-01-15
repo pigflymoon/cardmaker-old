@@ -240,23 +240,23 @@ export default CardConfig = {
     }],
     defaultCardTextPosition: {
         xPos: 20,
-        yPos1: 30,
-        yPos2: 160,
-        yPos3: 290,
-        yPos4: 420,
-        yPos5: 550,
-        yPos6: 680,
-        yPos7: 810,
+        yPos1: 400,
+        yPos2: 620,
+        yPos3: 1040,
+        yPos4: 1180,
+        yPos5: 1330,
+        yPos6: 1470,
+        yPos7: 1630
     },
-    defaultTextPosition: {
+    defaultInvitationTextPosition: {
         xPos: 20,
-        yPos1: 30,
-        yPos2: 224,
-        yPos3: 336,
-        yPos4: 504,
-        yPos5: 728,
-        yPos6: 784,
-        yPos7: 840,
+        yPos1: 600,
+        yPos2: 820,
+        yPos3: 1240,
+        yPos4: 1380,
+        yPos5: 1530,
+        yPos6: 1670,
+        yPos7: 1830
     },
     defaultTextSize: {
         inputFontSize: 40
