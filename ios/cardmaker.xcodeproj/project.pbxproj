@@ -1533,7 +1533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1582,7 +1582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
