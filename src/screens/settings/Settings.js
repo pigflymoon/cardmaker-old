@@ -139,14 +139,12 @@ export default class Settings extends Component {
     }
 
     onShare = () => {
-        const message = 'I am using Cardmaker App. Life is s more meaningful when you share with others! :) Download Cardmaker App for iOS, and start make cards for your families and friends today! App Store link is : ' + Config.appstoreLink
+        const message = 'I am using Cardmaker App. Life is s more meaningful when you share with others! :) Download Cardmaker App for iOS, and start make cards for your families and friends today! ';
         const url = Config.share.url;
-        Utils.shareText(message, url)
+        Utils.shareText(message, url);
     }
 
     onRate = () => {
-        let link = 'https://itunes.apple.com/nz/app/cardmaker-app/id1318023993';
-        //
         if (Platform.OS === 'ios') {
             if (StoreReview.isAvailable) {
                 return StoreReview.requestReview();
