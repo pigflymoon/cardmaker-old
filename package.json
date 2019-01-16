@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "^22.0.0",
-    "react-test-renderer": "16.0.0-beta.5"
+    "react-test-renderer": "16.6.3"
   },
   "rnpm": {
     "assets": [
@@ -23,13 +23,12 @@
   "dependencies": {
     "axios": "^0.17.1",
     "firebase": "^5.1.0",
-    "react": "^16.4.1",
-    "react-native": "^0.56.0",
+    "react": "16.6.3",
+    "react-native": "^0.57.8",
     "react-native-color": "0.0.10",
     "react-native-color-wheel": "git+https://github.com/pigflymoon/react-native-color-wheel.git",
     "react-native-device-info": "^0.22.5",
     "react-native-elements": "^0.19.1",
-    "react-native-fast-image": "^3.0.2",
     "react-native-fetch-blob": "^0.10.8",
     "react-native-firebase": "^4.3.8",
     "react-native-flip-component": "^1.0.5",
