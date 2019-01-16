@@ -9,7 +9,6 @@ export default {
     changeToGermany: 'change to German',
     changeToPortuguese: 'change to Portuguese',
     changeToKorean: 'change to Korean',
-    changeToArabic: 'change to Arabic',
 
     changeToSystem: 'change to System',
 
@@ -48,6 +47,8 @@ export default {
         tellFriendTranslation: 'Tell a friend',
         notificationTranslation: 'Notifications',
         aboutTranslation: 'About',
+        instagramTranslation:'Instagram',
+        findArtistTranslation:'Find Artist',
         versionTranslation: 'Version',
         languageSettingTranslation: 'Language Setting'
     },

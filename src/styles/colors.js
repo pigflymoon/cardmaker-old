@@ -37,6 +37,7 @@ export default {
     purple1: '#D19FE8',
     purple2: '#663854',
     purple3: '#990066',
+    purple4:'#932CAD',
     pink:'#DBBBCF',
     green: GREEN,
     red: RED,

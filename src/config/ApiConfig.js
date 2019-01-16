@@ -2,6 +2,13 @@ export default Config = {
     share: {
         url: 'http://cardmaker.kiwiinfo.com/'
     },
+    appstoreLink:{
+        url:'https://itunes.apple.com/nz/app/cardmaker-app/id1318023993'
+    },
+    instagram:{
+        appUrl:'https://www.instagram.com/cardmakerapp/',
+        artUrl:'https://www.instagram.com/lucy.art.journey/'
+    },
     products: {
         productIdentifier: 'com.lucy.cardmaker.productid'
     },

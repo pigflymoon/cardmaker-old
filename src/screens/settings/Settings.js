@@ -66,8 +66,80 @@ export default class Settings extends Component {
         this.props.navigation.navigate('About', {});
     };
 
+    onFollow = () => {
+        var instagramAppUrl = Config.instagram.appUrl;
+        Linking.canOpenURL(instagramAppUrl)
+            .then((supported) => {
+                if (!supported) {
+                    console.log('Can\'t handle url: ' + instagramAppUrl);
+                    Alert.alert(
+                        '提示',
+                        'Can\'t handle url: ' + instagramAppUrl,
+                        [
+                            {
+                                text: 'OK', onPress: () => {
+                            }
+                            }
+                        ]
+                    );
+                } else {
+                    return Linking.openURL(instagramAppUrl);
+                }
+            }).catch((err) => {
+            console.log('An error occurred', err);
+            Alert.alert(
+                '提示',
+                'An error occurred: ' + err,
+                [
+                    {
+                        text: 'OK', onPress: () => {
+                    }
+                    }
+                ]
+            );
+        });
+
+
+    }
+
+    onFindArtist = () => {
+        var instagramAppUrl = Config.instagram.artUrl;
+        Linking.canOpenURL(instagramAppUrl)
+            .then((supported) => {
+                if (!supported) {
+                    console.log('Can\'t handle url: ' + instagramAppUrl);
+                    Alert.alert(
+                        'Info',
+                        'Can\'t handle url: ' + instagramAppUrl,
+                        [
+                            {
+                                text: 'OK', onPress: () => {
+                            }
+                            }
+                        ]
+                    );
+                } else {
+                    return Linking.openURL(instagramAppUrl);
+                }
+            }).catch((err) => {
+            console.log('An error occurred', err);
+            Alert.alert(
+                'Info',
+                'An error occurred: ' + err,
+                [
+                    {
+                        text: 'OK', onPress: () => {
+                    }
+                    }
+                ]
+            );
+        });
+
+
+    }
+
     onShare = () => {
-        const message = 'I am using Cardmaker App. Life is s more meaningful when you share with others! :) Download Cardmaker App for iOS, and start make cards for your families and friends today!'
+        const message = 'I am using Cardmaker App. Life is s more meaningful when you share with others! :) Download Cardmaker App for iOS, and start make cards for your families and friends today! App Store link is : ' + Config.appstoreLink
         const url = Config.share.url;
         Utils.shareText(message, url)
     }
@@ -82,7 +154,7 @@ export default class Settings extends Component {
 
         }
 
-        return Utils.goToURL(link);
+        return Utils.goToURL(Config.appstoreLink);
     }
 
     titleStyle = () => {
@@ -208,22 +280,22 @@ export default class Settings extends Component {
                 I18n.locale = 'zhTraditional';
                 break;
             case 'Japanese':
-                I18n.locale ='ja';
+                I18n.locale = 'ja';
                 break;
             case 'Spanish':
-                I18n.locale ='es';
+                I18n.locale = 'es';
                 break;
             case 'French':
-                I18n.locale ='fr';
+                I18n.locale = 'fr';
                 break;
             case 'German':
-                I18n.locale ='de';
+                I18n.locale = 'de';
                 break;
             case 'Portuguese':
-                I18n.locale ='pt';
+                I18n.locale = 'pt';
                 break;
             case 'Korean':
-                I18n.locale ='ko';
+                I18n.locale = 'ko';
                 break;
             default:
                 I18n.locale = DeviceInfo.getDeviceLocale();
@@ -290,6 +362,20 @@ export default class Settings extends Component {
                         leftIcon={{name: 'favorite', color: colors.red}}
                         title={I18n.t('settingsTab.rateTranslation')}
                         onPress={() => this.onRate()}
+                        hideChevron
+                    />
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        leftIcon={{type:'font-awesome',name: 'instagram', color: colors.purple4}}
+                        title={I18n.t('settingsTab.instagramTranslation')}
+                        onPress={() => this.onFollow()}
+                        hideChevron
+                    />
+                    <ListItem
+                        containerStyle={listStyle.listItem}
+                        leftIcon={{type:'font-awesome',name: 'instagram', color: colors.purple4}}
+                        title={I18n.t('settingsTab.findArtistTranslation')}
+                        onPress={() => this.onFindArtist()}
                         hideChevron
                     />
                     <ListItem

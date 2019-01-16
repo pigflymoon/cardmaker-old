@@ -10,7 +10,6 @@ export default {
     changeToGermany: 'change to German',
     changeToPortuguese: 'change to Portuguese',
     changeToKorean: 'change to Korean',
-    changeToArabic: 'change to Arabic',
 
 
     changeToEnglish: '切换到英文',
@@ -51,6 +50,8 @@ export default {
         tellFriendTranslation:'分享給朋友',
         notificationTranslation:'通知',
         aboutTranslation:'關於',
+        instagramTranslation:'Instagram',
+        findArtistTranslation:'畫家Instagram',
         versionTranslation:'版本',
         languageSettingTranslation:'語言設置'
     },

@@ -9,7 +9,6 @@ export default {
     changeToGermany:'change to German',
     changeToPortuguese:'change to Portuguese',
     changeToKorean:'change to Korean',
-    changeToArabic:'change to Arabic',
 
     changeToSystem:'change to System',
     tabs:{
@@ -48,6 +47,8 @@ export default {
         tellFriendTranslation:'compartilhe com amigos',
         notificationTranslation:'Notificações',
         aboutTranslation:'Acerca da App',
+        instagramTranslation:'Instagram',
+        findArtistTranslation:'Encontrar artista',
         versionTranslation:'Versão',
         languageSettingTranslation:'Configuração de idioma'
     },

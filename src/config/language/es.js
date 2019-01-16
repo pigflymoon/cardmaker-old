@@ -39,6 +39,8 @@ export default {
         tellFriendTranslation:'Comparte con un amigo',
         notificationTranslation:'Notificaciones',
         aboutTranslation:'Acerca de Aplicación',
+        instagramTranslation:'Instagram',
+        findArtistTranslation:'Encontrar artista',
         versionTranslation:'Versión',
         languageSettingTranslation:'Configuración de idioma'
     },
