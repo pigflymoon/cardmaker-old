@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -59,6 +58,7 @@
 		EB9A8E27F37841D680FACCE9 /* LobsterTwo-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8026B6BACF9400DBA27C792 /* LobsterTwo-BoldItalic.otf */; };
 		EEBDA23D7841431D9A833345 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB207906A9BB45AF87D78424 /* Octicons.ttf */; };
 		F1909AB8181C4BD495138CBB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A8832F32F324273B8431029 /* MaterialIcons.ttf */; };
+		5D3274B0DBDA47B483943A30 /* Blenda Script.otf in Resources */ = {isa = PBXBuildFile; fileRef = 734C7A18EE7349BFB756EB39 /* Blenda Script.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -487,6 +487,7 @@
 		D69F67AB8C0F44978F448F56 /* Georgia.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Georgia.ttf; path = ../src/assets/fonts/Georgia.ttf; sourceTree = "<group>"; };
 		E10D72393FF848EFB50F8D65 /* libRCTImageMarker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageMarker.a; sourceTree = "<group>"; };
 		E302583D26C44C748B235A2F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		734C7A18EE7349BFB756EB39 /* Blenda Script.otf */ = {isa = PBXFileReference; name = "Blenda Script.otf"; path = "../assets/fonts/Blenda Script.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -617,6 +618,7 @@
 				99696F5A293C40B8A033E964 /* LobsterTwo-Italic.otf */,
 				51F694F6B4EA4C83BB7CA2EB /* Sail-Regular.otf */,
 				147DA609DE434F548D4EC109 /* Sevillana-Regular.ttf */,
+				734C7A18EE7349BFB756EB39 /* Blenda Script.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1423,6 +1425,7 @@
 				A111CCB00835410DAEE6CA5E /* LobsterTwo-Italic.otf in Resources */,
 				3B161A30C016475A9C4A5238 /* Sail-Regular.otf in Resources */,
 				7A25B7ADA3A84690814EF1EA /* Sevillana-Regular.ttf in Resources */,
+				5D3274B0DBDA47B483943A30 /* Blenda Script.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,7 +1536,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1582,7 +1585,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

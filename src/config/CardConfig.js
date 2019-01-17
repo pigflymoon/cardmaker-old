@@ -113,6 +113,8 @@ export default CardConfig = {
     }, {
         value: 'BradleyHandITCTT-Bold'
     }, {
+        value:'Blenda Script'
+    },{
         value: 'Carrington'
     }, {
         value: 'Chalkboard SE'
