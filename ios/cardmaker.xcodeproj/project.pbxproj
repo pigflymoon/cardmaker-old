@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -30,6 +31,7 @@
 		3B161A30C016475A9C4A5238 /* Sail-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 51F694F6B4EA4C83BB7CA2EB /* Sail-Regular.otf */; };
 		3EDF249B92174F8E9E05E66B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B1F5B27BE44F2DABE87AD0 /* Entypo.ttf */; };
 		44C8093271A7418FA3B948D1 /* GreatVibes-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC65D08FE22A4EE6B67BA593 /* GreatVibes-Regular.otf */; };
+		5D3274B0DBDA47B483943A30 /* Blenda Script.otf in Resources */ = {isa = PBXBuildFile; fileRef = 734C7A18EE7349BFB756EB39 /* Blenda Script.otf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		60794965C50A4F05B73FDB46 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0BFB4F17A4B85813440BF /* libRNVectorIcons.a */; };
 		6700A2DD345E4C3694104C89 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71468E1F829E4C92982D01EE /* libRNFetchBlob.a */; };
@@ -58,7 +60,6 @@
 		EB9A8E27F37841D680FACCE9 /* LobsterTwo-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8026B6BACF9400DBA27C792 /* LobsterTwo-BoldItalic.otf */; };
 		EEBDA23D7841431D9A833345 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB207906A9BB45AF87D78424 /* Octicons.ttf */; };
 		F1909AB8181C4BD495138CBB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A8832F32F324273B8431029 /* MaterialIcons.ttf */; };
-		5D3274B0DBDA47B483943A30 /* Blenda Script.otf in Resources */ = {isa = PBXBuildFile; fileRef = 734C7A18EE7349BFB756EB39 /* Blenda Script.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,6 +450,7 @@
 		66E86FA4395B4A47B055E319 /* InAppUtils.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = InAppUtils.xcodeproj; path = "../node_modules/react-native-in-app-utils/InAppUtils.xcodeproj"; sourceTree = "<group>"; };
 		67DC19CCE82C4E71BB5FFCF5 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		71468E1F829E4C92982D01EE /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
+		734C7A18EE7349BFB756EB39 /* Blenda Script.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Blenda Script.otf"; path = "../assets/fonts/Blenda Script.otf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		83346DCC839B4D39865568E1 /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
@@ -487,7 +489,6 @@
 		D69F67AB8C0F44978F448F56 /* Georgia.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Georgia.ttf; path = ../src/assets/fonts/Georgia.ttf; sourceTree = "<group>"; };
 		E10D72393FF848EFB50F8D65 /* libRCTImageMarker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageMarker.a; sourceTree = "<group>"; };
 		E302583D26C44C748B235A2F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		734C7A18EE7349BFB756EB39 /* Blenda Script.otf */ = {isa = PBXFileReference; name = "Blenda Script.otf"; path = "../assets/fonts/Blenda Script.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1536,7 +1537,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1585,7 +1586,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -39,7 +39,6 @@ export default class CardsDeck extends Component {
     //right  header
     static navigationOptions = ({navigation}) => {
         const params = navigation.state.params || {};
-        console.log('selectedName is :', selectedName);
         if (params.signin) {
             return ({
                 headerRight: (

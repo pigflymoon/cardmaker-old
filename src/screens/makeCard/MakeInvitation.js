@@ -241,7 +241,6 @@ export default class MakeInvitation extends Component {
         var makeCard = (nextProps.navigation.state.params.chooseCards);
         // var isPaidUser = nextProps.navigation.state.params.isPaidUser;
         const {isPaidUser, templateType} = nextProps.navigation.state.params;
-
         this.setState({makeCard: makeCard, isPaidUser: isPaidUser});
         switch (templateType) {
             case 'invitation':
@@ -634,7 +633,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText1Value}
+                                        defaultValue={this.state.defaultText1Value}
                                         inputStyle={[cardStyle.inputStyle]}
                                         ref="wishwords"
                                         multiline
@@ -654,7 +653,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText2Value}
+                                        defaultValue={this.state.defaultText2Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -675,7 +674,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText3Value}
+                                        defaultValue={this.state.defaultText3Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -695,7 +694,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText4Value}
+                                        defaultValue={this.state.defaultText4Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -716,7 +715,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText5Value}
+                                        defaultValue={this.state.defaultText5Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -736,7 +735,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText6Value}
+                                        defaultValue={this.state.defaultText6Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
@@ -756,7 +755,7 @@ export default class MakeInvitation extends Component {
                             <View style={cardStyle.inputContainer}>
                                 <View style={{flex: 1, flexGrow: 6}}>
                                     <FormInput
-                                        value={this.state.defaultText7Value}
+                                        defaultValue={this.state.defaultText7Value}
                                         inputStyle={cardStyle.inputStyle}
                                         ref="wishwords"
                                         multiline
