@@ -11,6 +11,7 @@ import {
     Alert,
     TextInput,
     ActivityIndicator,
+    Keyboard,
 } from 'react-native';
 import {
     Button,
@@ -644,6 +645,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input1')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -664,6 +666,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input2')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -685,6 +688,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 280)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input3')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -705,6 +709,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input4')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -726,6 +731,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input5')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -746,6 +752,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input6')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
@@ -766,6 +773,7 @@ export default class MakeInvitation extends Component {
                                         placeholder="Please enter wish words(length less than 80)"
                                         placeholderTextColor={colors.grey3}
                                         onChangeText={(text) => this.setWishwords(text, 'input7')}
+                                        onSubmitEditing={Keyboard.dismiss}
                                     />
                                 </View>
                                 {this.renderIcon("cog", () => {
