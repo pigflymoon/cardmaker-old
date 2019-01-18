@@ -72,7 +72,7 @@ export default class Explore extends Component {
 
 
     fetchUpdatedImages = (catergory, showImagesNumber) => {
-        this.setState({loading: true});
+
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
@@ -109,7 +109,8 @@ export default class Explore extends Component {
         Animated.event(
             [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
         )
-        if (offsetY <= -50) {
+        if (offsetY <= -HEADER_MAX_HEIGHT) {
+            this.setState({loading: true});
             this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
                 let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
                 console.log('latestImags are', latestImages);
