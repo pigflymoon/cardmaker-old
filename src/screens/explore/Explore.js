@@ -9,6 +9,7 @@ import {
     Linking,
     Alert,
     Animated,
+    ActivityIndicator
 } from 'react-native';
 import {
     Icon,
@@ -64,12 +65,14 @@ export default class Explore extends Component {
             latestImages: [],
             updatedcards: [],
             updatedinvitations: [],
+            loading: false,
         };
         this.maskImage = logo;
     }
 
 
     fetchUpdatedImages = (catergory, showImagesNumber) => {
+        this.setState({loading: true});
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
@@ -100,6 +103,22 @@ export default class Explore extends Component {
                 {text: 'OK', onPress: () => Linking.openURL(downloadUrl)}, // open store if update is needed.
                 {text: 'Download next time', onPress: () => console.log('update later')}
             ])
+    }
+    onScroll = (e) => {
+        var offsetY = e.nativeEvent.contentOffset.y, self = this;
+        Animated.event(
+            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+        )
+        if (offsetY <= -50) {
+            this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
+                let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
+                console.log('latestImags are', latestImages);
+                self.setState({updatedcards: results, latestImages: latestImages, loading: false});
+            })
+            this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
+                self.setState({updatedinvitations: results, loading: false});
+            })
+        }
     }
 
 
@@ -233,6 +252,7 @@ export default class Explore extends Component {
 
     }
 
+
     render() {
         var isConnected = this.props.screenProps.isConnected;
         const {updatedcards, updatedinvitations, contentIsLoading} = this.state;
@@ -275,10 +295,15 @@ export default class Explore extends Component {
                         style={carouselStyle.scrollView}
                         directionalLockEnabled={true}
                         scrollEventThrottle={16}
-                        onScroll={Animated.event(
-                            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-                        )}
+                        onScroll={(e)=>this.onScroll(e)}
+
                     >
+                        {this.state.loading ?
+                            <View style={[layoutStyle.container,{ alignSelf: 'center',
+                        justifyContent: 'center',}]}>
+                                <ActivityIndicator size="large" color={colors.secondary2}/>
+                            </View>
+                            : null}
                         <View style={[layoutStyle.container, exploreStyle.scrollViewContent]}>
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{I18n.t('exploreTab.cardsTitleTranslation')}
