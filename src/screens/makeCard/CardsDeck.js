@@ -108,13 +108,12 @@ export default class CardsDeck extends Component {
         selectedName = this.state.selectedName;
         savedCards = likedCards;
     }
+
     updateUserType = (type) => {
         paidUser = type;
     }
-    //
 
     onSelectedTab = (selectedName, selectedValue, type, loading, imageType) => {
-
         this.setState({
             selectedName: selectedName,
             selectedValue: selectedValue,

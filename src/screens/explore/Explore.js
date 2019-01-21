@@ -102,11 +102,8 @@ export default class Explore extends Component {
                 {text: 'Download next time', onPress: () => console.log('update later')}
             ])
     }
-    onScroll = (e) => {
+    onScrollLoad = (e) => {
         var offsetY = e.nativeEvent.contentOffset.y, self = this;
-        Animated.event(
-            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-        )
         if (offsetY <= -HEADER_MAX_HEIGHT) {
             this.setState({loading: true});
 
@@ -116,7 +113,9 @@ export default class Explore extends Component {
                 this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
             ]).then(function ([data1, data2, data3]) {
                 console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
-                let latestImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+                let latestCardImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+                let latestInvitationImages = data2.slice(0, CategoryConfig.showLatestImagesNumber);
+                let latestImages = latestCardImages.concat(latestInvitationImages);
                 self.setState({
                     latestImages: latestImages,
                     updatedcards: data1,
@@ -145,7 +144,10 @@ export default class Explore extends Component {
             this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
         ]).then(function ([data1, data2, data3]) {
             console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
-            let latestImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+            let latestCardImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+            let latestInvitationImages = data2.slice(0, CategoryConfig.showLatestImagesNumber);
+            let latestImages = latestCardImages.concat(latestInvitationImages)
+
             self.setState({
                 latestImages: latestImages,
                 updatedcards: data1,
@@ -240,17 +242,19 @@ export default class Explore extends Component {
             <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
 
                 <Placeholder.MultiWords onReady={isLoaded} words={words} animate="fade">
-                    <View style={{flexDirection: 'row', alignItems: 'flex-end', marginTop: 10,}}>
+                    <View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
                         {data.map((image, index) => (
                             <View
                                 key={index}
                                 style={{
                                     flex: 1, marginHorizontal: 5,
                                     justifyContent: 'center',
+                                    borderWidth:5, borderColor: colors.grey0,
                                 }}>
                                 <Avatar
+                                    overlayContainerStyle={{backgroundColor:colors.white  }}
+                                    imageProps={{"resizeMode":'contain'}}
                                     large
-                                    rounded
                                     source={{uri: image.illustration}}
                                     activeOpacity={0.7}
                                 />
@@ -313,8 +317,10 @@ export default class Explore extends Component {
                         style={carouselStyle.scrollView}
                         directionalLockEnabled={true}
                         scrollEventThrottle={16}
-                        onScroll={(e)=>this.onScroll(e)}
-
+                        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: {y: this.state.scrollY }, }, }, ],
+          { listener: this.onScrollLoad, }
+        )}
                     >
                         {this.state.loading ?
                             <View style={[layoutStyle.container,{ alignSelf: 'center',

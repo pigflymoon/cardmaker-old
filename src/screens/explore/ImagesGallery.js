@@ -11,9 +11,7 @@ import {Card, ButtonGroup} from 'react-native-elements';
 import ScrollTabs from '../../components/ScrollTabs';
 
 import {db} from '../../config/FirebaseConfig';
-
 import layoutStyle from '../../styles/layout';
-
 import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
@@ -198,17 +196,13 @@ export default class ImagesGallery extends Component {
         var self = this;
         if (showSample) {
             this.fetchData('gallery/cards').then(function (pages) {
-                console.log('@@@@@@pages are :', pages);
                 self.setState({sampleGalleryData: pages, loading: false})
             });
-
         } else {
             this.fetchData(type).then(function (pages) {
                 self.setState({cardsData: pages, loading: false})
             });
         }
-
-
     }
 
     componentWillUnmount() {
@@ -279,7 +273,6 @@ export default class ImagesGallery extends Component {
             selectedIndex
         } = this.state;
         const buttons = ['Cards', 'Invitations'];
-        console.log('****sampleGalleryData are: ', sampleGalleryData);
         return (
             <View style={layoutStyle.container}>
                 <View style={{flex: 1, flexDirection: 'column',flexGrow:1}}>
@@ -338,11 +331,9 @@ export default class ImagesGallery extends Component {
 
     render() {
         const {showSample} = this.props.navigation.state.params;
-        console.log('showSample', showSample);
         return (
             <View style={layoutStyle.container}>
                 {showSample ? this.renderSampleGallery() : this.renderImageGallery()}
-
             </View>
         );
     }

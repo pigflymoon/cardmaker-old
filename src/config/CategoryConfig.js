@@ -24,6 +24,6 @@ export default CategoryConfig = {
     showCardsType: showCardsType,
     showInvitationsType: showInvitationsType,
     showImagesNumber: 9,
-    showLatestImagesNumber: 4,
+    showLatestImagesNumber: 2,
     showFreeImagesNumber: 3
 }

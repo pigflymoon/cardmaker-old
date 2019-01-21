@@ -6,7 +6,7 @@ import colors from '../styles/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
-export const HEADER_MAX_HEIGHT = 120;
+export const HEADER_MAX_HEIGHT = 140;
 export const HEADER_MIN_HEIGHT = 60;
 export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
