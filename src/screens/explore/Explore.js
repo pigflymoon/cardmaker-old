@@ -249,7 +249,7 @@ export default class Explore extends Component {
                                 style={{
                                     flex: 1, marginHorizontal: 5,
                                     justifyContent: 'center',
-                                    borderWidth:5, borderColor: colors.grey0,
+                                    borderWidth:4, borderColor: colors.grey0,
                                 }}>
                                 <Avatar
                                     overlayContainerStyle={{backgroundColor:colors.white  }}
