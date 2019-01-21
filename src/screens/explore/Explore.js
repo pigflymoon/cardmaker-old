@@ -113,7 +113,6 @@ export default class Explore extends Component {
             this.setState({loading: true});
             this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
                 let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
-                console.log('latestImags are', latestImages);
                 self.setState({updatedcards: results, latestImages: latestImages, loading: false});
             })
             this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {

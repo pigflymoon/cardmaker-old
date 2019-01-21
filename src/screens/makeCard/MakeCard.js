@@ -287,7 +287,8 @@ export default class MakeCard extends Component {
                 Y: 0, // top
                 scale: 0.5, // scale of bg
                 markerScale: 0.5, // scale of icon
-                quality: 100 // quality of image
+                quality: 80, // quality of image
+                compressionRatio:0.7
             }).then((resultPath) => {
                 self.setState({
                     show: true,

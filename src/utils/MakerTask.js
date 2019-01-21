@@ -45,6 +45,7 @@ export function makerTask(value, textInfo) {
         fontSize: textInfo.fontSize,
         scale: 1,
         quality: 100,
+        compressionRatio:0.7
     }
     if (textInfo.text != '') {
         var textMarkerXY = {
@@ -54,7 +55,7 @@ export function makerTask(value, textInfo) {
             fontName: textInfo.fontName,
             fontSize: textInfo.fontSize,
             scale: 1,
-            quality: 100,
+            quality: 80,
             X: textInfo.xPos,
             Y: textInfo.yPos,
             alignment: textInfo.alignment,
