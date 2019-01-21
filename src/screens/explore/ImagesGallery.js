@@ -7,7 +7,7 @@ import {
     ImageBackground,
     ScrollView
 } from 'react-native';
-import {Card,} from 'react-native-elements';
+import {Card, ButtonGroup} from 'react-native-elements';
 import ScrollTabs from '../../components/ScrollTabs';
 
 import {db} from '../../config/FirebaseConfig';
@@ -17,6 +17,7 @@ import layoutStyle from '../../styles/layout';
 import exploreStyle from '../../styles/explore';
 import bg1 from '../../assets/images/bg.jpg';
 import showInfo from '../../styles/showInfo';
+import colors from '../../styles/colors';
 
 
 let imageReferenceToOldestKey = '', lastImageKey = '';
@@ -30,10 +31,14 @@ export default class ImagesGallery extends Component {
             page: 0,
             loading: true,
             cardsData: [],
+            sampleData: [],
             lodingFinished: false,
             allImages: [],
             selectedName: 'christmas',//default
             selectedValue: true,
+            selectedIndex: 0,
+
+
         }
     }
 
@@ -107,6 +112,7 @@ export default class ImagesGallery extends Component {
         var allPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getImagesPaginationByKey(category).then(function (allPages) {
+                    console.log('allpages are :', allPages);
                     var newPaidArr = [];
                     var images = self.state.allImages;
 
@@ -167,27 +173,52 @@ export default class ImagesGallery extends Component {
 
     }
     //
-
-
-    componentWillMount() {
-        const {category} = this.props.navigation.state.params;
-        let type = (category == 'cards') ? 'cards/christmas' : 'invitations/christmas';
+    updateCategory = (selectedIndex) => {
+        let imagesTypes = (selectedIndex == 0) ? 'gallery/cards' : 'gallery/invitations';
         var self = this;
 
-        this.fetchData(type).then(function (pages) {
-            self.setState({cardsData: pages, loading: false})
-        })
+        imageReferenceToOldestKey = '',
+            this.fetchData(imagesTypes).then(function (pages) {
+                self.setState({
+                    selectedIndex: selectedIndex,
+                    imageType: imagesTypes,
+                    selectedName: '',//default
+                    selectedValue: false,
+                    allImages: [],
+                    sampleData: pages,
+                    loading: false,
+                    lodingFinished: false,
+                });
+            })
+    }
+
+    componentWillMount() {
+        const {category, showSample} = this.props.navigation.state.params;
+        let type = (category == 'cards') ? 'cards/christmas' : 'invitations/christmas';
+        var self = this;
+        if (showSample) {
+            this.fetchData('gallery/cards').then(function (pages) {
+                console.log('@@@@@@pages are :', pages);
+                self.setState({sampleData: pages, loading: false})
+            });
+
+        } else {
+            this.fetchData(type).then(function (pages) {
+                self.setState({cardsData: pages, loading: false})
+            });
+        }
+
 
     }
 
     componentWillUnmount() {
         imageReferenceToOldestKey = '';
-        this.setState({cardsData: []});
+        this.setState({cardsData: [], sampleData: []});
     }
 
     keyExtractor = (item) => item.id
 
-    render() {
+    renderImageGallery = () => {
         const {category} = this.props.navigation.state.params;
         const {
             cardsData,
@@ -231,10 +262,93 @@ export default class ImagesGallery extends Component {
                                     height: 325,
                                 }}
                             >
-                                <View style={showInfo.container}><Text style={showInfo.text}>Meow. Coming soon! </Text></View>
+                                <View style={showInfo.container}><Text
+                                    style={showInfo.text}>Meow. Coming soon! </Text></View>
                             </ImageBackground >
                         </View>
                 }
+            </View>
+
+        )
+
+    }
+    renderSampleGallery = () => {
+        const {
+            sampleData,
+            imageType,
+            selectedIndex
+        } = this.state;
+        const buttons = ['Cards', 'Invitations'];
+        console.log('****sampleData are: ', sampleData);
+        return (
+            <View style={layoutStyle.container}>
+                <View style={{flex: 1, flexDirection: 'column',flexGrow:1}}>
+                    <ButtonGroup
+                        onPress={this.updateCategory}
+                        selectedIndex={selectedIndex}
+                        buttons={buttons}
+                        containerStyle={{height: 30}}
+                        selectedButtonStyle={{backgroundColor: colors.secondary2}}
+                        selectedTextStyle={{color: colors.white}}
+                    />
+                </View>
+                {
+
+                    sampleData.length > 0
+                        ? <FlatList
+                            style={{flex: 1,flexGrow:4}}
+                            data={sampleData}
+                            keyExtractor={this.keyExtractor}
+                            onEndReached={this.handleScrollToEnd(imageType)}
+                            onEndReachedThreshold={0}
+                            shouldItemUpdate={(props, nextProps) => {
+                                return props.item !== nextProps.item
+
+                            }  }
+                            ListFooterComponent={() =>
+                                this.state.loading
+                                    ? <ActivityIndicator size="large" animating/>
+                                    : null}
+                            renderItem={({item}) =>
+                                <Card
+                                    key={`${item.id}`}
+                                    image={{uri: item.uri}}
+
+                                    imageStyle={exploreStyle.cardImage}
+                                    containerStyle={exploreStyle.cardContainer}
+                                />
+                            }
+
+                        /> : <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center',}}>
+                            <ImageBackground
+                                source={bg1}
+                                style={{
+                                    flex: 1,
+                                    width: null,
+                                    height: 325,
+                                }}
+                            >
+                                <View style={showInfo.container}><Text
+                                    style={showInfo.text}>Meow. Coming soon! </Text></View>
+                            </ImageBackground >
+                        </View>
+                }
+            </View>
+
+        )
+    }
+
+    render() {
+        const {showSample} = this.props.navigation.state.params;
+        // const {
+        //     cardsData,
+        //     imageType
+        // } = this.state;
+        console.log('showSample', showSample);
+        return (
+            <View style={layoutStyle.container}>
+                {showSample ? this.renderSampleGallery() : this.renderImageGallery()}
+
             </View>
         );
     }

@@ -65,6 +65,7 @@ export default class Explore extends Component {
             latestImages: [],
             updatedcards: [],
             updatedinvitations: [],
+            updatedgallery:[],
             loading: false,
         };
         this.maskImage = logo;
@@ -87,9 +88,10 @@ export default class Explore extends Component {
         });
     }
 
-    navigateToShowAll = (category) => (e) => {
+    navigateToShowAll = (category,showSample) => (e) => {
         this.props.navigation.navigate('ImagesGallery', {
             category: category,
+            showSample:showSample,
         });
     }
 
@@ -118,6 +120,9 @@ export default class Explore extends Component {
             this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
                 self.setState({updatedinvitations: results, loading: false});
             })
+            this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber).then(function (results) {
+                self.setState({updatedgallery: results, loading: false});
+            })
         }
     }
 
@@ -138,6 +143,9 @@ export default class Explore extends Component {
         this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
             self.setState({updatedinvitations: results});
         })
+        this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber).then(function (results) {
+            self.setState({updatedgallery: results});
+        })
         this.setState({
             contentIsLoading: true
         });
@@ -155,6 +163,7 @@ export default class Explore extends Component {
         this.setState({
             updatedcards: [],
             updatedinvitations: [],
+            updatedgallery:[]
         })
     }
 
@@ -255,7 +264,7 @@ export default class Explore extends Component {
 
     render() {
         var isConnected = this.props.screenProps.isConnected;
-        const {updatedcards, updatedinvitations, contentIsLoading} = this.state;
+        const {updatedcards, updatedinvitations,updatedgallery, contentIsLoading} = this.state;
 
         if (!isConnected) {
             return Utils.renderOffline();
@@ -308,7 +317,7 @@ export default class Explore extends Component {
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{I18n.t('exploreTab.cardsTitleTranslation')}
                                 </Text>
-                                <TouchableOpacity onPress={this.navigateToShowAll('cards')}>
+                                <TouchableOpacity onPress={this.navigateToShowAll('cards',false)}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text
                                             style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
@@ -322,10 +331,9 @@ export default class Explore extends Component {
                             {this.renderCarousel(updatedcards, (!contentIsLoading), false)}
                         </View>
                         <View style={layoutStyle.container}>
-
                             <View style={carouselStyle.container}>
                                 <Text style={carouselStyle.title}>{I18n.t('exploreTab.invitationsTranslation')}</Text>
-                                <TouchableOpacity onPress={this.navigateToShowAll('invitations')}>
+                                <TouchableOpacity onPress={this.navigateToShowAll('invitations',false)}>
                                     <View style={carouselStyle.subtitleContainer}>
                                         <Text
                                             style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
@@ -337,6 +345,22 @@ export default class Explore extends Component {
                                 </TouchableOpacity>
                             </View>
                             {this.renderCarousel(updatedinvitations, (!contentIsLoading), true)}
+                        </View>
+                        <View style={layoutStyle.container}>
+                            <View style={carouselStyle.container}>
+                                <Text style={carouselStyle.title}>{I18n.t('exploreTab.samplegalleryTranslation')}</Text>
+                                <TouchableOpacity onPress={this.navigateToShowAll('',true)}>
+                                    <View style={carouselStyle.subtitleContainer}>
+                                        <Text
+                                            style={carouselStyle.subtitle}>{I18n.t('exploreTab.browseAllTranslation')}</Text>
+                                        <Icon
+                                            name='chevron-right'
+                                            color={colors.secondary2}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            {this.renderCarousel(updatedgallery, (!contentIsLoading), true)}
                         </View>
                     </ScrollView>
 
