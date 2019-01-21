@@ -112,7 +112,6 @@ export default class Explore extends Component {
                 this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber),
                 this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
             ]).then(function ([data1, data2, data3]) {
-                console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
                 let latestCardImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
                 let latestInvitationImages = data2.slice(0, CategoryConfig.showLatestImagesNumber);
                 let latestImages = latestCardImages.concat(latestInvitationImages);
@@ -143,7 +142,6 @@ export default class Explore extends Component {
             this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber),
             this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
         ]).then(function ([data1, data2, data3]) {
-            console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
             let latestCardImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
             let latestInvitationImages = data2.slice(0, CategoryConfig.showLatestImagesNumber);
             let latestImages = latestCardImages.concat(latestInvitationImages)

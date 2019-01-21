@@ -110,7 +110,6 @@ export default class ImagesGallery extends Component {
         var allPages = await (new Promise(function (resolve, reject) {
             setTimeout(() => {
                 self.getImagesPaginationByKey(category).then(function (allPages) {
-                    console.log('allpages are :', allPages);
                     var newPaidArr = [];
                     var images = self.state.allImages;
 
