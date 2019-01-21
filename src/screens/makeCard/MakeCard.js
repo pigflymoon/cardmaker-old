@@ -48,9 +48,9 @@ export default class MakeCard extends Component {
         this.state = {
             makeCard: null,
             signin: false,
-            textColor: colors.primary1,
-            fontFamily: 'Didot-Italic',
-            fontSize: 32,
+            textColor: colors.gold,
+            fontFamily: 'Blenda Script',
+            fontSize: 65,
             modalIndex: 1,
             modalVisible: false,
             opacity: 1,
@@ -198,7 +198,7 @@ export default class MakeCard extends Component {
         var image = (this.state.makeCard).illustration;
 
         var self = this;
-        var textColor = colors.primary1;
+        var textColor = colors.gold;
         // var position = this.state.textPosition;
         var xPos = this.state.xPos;
         var textAlign = this.state.textAlign;
@@ -283,7 +283,7 @@ export default class MakeCard extends Component {
             Marker.markImage({
                 src: image,
                 markerSrc: path, // icon uri
-                X: 480, // left
+                X: 788, // left
                 Y: 0, // top
                 scale: 0.5, // scale of bg
                 markerScale: 0.5, // scale of icon
