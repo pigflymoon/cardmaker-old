@@ -31,7 +31,7 @@ export default class ImagesGallery extends Component {
             page: 0,
             loading: true,
             cardsData: [],
-            sampleData: [],
+            sampleGalleryData: [],
             lodingFinished: false,
             allImages: [],
             selectedName: 'christmas',//default
@@ -185,7 +185,7 @@ export default class ImagesGallery extends Component {
                     selectedName: '',//default
                     selectedValue: false,
                     allImages: [],
-                    sampleData: pages,
+                    sampleGalleryData: pages,
                     loading: false,
                     lodingFinished: false,
                 });
@@ -199,7 +199,7 @@ export default class ImagesGallery extends Component {
         if (showSample) {
             this.fetchData('gallery/cards').then(function (pages) {
                 console.log('@@@@@@pages are :', pages);
-                self.setState({sampleData: pages, loading: false})
+                self.setState({sampleGalleryData: pages, loading: false})
             });
 
         } else {
@@ -213,7 +213,7 @@ export default class ImagesGallery extends Component {
 
     componentWillUnmount() {
         imageReferenceToOldestKey = '';
-        this.setState({cardsData: [], sampleData: []});
+        this.setState({cardsData: [], sampleGalleryData: []});
     }
 
     keyExtractor = (item) => item.id
@@ -274,12 +274,12 @@ export default class ImagesGallery extends Component {
     }
     renderSampleGallery = () => {
         const {
-            sampleData,
+            sampleGalleryData,
             imageType,
             selectedIndex
         } = this.state;
         const buttons = ['Cards', 'Invitations'];
-        console.log('****sampleData are: ', sampleData);
+        console.log('****sampleGalleryData are: ', sampleGalleryData);
         return (
             <View style={layoutStyle.container}>
                 <View style={{flex: 1, flexDirection: 'column',flexGrow:1}}>
@@ -293,11 +293,10 @@ export default class ImagesGallery extends Component {
                     />
                 </View>
                 {
-
-                    sampleData.length > 0
+                    sampleGalleryData.length > 0
                         ? <FlatList
                             style={{flex: 1,flexGrow:4}}
-                            data={sampleData}
+                            data={sampleGalleryData}
                             keyExtractor={this.keyExtractor}
                             onEndReached={this.handleScrollToEnd(imageType)}
                             onEndReachedThreshold={0}
@@ -334,16 +333,11 @@ export default class ImagesGallery extends Component {
                         </View>
                 }
             </View>
-
         )
     }
 
     render() {
         const {showSample} = this.props.navigation.state.params;
-        // const {
-        //     cardsData,
-        //     imageType
-        // } = this.state;
         console.log('showSample', showSample);
         return (
             <View style={layoutStyle.container}>

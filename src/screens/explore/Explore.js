@@ -65,7 +65,7 @@ export default class Explore extends Component {
             latestImages: [],
             updatedcards: [],
             updatedinvitations: [],
-            updatedgallery:[],
+            updatedgallery: [],
             loading: false,
         };
         this.maskImage = logo;
@@ -73,25 +73,21 @@ export default class Explore extends Component {
 
 
     fetchUpdatedImages = (catergory, showImagesNumber) => {
-
         return new Promise(function (resolve, reject) {
             // some async operation here
             setTimeout(function () {
                 // resolve the promise with some value
                 getUpdatedImages(catergory, showImagesNumber).then(function (images) {
-                    resolve(images)
-
+                    resolve(images);
                 });
-
-
             }, 500);
         });
     }
 
-    navigateToShowAll = (category,showSample) => (e) => {
+    navigateToShowAll = (category, showSample) => (e) => {
         this.props.navigation.navigate('ImagesGallery', {
             category: category,
-            showSample:showSample,
+            showSample: showSample,
         });
     }
 
@@ -113,16 +109,23 @@ export default class Explore extends Component {
         )
         if (offsetY <= -HEADER_MAX_HEIGHT) {
             this.setState({loading: true});
-            this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
-                let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
-                self.setState({updatedcards: results, latestImages: latestImages, loading: false});
-            })
-            this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
-                self.setState({updatedinvitations: results, loading: false});
-            })
-            this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber).then(function (results) {
-                self.setState({updatedgallery: results, loading: false});
-            })
+
+            Promise.all([
+                this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber),
+                this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber),
+                this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
+            ]).then(function ([data1, data2, data3]) {
+                console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
+                let latestImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+                self.setState({
+                    latestImages: latestImages,
+                    updatedcards: data1,
+                    updatedinvitations: data2,
+                    updatedgallery: data3,
+                    loading: false
+                })
+
+            });
         }
     }
 
@@ -135,17 +138,23 @@ export default class Explore extends Component {
                     this.showAlert();
                 }
             });
+        //promise all
+        Promise.all([
+            this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber),
+            this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber),
+            this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber)
+        ]).then(function ([data1, data2, data3]) {
+            console.log('data1: ', data1, 'data2:', data2, 'data3:', data3);
+            let latestImages = data1.slice(0, CategoryConfig.showLatestImagesNumber);
+            self.setState({
+                latestImages: latestImages,
+                updatedcards: data1,
+                updatedinvitations: data2,
+                updatedgallery: data3,
+            })
 
-        this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber).then(function (results) {
-            let latestImages = results.slice(0, CategoryConfig.showLatestImagesNumber);
-            self.setState({updatedcards: results, latestImages: latestImages,});
-        })
-        this.fetchUpdatedImages('invitations', CategoryConfig.showImagesNumber).then(function (results) {
-            self.setState({updatedinvitations: results});
-        })
-        this.fetchUpdatedImages('gallery', CategoryConfig.showImagesNumber).then(function (results) {
-            self.setState({updatedgallery: results});
-        })
+        });
+
         this.setState({
             contentIsLoading: true
         });
@@ -163,7 +172,7 @@ export default class Explore extends Component {
         this.setState({
             updatedcards: [],
             updatedinvitations: [],
-            updatedgallery:[]
+            updatedgallery: []
         })
     }
 
@@ -264,7 +273,7 @@ export default class Explore extends Component {
 
     render() {
         var isConnected = this.props.screenProps.isConnected;
-        const {updatedcards, updatedinvitations,updatedgallery, contentIsLoading} = this.state;
+        const {updatedcards, updatedinvitations, updatedgallery, contentIsLoading} = this.state;
 
         if (!isConnected) {
             return Utils.renderOffline();
