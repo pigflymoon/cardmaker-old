@@ -29,10 +29,10 @@ export default class CardEditInputModal extends Component {
             modalVisible: false,
             color: tinycolor('#2988BC').toHsl(),
             recents: ['#2988BC', '#2F496E', '#ACBD78', '#ED8C72', '#211F30'],
-            recentsFontFamily: ['Didot-Italic', 'Baskerville-Bold', 'Marker Felt'],
+            recentsFontFamily: ['Blenda Script', 'Bradley Hand', 'Dynalight-Regular'],
             textAligns: ['align-left', 'align-justify', 'align-right'],
             modalIndex: this.props.modalIndex,
-            fontSize: 50,
+            fontSize: 60,
             buttonActiveColor: colors.grey4,
             textAlign: 'align-justify'
         }
@@ -129,9 +129,7 @@ export default class CardEditInputModal extends Component {
                                 onOk((this.state)[textColor],
                                     (this.state)[fontSize],
                                     (this.state)[fontFamily],
-                                    (this.state[textAlign]),
-                                    {/*(this.state)[textPosition]*/}
-                                )
+                                    (this.state[textAlign]),)
                             }
                         >
                             <Text style={EditModalStyle.headerButton}>{okLabel}</Text>
@@ -141,18 +139,18 @@ export default class CardEditInputModal extends Component {
                     <View style={EditModalStyle.content}>
                         <View style={[cardStyle.container, cardStyle.wrapper]}>
                             <Text style={[colorPickerStyle.sectionText, {
-                                color: (this.state)[textColor] || colors.primary1,
-                                fontFamily: (this.state)[fontFamily] || 'Didot-Italic'
+                                color: (this.state)[textColor] || colors.gold,
+                                fontFamily: (this.state)[fontFamily] || 'Blenda Script'
                             }]}>Font Color</Text>
                             <TouchableOpacity
                                 onPress={() => this.setState({modalVisible: true})}
                                 style={[
                                     colorPickerStyle.colorPreview,
-                                    {backgroundColor: tinycolor((this.state)[textColor] || colors.primary1).toHslString()}
+                                    {backgroundColor: tinycolor((this.state)[textColor] || colors.gold).toHslString()}
                                 ]}
                             >
                                 <Text style={[colorPickerStyle.colorString, {color: overlayTextColor}]}>
-                                    {tinycolor((this.state)[textColor] || colors.primary1).toHexString()}
+                                    {tinycolor((this.state)[textColor] || colors.gold).toHexString()}
                                 </Text>
                             </TouchableOpacity>
 

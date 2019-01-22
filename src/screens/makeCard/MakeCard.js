@@ -43,6 +43,7 @@ import {makerTask} from '../../utils/MakerTask';
 import CardConfig from '../../config/CardConfig';
 
 const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/whiteCanvas.jpg?alt=media&token=03e83196-380a-40e3-bfc1-7bd9ba424844';
+
 export default class MakeCard extends Component {
     constructor(props) {
         super(props)
@@ -289,7 +290,7 @@ export default class MakeCard extends Component {
                 scale: 0.5, // scale of bg
                 markerScale: 0.5, // scale of icon
                 quality: 80, // quality of image
-                compressionRatio: 0.7
+                compressionRatio: 0.5
             }).then((resultPath) => {
                 self.setState({
                     show: true,
@@ -340,191 +341,6 @@ export default class MakeCard extends Component {
      * Render Edit
      * @returns {XML}
      */
-
-    renderEditInput1 = () => {
-        return (
-
-            <KeyboardAvoidingView contentContainerStyle={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-
-                }}
-                                  enabled
-                                  style={{flex: 1, flexGrow: 4,}}
-                                  behavior="padding"
-            >
-
-                <ScrollView style={[cardStyle.container,this.state.show ? {opacity: 0} : {opacity: 1}]}
-                            showsHorizontalScrollIndicator={false}>
-
-                    <View
-                        style={{
-                                    paddingBottom: 32,
-                                    alignItems: 'center',
-                                }}>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={[cardStyle.inputStyle]}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input1')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 1})
-                            })}
-
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input2')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 2})
-                            })}
-
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input3')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 3})
-                            })}
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input4')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 4})
-                            })}
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input5')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 5})
-                            })}
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input6')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 6})
-                            })}
-
-                        </View>
-                        <View style={cardStyle.inputContainer}>
-                            <View style={{flex: 1, flexGrow: 6}}>
-                                <FormInput
-                                    inputStyle={cardStyle.inputStyle}
-                                    ref="wishwords"
-                                    multiline
-                                    numberOfLines={4}
-                                    maxLength={280}
-                                    containerRef="wishwordscontainerRef"
-                                    textInputRef="wishwordsInputRef"
-                                    placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
-                                    placeholderTextColor={colors.grey3}
-                                    onChangeText={(text) => this.setWishwords(text, 'input7')}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                />
-                            </View>
-                            {this.renderIcon("cog", () => {
-                                this.setState({modalVisible: true, modalIndex: 7})
-                            })}
-
-                        </View>
-
-                    </View>
-
-
-                </ScrollView>
-
-            </KeyboardAvoidingView>
-
-
-        )
-    }
-
     renderEditInput = () => {
         return (
             <ScrollView style={[cardStyle.container,this.state.show ? {opacity: 0} : {opacity: 1}]}
@@ -684,9 +500,6 @@ export default class MakeCard extends Component {
 
 
             </ScrollView>
-
-
-
         )
     }
     renderIconPanel = () => {
@@ -730,8 +543,6 @@ export default class MakeCard extends Component {
                 onOk={(color, size, family, alignment) => {
                     var fontSize = `input${this.state.modalIndex}FontSize`;
                     var fontFamily = `input${this.state.modalIndex}FontFamily`;
-                    {/*var textPosition = `input${this.state.modalIndex}Position`;*/
-                    }
                     var textAlign = `input${this.state.modalIndex}TextAlign`;
                     var textColor = `input${this.state.modalIndex}Color`;
                     this.setState({
@@ -739,7 +550,6 @@ export default class MakeCard extends Component {
                         [fontFamily]: family,
                         [textColor]: color,
                         [textAlign]: alignment,
-                        // [textPosition]: position,
                         modalVisible: false,
 
                     });
