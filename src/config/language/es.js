@@ -28,6 +28,7 @@ export default {
         newTitleTranslation: 'Nuevo',
         cardsTitleTranslation: 'Tarjetas',
         invitationsTranslation: 'Invitaciones',
+        samplegalleryTranslation:'Galería de muestra',
         browseAllTranslation: 'Explorar todo',
         tipTranslation: 'Está bien querer los a todos!',
     },

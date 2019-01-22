@@ -35,6 +35,7 @@ export default {
         newTitleTranslation:'Novo',
         cardsTitleTranslation:'Postais',
         invitationsTranslation:'Convites',
+        samplegalleryTranslation:'galeria de amostra',
         browseAllTranslation:'Veja todos',
         tipTranslation: 'Tudo bem em querer todos eles!',
 

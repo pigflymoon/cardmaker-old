@@ -35,6 +35,7 @@ export default {
         newTitleTranslation:'新しい',
         cardsTitleTranslation:'グリーティングカード',
         invitationsTranslation:'招待状',
+        samplegalleryTranslation:'サンプルギャラリー',
         browseAllTranslation:'すべてをブラウズ',
         tipTranslation: 'それらをすべて欲しいのはOKです',
     },

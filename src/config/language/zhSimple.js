@@ -40,6 +40,7 @@ export default {
         newTitleTranslation: '新卡速递',
         cardsTitleTranslation: '贺卡',
         invitationsTranslation: '邀请卡',
+        samplegalleryTranslation:'样例',
         browseAllTranslation: '全部',
         tipTranslation: '想拥有更多画作，这很正常！',
     },

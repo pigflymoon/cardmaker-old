@@ -35,6 +35,7 @@ export default {
         newTitleTranslation:'Neu',
         cardsTitleTranslation:'Karten',
         invitationsTranslation:'Einladungen',
+        samplegalleryTranslation:'Beispiel Galerie',
         browseAllTranslation:'Alle Ansehen',
         tipTranslation: 'Es ist okay, sie alle zu wollen!',
 

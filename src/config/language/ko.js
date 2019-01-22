@@ -35,6 +35,7 @@ export default {
         newTitleTranslation:'새로운',
         cardsTitleTranslation:'카드',
         invitationsTranslation:'초대장',
+        samplegalleryTranslation:'샘플 갤러리',
         browseAllTranslation:'더보기',
         tipTranslation: '그들 모두를 원한다면 괜찮아!',
 
