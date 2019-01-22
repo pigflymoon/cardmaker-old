@@ -4,7 +4,7 @@ import {
 import colors from '../styles/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const IMAGE_SIZE = SCREEN_WIDTH - 80;
+const IMAGE_SIZE = SCREEN_WIDTH - 40;
 
 export const HEADER_MAX_HEIGHT = 140;
 export const HEADER_MIN_HEIGHT = 60;
@@ -12,12 +12,12 @@ export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 export default {
     cardContainer: {
-        paddingTop: 20,
+        paddingTop: 10,
     },
     cardImage: {
         flex: 1,
         alignSelf: 'center',
-        height: IMAGE_SIZE,
+        height: IMAGE_SIZE - 60,
         width: IMAGE_SIZE,
     },
     imageWrapper: {

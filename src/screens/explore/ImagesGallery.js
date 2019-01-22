@@ -35,8 +35,6 @@ export default class ImagesGallery extends Component {
             selectedName: 'christmas',//default
             selectedValue: true,
             selectedIndex: 0,
-
-
         }
     }
 
@@ -58,7 +56,6 @@ export default class ImagesGallery extends Component {
                                     return {id: key, name: snapshot.val()[key].name, uri: snapshot.val()[key].downloadUrl}
                                 });
                             // storing reference
-
                             imageReferenceToOldestKey = arrayOfKeys[arrayOfKeys.length - 1];
                             resolve(results);
                         } else {
@@ -153,29 +150,28 @@ export default class ImagesGallery extends Component {
 
     onSelectedTab = (selectedName, selectedValue, type, loading, imageType) => {
         var self = this;
-
-        imageReferenceToOldestKey = '',
-            this.fetchData(imageType).then(function (pages) {
-                self.setState({
-                    selectedName: selectedName,
-                    selectedValue: selectedValue,
-                    type: type,
-                    allImages: [],
-                    cardsData: pages,
-                    loading: loading,
-                    lodingFinished: false,
-                    imageType: imageType,//save imageTpe category/type
-                });
-            })
+        imageReferenceToOldestKey = '';
+        this.fetchData(imageType).then(function (pages) {
+            self.setState({
+                selectedName: selectedName,
+                selectedValue: selectedValue,
+                type: type,
+                allImages: [],
+                cardsData: pages,
+                loading: loading,
+                lodingFinished: false,
+                imageType: imageType,//save imageTpe category/type
+            });
+        })
 
     }
     //
     updateCategory = (selectedIndex) => {
         let imagesTypes = (selectedIndex == 0) ? 'gallery/cards' : 'gallery/invitations';
         var self = this;
-
-        imageReferenceToOldestKey = '',
-            this.fetchData(imagesTypes).then(function (pages) {
+        imageReferenceToOldestKey = '';
+        self.setState({lastImageKey: ''}, () => {
+            self.fetchData(imagesTypes).then(function (pages) {
                 self.setState({
                     selectedIndex: selectedIndex,
                     imageType: imagesTypes,
@@ -187,6 +183,7 @@ export default class ImagesGallery extends Component {
                     lodingFinished: false,
                 });
             })
+        });
     }
 
     componentWillMount() {
@@ -240,6 +237,7 @@ export default class ImagesGallery extends Component {
                                 <Card
                                     key={`${item.id}`}
                                     image={{uri: item.uri}}
+                                    imageProps={{"resizeMode":'contain'}}
                                     featuredTitle={item.name}
                                     imageStyle={exploreStyle.cardImage}
                                     containerStyle={exploreStyle.cardContainer}
@@ -271,6 +269,7 @@ export default class ImagesGallery extends Component {
             imageType,
             selectedIndex
         } = this.state;
+
         const buttons = ['Cards', 'Invitations'];
         return (
             <View style={layoutStyle.container}>
@@ -304,7 +303,7 @@ export default class ImagesGallery extends Component {
                                 <Card
                                     key={`${item.id}`}
                                     image={{uri: item.uri}}
-
+                                    imageProps={{"resizeMode":'contain'}}
                                     imageStyle={exploreStyle.cardImage}
                                     containerStyle={exploreStyle.cardContainer}
                                 />
