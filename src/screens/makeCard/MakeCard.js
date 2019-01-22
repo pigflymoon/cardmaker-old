@@ -42,7 +42,7 @@ import {
 import {makerTask} from '../../utils/MakerTask';
 import CardConfig from '../../config/CardConfig';
 
-const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/whiteCanvas.jpg?alt=media&token=03e83196-380a-40e3-bfc1-7bd9ba424844';
+const whiteCanvas = 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/whiteCanvas.jpg?alt=media&token=9c901edd-0646-4fa6-a103-b9c1b3499855';
 
 export default class MakeCard extends Component {
     constructor(props) {
