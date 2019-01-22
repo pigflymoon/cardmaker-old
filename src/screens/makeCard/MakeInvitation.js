@@ -22,6 +22,8 @@ import {
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
+import KeyboardShift from '../../components/KeyboardShift';
+
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
 import cardStyle from '../../styles/card';
@@ -850,11 +852,10 @@ export default class MakeInvitation extends Component {
         return (
 
             <View style={cardStyle.container}>
-                <View style={[cardStyle.container,{flexGrow:1}]}>
+                <View style={[cardStyle.container]}>
                     {this.renderIconPanel()}
                 </View>
                 <View style={[cardStyle.container, cardStyle.editCardContainer,{backgroundColor:this.state.bgColor}]}>
-
                     {this.state.loading ?
                         <View style={[cardStyle.container, {
                         alignSelf: 'center',
@@ -868,8 +869,16 @@ export default class MakeInvitation extends Component {
                         style={[cardStyle.cardImage, this.state.loading ? {opacity: 0} : {opacity: 1}]}
                         imageStyle={{resizeMode: 'contain'}}
                     >
-
-                        {this.renderEditInput()}
+                        <KeyboardShift>
+                            {() => {
+                                return (
+                                    <View style={cardStyle.container}>
+                                        {this.renderEditInput()}
+                                    </View>
+                                )
+                            }
+                            }
+                        </KeyboardShift>
                         {this.renderEditModal()}
                     </ImageBackground>
                 </View>

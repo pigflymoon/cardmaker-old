@@ -90,7 +90,7 @@ export default{
         height: 140,
         justifyContent: 'flex-start',
         paddingRight: 15,
-        backgroundColor:'white',
+        backgroundColor: 'white',
     },
     //my card grid cards
     gridView: {
@@ -138,11 +138,10 @@ export default{
         width: '100%',
     },
     iconsContainer: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        flexGrow: 1,
+        height: 50,
     },
     shareRightIcon: {
         flex: 1,

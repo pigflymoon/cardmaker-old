@@ -24,6 +24,7 @@ import Marker from "react-native-image-marker"
 import {auth} from '../../config/FirebaseConfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CardEditInputModal from '../../components/CardEditInputModal';
+import KeyboardShift from '../../components/KeyboardShift';
 import  Utils from '../../utils/utils';
 import bg from '../../assets/images/noWifiBg.png';
 
@@ -266,7 +267,7 @@ export default class MakeCard extends Component {
             fontName: this.state.input6FontFamily || font,
             // position: this.state.input6Position || position,
             xPos: xPos,//30,
-            yPos:  CardConfig.defaultCardTextPosition.yPos6,
+            yPos: CardConfig.defaultCardTextPosition.yPos6,
             alignment: this.state.input6TextAlign || textAlign,
         }
         var textInfo7 = {
@@ -275,7 +276,7 @@ export default class MakeCard extends Component {
             fontSize: this.state.input7FontSize || fontSize,
             fontName: this.state.input7FontFamily || font,
             xPos: xPos,//30,
-            yPos:  CardConfig.defaultCardTextPosition.yPos7,
+            yPos: CardConfig.defaultCardTextPosition.yPos7,
             // position: this.state.input7Position || position,
             alignment: this.state.input7TextAlign || textAlign,
         }
@@ -288,7 +289,7 @@ export default class MakeCard extends Component {
                 scale: 0.5, // scale of bg
                 markerScale: 0.5, // scale of icon
                 quality: 80, // quality of image
-                compressionRatio:0.7
+                compressionRatio: 0.7
             }).then((resultPath) => {
                 self.setState({
                     show: true,
@@ -334,91 +335,13 @@ export default class MakeCard extends Component {
         />
     )
 
-    renderFrontView = () => {
-        var imageUrl = (this.state.makeCard).illustration;
-        return (
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                <ImageBackground
-                    source={{uri: imageUrl}}
-                    style={cardStyle.cardImage}
-                    imageStyle={{resizeMode: 'contain'}}
-                >
-                    <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
-                        {this.renderIcon("hand-o-right", () => {
-                            this.flip()
-                        })}
-                    </View>
-                </ImageBackground>
-            </View>
-        )
-    }
-
-    renderBackView = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
-        return (
-            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
-                {this.state.loading ?
-                    <View style={[cardStyle.container,{ alignSelf: 'center',
-                        justifyContent: 'center',}]}>
-                        <ActivityIndicator size="large" color={colors.secondary2}/>
-                    </View>
-                    : null}
-                <ImageBackground
-                    source={{uri: imageUrl}}
-                    style={[cardStyle.cardImage,this.state.loading ? {opacity: 0} : {opacity: 1}]}
-                    imageStyle={{resizeMode: 'contain'}}
-                >
-                    {this.renderIconPanel()}
-                    {this.renderEditInput()}
-                    {this.renderEditModal()}
-                </ImageBackground>
-            </View>
-        )
-
-    }
-
-    renderEmptyStates = () => {
-        return (
-            <View style={cardStyle.container}>
-                <ImageBackground
-                    source={bg}
-                    style={{
-                        flex: 1,
-                        width: null,
-                        height: 400,
-                    }}
-                >
-                    <View style={showInfo.container}><Text style={showInfo.greyText}>Oops,No cards!</Text>
-                        <TouchableOpacity style={{
-                            paddingLeft: 8,
-                            flex: 1,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start'
-                        }}>
-                            <Ionicons
-                                name={'ios-return-left'}
-                                size={28}
-                                style={{color: colors.secondary2, paddingRight: 20,}}
-                                onPress={() => {
-                                    this.props.navigation.goBack();
-                                }}
-                            />
-                            <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have
-                                fun! </Text>
-                        </TouchableOpacity>
-                    </View>
-                </ImageBackground >
-            </View>
-        );
-    }
 
     /**
      * Render Edit
      * @returns {XML}
      */
 
-    renderEditInput = () => {
+    renderEditInput1 = () => {
         return (
 
             <KeyboardAvoidingView contentContainerStyle={{
@@ -602,6 +525,170 @@ export default class MakeCard extends Component {
         )
     }
 
+    renderEditInput = () => {
+        return (
+            <ScrollView style={[cardStyle.container,this.state.show ? {opacity: 0} : {opacity: 1}]}
+                        showsHorizontalScrollIndicator={false}>
+                <View
+                    style={{paddingBottom: 32,alignItems: 'center',}}>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={[cardStyle.inputStyle]}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input1')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 1})
+                        })}
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input2')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 2})
+                        })}
+
+
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input3')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 3})
+                        })}
+
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input4')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 4})
+                        })}
+
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input5')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 5})
+                        })}
+
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input6')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 6})
+                        })}
+
+                    </View>
+                    <View style={cardStyle.inputContainer}>
+                        <View style={{flex: 1, flexGrow: 6}}>
+                            <FormInput
+                                inputStyle={cardStyle.inputStyle}
+                                ref="wishwords"
+                                multiline
+                                numberOfLines={4}
+                                maxLength={280}
+                                containerRef="wishwordscontainerRef"
+                                textInputRef="wishwordsInputRef"
+                                placeholder="Please enter wish words(less than 4 lines,each line less than 67 character )"
+                                placeholderTextColor={colors.grey3}
+                                onChangeText={(text) => this.setWishwords(text, 'input7')}
+                                onSubmitEditing={Keyboard.dismiss}
+                            />
+                        </View>
+                        {this.renderIcon("cog", () => {
+                            this.setState({modalVisible: true, modalIndex: 7})
+                        })}
+
+                    </View>
+
+                </View>
+
+
+            </ScrollView>
+
+
+
+        )
+    }
     renderIconPanel = () => {
         return (
             <View style={cardStyle.iconsContainer}>
@@ -664,6 +751,100 @@ export default class MakeCard extends Component {
             />
         )
     }
+
+    renderFrontView = () => {
+        var imageUrl = (this.state.makeCard).illustration;
+        return (
+            <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                <ImageBackground
+                    source={{uri: imageUrl}}
+                    style={cardStyle.cardImage}
+                    imageStyle={{resizeMode: 'contain'}}
+                >
+                    <View style={{flex: 1, flexDirection: 'row', alignSelf: 'flex-end', marginTop: 20,}}>
+                        {this.renderIcon("hand-o-right", () => {
+                            this.flip()
+                        })}
+                    </View>
+                </ImageBackground>
+            </View>
+        )
+    }
+
+    renderBackView = () => {
+        var imageUrl = this.state.show ? this.state.imageUrl : whiteCanvas;
+        return (
+            <View style={cardStyle.container}>
+                <View style={[cardStyle.container]}>
+                    {this.renderIconPanel()}
+                </View>
+                <View style={[cardStyle.container, cardStyle.editCardContainer]}>
+                    {this.state.loading ?
+                        <View style={[cardStyle.container,{ alignSelf: 'center',
+                        justifyContent: 'center',}]}>
+                            <ActivityIndicator size="large" color={colors.secondary2}/>
+                        </View>
+                        : null}
+                    <ImageBackground
+                        source={{uri: imageUrl}}
+                        style={[cardStyle.cardImage,this.state.loading ? {opacity: 0} : {opacity: 1}]}
+                        imageStyle={{resizeMode: 'contain'}}
+                    >
+                        <KeyboardShift>
+                            {() => {
+                                return (
+                                    <View style={cardStyle.container}>
+                                        {this.renderEditInput()}
+                                    </View>
+                                )
+
+                            }
+                            }
+                        </KeyboardShift>
+                        {this.renderEditModal()}
+                    </ImageBackground>
+                </View>
+            </View>
+        )
+
+    }
+
+    renderEmptyStates = () => {
+        return (
+            <View style={cardStyle.container}>
+                <ImageBackground
+                    source={bg}
+                    style={{
+                        flex: 1,
+                        width: null,
+                        height: 400,
+                    }}
+                >
+                    <View style={showInfo.container}><Text style={showInfo.greyText}>Oops,No cards!</Text>
+                        <TouchableOpacity style={{
+                            paddingLeft: 8,
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start'
+                        }}>
+                            <Ionicons
+                                name={'ios-return-left'}
+                                size={28}
+                                style={{color: colors.secondary2, paddingRight: 20,}}
+                                onPress={() => {
+                                    this.props.navigation.goBack();
+                                }}
+                            />
+                            <Text style={showInfo.greyText}>Please select your favourite one to make your own card. Have
+                                fun! </Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground >
+            </View>
+        );
+    }
+
 
     render() {
         var navigation = this.props.navigation;
