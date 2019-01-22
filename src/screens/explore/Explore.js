@@ -206,7 +206,7 @@ export default class Explore extends Component {
     }
 
     renderCarousel = (data, isLoaded, resizeStyle) => {
-        const heightStyle = {height: 300};
+        const heightStyle = {height: 340};
 
         return (
             <View style={[carouselStyle.carouselContainer, !isLoaded && heightStyle]}>
@@ -248,6 +248,7 @@ export default class Explore extends Component {
                                     flex: 1, marginHorizontal: 5,
                                     justifyContent: 'center',
                                     borderWidth:4, borderColor: colors.grey0,
+                                    backgroundColor:colors.white
                                 }}>
                                 <Avatar
                                     overlayContainerStyle={{backgroundColor:colors.white  }}

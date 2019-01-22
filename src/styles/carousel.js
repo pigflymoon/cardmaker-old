@@ -18,9 +18,6 @@ export default{
         alignItems: 'flex-start',
         flexDirection: 'row',
         paddingHorizontal: 8,
-        paddingTop: 20,
-
-        // alignSelf: 'center',
     },
     gradient: {
         ...StyleSheet.absoluteFillObject
@@ -57,8 +54,8 @@ export default{
         overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
-        height: 275,
-        paddingVertical: 10 // for custom animation
+        height: 340,
+        // paddingVertical: 10 // for custom animation
     },
     paginationContainer: {
         paddingVertical: 8
