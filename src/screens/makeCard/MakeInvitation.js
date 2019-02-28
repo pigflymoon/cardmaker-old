@@ -106,10 +106,12 @@ export default class MakeInvitation extends Component {
     };
 
     componentWillMount() {
+
+    }
+
+    componentDidMount() {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
-            // var signin = this.props.navigation.state.params.signin;
-            // var isPaidUser = this.props.navigation.state.params.isPaidUser;
             const {isPaidUser, signin, templateType} = this.props.navigation.state.params;
             if (makeCard) {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
@@ -227,9 +229,6 @@ export default class MakeInvitation extends Component {
             }
 
         }
-    }
-
-    componentDidMount() {
         var self = this;
         auth.onAuthStateChanged(function (user) {
             if (user) {
@@ -847,8 +846,10 @@ export default class MakeInvitation extends Component {
         )
     }
 
-    renderEditContainer = () => {
-        var imageUrl = this.state.show ? this.state.imageUrl : (this.state.makeCard).illustration;
+    renderEditContainer = (makeCard) => {
+        var makeCard = this.props.navigation.state.params.chooseCards;
+
+        var imageUrl = this.state.show ? this.state.imageUrl : (makeCard).illustration;
         return (
 
             <View style={cardStyle.container}>
@@ -893,12 +894,14 @@ export default class MakeInvitation extends Component {
      * @returns {*}
      */
     render() {
+        var makeCard = this.props.navigation.state.params.chooseCards;
+        const {signin} = this.props.navigation.state.params;
         var navigation = this.props.navigation;
-        var card = Utils.isEmptyObject(this.state.makeCard)
-        var renderCard = (!card && this.state.signin);
+        var card = Utils.isEmptyObject(makeCard)
+        var renderCard = (!card && signin);
 
         if (renderCard) {
-            return this.renderEditContainer();
+            return this.renderEditContainer(makeCard);
         } else if (this.state.signin) {
             return (
                 <View style={layoutStyle.container}>

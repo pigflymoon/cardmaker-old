@@ -172,7 +172,7 @@ export default class CardsDeck extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var self = this;
         const {imageType, isPaidUser} = this.props;
         if (isPaidUser) {

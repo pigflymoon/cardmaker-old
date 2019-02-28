@@ -186,7 +186,7 @@ export default class ImagesGallery extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const {category, showSample} = this.props.navigation.state.params;
         let type = (category == 'cards') ? 'cards/christmas' : 'invitations/christmas';
         var self = this;

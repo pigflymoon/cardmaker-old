@@ -66,10 +66,11 @@ export  default class UnLockModal extends Component {
     }
 
     componentWillMount() {
-        this.setState({descriptions: ENTRIES1})
+
     }
 
     componentDidMount() {
+        this.setState({descriptions: ENTRIES1})
         var descriptions = [
             {
                 title: I18n.t('unlockModal.description1Translation'),

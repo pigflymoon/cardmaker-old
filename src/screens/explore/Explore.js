@@ -129,13 +129,18 @@ export default class Explore extends Component {
 
 
     componentWillMount() {
-        var self = this;
         VersionCheck.needUpdate()
             .then(async res => {
                 if (res.isNeeded) {
                     this.showAlert();
                 }
             });
+
+    }
+
+    componentDidMount() {
+        var self = this;
+
         //promise all
         Promise.all([
             this.fetchUpdatedImages('cards', CategoryConfig.showImagesNumber),
@@ -162,9 +167,6 @@ export default class Explore extends Component {
         setTimeout(() => {
             this.setState({contentIsLoading: false});
         }, 3000);
-    }
-
-    componentDidMount() {
         this.resetAnimation();
     }
 

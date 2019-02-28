@@ -251,17 +251,14 @@ export default class Settings extends Component {
 
     }
 
-
-    componentWillMount() {
+    componentDidMount() {
+        var self = this;
         VersionCheck.getLatestVersion({
             provider: 'appStore'  // for iOS
         })
             .then(latestVersion => {
-                this.setState({version: latestVersion})
+                self.setState({version: latestVersion})
             });
-    }
-
-    componentDidMount() {
         this.getUserRole();
     }
 

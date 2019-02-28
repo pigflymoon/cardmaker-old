@@ -109,7 +109,7 @@ export default class MakeCard extends Component {
 
     };
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
             var signin = this.props.navigation.state.params.signin;
@@ -118,9 +118,6 @@ export default class MakeCard extends Component {
                 this.setState({makeCard: makeCard, signin: signin, isPaidUser: isPaidUser});
             }
         }
-    }
-
-    componentDidMount() {
         var self = this;
         auth.onAuthStateChanged(function (user) {
             if (user) {
@@ -562,8 +559,8 @@ export default class MakeCard extends Component {
         )
     }
 
-    renderFrontView = () => {
-        var imageUrl = (this.state.makeCard).illustration;
+    renderFrontView = (makecard) => {
+        var imageUrl = makecard.illustration;
         return (
             <View style={[cardStyle.container, cardStyle.editCardContainer]}>
                 <ImageBackground
@@ -657,9 +654,12 @@ export default class MakeCard extends Component {
 
 
     render() {
+        var makeCard = this.props.navigation.state.params.chooseCards || null;
+        var signin = this.props.navigation.state.params.signin;
+
         var navigation = this.props.navigation;
-        var card = Utils.isEmptyObject(this.state.makeCard)
-        var renderCard = (!card && this.state.signin);
+        var card = Utils.isEmptyObject(makeCard)
+        var renderCard = (!card && signin);
 
         if (renderCard) {
             return (
@@ -667,7 +667,7 @@ export default class MakeCard extends Component {
                     <FlipComponent
                         isFlipped={this.state.isFlipped}
                         frontView={
-                            this.renderFrontView()
+                            this.renderFrontView(makeCard)
                         }
                         backView={
                             this.renderBackView()
