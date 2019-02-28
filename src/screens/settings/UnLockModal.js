@@ -65,10 +65,6 @@ export  default class UnLockModal extends Component {
         );
     }
 
-    componentWillMount() {
-
-    }
-
     componentDidMount() {
         this.setState({descriptions: ENTRIES1})
         var descriptions = [

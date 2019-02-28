@@ -105,10 +105,6 @@ export default class MakeInvitation extends Component {
 
     };
 
-    componentWillMount() {
-
-    }
-
     componentDidMount() {
         if (this.props.navigation.state.params) {
             var makeCard = this.props.navigation.state.params.chooseCards;
