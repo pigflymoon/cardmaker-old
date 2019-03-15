@@ -1,6 +1,6 @@
 export default Config = {
     share: {
-        url: 'http://cardmaker.kiwiinfo.com/'
+        url: 'https://cardmaker.kiwiinfo.com/'
     },
     appstoreLink:{
         url:'https://itunes.apple.com/nz/app/cardmaker-app/id1318023993'
