@@ -182,7 +182,6 @@ export  default class UnLockModal extends Component {
                 source={BG_IMAGE}
                 style={layoutStyle.bgImage}
             >
-
                 <ScrollView style={{flex: 1,}}
                             scrollEventThrottle={200}
                             directionalLockEnabled={true}
