@@ -11,7 +11,6 @@ import {
     Icon,
     Button
 } from 'react-native-elements';
-import Placeholder from 'rn-placeholder';
 
 import SliderEntry from '../../components/SliderEntry';
 
@@ -28,17 +27,6 @@ import {I18n} from '../../config/language/I18n';
 
 
 import layoutStyle from '../../styles/layout';
-import carouselStyle from '../../styles/carousel';
-
-const words = [
-    {
-        width: '60%',
-    },
-    {
-        width: '40%',
-    },
-];
-
 
 const SLIDER_1_FIRST_ITEM = 0;
 
@@ -55,7 +43,6 @@ export const ENTRIES1 = [
         title: I18n.t('unlockModal.description3Translation'),
         illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
     },
-
 ];
 export  default class UnLockModal extends Component {
     constructor(props) {
@@ -64,7 +51,6 @@ export  default class UnLockModal extends Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             isLoading: false,
             unlock: false,
-            isLoaded:true,
             descriptions:ENTRIES1,
             appReady: false,
             rootKey: Math.random(),
@@ -97,9 +83,8 @@ export  default class UnLockModal extends Component {
                 title: I18n.t('unlockModal.description3Translation'),
                 illustration: 'https://firebasestorage.googleapis.com/v0/b/cardmaker-31ae8.appspot.com/o/appImages%2Fbanner3.jpg?alt=media&token=37a8ff9e-df2c-4bfb-8bca-2bd67b80d8f2'
             },
-
         ];
-        this.setState({descriptions: descriptions,isLoaded:false})
+        this.setState({descriptions: descriptions})
     }
 
 
@@ -120,7 +105,6 @@ export  default class UnLockModal extends Component {
                 }
             } else {
                 Alert.alert('Please try later');
-
             }
         })
 
@@ -142,14 +126,13 @@ export  default class UnLockModal extends Component {
                 //update db user
                 upDateRole();
                 Alert.alert('Restore Successful', 'Successfully restores all your purchases.');
-
             }
         })
 
     }
 
     renderSlide = () => {
-        const {slider1ActiveSlide, descriptions, isLoaded} = this.state;
+        const {slider1ActiveSlide, descriptions} = this.state;
 
         return (
             <View style={unlockModalStyle.exampleContainer}>
@@ -186,7 +169,6 @@ export  default class UnLockModal extends Component {
                             carouselRef={this._slider1Ref}
                             tappableDots={!!this._slider1Ref}
                         />
-
             </View>
         )
     }
@@ -245,9 +227,6 @@ export  default class UnLockModal extends Component {
                     </View>
                 </ScrollView>
             </ImageBackground>
-
-
-
         );
     }
 }
