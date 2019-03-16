@@ -67,6 +67,7 @@ export default class Explore extends Component {
             updatedinvitations: [],
             updatedgallery: [],
             loading: false,
+            contentIsLoading: true,
         };
         this.maskImage = logo;
     }

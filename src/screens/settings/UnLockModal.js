@@ -11,6 +11,8 @@ import {
     Icon,
     Button
 } from 'react-native-elements';
+import Placeholder from 'rn-placeholder';
+
 import SliderEntry from '../../components/SliderEntry';
 
 import {
@@ -26,6 +28,18 @@ import {I18n} from '../../config/language/I18n';
 
 
 import layoutStyle from '../../styles/layout';
+import carouselStyle from '../../styles/carousel';
+
+const words = [
+    {
+        width: '60%',
+    },
+    {
+        width: '40%',
+    },
+];
+
+
 const SLIDER_1_FIRST_ITEM = 0;
 
 export const ENTRIES1 = [
@@ -50,6 +64,10 @@ export  default class UnLockModal extends Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             isLoading: false,
             unlock: false,
+            isLoaded:true,
+            descriptions:ENTRIES1,
+            appReady: false,
+            rootKey: Math.random(),
         };
     }
 
@@ -66,7 +84,6 @@ export  default class UnLockModal extends Component {
     }
 
     componentDidMount() {
-        this.setState({descriptions: ENTRIES1})
         var descriptions = [
             {
                 title: I18n.t('unlockModal.description1Translation'),
@@ -82,8 +99,9 @@ export  default class UnLockModal extends Component {
             },
 
         ];
-        this.setState({descriptions: descriptions})
+        this.setState({descriptions: descriptions,isLoaded:false})
     }
+
 
     unlockProVersion = () => {
         var self = this;
@@ -131,42 +149,44 @@ export  default class UnLockModal extends Component {
     }
 
     renderSlide = () => {
-        const {slider1ActiveSlide, descriptions} = this.state;
+        const {slider1ActiveSlide, descriptions, isLoaded} = this.state;
 
         return (
             <View style={unlockModalStyle.exampleContainer}>
                 <Text style={unlockModalStyle.title}>{I18n.t('unlockModal.titleTransltion')}</Text>
-                <Carousel
-                    ref={c => this._slider1Ref = c}
-                    data={descriptions}
-                    renderItem={this._renderItemWithParallax}
-                    sliderWidth={sliderWidth}
-                    itemWidth={itemWidth}
-                    hasParallaxImages={true}
-                    firstItem={SLIDER_1_FIRST_ITEM}
-                    inactiveSlideScale={0.94}
-                    inactiveSlideOpacity={0.7}
-                    containerCustomStyle={unlockModalStyle.slider}
-                    contentContainerCustomStyle={unlockModalStyle.sliderContentContainer}
-                    loop={true}
-                    loopClonesPerSide={2}
-                    autoplay={true}
-                    autoplayDelay={500}
-                    autoplayInterval={3000}
-                    onSnapToItem={(index) => this.setState({slider1ActiveSlide: index}) }
-                />
-                <Pagination
-                    dotsLength={ENTRIES1.length}
-                    activeDotIndex={slider1ActiveSlide}
-                    containerStyle={unlockModalStyle.paginationContainer}
-                    dotColor={'rgba(255, 255, 255, 0.92)'}
-                    dotStyle={unlockModalStyle.paginationDot}
-                    inactiveDotColor={colors.black}
-                    inactiveDotOpacity={0.4}
-                    inactiveDotScale={0.6}
-                    carouselRef={this._slider1Ref}
-                    tappableDots={!!this._slider1Ref}
-                />
+
+                        <Carousel
+                            ref={c => this._slider1Ref = c}
+                            data={descriptions}
+                            renderItem={this._renderItemWithParallax}
+                            sliderWidth={sliderWidth}
+                            itemWidth={itemWidth}
+                            hasParallaxImages={true}
+                            firstItem={SLIDER_1_FIRST_ITEM}
+                            inactiveSlideScale={0.94}
+                            inactiveSlideOpacity={0.7}
+                            containerCustomStyle={unlockModalStyle.slider}
+                            contentContainerCustomStyle={unlockModalStyle.sliderContentContainer}
+                            loop={true}
+                            loopClonesPerSide={2}
+                            autoplay={true}
+                            autoplayDelay={500}
+                            autoplayInterval={3000}
+                            onSnapToItem={(index) => this.setState({slider1ActiveSlide: index}) }
+                        />
+                        <Pagination
+                            dotsLength={descriptions.length}
+                            activeDotIndex={slider1ActiveSlide}
+                            containerStyle={unlockModalStyle.paginationContainer}
+                            dotColor={'rgba(255, 255, 255, 0.92)'}
+                            dotStyle={unlockModalStyle.paginationDot}
+                            inactiveDotColor={colors.black}
+                            inactiveDotOpacity={0.4}
+                            inactiveDotScale={0.6}
+                            carouselRef={this._slider1Ref}
+                            tappableDots={!!this._slider1Ref}
+                        />
+
             </View>
         )
     }
@@ -206,8 +226,8 @@ export  default class UnLockModal extends Component {
                             buttonStyle={unlockModalStyle.button}
                             containerViewStyle={unlockModalStyle.buttonContainer}
                             activeOpacity={0.8}
-                            title={I18n.t('unlockModal.unlockDescriptionTranslation')+'($2.99)'}
-                            onPress={ this.unlockProVersion}
+                            title={I18n.t('unlockModal.unlockDescriptionTranslation')+' 2.99 ($USD)'}
+                            onPress={this.unlockProVersion}
                             textStyle={unlockModalStyle.buttonText}
                             loading={isLoading}
                             disabled={isLoading}

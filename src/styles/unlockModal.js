@@ -56,7 +56,7 @@ export default{
         backgroundColor: colors.primary3,
         borderRadius: 5,
         height: 50,
-        width: 200,
+        width: 230,
     },
     restoreButton:{
         backgroundColor: colors.secondary2,

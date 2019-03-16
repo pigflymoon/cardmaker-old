@@ -1500,8 +1500,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = cardmaker/cardmaker.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Simei Lu (SCU974Q2GV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Simei Lu (SCU974Q2GV)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1539,7 +1539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-dev";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1590,7 +1590,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucy.cardmaker;
 				PRODUCT_NAME = cardmaker;
 				PROVISIONING_PROFILE = "a7086ace-ccc3-443f-9863-9d2714844bff";
-				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-test";
+				PROVISIONING_PROFILE_SPECIFIER = "cardmaker-product";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
